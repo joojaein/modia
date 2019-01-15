@@ -1,0 +1,83 @@
+/* reset */
+html, body, h1, h2, h3, h4, h5, h6, 
+ul, fieldset, form{
+    margin: 0px;
+    padding: 0px;
+}
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+fieldset{
+    border: none;
+}
+table{
+    border-spacing: 0px;
+}
+
+/* basic style */
+body{
+    font-family: '맑은 고딕', '고딕', Helvetica, sans-serif;
+    font-size: 11px;
+    margin:auto;   
+
+}
+
+input:focus { 
+    outline: none; 
+}
+textarea:focus { 
+    outline: none; 
+}
+select:focus {
+    outline: none; 
+}
+
+.btn{
+    cursor: pointer !important;
+}
+
+.underline{
+	text-decoration: underline;
+}
+
+
+/*header*/
+header{
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;                
+    height: 50px;
+    line-height: 50px;
+    margin: 0px 10px;
+}
+
+.none-justify{
+    justify-content: initial;
+}
+
+.logo{
+    font-size:20px;
+}
+
+
+.pre-page{
+    margin: 0px 10px;
+}
+
+.pre-page a{
+    font-weight: bold;
+}
+
+.pre-page img{
+    width: 20px;
+    margin-top: 15px;
+}
+
+.header-title{
+    font-weight: bold;
+}
+
