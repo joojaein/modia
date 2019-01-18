@@ -3,20 +3,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>
-	title
-</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">	
+	<link href="/resources/css/basic.css" type="text/css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
-<!--헤더 -->
-<tiles:insertAttribute name="header" />
-
-<!--메인 -->
-<tiles:insertAttribute name="main" />
-
-<!--푸터 -->
-<tiles:insertAttribute name="footer" />
-
+	<!--헤더 -->
+	<tiles:insertAttribute name="header" />
+	
+	<!--메인 -->
+	<tiles:insertAttribute name="main" />
+	
+	<!--어사이드(메세지) -->
+	<tiles:insertAttribute name="aside" />
+	
+	<!--푸터 -->
+	<tiles:insertAttribute name="footer" />
 </body>
 </html>

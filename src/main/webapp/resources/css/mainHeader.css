@@ -1,0 +1,139 @@
+@import url("/resources/css/component.css");
+
+#headerSearch {
+	width: 60%;
+	line-height: 42px;
+}
+
+#headerSearch input {
+	width: 100%;
+	height: 25px;
+	background: gainsboro;
+	border: none;
+	border-radius: 4px;
+	margin-top: 5px;
+}
+
+#headerMenu {
+	line-height: 60px;
+}
+
+#headerMenu input {
+	width: 25px;
+	height: 25px;
+	margin-left: 10px;
+	margin-top: 12px;
+	background: none;
+	border: none;
+	background-size: 25px;
+	background-image: url("/resources/images/btnMenu.png");
+	background-repeat: no-repeat;
+}
+
+#headerMenus {
+	width: max-content;
+	min-width: 145px;
+	text-align: right;
+	line-height: 70px;
+}
+
+#headerMenus input {
+	font-size: 11px;
+	border: 1px solid gray;
+	background: white;
+	border-radius: 5px;
+	height: 30px;
+}
+
+::placeholder {
+	text-indent: 5px;
+	font-size: 12px;
+	color: black;
+}
+
+
+.back{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0%;
+    top:0%;
+    opacity: 0.0;
+    background: black;
+    transition: 250ms;
+    display: none;
+    z-index:1;
+}
+
+.modal{
+    width: 50%;
+    height: 100%;
+    position: fixed;
+    background: gainsboro;
+    top:0%;
+    text-align: left;
+    left:100%;
+    transition: 250ms;
+    
+    z-index:2;
+}
+
+.modal input{
+    width : 90%;
+    height: 40px;
+    line-height: 20px;
+    margin: 5px 10px;
+    background: url("../../../resources/images/hamburgerBtns.png") no-repeat center;
+    background-size: 100% 40px;
+    border: none;
+
+}
+
+.modal input:first-child{
+    margin-top: 20px;
+}
+
+.modal.show{
+    left: 50%;
+}
+
+.back.show{
+    
+    display: block;
+    /* opacity: 0.7; */
+}
+
+.modal.hide{
+    left: 100%;
+}
+
+.back.hide{
+    opacity: 0.0;
+}
+
+@media ( max-width :720px) {
+	#headerMenus {
+		display: none;
+	}
+}
+
+@media ( min-width :721px) {
+	.logo {
+		width: 145px;
+	}
+	#headerSearch input {
+		margin-top: 18px;
+		height: 40px;
+	}
+	#headerMenu {
+		display: none;
+	}
+	
+   .back{
+       display: none !important; 
+   }
+
+   .modal{
+       display: none !important; 
+   }
+}

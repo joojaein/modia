@@ -10,8 +10,6 @@ public class HomeController {
 	
 	@RequestMapping("/index")
 	public String index() {
-		//return "/WEB-INF/views/home/index.jsp";
-		//return "index";
-		return "home/index";
+		return "home.index";
 	}	
 }

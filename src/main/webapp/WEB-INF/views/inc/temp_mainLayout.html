@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../../../webapp/resources/css/basic.css" type="text/css" rel="stylesheet" />
+    <link href="../../../../webapp/resources/css/component.css" type="text/css" rel="stylesheet" />
+    <title>Document</title>
+
+    <style>
+            #headerSearch{
+                width:60%;
+                line-height: 42px;
+            }
+
+            #headerSearch input{
+                width:100%;
+                height: 25px;
+                background: gainsboro;
+                border: none;
+                border-radius: 4px;
+                margin-top: 5px;
+            }
+           
+            #headerMenu{
+                line-height: 60px;
+            }
+            
+            #headerMenu input{
+                width: 25px;
+                height: 25px;
+                margin-left: 10px;
+                margin-top: 12px;
+                background: none;
+                border: none;
+
+                background-size: 25px;
+                background-image: url("../../../resources/images/btnMenu.png");
+                background-repeat: no-repeat;
+            }
+
+            #headerMenus{
+                width:max-content;
+                min-width: 145px;
+                text-align: right;
+                line-height: 70px;
+            }
+            
+            #headerMenus input{
+                font-size: 11px;
+                border: 1px solid gray;
+                background: white;
+                border-radius: 5px;
+                height: 30px;
+            }
+
+            ::placeholder{
+                text-indent: 5px;
+                font-size: 12px;
+                color: black;
+            }      
+
+            @media (max-width:720px){
+                #headerMenus{
+                    display: none;
+                }
+            }
+            @media (min-width:721px){
+                .logo{
+                    width: 145px;
+                }
+                #headerSearch input{
+                    
+                    margin-top: 18px;
+                    height: 40px;
+                }
+
+                #headerMenu{
+                    display: none;
+                }
+
+            }
+
+            /* --------------------------------------------------- */
+                
+            .img-banner{
+                width: 95%;
+                max-width: 900px;
+                margin: 15px 0px;
+            }
+
+            .btn-more{
+                margin-right: 10px;
+                border: none;
+                background: none;
+            }
+
+            /* --------------------------------------------------- */
+
+            .main-icon-list{
+                display: inline-flex;
+                flex-flow: wrap;
+                width:320px;
+                padding: 0px 10px;
+            }
+
+            .main-icon-list li{
+                display: inline;
+                width: 70px;
+                margin: 0px auto;
+                font-size: 10px;
+            }
+
+            .main-icon-list img{
+                margin-top: 10px;
+                margin-bottom: 5px;
+                width: 50px;
+                height: 50px;
+            }
+   
+            .main-icon-li-more div{
+                display: none;
+            }
+
+            @media (min-width:721px){
+                .main-icon-list{
+                    width:640px;
+                }
+            }
+            
+        </style>
+</head>
+<body>
+
+    <header>
+            <h1 class="logo"><a href="">MOIDA</a></h1>
+
+            <div id="headerSearch">
+                    <input type="text" placeholder="모임을 검색하세요"/>
+            </div>
+            <div id="headerMenu">
+                <input type="button"></input>
+            </div>
+            <div id="headerMenus">
+                    <a class="fwb fs11" href="">1:1문의</a>
+                    <span class="fs11" >|</span>
+                    <a class="fwb fs11" href="">회원가입</a>
+                    <span class="fs11">|</span>
+                    <a class="fwb fs11" href="">로그인</a>
+            </div>
+            
+        
+    </header>
+    <main>
+        <div>
+            <img class="img-banner" src="../../../resources/images/tempImg.png"><br/>
+            <div class="right">
+                <input class="btn btn-more"type="button" value="more">
+            </div>
+            <hr class="hr-normal m-t-n"/>
+
+            <ul class="main-icon-list">
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/backpack.png" /><br/>
+                        <span>아웃도어/여행</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/balls.png" /><br/>
+                        <span>운동/스포츠</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/books.png" /><br/>
+                        <span>인문학/책/글</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/cubes.png" /><br/>
+                        <span>외국/언어</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>문화/공연/축제</span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/piano.png" /><br/>
+                        <span>음악/악기</span>
+                    </div>
+                </li>  
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/yarn.png" /><br/>
+                        <span>공예/만들기</span>
+                    </div>
+                </li>  
+                <li>
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/ballerina.png" /><br/>
+                        <span>댄스/무용</span>
+                    </div>
+                </li>  
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/heart.png" /><br/>
+                        <span>봉사활동</span>
+                    </div>
+                </li>  
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/car.png" /><br/>
+                        <span>차/오토바이</span>
+                    </div>
+                </li>  
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/photo-camera.png" /><br/>
+                        <span>사진/영상</span>
+                    </div>
+                </li>  
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>야구관람</span>
+                    </div>
+                </li>  
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>게임/오락</span>
+                    </div>
+                </li>  
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>요리/제조</span>
+                    </div>
+                </li> 
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>반려동물</span>
+                    </div>
+                </li>  
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/src/main/webapp/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>가족/결혼</span>
+                    </div>
+                </li>
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>사교/인맥</span>
+                    </div>
+                </li>
+                <li class="main-icon-li-more">
+                    <div>
+                        <img src="/resources/images/mainIcon/tickets.png" /><br/>
+                        <span>자유주제</span>
+                    </div>
+                </li>
+            </ul>
+
+            <hr class="hr-bold"/>
+            <ul class="group-list-flex">
+                <li class="group-list-flex-li">
+                            <img class="" src="../../../resources/images/test.jpg">
+                            <div class="group-list-flex-content ellipsis">
+                                <div class="fs14 fwb left">
+                                    캠핑캠핑
+                                </div>
+                                <div class="ellipsis">
+                                    다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~
+                                </div>
+                                <br/>
+                                <div class="left fwb">가입조건</div>
+                                <div class="left">- 나이 : 20대 ~ 40대</div>
+                                <div class="left">- 성별 : 모두</div>
+                                <div class="left">- 지역 : 서울 종로구</div>
+                                <div>회원수 10 / 20명</div>  
+                            </div>
+                    </li>
+
+                <li class="group-list-flex-li">
+                            <img class="" src="../../../resources/images/test.jpg">
+                            <div class="group-list-flex-content ellipsis">
+                                <div class="fs14 fwb left">
+                                    캠핑캠핑
+                                </div>
+                                <div class="ellipsis">
+                                    다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~
+                                </div>
+                                <br/>
+                                <div class="left fwb">가입조건</div>
+                                <div class="left">- 나이 : 20대 ~ 40대</div>
+                                <div class="left">- 성별 : 모두</div>
+                                <div class="left">- 지역 : 서울 종로구</div>
+                                <div>회원수 10 / 20명</div>  
+                            </div>
+                    </li>
+
+
+                    <li class="group-list-flex-li">
+                            <img class="" src="../../../resources/images/test.jpg">
+                            <div class="group-list-flex-content ellipsis">
+                                <div class="fs14 fwb left">
+                                    캠핑캠핑
+                                </div>
+                                <div class="ellipsis">
+                                    다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~
+                                </div>
+                                <br/>
+                                <div class="left fwb">가입조건</div>
+                                <div class="left">- 나이 : 20대 ~ 40대</div>
+                                <div class="left">- 성별 : 모두</div>
+                                <div class="left">- 지역 : 서울 종로구</div>
+                                <div>회원수 10 / 20명</div>  
+                            </div>
+                    </li>
+            </ul>
+        </div>
+        
+
+        <style>
+            .back{
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                left: 0%;
+                top:0%;
+                opacity: 0.0;
+                background: black;
+                transition: 250ms;
+                display: none;
+            }
+
+            .modal{
+                width: 50%;
+                height: 100%;
+                position: fixed;
+                background: gainsboro;
+                top:0%;
+                text-align: left;
+                left:100%;
+                transition: 250ms;
+            }
+
+            .modal input{
+                width : 90%;
+                height: 40px;
+                line-height: 20px;
+                margin: 5px 10px;
+                background: url("../../../resources/images/hamburgerBtns.png") no-repeat center;
+                background-size: 100% 40px;
+                border: none;
+
+            }
+
+            .modal input:first-child{
+                margin-top: 20px;
+            }
+
+            .modal.show{
+                left: 50%;
+            }
+
+            .back.show{
+                
+                display: block;
+                /* opacity: 0.7; */
+            }
+
+            .modal.hide{
+                left: 100%;
+            }
+
+            .back.hide{
+                opacity: 0.0;
+            }
+
+            @media (min-width:721px){
+               .back{
+                   display: none;
+               }
+
+               .modal{
+                   display: none;
+               }
+            }
+
+        </style>
+
+        <div class="back"></div>
+        <div class="modal">
+                <input class="fwb fs18 btn" type="button" value="로그인" name="login"><br/>
+                <input class="fwb fs18 btn" type="button" value="회원가입" name="join"><hr class="hr-dot"/>
+                <input class="fwb fs18 btn" type="button" value="홈" name="index"><br/>
+                <input class="fwb fs18 btn" type="button" value="카테고리" name="search"><hr class="hr-dot"/>
+                <input class="fwb fs18 btn" type="button" value="1:1 문의" name="question"><br/>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/src/main/webapp/resources/js/homeIndex.js" />
+
+</body>
+</html>

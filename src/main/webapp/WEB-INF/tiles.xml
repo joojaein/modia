@@ -3,7 +3,34 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+
+<!-- 	<definition name="home.index" template="/WEB-INF/views/inc/layout.jsp">
+		<put-attribute name="title" value="MOIDA" />
+		<put-attribute name="header" value="/WEB-INF/views/inc/header/main.jsp" />
+		<put-attribute name="aside" value="/WEB-INF/views/inc/aside.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/home/index.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+	</definition> -->
+	
+	<definition name="*.index" template="/WEB-INF/views/inc/layout.jsp">
+		<put-attribute name="title" value="MOIDA" />
+		<put-attribute name="header" value="/WEB-INF/views/inc/header/mainHeader.jsp" />
+		<put-attribute name="aside" value="/WEB-INF/views/inc/aside.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/{1}/index.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+	</definition>
+	
+	<definition name="home.*" template="/WEB-INF/views/inc/layout.jsp">
+		<put-attribute name="title" value="MOIDA" />
+		<put-attribute name="header" value="/WEB-INF/views/inc/header/noneHeader.jsp" />
+		<put-attribute name="aside" value="/WEB-INF/views/inc/aside.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/home/{1}.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+	</definition>
+	
+
   
+  <!--  
   <definition name="admin.*.*" template="/WEB-INF/views/admin/inc/layout.jsp">
     <put-attribute name="title" value="코딩의 정석" />
     <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
@@ -31,5 +58,5 @@
     <put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
     <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
   </definition>
-
+  -->
 </tiles-definitions>

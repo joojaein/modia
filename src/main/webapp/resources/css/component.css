@@ -1,0 +1,157 @@
+main{
+    text-align: center;
+    min-height: 540px;
+}
+
+.left{
+    text-align: left !important;
+}
+.right{
+    text-align: right !important;
+}
+.center{
+    text-align: center !important;
+}
+
+.d-none{
+	display: none;
+}
+
+.fs11{
+    font-size: 11px !important;
+}
+.fs14{
+    font-size: 14px !important;
+}
+.fs16{
+    font-size: 16px !important;
+}
+.fs18{
+    font-size: 18px !important;
+}
+.fs20{
+    font-size: 20px !important;
+}
+
+.fwb{
+    font-weight: bold !important;
+}
+
+.hr-normal{
+    border: none;
+    border-bottom: solid 1px grey;
+}
+.hr-bold{
+    border: none;
+    border-bottom: solid 2px grey;
+}
+.hr-dot{
+    border: none;
+    border-bottom: dotted 5px grey;
+    margin: 10px;
+}
+
+.m-t-n{
+    margin-top: 0;
+}
+
+.img-cut{
+    object-fit : cover;
+}
+
+.ellipsis{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+/***************************/
+
+.group-list-flex{
+    display: inline-flex;
+    text-align: left;
+    flex-flow: wrap;
+}
+
+.group-list-flex-li{
+    display: inline-flex;
+    padding: 5px 5px;
+    width: 90%;
+    margin: 0px 0px;
+}
+
+.group-list-flex-li img{
+    width: 150px;
+    height: 130px;
+    border-radius: 5px;
+ } 
+
+.group-list-flex-content{
+    position: relative;
+    display: inline;
+    margin-left: 5px;
+}
+
+.group-list-flex-content div:last-child{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.email-auth .txt{
+	width: 70%;		
+}
+
+.email-auth .btn{
+	width: 25%;
+	height: 23px;
+	
+	margin-left: 2%;
+	
+	border: none;
+	border-radius: 5px;
+	background: grey;
+	
+	font-size:10px;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+
+.email-auth .timer{
+	border: 2px solid grey;
+	background: white;
+	color: grey;
+	font-size:14px;	
+}
+
+@media (max-width:720px){
+    .group-list-flex{
+        width: 100%;
+    }
+    .group-list-flex-li{
+        width: 95%;
+    }
+}
+
+@media (min-width:721px){
+    main{
+	    min-height: 600px;
+	}
+	
+    .group-list-flex{
+        width: 1060px;
+    }
+    .group-list-flex-li{
+        margin: 5px 10px;
+        max-width: 500px;
+    }
+    
+   	.email-auth .btn{
+		font-size:12px;
+	}
+
+}
+

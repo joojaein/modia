@@ -24,7 +24,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @EnableWebMvc
 public class ServletContextConfig implements WebMvcConfigurer{
 	
-	/*
+	
 	@Bean 
 	public TilesConfigurer tilesConfigurer() {
 		
@@ -45,7 +45,6 @@ public class ServletContextConfig implements WebMvcConfigurer{
 		return resolver;
 	}
 	
-	*/
 	
 	@Bean 
 	public InternalResourceViewResolver internalResourceViewResolver() {

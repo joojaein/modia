@@ -20,10 +20,9 @@ table{
 
 /* basic style */
 body{
-    font-family: '맑은 고딕', '고딕', Helvetica, sans-serif;
+    font-family: '���� ���', '���', Helvetica, sans-serif;
     font-size: 11px;
     margin:auto;   
-
 }
 
 input:focus { 
@@ -55,6 +54,7 @@ header{
     margin: 0px 10px;
 }
 
+
 .none-justify{
     justify-content: initial;
 }
@@ -81,3 +81,26 @@ header{
     font-weight: bold;
 }
 
+@media (min-width:0px) and (max-width:720px){
+    
+}
+
+@media (min-width:721px){
+    header{
+        height:80px;
+        line-height: 80px;
+
+    }
+
+    .logo{
+        font-size:40px;
+    }
+}
+
+
+/*footer*/
+footer{
+	margin-top:20px;
+    height: 25px;
+	background: black;
+}

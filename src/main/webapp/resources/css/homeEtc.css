@@ -1,0 +1,271 @@
+@import url("/resources/css/component.css");
+
+.etc-logo{
+	font-size: 30px;
+	margin-top: 40px;
+}
+
+.login .id,
+.login .pw{
+	width:250px;
+	border: none;
+	border-bottom: 1px solid black;
+	font-size: 16px;
+}
+
+.login .id{
+	margin-top: 30px;
+}
+
+.login .pw{
+	margin-top: 20px;
+}
+
+.btn-login{
+	margin-top: 15px;	
+	width: 250px;
+	height: 40px;
+	
+	border: none;
+	border-radius: 5px;
+	background: grey;
+	
+	font-size: 16px;
+	color: white;
+}
+
+.login .etc{
+	margin-top: 5px;	
+	font-size: 10px;
+}
+
+.idpw{
+	width: 300px;
+	margin: auto;
+}
+
+.idpw .id-title{
+	margin-top: 40px;
+}
+
+.idpw .pw-title{
+	margin-top: 30px;
+}
+
+.idpw .id-title,
+.idpw .pw-title{
+	font-size: 16px;
+}
+
+.idpw input{
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid black;
+	margin-top: 15px;
+}
+
+.idpw .p-id{
+	margin: 0px;	
+	margin-top: 5px;
+}
+
+.idpw .btn-edit{
+	width: 100px;
+	height: 25px;
+	border: none;
+	border-radius: 5px;
+	background: grey;
+	
+	font-size:14px;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+.join{
+	width: 300px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.join input{
+	width: 100%;
+	height: 22px;
+	border: none;
+	border-bottom: 1px solid black;
+	margin-top: 20px;
+}
+.join input:first-child{
+    margin-top: 15px;
+}
+
+.join .email-auth{
+    height: 50px;
+    display: unset;
+}
+
+
+.join .etc{
+	display: flex;
+    height: 39px;
+}
+
+.join .div-date{
+	width: 60%;
+	margin-right: 15px;	
+}
+
+.date-etc{
+	background: url(/resources/images/calendar.png) no-repeat right;
+	vertical-align: bottom;
+	padding: 0px;
+}
+
+input[type="radio"]{
+    margin-top: 15px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    color: rgba(0, 0, 0, 0);	
+	opacity: 0;
+	display:block;
+}
+
+ input[type="date"]::-webkit-inner-spin-button {
+     display: none;
+     appearance: none;
+ }
+
+.join .div-gender{
+	width: 35%;
+	border: none;
+	border-bottom: 1px solid black;
+}
+
+.join .div-gender ul{
+	display: flex;					
+}
+.li-gender{
+	display: flex;	
+    line-height: 52px;
+}
+
+.join .div-gender input{
+	width: 15px;
+	margin-right: 10px;
+}
+
+
+.join .etc-prof{
+	margin: 15px 0px;		
+	display: flex;	
+}
+
+.join .img-prof{
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	margin-right: 15px;
+}
+
+.join .txt-prof label{
+    line-height: 40px;
+}
+
+.join .txt-prof textarea{
+	width: 155px;
+	height: 60px;
+}
+
+.btn-join{
+	margin-top: 0px !important;	
+	width: 100%;
+	height: 45px !important;
+	
+	border: none !important;
+	border-radius: 5px;
+	background: grey;
+	
+	font-size: 16px;
+	color: white;
+}
+
+@media (min-width:721px){
+    .etc-logo{
+		font-size: 60px;
+	}
+	
+	.login .id,
+	.login .pw,
+	.btn-login{
+		font-size: 25px;
+		width: 400px;
+	}
+	
+	.login .id{
+		margin-top: 40px;
+	}
+	
+	.login .pw{
+		margin-top: 30px;
+	}
+	
+	.btn-login{
+		margin-top: 25px;	
+		height:60px;
+	}
+	
+	.login .etc{
+		margin-top: 5px;	
+		font-size: 13px;
+	}
+	
+	.idpw, 
+	.join{
+		width: 450px;
+	}
+	
+	.idpw .id-title{
+		margin-top: 45px;
+		font-size: 20px;
+	}
+	
+	.idpw .pw-title{
+		margin-top: 40px;
+		font-size: 20px;
+	}
+	
+	.idpw input{
+		margin-top: 20px;
+	}
+		
+	.idpw .btn-edit{
+		width: 150px;	
+		height: 30px;
+		font-size:16px;
+	}	
+	
+	.join .div-gender ul{
+		margin-left: 35px;	
+	}
+	
+	.join .etc-prof{
+		margin: 20px 0px;
+	}
+	
+	.join .img-prof{
+		width: 180px;
+		height: 180px;
+		margin-right: 20px;
+	}
+	
+	.join .txt-prof label{
+	    line-height: 50px;
+	}
+	
+	.join .txt-prof textarea{
+		width: 230px;
+		height: 100px;
+	}
+}
