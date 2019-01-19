@@ -18,4 +18,9 @@ public class HomeController {
 	public String index() {
 		return "admin.index";
 	}	
+	
+	@RequestMapping("edit")
+	public String edit() {
+		return "admin.edit";
+	}
 }

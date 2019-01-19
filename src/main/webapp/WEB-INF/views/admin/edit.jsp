@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <main>
-	<link href="/resources/css/memberPage.css" type="text/css" rel="stylesheet" />
-    <script src="/resources/js/memberEdit.js"> </script>
+	<link href="/resources/css/adminPage.css" type="text/css" rel="stylesheet" />
+    <script src="/resources/js/adminEdit.js"> </script>
  
-    <div class="member-edit">
+    <div class="admin-edit">
 	    <div class="profile">
 	    	<div class="profile-img">	
 		    	<img src="/resources/images/profile.png">
 	 			<input style="display:none" type="file" />
    		    	<input class="btn" type="button">    	
 	    	</div>
-	    	<div class="id fs16 fwb">하하하</div>
+	    	<div class="id fs16 fwb">관리자</div>
 	    </div>
 	    
 	    
@@ -25,8 +25,7 @@
 	    		</div>
 		    	
 		    </div>
-		    
-	   	    
+	    
 	   		<hr class="hr-bold"/>
 		    <div class="div-pw">
   		    	<h1>비밀번호 변경</h1>
@@ -38,7 +37,6 @@
 	    		</div>
 		    	
 		    </div>
-		    
 	   	   
    			<hr class="hr-bold"/>
 	   		<div class="div-email">

@@ -7,7 +7,7 @@
 		<h1 class="etc-logo"><a href="/index">MOIDA</a></h1>
 		<div class="login">
 			<input class="id" type="text" placeholder="ID"><br/>
-			<input class="pw" type="text" placeholder="Password"><br/>
+			<input class="pw" type="password" placeholder="Password"><br/>
 			<input class="btn fwb btn-login" type="button" value="Login"><br/>
 			<div class="etc">
 				<a class="idpw" href="/idpw">ID/PW찾기</a>

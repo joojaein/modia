@@ -25,8 +25,8 @@
 				<input class="txt authNum d-none" placeholder="인증번호" type="text">
 				<input class="btn btn-auth d-none" type="button" value="인 증"><br/>	
 			</div>
-			<input class="txtpw d-none" placeholder="새로운 비밀번호" type="text"><br/>
-			<input class="txtrpw d-none" placeholder="비밀번호 재확인" type="text"><br/>
+			<input class="txtpw d-none" placeholder="새로운 비밀번호" type="password"><br/>
+			<input class="txtrpw d-none" placeholder="비밀번호 재확인" type="password"><br/>
 			<div class="center">
 				<input class="btn btn-edit d-none" type="button" value="비밀번호 변경">
 			</div>

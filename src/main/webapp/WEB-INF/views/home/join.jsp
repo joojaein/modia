@@ -8,7 +8,8 @@
 	<div class="left join">
 	
 		<input type="text" placeholder="ID"></br>
-		<input type="text" placeholder="비밀번호"></br>
+		<input type="password" placeholder="비밀번호"></br>
+		<input type="password" placeholder="비밀번호 재확인"></br>
 		<input type="text" placeholder="이름"></br>
 
 		<div class="email-auth">	
@@ -32,7 +33,8 @@
 		</div>
 
 		<div class="etc-prof">
-			<img class="img-prof" src="/resources/images/profileImage.png">
+ 			<input style="display:none" type="file" />		
+			<img class="btn img-prof" src="/resources/images/profileImage.png">
 			<div class="txt-prof">
 				<label class="fs18">Profile Message</label><br/>
 				<textarea></textarea>

@@ -4,12 +4,12 @@
 	margin-bottom: 5px;
 }
 
-.group .right{
+.div-mng .right{
     margin-bottom: 5px;
 }
 
-.group a{
-	margin-right: 5%;
+.div-mng a{
+	margin-right: 10%;
 }
 
 .profile-img{
@@ -39,17 +39,98 @@
     border: none;
 }
 
-.group .menu{
-	max-width: 1100px;
-	margin: auto;	
+.div-mng{
+    width: 100%;
 }
 
-.group .menu input{
+.div-mng .menu{
+    width: 100%;   
+	max-width: 1100px;
+	margin: auto;	
+    display: contents;	
+}
+
+.div-mng .menu input{
 	font-size: 11px; 
-	width: 30%;
+	width: 40%;
 	height: 25px;
 	background: white;
 	border: 1px solid grey;
+}
+
+
+.div-mng .table{
+    width: 85%;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.div-mng .table .right .btn{
+    width: 87px;
+    height: 23px;
+    font-size: 11px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background: grey;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.div-mng table{
+	text-align: center;
+	width: 100%;
+	border: 1px solid gray;	
+	table-layout: fixed;		
+}
+
+.div-mng thead tr{
+	height: 30px;
+}
+
+.div-mng thead td{
+    font-size: 12px;
+    border: 1px solid gray;
+    font-weight: bold;
+    line-height: 20px;	
+}
+
+.div-mng tbody tr{
+	height: 22px;
+}
+
+.div-mng tbody td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.div-mng .paging{
+	display: inline-flex;
+	margin-top: 10px;
+}
+.div-mng .paging .btn{
+	width: 16px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+    border: none;
+    background: none;
+}
+
+.div-mng .paging ul{
+	display: inline-flex;
+}
+
+.div-mng .paging li{
+	margin-left: 5px;
+}
+
+.now-page{
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .selected-tab{
@@ -87,7 +168,6 @@
     background: grey;
     text-align: center;
     margin-right: 5px;
-    
 }
 
 .div-msg textarea{
@@ -118,14 +198,40 @@
 
 
 @media (min-width:721px){
-	.group {
+	.div-mng {
 		display: inline-block;
 	}
 	
-	.group .menu input{
+	.div-mng .menu input{
 		font-size: 14px; 
 		height: 30px;
 	    margin: 0px 5px;
+	}
+	
+	.div-mng .table{
+		width: 80%;
+		margin-top: 10px;
+	}
+	
+	.div-mng thead tr{
+		height: 35px;
+	}	
+
+    .div-mng thead td{
+    	font-size: 15px;
+    }
+    
+   	.div-mng tbody	tr{
+		height: 28px;
+	}
+	
+    .div-mng tbody td{
+    	font-size: 14px;
+    }
+    
+    .div-mng .paging .btn{
+	    width: 18px;
+	    font-size: 14px;
 	}
 	
 	.etc{
@@ -151,7 +257,8 @@
 	.email-auth .txt {
     	width: 82%;
 	}
+	
 	.email-auth .btn {
     	width: 15%;
-    }
+    }	
 }
