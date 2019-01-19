@@ -19,4 +19,9 @@ public class HomeController {
 		return "member.index";
 	}	
 	
+	@RequestMapping("edit")
+	public String edit() {
+		return "member.edit";
+	}
+	
 }

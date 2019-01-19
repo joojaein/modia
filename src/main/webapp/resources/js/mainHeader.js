@@ -31,13 +31,12 @@ window.addEventListener("load",function(){
         
         modal.addEventListener("transitionend", function() {
         	// //input의 이름을 통해 동작하는 부분 입력
-            console.log(btnName);
             if(btnName=="search"){
             	
             }else if(btnName=="question"){
             	
             }else{
-            	window.location.href = btnName;
+            	window.location.href = "/"+btnName;
             }
             // /////////////////////////////////////
             modal.removeEventListener("transitionend",this);

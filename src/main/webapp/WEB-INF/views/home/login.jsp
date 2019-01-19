@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <main>
 	<link href="/resources/css/homeEtc.css" type="text/css" rel="stylesheet" />
-    <script src="/resources/js/homeEtc.js"> </script>
     
 	<div>
 		<h1 class="etc-logo"><a href="/index">MOIDA</a></h1>

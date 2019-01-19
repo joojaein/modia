@@ -35,7 +35,7 @@
 			<img class="img-prof" src="/resources/images/profileImage.png">
 			<div class="txt-prof">
 				<label class="fs18">Profile Message</label><br/>
-				<textarea placeholder="간단한 자기소개를 입력하세요"></textarea>
+				<textarea></textarea>
 			</div>
 		</div>
 		

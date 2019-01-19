@@ -3,6 +3,10 @@ main{
     min-height: 540px;
 }
 
+::placeholder{
+	color: grey;
+}
+
 .left{
     text-align: left !important;
 }
@@ -70,7 +74,7 @@ main{
 /***************************/
 
 .group-list-flex{
-    display: inline-flex;
+    display: unset;
     text-align: left;
     flex-flow: wrap;
 }
@@ -143,9 +147,11 @@ main{
 	
     .group-list-flex{
         width: 1060px;
+        display: inline-flex;
+  	    margin-inline-start: 25px;	
     }
     .group-list-flex-li{
-        margin: 5px 10px;
+        margin: 5px;
         max-width: 500px;
     }
     
