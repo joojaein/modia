@@ -32,6 +32,11 @@
 			</div>
 		</div>
 
+		<div class="div-location">
+			<select class="sido">				
+			</select>
+		</div>
+		
 		<div class="etc-prof">
  			<input style="display:none" type="file" />		
 			<img class="btn img-prof" src="/resources/images/profileImage.png">

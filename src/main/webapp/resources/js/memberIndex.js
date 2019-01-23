@@ -25,6 +25,13 @@ window.addEventListener("load",function(){
         } 
     });
     
+    var areaGroup = main.querySelector(".group");
+	areaGroup.style.width = document.body.clientWidth+"px";
+
+	 $(window).resize(function (){
+			areaGroup.style.width = document.body.clientWidth+"px";
+	 })
+    
     
 });
 

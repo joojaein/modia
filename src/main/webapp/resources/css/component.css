@@ -3,6 +3,11 @@ main{
     min-height: 540px;
 }
 
+p{
+    margin: 0px;
+    padding: 0px;
+}
+
 ::placeholder{
 	color: grey;
 }
@@ -18,7 +23,7 @@ main{
 }
 
 .d-none{
-	display: none;
+	display: none !important;
 }
 
 .fs11{
@@ -104,6 +109,8 @@ main{
     right: 0px;
 }
 
+/***************************/
+
 .email-auth .txt{
 	width: 70%;		
 }
@@ -131,28 +138,17 @@ main{
 	font-size:14px;	
 }
 
-@media (max-width:720px){
-    .group-list-flex{
-        width: 100%;
-    }
-    .group-list-flex-li{
-        width: 95%;
-    }
-}
-
 @media (min-width:721px){
     main{
 	    min-height: 600px;
 	}
 	
     .group-list-flex{
-        width: 1060px;
         display: inline-flex;
-  	    margin-inline-start: 25px;	
     }
     .group-list-flex-li{
         margin: 5px;
-        max-width: 500px;
+   		max-width: 47%;
     }
     
    	.email-auth .btn{

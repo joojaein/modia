@@ -1,0 +1,209 @@
+@import url("/resources/css/component.css");
+
+main{
+	position: relative;
+}
+.createCategory{
+    width: 90%;
+    margin: auto;
+	margin-top: 10px;
+	display: grid;
+	grid-template-columns: repeat(2, 9fr);
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.createCategory div{
+    width: 150px;
+    height: 130px;
+    margin: auto;    
+    background: gainsboro;
+    border-radius: 10px;
+}
+
+.createCategory img{
+    margin-top: 10px;
+	width: 100px;
+	height: 100px;	
+}
+
+.create{
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+	margin-top: 10px;
+}
+
+.create .div-tag{
+    width: 100%;
+    text-align: left;
+}
+
+.create .div-tag input{
+    padding: 3px 10px;
+    margin: 2px 1px;
+    font-size: 12px;
+    border: 2px solid grey;
+    border-radius: 5px;
+    background: white;
+}
+
+.selected-tag{
+    background: grey !important;
+    color: white;
+    font-weight: bold;
+}
+
+.create .div-input{
+    width: 100%;
+ }
+ 
+.create .div-input>div{
+	position: relative;
+	width: 100%;	
+	height: 25px;
+	border: none;
+	border-radius: 5px;
+	background: gainsboro;
+	text-align: right;
+	margin:5px 0px;
+}
+
+.create .div-input input{
+	border: none;
+	background: none;
+}
+
+.create .div-input .left{
+    position: absolute;
+    left: 0px;
+}
+
+.create .div-input span{
+	height: 25px;
+    font-size: 13px;
+    
+    padding: 0px 10px;
+    line-height: 25px;
+}
+
+.create .div-age .etc-span{
+    padding: 0px;
+}
+
+.create .div-maxperson .etc-span{
+    padding: 0px;
+    padding-right: 10px;
+}
+
+.create .div-input select{
+    height: 25px;
+    border: none;
+    background: none;
+}
+
+.div-location{
+	background: url(/resources/images/map-pin.png) no-repeat 5px gainsboro !important;
+    background-size: 18px 18px !important;
+}
+
+.div-location select{
+	width:45%;
+}
+
+.div-location .option{
+	font-size:10px;
+}
+
+.div-text{
+	height: auto !important;
+	text-align: left;
+}
+.div-text input{
+	width: 100%;
+	height: 25px;
+    padding: 15px 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid grey !important; 
+}
+
+.div-text textarea{
+	width: 100%;	
+	min-height: 200px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+	border: none;
+	background: none;   
+}
+
+.div-maxperson input{
+	text-align: right;
+}
+
+.div-photo input{
+    background: url(/resources/images/photo.png) no-repeat center !important;
+    background-size: 19px 18px !important;
+    width: 21px;
+    height: 25px;
+    margin-right: 8px;
+}
+
+.btn-create{
+    margin-top: 5px;
+	
+	width:100%;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	background: grey;
+	color: white;
+}
+
+#layer{
+	z-index: 1;
+    position: fixed;
+
+}
+@media (min-width:500px){
+    .createCategory{
+    	grid-template-columns: repeat(3, 6fr);
+    }
+}
+
+@media (min-width:721px){
+    .createCategory{
+		margin-top: 15px;
+    	grid-template-columns: repeat(4, 5fr);
+    	row-gap: 15px;
+    }
+    
+
+}
+
+@media (min-width:1000px){
+    .createCategory{
+		margin-top: 20px;
+    	grid-template-columns: repeat(5, 4fr);
+    	row-gap: 20px;
+    }
+    
+    .div-location select {
+    	width: 435px;
+	}
+}
+
+@media (min-width:1200px){
+    .createCategory{
+		margin-top: 25px;
+    	grid-template-columns: repeat(6, 3fr);
+    	row-gap: 25px;
+    }
+}
+
+@media (min-width:1200px){
+    .createCategory{
+		margin-top: 30px;
+    	grid-template-columns: repeat(7, 3fr);
+    	row-gap: 30px;
+    }
+}

@@ -8,6 +8,29 @@ window.addEventListener("load",function(){
     var btnEmailAuth = join.querySelector(".btn-auth");
     var textarea = join.querySelector("textarea");
     
+	var selSido = join.querySelector(".sido")
+	var jsonPost;
+	var postRequest = new XMLHttpRequest(); 
+	postRequest.open("POST", "../group/get-sido", true); 
+	postRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	postRequest.onload = function () {	
+		jsonPost = JSON.parse(postRequest.responseText);
+		selSido.innerHTML="";
+		var temp = document.createElement('option');
+		temp.value="null";
+		temp.innerHTML = "주요 활동 지역";
+		temp.classList.add("option");
+	    selSido.appendChild(temp);
+		for(var i=0; i<jsonPost.length; i++){
+			var opt = document.createElement('option');
+			opt.value = jsonPost[i][0];
+		    opt.innerHTML = jsonPost[i][0];
+		    opt.classList.add("option");
+		    selSido.appendChild(opt);
+		}
+	}
+	postRequest.send();	
+	
     var btnImg= main.querySelector(".img-prof");
 	var fileDnone = main.querySelector("input[type='file']")
 	
@@ -69,5 +92,9 @@ window.addEventListener("load",function(){
   	  } 
     };
     
+    selSido.onclick= function() {		
+    	selSido.style.color="black";
+	};
+   
 });
 

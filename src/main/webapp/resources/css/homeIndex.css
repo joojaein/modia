@@ -1,9 +1,30 @@
 @import url("/resources/css/component.css");
 
-.img-banner {
-	width: 95%;
+.grid{
+	width: 100%;
 	max-width: 900px;
+	display: grid;
+	grid-gap: 10px;
+	grid-template-areas:
+	    "area-banner"
+	    "area-category"
+	    "area-group";
+	margin: auto;
+}
+
+.area-banner{
+	width: 100%;
+	max-width: 900px;
+}
+
+.area-banner img{
+	width: 95%;
 	margin: 15px 0px;
+}
+
+.area-category{
+	width: 100%;
+	max-width: 900px;
 }
 
 .btn-more {
@@ -14,14 +35,16 @@
 
 .main-icon-list{
     display: inline-flex;
+    height: 80px;
     flex-flow: wrap;
-    width:320px;
     padding: 0px 10px;
+    overflow: hidden;
 }
 
 .main-icon-list li{
     display: inline;
     width: 70px;
+    height: 80px;
     margin: 0px 5px;
     font-size: 10px;
     cursor: pointer !important;
@@ -34,13 +57,7 @@
     height: 50px;
 }
 
-.main-icon-li-more div{
-    display: none;
-}
-
-
-@media (min-width:721px){
-    .main-icon-list{
-        width:640px;
-    }
+.area-group{
+	width: 100%;
+	max-width: 900px;
 }

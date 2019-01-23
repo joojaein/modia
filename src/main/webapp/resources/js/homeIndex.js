@@ -3,21 +3,25 @@ window.addEventListener("load",function(){
     var main = document.querySelector("main");
     var btnMore = main.querySelector(".btn-more");
     var ulIcon = main.querySelector(".main-icon-list");
-  
+    
     btnMore.onclick = function(){
-        var icons = ulIcon.querySelectorAll(".main-icon-li-more div");
-        if(btnMore.value=="more"){
-            for(var i=0; i<icons.length; i++){
-                icons[i].style.display= "block";
-            }
+    	if(btnMore.value=="more"){
+    		ulIcon.style.height="auto";
             btnMore.value="less";
         }
         else{
-            for(var i=0; i<icons.length; i++){
-                icons[i].style.display= "none";
-            }
+    		ulIcon.style.height="80px";
             btnMore.value="more";
         }   
-    };
+    };    
+    
+
+    var areaGroup = main.querySelector(".area-group");
+	areaGroup.style.width = document.body.clientWidth+"px";
+
+	 $(window).resize(function (){
+			areaGroup.style.width = document.body.clientWidth+"px";
+	 })
+   
 });
 
