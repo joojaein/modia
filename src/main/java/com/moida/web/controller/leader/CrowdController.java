@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller("leaderGroup")
+@Controller("leaderCrowd")
 @RequestMapping("/leader/")
-public class GroupController {
+public class CrowdController {
 	
 	@RequestMapping("edit")
 	public String edit(Model model) {		

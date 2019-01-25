@@ -21,9 +21,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-@Controller("memberGroup")
-@RequestMapping("/group/")
-public class GroupController {
+@Controller("memberCrowd")
+@RequestMapping("/crowd/")
+public class CrowdController {
 	
 	ArrayList postList = new ArrayList<ArrayList<String>>();
 	
@@ -32,7 +32,7 @@ public class GroupController {
 		model.addAttribute("href","/index");  
 		//모임검색페이지에 모임개설 버튼이 있기 때문에 추후에 /index 대신 검색페이지의 주소를 기록해야함
 		model.addAttribute("title","카테고리 선택");
-		return "group.createCategory";
+		return "crowd.createCategory";
 	}
 	
 	@RequestMapping("create")
@@ -41,13 +41,13 @@ public class GroupController {
 			Model model) throws FileNotFoundException {		
 		model.addAttribute("href","createCategory");
 		model.addAttribute("title",title);
-		return "group.create";
+		return "crowd.create";
 	}
 		
 	@RequestMapping("get-sido")
 	@ResponseBody
 	public String getSido() throws FileNotFoundException {				
-		String nowPath = GroupController.class.getResource("").getPath();
+		String nowPath = CrowdController.class.getResource("").getPath();
 		int baseIndex = nowPath.indexOf("WEB-INF");
 		String basePath = nowPath.substring(0, baseIndex);
 		String resultPath = basePath+"resources/data.xlsx";

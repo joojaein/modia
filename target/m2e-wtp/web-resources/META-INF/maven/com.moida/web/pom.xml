@@ -59,6 +59,13 @@
 		    <version>7.0</version>
 		</dependency>
 		
+		<!-- mysql JDBC 드라이버 -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.47</version>
+		</dependency>
+		
 		<!-- mybatis 생성을 위한 것 -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>

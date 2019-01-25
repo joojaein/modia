@@ -35,6 +35,8 @@ window.addEventListener("load",function(){
             	
             }else if(btnName=="question"){
             	
+            }else if(btnName=="qna"){
+            	
             }else{
             	window.location.href = "/"+btnName;
             }

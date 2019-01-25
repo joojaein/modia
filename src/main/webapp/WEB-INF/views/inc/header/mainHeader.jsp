@@ -12,7 +12,7 @@
         <input type="button"></input>
     </div>
     <div id="headerMenus">
-            <a class="fwb fs11" href="">1:1문의</a>
+            <a class="fwb fs11" href="">Q&amp;A</a>
             <span class="fs11" >|</span>
             <a class="fwb fs11" href="/join">회원가입</a>
             <span class="fs11">|</span>
@@ -25,6 +25,7 @@
             <input class="fwb fs18 btn" type="button" value="회원가입" name="join"><hr class="hr-dot"/>
             <input class="fwb fs18 btn" type="button" value="홈" name="index"><br/>
             <input class="fwb fs18 btn" type="button" value="카테고리" name="search"><hr class="hr-dot"/>
+            <input class="fwb fs18 btn" type="button" value="자주 묻는 질문" name="qna"><br/>
             <input class="fwb fs18 btn" type="button" value="1:1 문의" name="question"><br/>
     </div>
 </header>

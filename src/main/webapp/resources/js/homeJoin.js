@@ -11,7 +11,7 @@ window.addEventListener("load",function(){
 	var selSido = join.querySelector(".sido")
 	var jsonPost;
 	var postRequest = new XMLHttpRequest(); 
-	postRequest.open("POST", "../group/get-sido", true); 
+	postRequest.open("POST", "../crowd/get-sido", true); 
 	postRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 	postRequest.onload = function () {	
 		jsonPost = JSON.parse(postRequest.responseText);

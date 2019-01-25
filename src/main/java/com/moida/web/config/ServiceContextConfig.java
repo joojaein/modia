@@ -16,14 +16,18 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages= {"com.moida.web.dao","com.moida.web.service"}) 
 public class ServiceContextConfig {
 	
-	/*
-	  @Autowired ApplicationContext applicationContext;
-	*/
+	@Autowired 
+	ApplicationContext applicationContext;
 	
 	@Bean
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/moidadb");
+		dataSource.setUsername("joojaein");
+		dataSource.setPassword("moida123");	
 		/*
+		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		dataSource.setUrl("jdbc:oracle:thin:@211.238.142.251:1521:orcl");
 		dataSource.setUsername("c##sist");
