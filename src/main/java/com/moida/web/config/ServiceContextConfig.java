@@ -25,24 +25,15 @@ public class ServiceContextConfig {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/moidadb");
 		dataSource.setUsername("moida");
-		dataSource.setPassword("moida123");	
-		/*
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@211.238.142.251:1521:orcl");
-		dataSource.setUsername("c##sist");
-		dataSource.setPassword("dclass");
-		*/
+		dataSource.setPassword("moida1234");	
+	
 		return dataSource;
 	} 
 
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
 		SqlSessionFactoryBean sqlSessionFactory= new SqlSessionFactoryBean();
-		/*
-		sqlSessionFactory.setDataSource(dataSource());
-		sqlSessionFactory.setMapperLocations(applicationContext.getResources("classpath:com/newlecture/web/dao/mybatis/mapper/*.xml"));
-		*/
+
 		return sqlSessionFactory;
 	}
 	
