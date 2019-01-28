@@ -29,4 +29,6 @@ public class CrowdController {
 		model.addAttribute("title","모임관리");
 		return "leader.manage";
 	}
+	
+	
 }

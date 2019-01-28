@@ -11,5 +11,13 @@ public class CrowdController {
 	@RequestMapping("main")
 	public String index() {
 		return "crowd.main";
-	}	
+	}
+	@RequestMapping("categorySearch")
+	public String categorySearch() {
+		return "crowd.categorySearch";
+	}
+	@RequestMapping("search")
+	public String search() {
+		return "crowd.search";
+	}
 }

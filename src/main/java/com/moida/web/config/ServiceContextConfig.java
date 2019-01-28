@@ -36,6 +36,7 @@ public class ServiceContextConfig {
 		dataSource.setUrl("jdbc:mysql://localhost:46603/moida");
 		dataSource.setUsername("moida");
 		dataSource.setPassword("moida1234");	
+
 		return dataSource;
 	} 
 

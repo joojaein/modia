@@ -61,6 +61,7 @@ window.addEventListener("load",function(){
 		  preview.src = window.URL.createObjectURL(file);
 		
 		
+		  
 		}
 	
 	

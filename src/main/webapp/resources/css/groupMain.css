@@ -3,6 +3,10 @@ body {
     padding: 0;
 }
 
+header {
+    border-bottom: 1px solid gray;
+}
+
 main {
     margin: 0px 10px;
 }
@@ -11,6 +15,17 @@ main {
     display: none;
 }
 
+.sirenedit img {
+    border: 1px solid gray;
+    width: 15px;
+    height: 15px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sirenedit {
+    line-height: 3.1;
+}
 
 a {
     text-decoration: none;

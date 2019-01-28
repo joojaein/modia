@@ -25,6 +25,36 @@ import com.google.gson.JsonParser;
 @RequestMapping("/crowd/")
 public class CrowdController {
 		
+	@RequestMapping("notice")
+	public String notice() {		
+
+		return "crowd.notice";
+	}
+	
+	@RequestMapping("board")
+	public String board() {		
+		
+		return "crowd.board";
+	}
+	
+	@RequestMapping("boardreg")
+	public String boardreg() {		
+		
+		return "crowd.boardreg";
+	}
+	
+	@RequestMapping("calendar")
+	public String calendar() {		
+		
+		return "crowd.calendar";
+	}
+
+	@RequestMapping("album")
+	public String album() {		
+		
+		return "crowd.album";
+	}
+	
 	@RequestMapping("createCategory")
 	public String createCategory(Model model) {		
 		model.addAttribute("href","/index");  

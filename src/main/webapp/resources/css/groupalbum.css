@@ -1,0 +1,144 @@
+@import url("../css/rprt.css");
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	border-bottom: 1px solid gray;
+}
+
+main {
+	margin: 0px 10px;
+}
+
+.d-none {
+	display: none;
+}
+
+.sirenedit img {
+	border: 1px solid gray;
+	width: 15px;
+	height: 15px;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.sirenedit {
+	line-height: 3.1;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.main-head {
+    margin: 0 !important;
+    grid-area: header;
+    font-size: 13px;
+    line-height: 30px;
+    border-bottom: 1px solid gray;
+    padding: 0px 10px 0px 10px;
+}
+
+.main-head nav:nth-child(1) {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+
+}
+.sub-head{
+	grid-area: subheader;
+	font-size: 13px;
+	line-height: 30px;
+	border-bottom: 1px solid gray;
+  	width: 100%;
+	justify-content: center;
+	display: flex;
+	text-align: center;
+}
+.sub-head-box{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.content-box {
+	display: flex;
+	text-align: center;
+}
+
+.content {
+	grid-area: content;
+	flex-direction: row;
+	justify-content: center;
+	width: 100%;
+	margin: auto;
+}
+
+.content img {
+	width: 90%;
+}
+
+.content-box-div {
+	padding-left: 10px;
+	text-align: left;
+}
+
+.album-title {
+	font-size: 15px;
+}
+
+.wrapper {
+	max-width: 1200px;
+	display: grid;
+	grid-gap: 10px;
+	grid-template-areas: "header" "subheader" "content";
+	margin: auto;
+}
+
+.search-box {
+	height: 30px;
+}
+
+@media ( min-width : 400px) {
+	.wrapper {
+		/* grid-template-columns: 3fr 1fr; */
+		grid-template-areas: "header header" "subheader subheader" "content content";
+	}
+	nav ul {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
+@media ( min-width : 700px) {
+	.wrapper {
+		
+		grid-template-areas: "header header" "subheader subheader" "content content";
+	}
+	.preview {
+		max-width: 500px;
+	}
+}
+
+/* 뒤로가기 --------------------------------------------- */
+a#MOVE_BACK_BTN {
+	position: fixed;
+	background: rgb(255, 104, 104);
+	bottom: 0px;
+	margin: 0 !important;
+	z-index: 999;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	justify-content: center;
+	font-weight: 900;
+	font-size: 20px;
+	color: white;
+	line-height: 50px;
+}
+
+/* 신고 ---------------------------------------------- */
