@@ -1,0 +1,187 @@
+@charset "utf-8";
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.m-0 {
+	margin: 0;
+}
+
+header {
+	border-bottom: 1px solid gray;
+}
+
+main {
+	margin: 0px 10px;
+}
+
+.d-none {
+	display: none;
+}
+
+.sirenedit img {
+	border: 1px solid gray;
+	width: 15px;
+	height: 15px;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.sirenedit {
+	line-height: 3.1;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.main-head {
+	margin: 0 !important;
+	grid-area: header;
+	font-size: 13px;
+	line-height: 30px;
+	border-bottom: 5px solid gray;
+}
+
+.main-head nav:nth-child(1) {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid gray;
+}
+
+.main-head input {
+	border: none;
+}
+
+select {
+	width: 100%;
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+	background: url("../../../resources/images/caret-down.png") no-repeat
+		98%;
+	background-size: 15px;
+	height: inherit;
+}
+
+.select-box {
+	text-align: center;
+}
+
+.board-list {
+	border-bottom: 1px solid gray;
+}
+
+.board-list select {
+	border: none;
+}
+
+.board-list select option {
+	width: 100%;
+}
+
+.content {
+	grid-area: content;
+}
+
+.content .image1 {
+	width: 50%;
+	text-align: left;
+}
+
+.content .image1:first-child:before {
+	content: "대표";
+	font-size: 10px;
+	color: #fff;
+	background: #002060;
+	padding: 2px 5px;
+	padding-left: 2px;
+	position: absolute;
+	
+}
+
+.content .image1 img {
+	width: 50%;
+}
+
+.content .photo {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.content .image2 {
+	margin: auto;
+	margin-right: 0;
+	width: 30%;
+	flex-direction: row;
+	text-align: right;
+}
+
+.content .image2 img {
+	width: 30%;
+}
+
+.content .post {
+	display: flex;
+	justify-content: space-between;
+}
+
+.post-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.post p {
+	margin: 0;
+}
+
+.wrapper {
+	max-width: 1200px;
+	display: grid;
+	grid-gap: 10px;
+	grid-template-areas: "header" "content";
+	margin: auto;
+}
+
+@media ( min-width : 400px) {
+	.wrapper {
+		/* grid-template-columns: 3fr 1fr; */
+		grid-template-areas: "header  header header" "content content preview";
+	}
+	nav ul {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
+@media ( min-width : 700px) {
+	.wrapper {
+		grid-template-columns: 1fr 3fr 1fr;
+		grid-template-areas: "header header header" "content content preview"
+	}
+	.preview {
+		max-width: 500px;
+	}
+}
+
+/* 뒤로가기 --------------------------------------------- */
+a#MOVE_BACK_BTN {
+	position: fixed;
+	background: rgb(255, 104, 104);
+	bottom: 0px;
+	margin: 0 !important;
+	z-index: 999;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	justify-content: center;
+	font-weight: 900;
+	font-size: 20px;
+	color: white;
+	line-height: 50px;
+}

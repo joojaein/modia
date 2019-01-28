@@ -24,7 +24,7 @@ public class ServiceContextConfig {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/moidadb");
-		dataSource.setUsername("joojaein");
+		dataSource.setUsername("moida");
 		dataSource.setPassword("moida123");	
 		/*
 		BasicDataSource dataSource = new BasicDataSource();
