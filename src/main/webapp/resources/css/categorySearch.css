@@ -1,0 +1,244 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+main{
+	font-size : 16px !important;
+}
+.category-list{
+    position: relative;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+}
+.category-list > div{
+    display: flex;
+    width: 99%;
+    height: 50px;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin: 1px;
+    background: rgb(224, 245, 255);
+    cursor: pointer;
+    transition: .2s linear;
+    z-index: 1;
+}
+.category-list div div{
+    box-sizing: border-box;
+    width: 50px;
+    height: 35px;
+    border: 1px solid;
+    border-radius: 50%;
+    margin-top: 7.5px;
+    background-size: cover;
+    margin-left: 10px;
+    z-index: 1;
+}
+
+.category-list aside{
+    display: none;
+}
+.category-list div>span{
+    
+    line-height: 50px;
+    width: 100%;
+}
+.category-list > div:hover{
+    background: rgb(107, 41, 230);
+    color: white;
+    transform: scale(1.02);
+}
+
+.outdoor{
+    background: url("/resources/images/mainIcon/backpack.png") no-repeat center;
+}
+.sport{
+    background: url("/resources/images/mainIcon/balls.png") no-repeat center;
+}
+.book{
+    background: url("/resources/images/mainIcon/books.png") no-repeat center;
+}
+.language{
+    background: url("/resources/images/mainIcon/cubes.png") no-repeat center;
+}
+.festival{
+    background: url("/resources/images/mainIcon/tickets.png") no-repeat center;
+}
+.music{
+    background: url("/resources/images/mainIcon/piano.png") no-repeat center;
+}
+.making{
+    background: url("/resources/images/mainIcon/yarn.png") no-repeat center;
+}
+.dance{
+    background: url("/resources/images/mainIcon/ballerina.png") no-repeat center;
+}
+.volunteer{
+    background: url("/resources/images/mainIcon/heart.png") no-repeat center;
+}
+.sociality{
+    background: url("/resources/images/mainIcon/small-talk.png") no-repeat center;
+}
+.car{
+    background: url("/resources/images/mainIcon/car.png") no-repeat center;
+}
+.picture{
+    background: url("/resources/images/mainIcon/photo-camera.png") no-repeat center;
+}
+.baseball{
+    background: url("/resources/images/mainIcon/baseball-field.png") no-repeat center;
+}
+.game{
+    background: url("/resources/images/mainIcon/game-controller.png") no-repeat center;
+}
+.cooking{
+    background: url("/resources/images/mainIcon/cooking.png") no-repeat center;
+}
+.dog{
+    background: url("/resources/images/mainIcon/dog.png") no-repeat center;
+}
+.familiy{
+    background: url("/resources/images/mainIcon/family.png") no-repeat center;
+}
+.free{
+    background: url("/resources/images/mainIcon/puzzle.png") no-repeat center;
+}
+@media (min-width:800px){
+	main{
+		height : 1200px;
+	}
+    .category-list{
+        position: relative;
+        display: grid;
+        width: 780px;
+        margin: auto;
+        grid-template-columns: 150px 150px 150px 150px;
+        grid-template-rows: 150px 150px 150px 150px 150px;
+        grid-gap: 60px;
+        transform: rotate(0deg);
+        text-align: center;
+        top:120px;
+    }
+    .category-list aside{
+        position: absolute;
+        width: 95%;
+        height: 95%;
+        box-sizing: border-box;
+        border-radius: 40px;
+        margin: 0px;
+        background: rgb(109, 208, 253);
+        cursor: pointer;
+        transform:scale(0);
+    }
+    .category-list div aside span{
+        display: inline-block;
+        transform: translate3d(0,285%,0) rotate(-45deg);
+    }
+    .category-list div aside:hover{
+        background: pink;
+    }
+    @keyframes scale{
+        0%{transform:scale(0)}
+        100%{transform:scale(1)}
+    }
+    .category-list div:hover aside:nth-child(2){
+        display: block;
+        left: 102.5%;
+        z-index: -1;
+        top: 2.5%;
+        animation: scale .2s linear forwards;
+    }
+    .category-list div:hover aside:nth-child(3){
+        display: block;
+        top: 102.5%;
+        z-index: -1;
+        left: 2.5%;
+        animation: scale .2s linear forwards .1s;
+    }
+    .category-list div:hover aside:nth-child(4){
+        display: block;
+        right: 102.5%;
+        z-index: -1;
+        top: 2.5%;
+        animation: scale .2s linear forwards .2s;
+    }
+    .category-list div:hover aside:nth-child(5){
+        display: block;
+        bottom: 102.5%;
+        z-index: -1;
+        left: 2.5%;
+        animation: scale .2s linear forwards .3s;
+    }
+    .category-list div div{
+        width: 90px;
+        height: 90px;
+        margin: auto;
+        transform: rotate(-45deg);
+        transition: all .3s linear;
+    }
+    .category-list div > span{
+        display: none;
+    }
+    .category-list div:hover > span{
+        position: absolute;
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        transform: rotate(-45deg) translate3d(-35px,160%,0);
+    }
+    .category-list div:hover div{
+        transform:  rotate(-45deg) translateY(-20%) scale(1.1);
+    }
+    .category-list > div:nth-child(n-8){
+        transform: rotate(45deg);
+        width: 100%;
+        height: 100%;
+    }
+
+    .category-list > div:nth-child(17){
+        position: relative;
+        left: 140%;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .category-list > div:nth-child(18){
+        position: relative;
+        left: 140%;
+        width: 100%;
+        height: 100%;
+    }
+}
+@media(min-width:480px) and (max-width:800px){
+    .category-list{
+        position: relative;
+        display: grid;
+        width: 620px;
+        margin: auto;
+        margin-top : 20px;
+        grid-gap: 10px;
+        grid-template-columns: 200px 200px 200px;
+        grid-template-rows: 100px 100px 100px 100px 100px 1fr;
+        transform: rotate(0deg);
+        text-align: center;
+
+    }
+    .category-list > div{
+        width: 100%;
+        height: 100%;
+        transition: .3s linear;
+    }
+    .category-list div div{
+        margin-top: 15px;
+        width: 70px;
+        height: 70px;
+    }
+    .category-list div span{
+        width: 120px;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        transform: translateY(35px);
+    }
+}
