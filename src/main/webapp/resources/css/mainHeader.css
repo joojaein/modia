@@ -69,7 +69,7 @@
     background: black;
     transition: 250ms;
     display: none;
-    z-index:1;
+    z-index:10;
 }
 
 .modal{
@@ -82,7 +82,7 @@
     left:100%;
     transition: 250ms;
     
-    z-index:2;
+    z-index:11;
 }
 
 .modal input{

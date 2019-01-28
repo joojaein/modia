@@ -5,8 +5,13 @@
     <script src="/resources/js/homeIndex.js"> </script>
 	
 	<div class="grid">
-            <article class="area-banner">
-           		<img class="img-banner" src="/resources/images/tempImg.png"> 
+            <article class="area-banner">            	
+	           	<div class="carousel">
+	            	<ul>
+					</ul>       	
+	            	<input class="btn carousel-control-prev" type="button" value="&lt;">
+	            	<input class="btn carousel-control-next" type="button" value="&gt;">
+	            </div>   
             </article>
             
             <article class="area-category">

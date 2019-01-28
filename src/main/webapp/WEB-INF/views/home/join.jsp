@@ -13,9 +13,9 @@
 		<input type="text" placeholder="이름"></br>
 
 		<div class="email-auth">	
-			<input class="txt email" type="text" placeholder="이메일">
+			<input class="txt txt-email" type="text" placeholder="이메일">
 			<input class="btn btn-send" type="button" value="인증번호 발송"><br/>
-			<input class="txt authNum d-none" placeholder="인증번호" type="text">
+			<input class="txt txt-authNum d-none" placeholder="인증번호" type="text">
 			<input class="btn btn-auth d-none" type="button" value="인 증"><br/>	
 		</div>
 
@@ -38,7 +38,7 @@
 		</div>
 		
 		<div class="etc-prof">
- 			<input style="display:none" type="file" />		
+ 			<input style="display:none" type="file" accept=".jpg, .jpeg, .png"/>		
 			<img class="btn img-prof" src="/resources/images/profileImage.png">
 			<div class="txt-prof">
 				<label class="fs18">Profile Message</label><br/>

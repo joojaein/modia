@@ -11,7 +11,7 @@
 	    "area-group";
 	margin: auto;
 }
-
+/*
 .area-banner{
 	width: 100%;
 	max-width: 900px;
@@ -21,6 +21,69 @@
 	width: 95%;
 	margin: 15px 0px;
 }
+*/
+.area-banner{
+	width: 100%;
+	max-width: 900px;
+}
+
+.carousel{
+	width: 95%;
+	height: 150px;
+    margin: auto;
+    position: relative;
+ }  
+ 
+.carousel li,
+.carousel ul,   
+.carousel img{
+	overflow: hidden;
+	display: block;
+	height: 100%;
+}
+
+.carousel ul{
+	position: relative;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+.carousel li{
+	left: 0px;
+	top: 0px;
+    width: 100%;
+    height: 100%;
+	position: absolute;
+	transition: 1000ms left;
+}
+
+.carousel img{
+	width: 100%;
+    height: 100%;
+}
+
+.carousel .btn{    
+	position: absolute;
+    top: 45%;
+    z-index: 3;
+    font-weight: bold;
+    border: none;
+    background: none;
+    font-size: 30px;
+}
+
+.carousel .carousel-control-prev{   
+	left: 0px
+}
+
+.carousel .carousel-control-next{ 
+	right: 0px;
+}
+
+.transition-none{
+	transition: none !important;
+}
+
 
 .area-category{
 	width: 100%;
@@ -60,4 +123,12 @@
 .area-group{
 	width: 100%;
 	max-width: 900px;
+}
+
+@media (min-width:900px){
+	.carousel{
+	width: 855px;
+	height: 342px;
+ }  
+	 
 }

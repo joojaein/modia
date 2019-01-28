@@ -24,8 +24,12 @@ import com.google.gson.JsonParser;
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
+<<<<<<< HEAD
 	
 
+=======
+		
+>>>>>>> refs/remotes/origin/master
 	@RequestMapping("notice")
 	public String notice() {		
 
@@ -72,4 +76,9 @@ public class CrowdController {
 		model.addAttribute("title",title);
 		return "crowd.create";
 	}
+<<<<<<< HEAD
+=======
+		
+	
+>>>>>>> refs/remotes/origin/master
 }

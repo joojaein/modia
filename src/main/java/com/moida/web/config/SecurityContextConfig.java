@@ -19,6 +19,12 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+ 		http.authorizeRequests()
+ 			.antMatchers("/admin/**")
+ 			.hasAnyRole("ADMIN") 
+ 			.and()
+ 			.csrf()
+			.disable();
 		/*
 	 		http.authorizeRequests()
 		 
