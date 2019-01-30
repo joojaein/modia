@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
-import com.moida.web.service.CategoryService;
+import com.moida.web.service.MoidaCategoryService;
 
 
 @Controller("crowd")
@@ -18,7 +18,7 @@ import com.moida.web.service.CategoryService;
 public class CrowdController {
 	
 	@Autowired
-	private CategoryService categoryService;
+	private MoidaCategoryService moidaCategoryService;
 	
 	@RequestMapping("main")
 	public String index() {
@@ -27,8 +27,8 @@ public class CrowdController {
 	@RequestMapping("categorySearch")
 	public String categorySearch(Model model) {
 		
-		List<Category> list = categoryService.getCategoryList();
-		List<CategoryView> categoryViewList = categoryService.getCategoryViewList(); 
+		List<Category> list = moidaCategoryService.getCategoryList();
+		List<CategoryView> categoryViewList = moidaCategoryService.getCategoryViewList(); 
 		
 		model.addAttribute("list",list);
 		model.addAttribute("cvl",categoryViewList);
@@ -36,10 +36,14 @@ public class CrowdController {
 		
 		return "crowd.categorySearch";
 	}
+	
 	@RequestMapping("search")
 	public String search(Model model) {
-		List<Category> list = categoryService.getCategoryList();
+		
+		List<Category> list = moidaCategoryService.getCategoryList();
+		
 		model.addAttribute("list",list);
+		
 		return "crowd.search";
 	}
 }
