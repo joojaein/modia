@@ -1,32 +1,34 @@
 package com.moida.web.controller.member;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
+import com.moida.web.service.CrowdService;
+
 
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
-	@RequestMapping("notice")
-	public String notice() {		
+	
+	@Autowired
+	private SqlSessionTemplate session;
+		
+	@Autowired
+	public CrowdService crowdService;
+	
 
+	@RequestMapping("notice")
+	public String notice(Model model) {		
+	
 		return "crowd.notice";
 	}
 	
@@ -69,5 +71,6 @@ public class CrowdController {
 		model.addAttribute("href","createCategory");
 		model.addAttribute("title",title);
 		return "crowd.create";
+
 	}
 }
