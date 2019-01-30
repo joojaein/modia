@@ -74,4 +74,9 @@ public class CrowdController {
 		model.addAttribute("title",title);
 		return "crowd.create";
 
+<<<<<<< HEAD
 }}
+=======
+	}
+}
+>>>>>>> refs/remotes/origin/master

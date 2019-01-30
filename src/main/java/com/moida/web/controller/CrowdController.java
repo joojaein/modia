@@ -9,13 +9,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.moida.web.entity.CrowdMemberRole;
+<<<<<<< HEAD
 import com.moida.web.entity.CrowdSimpleDataView;
 
+=======
+import com.moida.web.service.CrowdService;
+import com.moida.web.entity.CrowdSimpleDataView;
+>>>>>>> refs/remotes/origin/master
 
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
+<<<<<<< HEAD
 import com.moida.web.service.CategoryService;
 import com.moida.web.service.CrowdService;
+=======
+import com.moida.web.service.MoidaCategoryService;
+>>>>>>> refs/remotes/origin/master
 
 
 @Controller("crowd")
@@ -23,6 +32,9 @@ import com.moida.web.service.CrowdService;
 public class CrowdController {
 	
 	@Autowired
+<<<<<<< HEAD
+	private MoidaCategoryService moidaCategoryService;
+=======
 	private SqlSessionTemplate session;
 		
 	@Autowired
@@ -31,6 +43,7 @@ public class CrowdController {
 	
 	@Autowired
 	private CategoryService categoryService;
+>>>>>>> refs/remotes/origin/master
 	
 	@RequestMapping("main")
 	public String index(Model model) {
@@ -47,8 +60,8 @@ public class CrowdController {
 	@RequestMapping("categorySearch")
 	public String categorySearch(Model model) {
 		
-		List<Category> list = categoryService.getCategoryList();
-		List<CategoryView> categoryViewList = categoryService.getCategoryViewList(); 
+		List<Category> list = moidaCategoryService.getCategoryList();
+		List<CategoryView> categoryViewList = moidaCategoryService.getCategoryViewList(); 
 		
 		model.addAttribute("list",list);
 		model.addAttribute("cvl",categoryViewList);
@@ -56,10 +69,14 @@ public class CrowdController {
 		
 		return "crowd.categorySearch";
 	}
+	
 	@RequestMapping("search")
 	public String search(Model model) {
-		List<Category> list = categoryService.getCategoryList();
+		
+		List<Category> list = moidaCategoryService.getCategoryList();
+		
 		model.addAttribute("list",list);
+		
 		return "crowd.search";
 	}
 }

@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
     <link rel="stylesheet" type="text/css" media="screen" href="/resources/css/search.css" />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
 
     <script>
         $(function () {
@@ -64,9 +64,9 @@
                         <c:forEach var="category" items="${list}">
                         <li><a href="#" data-id="${category.id}" class="calist">${category.name}</a>
                             <ul data-id="${category.id}">
-                            	<c:if test="${category.id}">
+<%--                             	<c:if test="${category.id}">
                                 	<li><a href="#">전체</a></li>
-                                </c:if>
+                                </c:if> --%>
                             </ul>
                         </li>
                         </c:forEach>
@@ -84,7 +84,7 @@
                     <div>전체</div>
                 </div>
                 <div class="grid-category">
-                 <c:forEach var="category" items="${list}">
+                  <c:forEach var="category" items="${list}">
                     <div>${category.name}</div>
                   </c:forEach>
                 </div>

@@ -52,6 +52,14 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 
+	@Override
+	public List<CrowdSimpleDataView> getSimpleList() {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		System.out.println("com.moida.web.dao.mybatis.MyBatisCrowd - List<CrowdSimpleDataView> getSimpleList()");
+		return crowdDao.getSimpleList();
+	}
+
+
 	
 
 

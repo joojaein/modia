@@ -21,8 +21,21 @@ public class MoidaCrowdService implements CrowdService {
 		System.out.println("web.service.MoidaCrowdService - List<CrowdSimpleDataView> getSimpleList()");
 		return crowdDao.getSimpleList();
 	}
+	
+	@Override
+	public List<CrowdMemberRole> getCrowdMerberRole(){
+		return crowdDao.getCrowdMerberRole();
+	}
+	
+	@Override
+	public CrowdSimpleDataView getCrowdSimpleDataView() {
+	
+		return crowdDao.getCrowdSimpleDateView();
+	}
+	
 
 	@Override
+<<<<<<< HEAD
 	public List<CrowdMemberRole> getCrowdMemberRole() {
 		// TODO Auto-generated method stub
 		return crowdDao.getCrowdMemberRole();
@@ -41,4 +54,9 @@ public class MoidaCrowdService implements CrowdService {
 	}
 
 
+=======
+	public List<CrowdNotice> getNoticeList() {
+		return crowdDao.getNoticeList();
+	}
+>>>>>>> refs/remotes/origin/master
 }
