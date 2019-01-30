@@ -3,12 +3,16 @@ package com.moida.web.config;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import javax.servlet.MultipartConfigElement;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -57,6 +61,7 @@ public class ServletContextConfig implements WebMvcConfigurer{
 		return resolver;
 	}
 
+	/*
 	@Bean 
 	public CommonsMultipartResolver commonsMultipartResolver() {
 		
@@ -66,7 +71,15 @@ public class ServletContextConfig implements WebMvcConfigurer{
 		resolver.setDefaultEncoding("UTF-8");
 		
 		return resolver;
+	}  */
+
+	//test/////////////////////////////////////////
+	@Bean
+	public MultipartResolver multipartResolver() {
+	    return new StandardServletMultipartResolver();
 	}
+	//////////////////////////////////////////////
+
 	
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

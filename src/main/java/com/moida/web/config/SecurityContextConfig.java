@@ -21,11 +21,23 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
  		http.authorizeRequests()
  			.antMatchers("/admin/**")
- 			.hasAnyRole("ADMIN") 
- 			.and()
- 			.csrf()
-			.disable();
-		/*
+ 				.hasAnyRole("ADMIN") 
+ 				.and()
+			.formLogin()
+ 				.loginPage("/login")
+ 				.loginProcessingUrl("/login")
+ 				.defaultSuccessUrl("/index")
+ 				.and()	
+			.logout()
+ 				.logoutUrl("/logout")
+ 				.logoutSuccessUrl("/index")
+ 				.invalidateHttpSession(true)
+ 				.and()
+			.csrf()
+ 				.disable();
+		
+ 		
+ 		/*
 	 		http.authorizeRequests()
 		 
 			.antMatchers("/admin/**")
@@ -50,14 +62,13 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter{
 	
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		/*
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {		
 		auth
 			.jdbcAuthentication()
 				.passwordEncoder(new BCryptPasswordEncoder())
 				.dataSource(dataSource)
-				.usersByUsernameQuery("SELECT ID, PWD AS PASSWORD, 1 ENABLED FROM MEMBER WHERE ID =?")
-				.authoritiesByUsernameQuery("SELECT MEMBER_ID AS ID, ROLE_ID AS ROLEID FROM MEMBER_ROLE WHERE MEMBER_ID=?");
-		*/
+				.usersByUsernameQuery("SELECT id AS ID, pwd AS PASSWORD, 1 ENABLED FROM Member WHERE id =?")
+				.authoritiesByUsernameQuery("SELECT memberId AS ID, roleId AS ROLEID FROM MemberRole WHERE memberId=?");
+		
 	}
 }
