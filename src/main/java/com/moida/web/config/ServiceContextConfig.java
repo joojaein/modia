@@ -23,9 +23,9 @@ public class ServiceContextConfig {
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/moidadb");
+		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida");
 		dataSource.setUsername("moida");
-		dataSource.setPassword("moida123");	
+		dataSource.setPassword("moida1234");	
 		/*
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
@@ -39,16 +39,17 @@ public class ServiceContextConfig {
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
 		SqlSessionFactoryBean sqlSessionFactory= new SqlSessionFactoryBean();
-		/*
+
 		sqlSessionFactory.setDataSource(dataSource());
-		sqlSessionFactory.setMapperLocations(applicationContext.getResources("classpath:com/newlecture/web/dao/mybatis/mapper/*.xml"));
-		*/
+		sqlSessionFactory.setMapperLocations(applicationContext.getResources("classpath:com/moida/web/dao/mybatis/mapper/*.xml"));
+		
 		return sqlSessionFactory;
 	}
 	
 	@Bean
 	public SqlSessionTemplate sqlSession() throws IOException, Exception{
-		SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactoryBean().getObject());
+		SqlSessionTemplate sqlSession = 
+				new SqlSessionTemplate(sqlSessionFactoryBean().getObject());
 		return sqlSession;
 	}
 	

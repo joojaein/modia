@@ -16,8 +16,8 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class[] {
-				ServletContextConfig.class
-				//ServiceContextConfig.class,
+				ServletContextConfig.class,
+				ServiceContextConfig.class
 				//SecurityContextConfig.class
 		};
 	}
