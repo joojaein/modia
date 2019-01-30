@@ -79,12 +79,14 @@ p{
 /***************************/
 
 .group-list-flex{
+	box-sizing: content-box;
     display: unset;
     text-align: left;
     flex-flow: wrap;
 }
 
 .group-list-flex-li{
+    box-sizing: content-box !important;
     display: inline-flex;
     padding: 5px 5px;
     width: 90%;
@@ -92,8 +94,11 @@ p{
 }
 
 .group-list-flex-li img{
-    width: 150px;
+	display: block;
+	
+    box-sizing: border-box;
     height: 130px;
+    width: 40% !important;
     border-radius: 5px;
  } 
 
@@ -154,6 +159,10 @@ p{
    	.email-auth .btn{
 		font-size:12px;
 	}
+	
+	.group-list-flex-li img{
+	    width: 35% !important;
+ 	} 
 
 }
 

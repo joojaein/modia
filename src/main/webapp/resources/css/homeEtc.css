@@ -100,6 +100,26 @@
     margin-top: 15px;
 }
 
+.join .txt-id{
+	width: 70%;		
+}
+
+.join .btn-overlap{
+	width: 25%;
+	height: 23px;
+	
+	margin-left: 2%;
+	
+	border: none;
+	border-radius: 5px;
+	background: grey;
+	
+	font-size:10px;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+
 .join .email-auth{
     height: 50px;
     display: unset;

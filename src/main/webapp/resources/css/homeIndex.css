@@ -11,17 +11,7 @@
 	    "area-group";
 	margin: auto;
 }
-/*
-.area-banner{
-	width: 100%;
-	max-width: 900px;
-}
 
-.area-banner img{
-	width: 95%;
-	margin: 15px 0px;
-}
-*/
 .area-banner{
 	width: 100%;
 	max-width: 900px;
@@ -121,7 +111,6 @@
 }
 
 .area-group{
-	width: 100%;
 	max-width: 900px;
 }
 

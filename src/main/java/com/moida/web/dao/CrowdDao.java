@@ -12,4 +12,7 @@ public interface CrowdDao {
 		public List<CrowdMemberRole> getCrowdMerberRole();
 		public CrowdSimpleDataView getCrowdSimpleDateView();
 		public List<CrowdNotice> getNoticeList();
+		List<CrowdSimpleDataView> getSimpleList();
+		
+		
 }

@@ -17,6 +17,7 @@ import com.moida.web.service.CrowdService;
 
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
+<<<<<<< HEAD
 public class CrowdController {
 	
 	@Autowired
@@ -25,6 +26,9 @@ public class CrowdController {
 	@Autowired
 	public CrowdService crowdService;
 	
+=======
+public class CrowdController {
+>>>>>>> refs/remotes/origin/master
 	@RequestMapping("notice")
 	public String notice(Model model) {		
 	
@@ -70,6 +74,10 @@ public class CrowdController {
 		model.addAttribute("href","createCategory");
 		model.addAttribute("title",title);
 		return "crowd.create";
+<<<<<<< HEAD
 	}
 
+=======
+	}
+>>>>>>> refs/remotes/origin/master
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+${}, #{} : com.newlecture.web.entity.Notice 의 getter 
+values( ${title}, #{content} ) => values(hello, 'hello');
+ -> values( '${title}', #{content} )
+
+${} 의 일반적인 사용
+where ${field} = #{query}  => where title = 'hello'
+-->
+
+<mapper namespace="com.moida.web.dao.MemberDao">
+
+
+	<insert id="insert" parameterType="com.moida.web.entity.Member">
+		insert into Member(id, pwd, name, areaSido, email, birth, gender, msg, img)
+		values(#{id},#{pwd},#{name},#{areaSido},#{email},#{birth},#{gender},#{msg},#{img})
+	</insert>
+	
+	<insert id="insertRole" parameterType="com.moida.web.entity.MemberRole">
+		insert into MemberRole(memberId, roleId) values(#{memberId},#{roleId})
+	</insert>
+	
+	<select id="getMemberList" resultType="com.moida.web.entity.Member">
+		select * from Member
+		where id=#{id}
+	</select>
+	
+	<!-- 
+	<insert id="insert" resultType="com.moida.web.entity.Member">
+		select * from Member;
+	</insert> -->
+	<!-- 
+	insert into Member(id, pwd, name, areaSido, email, birth, gender, msg, img) values('test1','1234','test1','서울특별시',
+'test@naver.com','20000101',1,'','');
+
+ 	-->
+	<!-- 
+	<select id="getViewList" resultType="com.newlecture.web.entity.NoticeView">
+		select * from Notice_View
+		where ${field} like '%${query}%'
+		and num between #{page}*10-9 and #{page}*10
+	</select>
+	
+	<select id="getList" resultType="com.newlecture.web.entity.Notice">
+		select id, title, content, writer_id as writerId, regdate, hit from Notice
+	</select>
+	
+	<select id="getNoticeView" resultType="com.newlecture.web.entity.NoticeView">
+		select * from Notice_View 
+		where id=#{param1}
+	</select>
+	
+	<select id="getNotice" resultType="com.newlecture.web.entity.Notice">
+		select id, title, content, writer_id as writerId, regdate, hit from Notice
+		where id=#{param1}
+	</select>
+	
+	<insert id="insert" parameterType="com.newlecture.web.entity.Notice">
+		insert into Notice(id, title, content, writer_Id) 
+		values(NOTICE_SEQ.NEXTVAL, #{title}, #{content}, #{writerId})
+		
+
+		
+	</insert>
+	
+	<update id="update" parameterType="com.newlecture.web.entity.Notice">
+		update Notice
+		set title=#{title}, 
+			content=#{content},
+			writer_id=#{writerId},
+			hit=#{hit}
+		where id=#{id}
+	</update>
+	
+	 -->
+</mapper>

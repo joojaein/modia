@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/security/tags" %> 
+
 <header>
 	<link href="/resources/css/mainHeader.css" type="text/css" rel="stylesheet" />
     <script src="/resources/js/mainHeader.js"> </script>
@@ -13,16 +15,49 @@
     </div>
     <div id="headerMenus">
             <a class="fwb fs11" href="">Q&amp;A</a>
-            <span class="fs11" >|</span>
-            <a class="fwb fs11" href="/join">회원가입</a>
+            <span class="fs11" >|</span>         
+    		<s:authorize access="isAnonymous()">
+           		<a class="fwb fs11" href="/join">회원가입</a>
+			</s:authorize>
+			<s:authorize access="isAuthenticated()">
+           		<a class="fwb fs11" href="/member/index">마이페이지</a>
+			</s:authorize>
             <span class="fs11">|</span>
-            <a class="fwb fs11" href="/login">로그인</a>
+            <s:authorize access="isAnonymous()">
+            	<a class="fwb fs11" href="/login">로그인</a>
+			</s:authorize>
+			<s:authorize access="isAuthenticated()">
+            	<a class="fwb fs11" href="/logout">로그아웃</a>
+			</s:authorize>
     </div>
     
    	<div class="back"></div>
     <div class="modal">
-            <input class="fwb fs18 btn" type="button" value="로그인" name="login"><br/>
-            <input class="fwb fs18 btn" type="button" value="회원가입" name="join"><hr class="hr-dot"/>
+            <s:authorize access="isAnonymous()">
+            	<input class="fwb fs18 btn" type="button" value="로그인" name="login"><br/>
+			</s:authorize>
+			<s:authorize access="isAuthenticated()">
+           		<input class="fwb fs18 btn" type="button" value="로그아웃" name="logout"><br/>
+			</s:authorize>
+			
+            <s:authorize access="isAnonymous()">
+            	<input class="fwb fs18 btn" type="button" value="회원가입" name="join"><hr class="hr-dot"/>
+			</s:authorize>
+			<s:authorize access="isAuthenticated()">
+            	<input class="fwb fs18 btn" type="button" value="마이페이지" name="member/index"><hr class="hr-dot"/>
+			</s:authorize>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <input class="fwb fs18 btn" type="button" value="홈" name="index"><br/>
             <input class="fwb fs18 btn" type="button" value="카테고리" name="search"><hr class="hr-dot"/>
             <input class="fwb fs18 btn" type="button" value="자주 묻는 질문" name="qna"><br/>

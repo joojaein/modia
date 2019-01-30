@@ -3,14 +3,14 @@
 <main>
 	<link href="/resources/css/homeEtc.css" type="text/css" rel="stylesheet" />
     <script src="/resources/js/homeJoin.js"> </script>
-    
 	<h1 class="etc-logo"><a href="/index">MOIDA</a></h1>
-	<div class="left join">
-	
-		<input type="text" placeholder="ID"></br>
-		<input type="password" placeholder="비밀번호"></br>
-		<input type="password" placeholder="비밀번호 재확인"></br>
-		<input type="text" placeholder="이름"></br>
+	<div class="left join">	
+		<input class="txt txt-id" type="text" placeholder="ID">
+		<input class="btn btn-overlap" type="button" value="중복확인"><br/>
+
+		<input class="txt-pw" type="password" placeholder="비밀번호"></br>
+		<input class="txt-rpw" type="password" placeholder="비밀번호 재확인"></br>
+		<input class="txt-name" type="text" placeholder="이름"></br>
 
 		<div class="email-auth">	
 			<input class="txt txt-email" type="text" placeholder="이메일">
@@ -26,8 +26,8 @@
 			</div>
 			<div class="div-gender">
 				<ul>
-					<li class="li-gender"><div>남자</div><input type="radio" name="radio-gender"></li>
-					<li class="li-gender"><div>여자</div><input type="radio" name="radio-gender"></li>
+					<li class="li-gender"><div>남자</div><input class="radio-male" type="radio" name="radio-gender"></li>
+					<li class="li-gender"><div>여자</div><input class="radio-female" type="radio" name="radio-gender"></li>
 				</ul>
 			</div>
 		</div>

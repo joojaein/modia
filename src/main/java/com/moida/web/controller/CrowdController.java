@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moida.web.dao.CrowdDao;
 import com.moida.web.entity.Crowd;
@@ -14,6 +15,9 @@ import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.service.CrowdService;
 import com.moida.web.service.CrowdSimpleDataView;
 
+import com.moida.web.entity.Category;
+import com.moida.web.entity.CategoryView;
+import com.moida.web.service.CategoryService;
 
 
 @Controller("crowd")
@@ -26,6 +30,9 @@ public class CrowdController {
 	@Autowired
 	public CrowdService crowdService;
 	
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@RequestMapping("main")
 	public String index(Model model) {
@@ -40,11 +47,21 @@ public class CrowdController {
 	}
 	
 	@RequestMapping("categorySearch")
-	public String categorySearch() {
+	public String categorySearch(Model model) {
+		
+		List<Category> list = categoryService.getCategoryList();
+		List<CategoryView> categoryViewList = categoryService.getCategoryViewList(); 
+		
+		model.addAttribute("list",list);
+		model.addAttribute("cvl",categoryViewList);
+		
+		
 		return "crowd.categorySearch";
 	}
 	@RequestMapping("search")
-	public String search() {
+	public String search(Model model) {
+		List<Category> list = categoryService.getCategoryList();
+		model.addAttribute("list",list);
 		return "crowd.search";
 	}
 }

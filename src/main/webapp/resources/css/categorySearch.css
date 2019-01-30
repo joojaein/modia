@@ -2,6 +2,11 @@ body{
     margin: 0;
     padding: 0;
 }
+.category-list a{
+	display:block;
+	width:100%;
+	height:100%;
+}
 main{
 	font-size : 16px !important;
 }
@@ -49,60 +54,77 @@ main{
     color: white;
     transform: scale(1.02);
 }
-
-.outdoor{
-    background: url("/resources/images/mainIcon/backpack.png") no-repeat center;
+.category-list div:nth-child(1) div{
+	background : url("/resources/images/mainIcon/backpack.png");
+    background-size: cover;
 }
-.sport{
+.category-list div:nth-child(2) div{
     background: url("/resources/images/mainIcon/balls.png") no-repeat center;
+    background-size: cover;
 }
-.book{
+.category-list div:nth-child(3) div{
     background: url("/resources/images/mainIcon/books.png") no-repeat center;
+    background-size: cover;
 }
-.language{
+.category-list div:nth-child(4) div{
     background: url("/resources/images/mainIcon/cubes.png") no-repeat center;
+    background-size: cover;
 }
-.festival{
+.category-list div:nth-child(5) div{
     background: url("/resources/images/mainIcon/tickets.png") no-repeat center;
+    background-size: cover;
 }
-.music{
+.category-list div:nth-child(6) div{
     background: url("/resources/images/mainIcon/piano.png") no-repeat center;
+    background-size: cover;
 }
-.making{
+.category-list div:nth-child(7) div{
     background: url("/resources/images/mainIcon/yarn.png") no-repeat center;
+    background-size: cover;
 }
-.dance{
+.category-list div:nth-child(8) div{
     background: url("/resources/images/mainIcon/ballerina.png") no-repeat center;
+    background-size: cover;
 }
-.volunteer{
+.category-list div:nth-child(9) div{
     background: url("/resources/images/mainIcon/heart.png") no-repeat center;
+    background-size: cover;
 }
-.sociality{
+.category-list div:nth-child(10) div{
     background: url("/resources/images/mainIcon/small-talk.png") no-repeat center;
+    background-size: cover;
 }
-.car{
+.category-list div:nth-child(11) div{
     background: url("/resources/images/mainIcon/car.png") no-repeat center;
+    background-size: cover;
 }
-.picture{
+.category-list div:nth-child(12) div{
     background: url("/resources/images/mainIcon/photo-camera.png") no-repeat center;
+    background-size: cover;
 }
-.baseball{
+.category-list div:nth-child(13) div{
     background: url("/resources/images/mainIcon/baseball-field.png") no-repeat center;
+    background-size: cover;
 }
-.game{
+.category-list div:nth-child(14) div{
     background: url("/resources/images/mainIcon/game-controller.png") no-repeat center;
+    background-size: cover;
 }
-.cooking{
+.category-list div:nth-child(15) div{
     background: url("/resources/images/mainIcon/cooking.png") no-repeat center;
+    background-size: cover;
 }
-.dog{
+.category-list div:nth-child(16) div{
     background: url("/resources/images/mainIcon/dog.png") no-repeat center;
+    background-size: cover;
 }
-.familiy{
+.category-list div:nth-child(17) div{
     background: url("/resources/images/mainIcon/family.png") no-repeat center;
+	background-size: cover;
 }
-.free{
+.category-list div:nth-child(18) div{
     background: url("/resources/images/mainIcon/puzzle.png") no-repeat center;
+    background-size: cover;
 }
 @media (min-width:800px){
 	main{
@@ -142,28 +164,28 @@ main{
         0%{transform:scale(0)}
         100%{transform:scale(1)}
     }
-    .category-list div:hover aside:nth-child(2){
+    .category-list div:hover aside:nth-child(3){
         display: block;
         left: 102.5%;
         z-index: -1;
         top: 2.5%;
         animation: scale .2s linear forwards;
     }
-    .category-list div:hover aside:nth-child(3){
+    .category-list div:hover aside:nth-child(4){
         display: block;
         top: 102.5%;
         z-index: -1;
         left: 2.5%;
         animation: scale .2s linear forwards .1s;
     }
-    .category-list div:hover aside:nth-child(4){
+    .category-list div:hover aside:nth-child(5){
         display: block;
         right: 102.5%;
         z-index: -1;
         top: 2.5%;
         animation: scale .2s linear forwards .2s;
     }
-    .category-list div:hover aside:nth-child(5){
+    .category-list div:hover aside:nth-child(6){
         display: block;
         bottom: 102.5%;
         z-index: -1;
@@ -187,6 +209,9 @@ main{
         line-height: 50px;
         transform: rotate(-45deg) translate3d(-35px,160%,0);
     }
+    .category-list div:hover > span a{
+    color : white;
+     }
     .category-list div:hover div{
         transform:  rotate(-45deg) translateY(-20%) scale(1.1);
     }
@@ -209,6 +234,17 @@ main{
         width: 100%;
         height: 100%;
     }
+    .category-list div:nth-child(12) aside:nth-child(3) span{
+    transform: translate3d(0,87%,0) rotate(-45deg);
+    line-height: 50px;
+    width: 100%;
+}
+    .category-list div:nth-child(11) aside:nth-child(5) span{
+    transform: translate3d(0,87%,0) rotate(-45deg);
+    line-height: 50px;
+    width: 100%;
+}
+    
 }
 @media(min-width:480px) and (max-width:800px){
     .category-list{

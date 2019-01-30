@@ -14,5 +14,7 @@ public interface CrowdService {
 	
 
 	List<CrowdNotice> getNoticeList();
+	List<CrowdSimpleDataView> getSimpleList();
+	
 	
 }
