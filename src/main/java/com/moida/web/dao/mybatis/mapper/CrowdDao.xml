@@ -3,11 +3,11 @@
 
 <mapper namespace="com.moida.web.dao.CrowdDao">
 
-<select id = "getList" resultType="com.moida.web.entity.CrowdMemberRole">
+<select id = "getCrowdMemberRole" resultType="com.moida.web.entity.CrowdMemberRole">
  select * from crowdmemberRole cmr left join (select id as uid , msg from Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and 2 >= cmr.groupRole
 </select>
 
-<select id = "getCrowdSimpleDataView" resultType="com.moida.web.entity.CrowdMemberRole">
+<select id = "getCrowdSimpleDataView" resultType="com.moida.web.entity.CrowdSimpleDataView">
  select * from CrowdSimpleDataView where id = 5
 </select>
 

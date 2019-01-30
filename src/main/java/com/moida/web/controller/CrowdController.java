@@ -7,17 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.moida.web.dao.CrowdDao;
-import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdMemberRole;
-import com.moida.web.service.CrowdService;
-import com.moida.web.service.CrowdSimpleDataView;
+import com.moida.web.entity.CrowdSimpleDataView;
+
 
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
 import com.moida.web.service.CategoryService;
+import com.moida.web.service.CrowdService;
 
 
 @Controller("crowd")
@@ -36,7 +34,7 @@ public class CrowdController {
 	
 	@RequestMapping("main")
 	public String index(Model model) {
-		List<CrowdMemberRole> list = crowdService.getCrowdMerberRole();
+		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole();
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView();
 		
 //		CrowdDao crowdDao = session.getMapper(CrowdDao.class);

@@ -10,7 +10,7 @@ public class CrowdMemberRole {
 	private String areaSigungu;
 	private String ageMin;
 	private String ageMax;
-	private String gender;
+	private int gender;
 	private int maxPerson;
 	private String img;
 	private int categoryId;
@@ -22,11 +22,10 @@ public class CrowdMemberRole {
 	private String uid;
 	private String msg;
 	public CrowdMemberRole() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 	public CrowdMemberRole(int id, String name, String content, String areaSido, String areaSigungu, String ageMin,
-			String ageMax, String gender, int maxPerson, String img, int categoryId, String leaderId, Date regDate,
+			String ageMax, int gender, int maxPerson, String img, int categoryId, String leaderId, Date regDate,
 			String memberId, int crowdId, int groupRole, String uid, String msg) {
 		super();
 		this.id = id;
@@ -90,10 +89,10 @@ public class CrowdMemberRole {
 	public void setAgeMax(String ageMax) {
 		this.ageMax = ageMax;
 	}
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 	public int getMaxPerson() {
@@ -164,5 +163,5 @@ public class CrowdMemberRole {
 				+ ", regDate=" + regDate + ", memberId=" + memberId + ", crowdId=" + crowdId + ", groupRole="
 				+ groupRole + ", uid=" + uid + ", msg=" + msg + "]";
 	}
-
+	
 }

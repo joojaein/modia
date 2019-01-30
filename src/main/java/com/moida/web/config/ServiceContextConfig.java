@@ -33,11 +33,7 @@ public class ServiceContextConfig {
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-<<<<<<< HEAD
-		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida");
-=======
 		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida?useUnicode=true&characterEncoding=utf8");
->>>>>>> refs/remotes/origin/master
 		dataSource.setUsername("moida");
 		dataSource.setPassword("moida1234");	
 
