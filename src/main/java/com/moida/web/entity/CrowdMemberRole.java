@@ -2,26 +2,32 @@ package com.moida.web.entity;
 
 import java.util.Date;
 
-public class Crowd {
+public class CrowdMemberRole {
 	private int id;
 	private String name;
 	private String content;
 	private String areaSido;
 	private String areaSigungu;
-	private int ageMin;
-	private int ageMax;
+	private String ageMin;
+	private String ageMax;
 	private String gender;
 	private int maxPerson;
 	private String img;
 	private int categoryId;
 	private String leaderId;
 	private Date regDate;
-	public Crowd() {
-
+	private String memberId;
+	private int crowdId;
+	private int groupRole;
+	private String uid;
+	private String msg;
+	public CrowdMemberRole() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Crowd(int id, String name, String content, String areaSido, String areaSigungu, int ageMin, int ageMax,
-			String gender, int maxPerson, String img, int categoryId, String leaderId, Date regDate) {
+	public CrowdMemberRole(int id, String name, String content, String areaSido, String areaSigungu, String ageMin,
+			String ageMax, String gender, int maxPerson, String img, int categoryId, String leaderId, Date regDate,
+			String memberId, int crowdId, int groupRole, String uid, String msg) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -36,6 +42,11 @@ public class Crowd {
 		this.categoryId = categoryId;
 		this.leaderId = leaderId;
 		this.regDate = regDate;
+		this.memberId = memberId;
+		this.crowdId = crowdId;
+		this.groupRole = groupRole;
+		this.uid = uid;
+		this.msg = msg;
 	}
 	public int getId() {
 		return id;
@@ -67,16 +78,16 @@ public class Crowd {
 	public void setAreaSigungu(String areaSigungu) {
 		this.areaSigungu = areaSigungu;
 	}
-	public int getAgeMin() {
+	public String getAgeMin() {
 		return ageMin;
 	}
-	public void setAgeMin(int ageMin) {
+	public void setAgeMin(String ageMin) {
 		this.ageMin = ageMin;
 	}
-	public int getAgeMax() {
+	public String getAgeMax() {
 		return ageMax;
 	}
-	public void setAgeMax(int ageMax) {
+	public void setAgeMax(String ageMax) {
 		this.ageMax = ageMax;
 	}
 	public String getGender() {
@@ -115,13 +126,43 @@ public class Crowd {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	public int getCrowdId() {
+		return crowdId;
+	}
+	public void setCrowdId(int crowdId) {
+		this.crowdId = crowdId;
+	}
+	public int getGroupRole() {
+		return groupRole;
+	}
+	public void setGroupRole(int groupRole) {
+		this.groupRole = groupRole;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 	@Override
 	public String toString() {
-		return "Crowd [id=" + id + ", name=" + name + ", content=" + content + ", areaSido=" + areaSido
+		return "CrowdMemberRole [id=" + id + ", name=" + name + ", content=" + content + ", areaSido=" + areaSido
 				+ ", areaSigungu=" + areaSigungu + ", ageMin=" + ageMin + ", ageMax=" + ageMax + ", gender=" + gender
 				+ ", maxPerson=" + maxPerson + ", img=" + img + ", categoryId=" + categoryId + ", leaderId=" + leaderId
-				+ ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + ", memberId=" + memberId + ", crowdId=" + crowdId + ", groupRole="
+				+ groupRole + ", uid=" + uid + ", msg=" + msg + "]";
 	}
-
 
 }

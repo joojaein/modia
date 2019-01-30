@@ -1,31 +1,39 @@
-package com.moida.web.service;
+package com.moida.web.dao.mybatis;
 
 import java.util.List;
 
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.moida.web.dao.CategoryDao;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
 
-@Service
-public class MoidaCategoryService implements CategoryService {
+@Repository
+public class MybatisCategoryDao implements CategoryDao {
 
-	@Autowired
-	private CategoryDao categoryDao;
-
-
+	@Autowired 
+	 private SqlSessionTemplate session;
+	 
+	
 	@Override
 	public List<Category> getCategoryList() {
-		// TODO Auto-generated method stub
+		
+		CategoryDao categoryDao = session.getMapper(CategoryDao.class);
+		
 		return categoryDao.getCategoryList();
 	}
 
+
 	@Override
 	public List<CategoryView> getCategoryViewList() {
-		// TODO Auto-generated method stub
+		
+		CategoryDao categoryDao = session.getMapper(CategoryDao.class);
+		
 		return categoryDao.getCategoryViewList();
 	}
+
 
 }

@@ -4,6 +4,7 @@
 <main>
 <link href="/resources/css/groupMain.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/rprtmodal.js"> </script>
+
 <div class="wrapper">
 	<section class="main-head">
 		<nav>
@@ -32,34 +33,58 @@
 			<img src="../../../resources/images/twice.jpg">
 		</div>
 	</article>
+	
 	<section class="group-info">
 		<div class="info-box">
 			<img class="group-logo" src="../../../resources/images/mountains.png" />
-			<span>모임명</span>
+			<span>${crowd.name}</span>
 		</div>
 		<div class="info">
 			<span>today 1</span> <span>total 1</span>
 		</div>
 	</section>
+	
 	<article class="content">
 		<p>
-			캠핑캠핑에 오신것을 환영합니다<br> 블라블라~~~<br> 공지를 필독 해주세요!<br> <br>
-			<span>가입조건:</span> 나이: 20 성별: 모두 지역: 서울 전체
+			${crowd.content}<br> <br>
+			<span>가입조건:</span> 
+			나이: ${crowd.ageMin} ~ ${crowd.ageMax}
+			<c:choose>
+			 <c:when test="${crowd.gender == 0}">
+			성별: 남성
+			</c:when>
+			<c:when test="${crowd.gender == 1}">
+			성별: 남성
+			</c:when>
+			<c:otherwise>
+			성별: 모두
+			</c:otherwise>
+			</c:choose> 
+			지역: ${crowd.areaSido}
 		</p>
 	</article>
 	<section class="content-comment">
 		<input class="join" type="button" value="가입하기" />
 		<hr />
-		<div class="comment-sum">모임멤버 10/20명</div>
+		<div class="comment-sum">모임멤버 ${crowd.nowPerson}/ ${crowd.maxPerson}명</div>
 		<hr />
+		<c:forEach var="n" items="${crowd}">
 		<div class="profile-box">
 			<div class="comment-photo"></div>
 			<div class="profile-info">
-				<span class="name">이름</span> <span class="name">가입인사</span>
+				<span class="name">${n.memberId}</span> <span class="name">${n.msg}</span>
 			</div>
-			<div class="grade">계급</div>
+			<c:choose>
+			<c:when test="${n.groupRole == 0}">
+			<div class="grade">모임장</div>
+			</c:when>
+			<c:when test="${n.groupRole == 1}">
+			<div class="grade">운영진</div>
+			</c:when>
+			</c:choose>
 		</div>
 		<hr />
+	</c:forEach>
 	</section>
 	</main>
 	<a id="MOVE_BACK_BTN" href="#">목록으로</a>

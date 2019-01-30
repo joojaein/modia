@@ -1,17 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <main>
     <link rel="stylesheet" type="text/css" media="screen" href="/resources/css/categorySearch.css" />
         <section class="category-list">
+           	<c:forEach var="category" items="${list}">
             <div>
-                <div class="outdoor"></div>
-                <aside><span>아웃도어태그</span></aside>
-                <aside><span>아웃도어태그</span></aside>
-                <aside><span>아웃도어태그</span></aside>
-                <aside><span>아웃도어태그</span></aside>
-                <span>아웃도어/여행</span>
+            	<div><a href="main"></a></div>
+                <span><a href="main">${category.name}</a></span>
+                <c:forEach var="cvl" items="${cvl}">
+                <c:if test="${cvl.categoryId==category.id}">
+                <aside><a href="main"><span>${cvl.name}</span></a></aside>
+                </c:if>
+                </c:forEach>
             </div>
-            <div>
+            </c:forEach>
+            <!-- <div>
                 <div class="sport"></div>
                 <aside><span>아웃도어태그</span></aside>
                 <aside><span>아웃도어태그</span></aside>
@@ -146,6 +150,7 @@
                 <aside><span>아웃도어태그</span></aside>
                 <aside><span>아웃도어태그</span></aside>
                 <span>자유주제</span>
-            </div>
+            </div> -->
+  
         </section>
     </main>

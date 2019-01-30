@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
     <link rel="stylesheet" type="text/css" media="screen" href="/resources/css/search.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -60,50 +61,15 @@
             <nav class="category-list-container">
                 <div class="category-list">
                     <ul class="category-main-ul">
-                        <li><a href="#" class="calist">전체</a></li>
-                        <li><a href="#" data-id="outdoor" class="calist">아웃도어/여행</a>
-                            <ul data-id="outdoor">
-                                <li><a href="#">전체</a></li>
-                                <li><a href="#">책/독서</a></li>
-                                <li><a href="#">인문학</a></li>
-                                <li><a href="#">심리학</a></li>
-                                <li><a href="#">철학</a></li>
-                                <li><a href="#">역사</a></li>
-                                <li><a href="#">시사/경제</a></li>
-                                <li><a href="#">작문/글쓰기</a></li>
-                                <li><a href="#">기타</a></li>
+                        <c:forEach var="category" items="${list}">
+                        <li><a href="#" data-id="${category.id}" class="calist">${category.name}</a>
+                            <ul data-id="${category.id}">
+                            	<c:if test="${category.id}">
+                                	<li><a href="#">전체</a></li>
+                                </c:if>
                             </ul>
                         </li>
-                        <li><a href="#" data-id="sport" class="calist">운동/스포츠</a>
-                            <ul data-id="sport">
-                                <li><a href="#">전체</a></li>
-                                <li><a href="#">축구</a></li>
-                                <li><a href="#">농구</a></li>
-                                <li><a href="#">심리학</a></li>
-                                <li><a href="#">철학</a></li>
-                                <li><a href="#">역사</a></li>
-                                <li><a href="#">시사/경제</a></li>
-                                <li><a href="#">작문/글쓰기</a></li>
-                                <li><a href="#">기타</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" data-id="book" class="calist">인문학/책/글</a>
-                            <ul data-id="book">
-
-                            </ul>
-                        </li>
-                        <li><a href="#" data-id="lang" class="calist">외국/언어</a>
-                            <ul data-id="lang">
-
-                            </ul>
-                        </li>
-                        <li><a href="#" class="calist">문화</a></li>
-                        <li><a href="#" class="calist">문화</a></li>
-                        <li><a href="#" class="calist">문화</a></li>
-                        <li><a href="#" class="calist">문화</a></li>
-                        <li><a href="#" class="calist">문화</a>
-
-                        </li>
+                        </c:forEach>
                     </ul>
                     <div class="indicator" id="bar"></div>
                     <div class="sebu">
@@ -118,18 +84,9 @@
                     <div>전체</div>
                 </div>
                 <div class="grid-category">
-                    <div>아웃도어/여행</div>
-                    <div>운동/스포츠</div>
-                    <div>인문학/책/글</div>
-                    <div>외국/언어</div>
-                    <div>문화/공연/축제</div>
-                    <div>음악/악기</div>
-                    <div>공예/만들기</div>
-                    <div>댄스/무용</div>
-                    <div>봉사활동</div>
-                    <div>차/오토바이</div>
-                    <div>사진/영상</div>
-                    <div>야구관람</div>
+                 <c:forEach var="category" items="${list}">
+                    <div>${category.name}</div>
+                  </c:forEach>
                 </div>
             </div>
             <nav>
