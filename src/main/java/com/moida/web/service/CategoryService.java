@@ -9,4 +9,5 @@ public interface CategoryService {
 	
 	List<Category> getCategoryList();
 	List<CategoryView> getCategoryViewList();
+
 }

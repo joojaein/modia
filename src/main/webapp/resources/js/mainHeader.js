@@ -1,10 +1,14 @@
 window.addEventListener("load",function(){
     
     var header = document.querySelector("header");
+    var inputSearch = header.querySelector("#headerSearch input");
     var hamburger = header.querySelector("#headerMenu input");
     var back = header.querySelector(".back");
     var modal = header.querySelector(".modal");
    
+    inputSearch.onclick = function(){
+    	window.location.href = "crowd/search";
+    };
 
     var modalShow = function(){
         modal.classList.add("show")
@@ -32,7 +36,7 @@ window.addEventListener("load",function(){
         modal.addEventListener("transitionend", function() {
         	// //input의 이름을 통해 동작하는 부분 입력
             if(btnName=="search"){
-            	
+            	window.location.href = "/crowd/categorySearch";
             }else if(btnName=="question"){
             	
             }else if(btnName=="qna"){

@@ -10,11 +10,12 @@ import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
 
 @Service
-public class CrowdCategoryService implements CategoryService {
-	
+public class MoidaCategoryService implements CategoryService {
+
 	@Autowired
 	private CategoryDao categoryDao;
-	
+
+
 	@Override
 	public List<Category> getCategoryList() {
 		// TODO Auto-generated method stub

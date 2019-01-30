@@ -24,7 +24,6 @@ import com.google.gson.JsonParser;
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
-
 	@RequestMapping("notice")
 	public String notice() {		
 

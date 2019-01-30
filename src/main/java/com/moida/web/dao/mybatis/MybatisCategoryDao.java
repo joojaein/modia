@@ -35,4 +35,5 @@ public class MybatisCategoryDao implements CategoryDao {
 		return categoryDao.getCategoryViewList();
 	}
 
+
 }
