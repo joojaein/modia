@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-//@Configuration
+@Configuration
 @ComponentScan(basePackages= {"com.moida.web.dao","com.moida.web.service"}) 
 public class ServiceContextConfig {
 	
@@ -33,28 +33,21 @@ public class ServiceContextConfig {
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:46603/moida");
+		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida");
 		dataSource.setUsername("moida");
 		dataSource.setPassword("moida1234");	
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> refs/remotes/origin/master
 		return dataSource;
 	} 
 
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
 		SqlSessionFactoryBean sqlSessionFactory= new SqlSessionFactoryBean();
-<<<<<<< HEAD
 
-=======
 		
 		sqlSessionFactory.setDataSource(dataSource());
 		sqlSessionFactory.setMapperLocations(applicationContext.getResources("classpath:com/moida/web/dao/mybatis/mapper/*.xml"));
-		
->>>>>>> refs/remotes/origin/master
+
 		return sqlSessionFactory;
 	}
 	
