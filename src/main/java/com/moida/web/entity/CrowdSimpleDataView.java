@@ -16,7 +16,7 @@ public class CrowdSimpleDataView {
 	private int categoryId;
 	private String leaderId;
 	private Date regDate;
-	private String nowPerson;
+	private int nowPerson;
    
 	public CrowdSimpleDataView() {
 		// TODO Auto-generated constructor stub
@@ -24,7 +24,7 @@ public class CrowdSimpleDataView {
 
 	public CrowdSimpleDataView(int id, String name, String content, String areaSido, String areaSigungu, String ageMin,
 			String ageMax, int gender, int maxPerson, String img, int categoryId, String leaderId, Date regDate,
-			String nowPerson) {
+			int nowPerson) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -146,11 +146,11 @@ public class CrowdSimpleDataView {
 		this.regDate = regDate;
 	}
 
-	public String getNowPerson() {
+	public int getNowPerson() {
 		return nowPerson;
 	}
 
-	public void setNowPerson(String nowPerson) {
+	public void setNowPerson(int nowPerson) {
 		this.nowPerson = nowPerson;
 	}
 	
