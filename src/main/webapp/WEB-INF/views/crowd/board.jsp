@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <main>
 <link href="/resources/css/groupboard.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupsearch.css" type="text/css" rel="stylesheet" />
@@ -47,22 +48,24 @@
 				<div class="icon">
 					<img src="../../../resources/images/Magnifying.png" />
 				</div>
-				<div class="field">
+				<div class="field"> 
 					<input type="search" placeholder="검색" />
 				</div>
 			</div>
 			</div>
 </section>
+	<c:forEach var="b" items="${blist}">
 	<article class="content">
 		<div class="profile-box">
 			<div class="photo"></div>
 			<div class="profile-info">
-				<span class="name">이름</span> <span class="reg-write">2019-01-19</span>
+				<span class="name">${b.writerId}</span> <span class="reg-write">${b.regDate}</span>
 			</div>
 		</div>
-		<div class="content-title">가입시 필독 해주세요!</div>
-		<p style="margin: 0;">가입시 자기소개 양식을 지켜 가입인사를 해주세요~ 1. 이름…</p>
+		<div class="content-title">${b.title}</div>
+		<p style="margin: 0;">${b.content}</p>
 	</article>
+	</c:forEach>
 	<article class="preview">
 		<div>
 			<span>조회수</span> <span>댓글수</span>

@@ -11,7 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.moida.web.entity.CrowdBoard;
+import com.moida.web.entity.CrowdNotice;
 import com.moida.web.service.CrowdService;
 
 
@@ -29,11 +30,15 @@ public class CrowdController {
 	@RequestMapping("notice")
 	public String notice(Model model) {		
 	
+		List<CrowdNotice> list = crowdService.getNoticeList();
+		model.addAttribute("list", list);
 		return "crowd.notice";
 	}
 	
 	@RequestMapping("board")
-	public String board() {		
+	public String board(Model model) {
+		List<CrowdBoard> boardlist = crowdService.getBoardList();
+		model.addAttribute("blist", boardlist);
 		
 		return "crowd.board";
 	}
@@ -72,5 +77,9 @@ public class CrowdController {
 		model.addAttribute("title",title);
 		return "crowd.create";
 
+
+
+
 	}
 }
+

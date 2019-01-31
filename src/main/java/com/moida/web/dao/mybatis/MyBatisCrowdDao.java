@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.moida.web.dao.CrowdDao;
-import com.moida.web.entity.Crowd;
+import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
@@ -20,12 +20,12 @@ public class MyBatisCrowdDao implements CrowdDao{
 	
 	
 	@Override
-	public List<CrowdMemberRole> getCrowdMerberRole() 
+	public List<CrowdMemberRole> getCrowdMemberRole() 
 	{
 		// TODO Auto-generated method stub
 		CrowdDao memberDao = session.getMapper(CrowdDao.class);
 		
-		return memberDao.getCrowdMerberRole();
+		return memberDao.getCrowdMemberRole();
 	}
 
 
@@ -39,10 +39,10 @@ public class MyBatisCrowdDao implements CrowdDao{
 
 
 	@Override
-	public CrowdSimpleDataView getCrowdSimpleDateView() {
+	public CrowdSimpleDataView getCrowdSimpleDataView() {
 		// TODO Auto-generated method stub
 		CrowdDao memberDao = session.getMapper(CrowdDao.class);
-		return memberDao.getCrowdSimpleDateView();
+		return memberDao.getCrowdSimpleDataView();
 	}
 
 
@@ -51,6 +51,14 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		System.out.println("com.moida.web.dao.mybatis.MyBatisCrowd - List<CrowdSimpleDataView> getSimpleList()");
 		return crowdDao.getSimpleList();
+	}
+
+
+	@Override
+	public List<CrowdBoard> getBoradList() {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getBoradList();
 	}
 
 

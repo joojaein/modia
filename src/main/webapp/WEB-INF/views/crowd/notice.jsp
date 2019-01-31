@@ -29,18 +29,22 @@
 		</nav>
 	</section>
 	<article class="content">
+	<c:forEach var="n" items="${list}">
 		<div class="profile-box">
 			<div class="photo"></div>
 			<div class="profile-info">
-				<span class="name">이름</span> <span class="reg-write">2019-01-19</span>
+				<span class="name">${n.writerId}</span> <span class="reg-write">${n.regDate}</span>
 			</div>
 		</div>
-		<div class="content-title">가입시 필독 해주세요!</div>
-		<p style="margin: 0;">가입시 자기소개 양식을 지켜 가입인사를 해주세요~ 1. 이름…</p>
+		<div class="content-title">${n.title}</div>
+		<p style="margin: 0;">${n.content}</p>
+	</c:forEach>
 	</article>
 	<article class="preview">
-		<span>조회수</span> <span>댓글수</span> <span><img
+	<c:forEach var="n" items="${list}">
+		<span>조회수  ${n.hit}</span> <span>댓글수</span> <span><img
 			src="../../../resources/images/twice.jpg" alt=""></span>
+	</c:forEach>
 	</article>
 </div>
 <hr />

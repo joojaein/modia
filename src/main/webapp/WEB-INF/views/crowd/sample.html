@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+   <dl>
+       <dt>회원이름</dt><dd id="name"></dd>
+       <dt>이메일</dt><dd id="email"></dd>
+       <dt>연락처</dt><dd id="phone"></dd>
+    </dl>
+    <script>   
+   
+    $.ajax({
+        url:"memberinfo.jsp",
+        method:"GET",
+        data: {id:23},
+        dataType:'json',
+        success:function(result){
+            var name = result.name;
+            var email = result.email;
+            
+            alert(name+","+email);
+            
+        }
+    });
+  
+       
+    </script>
+</body>
+</html>
