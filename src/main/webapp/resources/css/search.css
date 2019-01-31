@@ -126,7 +126,31 @@ top: 0;
     transition-delay: .9s;
 }
 .category-list ul li:nth-child(10) a.calist{
-    transition-delay: 1s;
+    transition-delay: .1s;
+}
+.category-list ul li:nth-child(11) a.calist{
+    transition-delay: .2s;
+}
+.category-list ul li:nth-child(12) a.calist{
+    transition-delay: .3s;
+}
+.category-list ul li:nth-child(13) a.calist{
+    transition-delay: .4s;
+}
+.category-list ul li:nth-child(14) a.calist{
+    transition-delay: .5s;
+}
+.category-list ul li:nth-child(15) a.calist{
+    transition-delay: .6s;
+}
+.category-list ul li:nth-child(16) a.calist{
+    transition-delay: .7s;
+}
+.category-list ul li:nth-child(17) a.calist{
+    transition-delay: .8s;
+}
+.category-list ul li:nth-child(18) a.calist{
+    transition-delay: .9s;
 }
 .category-list ul li{
     display: flex;
@@ -154,7 +178,7 @@ top: 0;
 .category-list ul li ul{
     position: absolute;
     display: flex;
-    width: 87%;
+    width: 88%;
     top: 40px;
     left: 5%;
     height: 90px;
@@ -163,12 +187,14 @@ top: 0;
     flex-flow: wrap;
     border: 3px solid black;
     border-radius: 7px;
+    overflow : auto;
 }
 .category-list ul li ul li{
     position: relative;
     cursor: pointer;
-    margin: 0;
     margin-left: 15px;
+    margin-top : 5px;
+    margin-bottom : 5px;
     height: 30px;
     padding: 0px 2px 0 2px;
     border-radius: 10px;

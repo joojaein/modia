@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.moida.web.entity.CrowdMemberRole;
-import com.moida.web.service.CrowdService;
-import com.moida.web.entity.CrowdSimpleDataView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
+import com.moida.web.entity.Tag;
 import com.moida.web.service.MoidaCategoryService;
+import com.moida.web.service.MoidaTagService;
 
 
 @Controller("crowd")
@@ -22,28 +21,12 @@ import com.moida.web.service.MoidaCategoryService;
 public class CrowdController {
 	
 	@Autowired
-<<<<<<< HEAD
 	private MoidaCategoryService moidaCategoryService;
-=======
-	private SqlSessionTemplate session;
-		
-	@Autowired
-	public CrowdService crowdService;
 	
-	
-	@Autowired
-	private CategoryService categoryService;
->>>>>>> refs/remotes/origin/master
+
 	
 	@RequestMapping("main")
-	public String index(Model model) {
-		List<CrowdMemberRole> list = crowdService.getCrowdMerberRole();
-		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView();
-		
-//		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		model.addAttribute("list", list);
-		model.addAttribute("crowd", crowd);
-		
+	public String index() {
 		return "crowd.main";
 	}
 	
@@ -60,12 +43,18 @@ public class CrowdController {
 		return "crowd.categorySearch";
 	}
 	
+	@Autowired
+	private MoidaTagService moidaTagService;
+	
+	
 	@RequestMapping("search")
 	public String search(Model model) {
 		
 		List<Category> list = moidaCategoryService.getCategoryList();
-		
+		List<Tag> tlist = moidaTagService.getTagList();
+		System.out.println(tlist);
 		model.addAttribute("list",list);
+		model.addAttribute("tlist",tlist);
 		
 		return "crowd.search";
 	}
