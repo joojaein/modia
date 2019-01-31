@@ -33,7 +33,7 @@
 		<div class="profile-box">
 			<div class="photo"></div>
 			<div class="profile-info">
-				<span class="name">${n.writerId}</span> <span class="reg-write">${regDate}</span>
+				<span class="name">${n.writerId}</span> <span class="reg-write">${n.regDate}</span>
 			</div>
 		</div>
 		<div class="content-title">${n.title}</div>

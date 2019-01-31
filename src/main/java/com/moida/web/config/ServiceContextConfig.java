@@ -32,12 +32,8 @@ public class ServiceContextConfig {
 	@Bean
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-<<<<<<< HEAD
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-=======
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-
->>>>>>> refs/remotes/origin/master
 		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida?useUnicode=true&characterEncoding=utf8");
 		dataSource.setUsername("moida");
 		dataSource.setPassword("moida1234");	

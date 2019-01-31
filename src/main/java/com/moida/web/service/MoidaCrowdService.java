@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.CrowdDao;
+import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
@@ -21,21 +22,8 @@ public class MoidaCrowdService implements CrowdService {
 		System.out.println("web.service.MoidaCrowdService - List<CrowdSimpleDataView> getSimpleList()");
 		return crowdDao.getSimpleList();
 	}
-	
-	@Override
-	public List<CrowdMemberRole> getCrowdMerberRole(){
-		return crowdDao.getCrowdMerberRole();
-	}
-	
-	@Override
-	public CrowdSimpleDataView getCrowdSimpleDataView() {
-	
-		return crowdDao.getCrowdSimpleDateView();
-	}
-	
 
 	@Override
-<<<<<<< HEAD
 	public List<CrowdMemberRole> getCrowdMemberRole() {
 		// TODO Auto-generated method stub
 		return crowdDao.getCrowdMemberRole();
@@ -53,10 +41,12 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getNoticeList();
 	}
 
-
-=======
-	public List<CrowdNotice> getNoticeList() {
-		return crowdDao.getNoticeList();
+	@Override
+	public List<CrowdBoard> getBoardList() {
+		// TODO Auto-generated method stub
+		return crowdDao.getBoradList();
 	}
->>>>>>> refs/remotes/origin/master
+
+
+
 }

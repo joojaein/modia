@@ -3,7 +3,6 @@
 
 <mapper namespace="com.moida.web.dao.CrowdDao">
 
-<<<<<<< HEAD
 <select id = "getCrowdMemberRole" resultType="com.moida.web.entity.CrowdMemberRole">
  select * from crowdmemberRole cmr left join (select id as uid , msg from Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and 2 >= cmr.groupRole
 </select>
@@ -13,22 +12,13 @@
 </select>
 
 <select id = "getNoticeList" resultType="com.moida.web.entity.CrowdNotice">
-select * from Board left join (select boardId, title, content, writerId, regDate, hit from Posts)post on post.boardId = id where crowdId = 5
+select * from boardListView where type = 0;
 </select>
-=======
-	<select id = "getList" resultType="com.moida.web.entity.CrowdMemberRole">
-	 select * from crowdmemberRole cmr left join (select id as uid , msg from Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and 2 >= cmr.groupRole
-	</select>
-	
-	<select id = "getCrowdSimpleDataView" resultType="com.moida.web.entity.CrowdMemberRole">
-	 select * from CrowdSimpleDataView where id = 5
-	</select>
-	
-	<select id = "getNoticeList" resultType="com.moida.web.entity.CrowdNotice">
-	select * from Board left join (select boardId, title, content, writerId, regDate, hit from Posts)post on post.boardId = id where crowdId = 5
-	</select>
->>>>>>> refs/remotes/origin/master
 
+<select id = "getBoardList" resultType="com.moida.web.entity.CrowdBoard">
+select * from boardListView where type = 1;
+</select>
+	
 	<select id="getSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select * from CrowdSimpleDataView
 	</select>

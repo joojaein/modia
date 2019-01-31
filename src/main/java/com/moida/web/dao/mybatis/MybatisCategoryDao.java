@@ -15,7 +15,7 @@ import com.moida.web.entity.CategoryView;
 public class MybatisCategoryDao implements CategoryDao {
 
 	@Autowired 
-	 private SqlSessionTemplate session;
+	private SqlSessionTemplate session;
 	 
 	
 	@Override
