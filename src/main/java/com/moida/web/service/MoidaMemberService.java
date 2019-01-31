@@ -1,7 +1,5 @@
 package com.moida.web.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +27,9 @@ public class MoidaMemberService implements MemberService{
 	}
 
 	@Override
-	public List<Member> getMemberList(String id) {
-		System.out.println("com.moida.web.service.MoidaMemberService - getMemberList(String id) : "+ id );
-		return memberDao.getMemberList(id);
+	public Member getMember(String id) {
+		// TODO Auto-generated method stub
+		return memberDao.getMember(id);
 	}
 
 

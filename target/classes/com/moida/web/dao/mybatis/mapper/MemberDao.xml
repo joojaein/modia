@@ -22,7 +22,7 @@ where ${field} = #{query}  => where title = 'hello'
 		insert into MemberRole(memberId, roleId) values(#{memberId},#{roleId})
 	</insert>
 	
-	<select id="getMemberList" resultType="com.moida.web.entity.Member">
+	<select id="getMember" resultType="com.moida.web.entity.Member">
 		select * from Member
 		where id=#{id}
 	</select>

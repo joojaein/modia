@@ -81,12 +81,12 @@ public class MemberController {
 	@RequestMapping("/chk-overlap")
 	@ResponseBody
 	public String chkOverlap(String id) throws FileNotFoundException {
-		System.out.println("com.moida.web.controller-MemberController - chkOverlap(String id) : "+ id);
-		List<Member> memberList = memberService.getMemberList(id);
-		System.out.println("com.moida.web.controller-MemberController - chkOverlap(String id) / memberService.getMemberList(id) 후: " + memberList.size());
-		return memberList.size()+"";
+		Member member = memberService.getMember(id);
+		if(member==null) {
+			return "0";
+		}
+		return "1";
 	}
-	
 	
 	@RequestMapping("/email-send") 
 	@ResponseBody

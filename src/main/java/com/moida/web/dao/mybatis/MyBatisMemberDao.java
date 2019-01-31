@@ -11,17 +11,10 @@ import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberRole;
 
 @Repository
-public class MyBatisMember implements MemberDao{
+public class MyBatisMemberDao implements MemberDao{
 	
 	@Autowired
 	private SqlSessionTemplate session;
-	
-	@Override
-	public List<Member> getMemberList(String id) {
-		MemberDao memberDao = session.getMapper(MemberDao.class);
-		System.out.println("com.moida.web.dao.mybatis.MyBatisMember - getMemberList(String id) : "+ id );
-		return memberDao.getMemberList(id);
-	}
 	
 	@Override
 	public int insert(Member member) {
@@ -35,6 +28,12 @@ public class MyBatisMember implements MemberDao{
 		MemberDao memberDao = session.getMapper(MemberDao.class);
 		System.out.println("com.moida.web.dao.mybatis.MyBatisMember - insertRole(MemberRole memberRole)");
 		return memberDao.insertRole(memberRole);
+	}
+
+	@Override
+	public Member getMember(String id) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.getMember(id);
 	}
 
 

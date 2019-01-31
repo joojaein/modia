@@ -20,13 +20,9 @@ import com.moida.web.service.CategoryService;
 @Controller("crowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
-	
-	@Autowired
-	private SqlSessionTemplate session;
 		
 	@Autowired
 	public CrowdService crowdService;
-	
 	
 	@Autowired
 	private CategoryService categoryService;

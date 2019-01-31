@@ -7,7 +7,7 @@ import com.moida.web.entity.MemberRole;
 
 public interface MemberDao {
 
-	List<Member> getMemberList(String id);
+	Member getMember(String id);
 	int insert(Member member);	
 	int insertRole(MemberRole memberRole);	
 	

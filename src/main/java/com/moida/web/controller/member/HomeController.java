@@ -1,21 +1,28 @@
 package com.moida.web.controller.member;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.moida.web.entity.Member;
+import com.moida.web.service.MemberService;
 
 @Controller("memberHome")
 @RequestMapping("/member/")
 public class HomeController {
 	
+	@Autowired
+	public MemberService memberService;
+	
 	@RequestMapping("index")
-	public String index() {
+	public String index(Model model, Principal principal) {
+		Member member = memberService.getMember(principal.getName());
+		model.addAttribute("member", member);
+
 		return "member.index";
 	}	
 	

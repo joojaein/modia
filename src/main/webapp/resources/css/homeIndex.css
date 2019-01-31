@@ -20,7 +20,6 @@
 .carousel{
 	width: 95%;
 	height: 150px;
-    margin: auto;
     position: relative;
  }  
  
@@ -116,7 +115,7 @@
 
 @media (min-width:900px){
 	.carousel{
-	width: 855px;
+	width: 900px;
 	height: 342px;
  }  
 	 

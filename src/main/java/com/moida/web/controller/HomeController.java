@@ -1,10 +1,15 @@
 package com.moida.web.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +31,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.moida.web.controller.member.CrowdController;
+import com.moida.web.entity.Banner;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.service.MoidaBannerService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
 
@@ -39,6 +47,8 @@ public class HomeController {
 	private MoidaCategoryService categoryService;
 	@Autowired
 	private MoidaCrowdService crowdService;
+	@Autowired
+	private MoidaBannerService bannerService;
 	
 	@RequestMapping("/index")
 	public String index() {
@@ -62,6 +72,16 @@ public class HomeController {
 		List<CrowdSimpleDataView> crowdList = crowdService.getSimpleList();
 		Gson gson = new Gson();
 		String json = gson.toJson(crowdList);
+		return json;
+	}
+	
+	@PostMapping("/get-mainbannerlist")
+	@ResponseBody
+	public String getMainBannerList() throws Exception{
+		System.out.println("web.controller.HomeController - String getMainBannerList()");
+		List<Banner> bannerList = bannerService.getBannerList();
+		Gson gson = new Gson();
+		String json = gson.toJson(bannerList);
 		return json;
 	}
 	
@@ -130,14 +150,23 @@ public class HomeController {
 	
 	@RequestMapping("/get-img")
 	 public String getImg(HttpServletRequest req, HttpServletResponse resp, 
-			 String folder, String file) throws Exception { 	   
-		String realPath = req.getServletContext().getRealPath("/"+folder+"/"+file);
+			 String folder, String file) throws Exception { 
+		
 		ServletOutputStream bout = resp.getOutputStream();
-		FileInputStream fis = new FileInputStream(realPath);  
+		String realPath = req.getServletContext().getRealPath("/"+folder+"/"+file);
+		InputStream fis=null;
+		if(!new File(realPath).exists()) {
+			realPath = "http://localhost/resources/images/img404.png";	
+			URL url = new URL("http://localhost/resources/images/img404.png");
+	        HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();;
+	        fis = urlConnection.getInputStream();      
+		}else {
+			fis = new FileInputStream(realPath);  
+		}
 		int length; 
-		byte[] buffer = new byte[10];
-		while ( ( length = fis.read( buffer ) ) != -1 ) {
-			bout.write( buffer, 0, length );   
+		byte[] buffer = new byte[1024];
+		while ( (length = (fis.read( buffer ))) != -1 ) {
+			bout.write( buffer, 0, length );  
 		}
 		return null;
 	 }

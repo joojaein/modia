@@ -1,5 +1,4 @@
 window.addEventListener("load",function(){
-    
 	
     var main = document.querySelector("main");
     var btnMore = main.querySelector(".btn-more");
@@ -8,6 +7,86 @@ window.addEventListener("load",function(){
     var groupListUl = areaGroup.querySelector(".group-list-flex");
     var carousel = document.querySelector(".carousel");
     var carouselUl = carousel.querySelector("ul");
+    
+    var bannerRequest = new XMLHttpRequest(); 
+    bannerRequest.open("POST", "/get-mainbannerlist", true); 
+    bannerRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    bannerRequest.onload = function () {	
+    	var bannerList = JSON.parse(bannerRequest.responseText);
+	    for(var i = 0; i < bannerList.length; i++){
+			var li = document.createElement('li');
+		    var img = document.createElement('img');
+		    img.classList.add("img-banner");
+    	 	img.src= "/get-img?folder=main-banner&file="+bannerList[i].src;    	
+		    li.appendChild(img);
+		    if(i==0) li.style.zIndex=2;
+		    carouselUl.appendChild(li);
+	    }
+	    
+/////////////////carousel //////////////////////////////////////////////////
+	    var prevBtn = document.querySelector(".carousel-control-prev");
+	    var nextBtn = document.querySelector(".carousel-control-next");
+
+	    var lis = carouselUl.querySelectorAll("li");
+	    var currentIdx = 0;
+	    var canChange = true;
+
+	    carouselUl.addEventListener("transitionend", function(evt){
+			for (var i = 0; i < lis.length; i++) {
+				if(i!=currentIdx){
+					lis[i].classList.add("transition-none");
+					lis[i].style.zIndex=0;
+					lis[i].style.left="0%";
+					}
+			canChange=true;
+			}
+	    });
+
+	    prevBtn.onclick = function(){
+		      if(!canChange) return;
+		      canChange=false;     
+		      var prevIdx = (currentIdx+lis.length-1)%lis.length;
+		      var currentLi = lis[currentIdx];
+		      var prevLi = lis[prevIdx];
+		      currentLi.classList.add("transition-none");
+		      currentLi.style.left="0%";
+		      currentLi.style.zIndex=1;	
+		      prevLi.classList.add("transition-none");
+		      prevLi.style.left="-100%";
+		      prevLi.style.zIndex=2;	      
+		      setTimeout(function(evt){
+			        currentIdx = (currentIdx+lis.length-1)%lis.length;
+			        currentLi.classList.remove("transition-none");
+			        currentLi.style.left="100%";	        
+			        prevLi.classList.remove("transition-none");
+			        prevLi.style.left="0%"
+		      },0);
+	    };
+
+	    nextBtn.onclick = function(){   
+		      if(!canChange) return;  
+		      canChange=false;     
+		      var nextIdx = (currentIdx+1)%lis.length;
+		      var currentLi = lis[currentIdx];
+		      var nextLi = lis[nextIdx];
+		      currentLi.classList.add("transition-none");
+		      currentLi.style.left="0%";
+		      currentLi.style.zIndex=1;
+		      nextLi.classList.add("transition-none");
+		      nextLi.style.left="100%";
+		      nextLi.style.zIndex=2;
+		      setTimeout(function(evt){
+			        currentIdx = (currentIdx+1)%lis.length;
+			        currentLi.classList.remove("transition-none");
+			        currentLi.style.left="-100%";
+			
+			        nextLi.classList.remove("transition-none");
+			        nextLi.style.left="0%"
+		      },0);  
+	    };
+
+    };
+    bannerRequest.send();
     
     var categoryRequest = new XMLHttpRequest(); 
     categoryRequest.open("POST", "/get-categorylist", true); 
@@ -69,7 +148,7 @@ window.addEventListener("load",function(){
     		}
 	}
     categoryRequest.send();	
-	
+
     var crowdRequest = new XMLHttpRequest(); 
     crowdRequest.open("POST", "/get-simplecrowdlist", true); 
     crowdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
@@ -79,7 +158,7 @@ window.addEventListener("load",function(){
     		var li = document.createElement('li');
     	 	li.classList.add("group-list-flex-li") 	 	 	
     	 	var img = document.createElement('img');
-    	 	img.src= "/get-img?folder=crowd-banner&file="+crowdList[i].img;
+    	 	img.src= "/get-img?folder=crowd-banner&file="+crowdList[i].img;    	
     	 	var divContainer = document.createElement('div');
     	 	divContainer.classList.add("group-list-flex-content");
     	 	divContainer.classList.add("ellipsis");	 	
@@ -134,27 +213,13 @@ window.addEventListener("load",function(){
     	}
     };
     crowdRequest.send();	
-	
-	
-    for(var i = 0; i < 4; i++){//추후 가져온 배너이미지의 length 만큼 for문
-		var li = document.createElement('li');
-	    var img = document.createElement('img');
-	    img.classList.add("img-banner");
-	    img.src="/resources/images/tempImg"+i+".jpg"; //추후 가져온 배너이미지 주소
-	    li.appendChild(img);
-	    carouselUl.appendChild(li);
-    }
 
 	areaGroup.style.width = document.body.clientWidth+"px";
 	$(window).resize(function (){
 		areaGroup.style.width = document.body.clientWidth+"px";
 		$(".carousel").height($(".carousel").width()*0.4);
 	 })
-	 
-   
-    
-	
- 	
+
     btnMore.onclick = function(){
     	if(btnMore.value=="more"){
     		ulIcon.style.height="auto";
@@ -166,68 +231,7 @@ window.addEventListener("load",function(){
         }   
     };    
     
-    /////////////////carousel //////////////////////////////////////////////////
-    var prevBtn = document.querySelector(".carousel-control-prev");
-    var nextBtn = document.querySelector(".carousel-control-next");
-
-    var lis = carouselUl.querySelectorAll("li");
-    var currentIdx = 2;
-    lis[currentIdx].style.zIndex=2;
-    var canChange = true;
-
-    carouselUl.addEventListener("transitionend", function(evt){
-		for (var i = 0; i < lis.length; i++) {
-			if(i!=currentIdx){
-				lis[i].classList.add("transition-none");
-				lis[i].style.zIndex=0;
-				lis[i].style.left="0%";
-				}
-		canChange=true;
-		}
-    });
-
-    prevBtn.onclick = function(){
-	      if(!canChange) return;
-	      canChange=false;     
-	      var prevIdx = (currentIdx+lis.length-1)%lis.length;
-	      var currentLi = lis[currentIdx];
-	      var prevLi = lis[prevIdx];
-	      currentLi.classList.add("transition-none");
-	      currentLi.style.left="0%";
-	      currentLi.style.zIndex=1;	
-	      prevLi.classList.add("transition-none");
-	      prevLi.style.left="-100%";
-	      prevLi.style.zIndex=2;	      
-	      setTimeout(function(evt){
-		        currentIdx = (currentIdx+lis.length-1)%lis.length;
-		        currentLi.classList.remove("transition-none");
-		        currentLi.style.left="100%";	        
-		        prevLi.classList.remove("transition-none");
-		        prevLi.style.left="0%"
-	      },0);
-    };
-
-    nextBtn.onclick = function(){   
-	      if(!canChange) return;  
-	      canChange=false;     
-	      var nextIdx = (currentIdx+1)%lis.length;
-	      var currentLi = lis[currentIdx];
-	      var nextLi = lis[nextIdx];
-	      currentLi.classList.add("transition-none");
-	      currentLi.style.left="0%";
-	      currentLi.style.zIndex=1;
-	      nextLi.classList.add("transition-none");
-	      nextLi.style.left="100%";
-	      nextLi.style.zIndex=2;
-	      setTimeout(function(evt){
-		        currentIdx = (currentIdx+1)%lis.length;
-		        currentLi.classList.remove("transition-none");
-		        currentLi.style.left="-100%";
-		
-		        nextLi.classList.remove("transition-none");
-		        nextLi.style.left="0%"
-	      },0);  
-    };
+    
 
    
 });
