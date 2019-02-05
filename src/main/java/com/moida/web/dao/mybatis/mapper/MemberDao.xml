@@ -27,6 +27,13 @@ where ${field} = #{query}  => where title = 'hello'
 		where id=#{id}
 	</select>
 	
+	<select id="getFriendData" resultType="com.moida.web.entity.FriendDataView">
+		select * from Member
+		where id=#{id}
+		
+	</select>
+	
+	
 	<!-- 
 	<insert id="insert" resultType="com.moida.web.entity.Member">
 		select * from Member;

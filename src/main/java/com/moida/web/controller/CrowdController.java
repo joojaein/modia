@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.moida.web.entity.CrowdMemberRole;
+import com.moida.web.service.CategoryService;
 import com.moida.web.service.CrowdService;
 import com.moida.web.entity.CrowdSimpleDataView;
 
@@ -22,18 +23,14 @@ import com.moida.web.service.MoidaCategoryService;
 public class CrowdController {
 	
 	@Autowired
-<<<<<<< HEAD
 	private MoidaCategoryService moidaCategoryService;
-=======
-	private SqlSessionTemplate session;
-		
+	
 	@Autowired
 	public CrowdService crowdService;
 	
 	
 	@Autowired
 	private CategoryService categoryService;
->>>>>>> refs/remotes/origin/master
 	
 	@RequestMapping("main")
 	public String index(Model model) {

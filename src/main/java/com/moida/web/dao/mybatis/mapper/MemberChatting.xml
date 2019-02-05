@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.moida.web.dao.MemberChattingDao">
+
+	
+	<select id="getMemberChatting" resultType="com.moida.web.entity.MemberChattingView">
+	
+		select * from MemberChattingView
+		where ( 
+		(receiverId=#{param1} and  id=#{param2}) 
+		or
+		(receiverId=#{param2} and  id=#{param1}) )
+		order by regDate desc
+	
+	</select>
+	
+	<insert id="insert" parameterType="com.moida.web.entity.MemberChatting">
+		
+		insert into MemberChatting (content,senderId,receiverId) 
+		value (#{content},#{senderId},#{receiverId})
+	
+	</insert>
+
+
+</mapper> 

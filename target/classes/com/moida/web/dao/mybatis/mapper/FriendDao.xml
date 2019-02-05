@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper  namespace="com.moida.web.dao.FriendDao">
+
+
+	<select id="getFriendList" resultType="com.moida.web.entity.Friend">
+	
+		select * from Friend where memberId='chlwl'
+	
+	</select>
+	
+	<insert id="insert" parameterType="com.moida.web.entity.Friend">
+		
+		insert into Friend (friendId,memberId) value ('#{friendId}','#{memberId}')
+	
+	</insert>
+
+	<delete id="delete" parameterType="com.moida.web.entity.Friend">
+	
+		delete from Friend where (friendId='#{friendId}' and memberId='#{memberId}')
+	
+	</delete>
+
+</mapper>
