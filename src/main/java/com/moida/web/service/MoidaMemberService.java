@@ -1,9 +1,14 @@
 package com.moida.web.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.MemberDao;
+import com.moida.web.entity.AdminMngCrowdView;
+import com.moida.web.entity.AdminMngMemberView;
 import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberRole;
 
@@ -28,11 +33,32 @@ public class MoidaMemberService implements MemberService{
 
 	@Override
 	public Member getMember(String id) {
-		// TODO Auto-generated method stub
 		return memberDao.getMember(id);
 	}
 
+	@Override
+	public int update(Member member) {
+		return memberDao.update(member);
+	}
+
+	@Override
+	public List<String> getMemberIdList(String email) {
+		return memberDao.getMemberIdList(email);
+	}
+
+	@Override
+	public int getMemberCount() {
+		return memberDao.getMemberCount();
+	}
 
 	
+	@Override
+	public List<AdminMngMemberView> getAdminMngMemberList(String query, String updown, Integer min, Integer max) {
+		return memberDao.getAdminMngMemberList(query, updown, min, max);
+	}
 	
+	@Override
+	public int deleteMember(String id) {
+		return memberDao.deleteMember(id);
+	}
 }

@@ -5,4 +5,16 @@
 	<select id="getTagList" resultType="com.moida.web.entity.Tag">
 		select * from Tag
 	</select>
+	
+	<select id="getCategoryTagList" resultType="com.moida.web.entity.Tag">
+	    select * from Tag where categoryId=(select categoryId from Crowd where id=#{crowdId})
+	</select>
+	
+	<delete id="deleteTag" parameterType="java.lang.Integer">
+		delete from CrowdTag where crowdId=#{crowdId}
+	</delete>	
+	
+	<insert id="insertTag" parameterType="java.lang.Integer">
+		insert into CrowdTag(crowdId, tagId) value(#{param1}, #{param2});
+	</insert>
 </mapper>

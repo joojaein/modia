@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.CrowdDao;
+import com.moida.web.entity.AdminMngCrowdView;
+import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
@@ -18,35 +20,72 @@ public class MoidaCrowdService implements CrowdService {
 	private CrowdDao crowdDao;
 
 	@Override
-	public List<CrowdSimpleDataView> getSimpleList() {
-		System.out.println("web.service.MoidaCrowdService - List<CrowdSimpleDataView> getSimpleList()");
-		return crowdDao.getSimpleList();
-	}
-
-	@Override
 	public List<CrowdMemberRole> getCrowdMemberRole() {
-		// TODO Auto-generated method stub
 		return crowdDao.getCrowdMemberRole();
 	}
 
 	@Override
-	public CrowdSimpleDataView getCrowdSimpleDataView() {
-		// TODO Auto-generated method stub
-		return crowdDao.getCrowdSimpleDataView();
-	}
-
-	@Override
 	public List<CrowdNotice> getNoticeList() {
-		// TODO Auto-generated method stub
 		return crowdDao.getNoticeList();
 	}
 
 	@Override
 	public List<CrowdBoard> getBoardList() {
-		// TODO Auto-generated method stub
 		return crowdDao.getBoradList();
 	}
 
+	@Override
+	public CrowdSimpleDataView getCrowdSimpleDataView() {
+		return crowdDao.getCrowdSimpleDataView();
+	}
+	
+	@Override
+	public List<CrowdSimpleDataView> getSimpleList() {
+		return crowdDao.getSimpleList();
+	}
+	
+	@Override
+	public List<CrowdSimpleDataView> getRealSimpleList(String id) {
+		return crowdDao.getRealSimpleList(id);
+	}
 
+	@Override
+	public List<CrowdSimpleDataView> getRequestSimpleList(String id) {
+		return crowdDao.getRequestSimpleList(id);
+	}
+	
+	@Override
+	public int getCrowdCount() {
+		return crowdDao.getCrowdCount();
+	}
+	
+	@Override
+	public Crowd getCrowd(int id) {
+		return crowdDao.getCrowd(id);
+	}
+	
+	@Override
+	public List<AdminMngCrowdView> getAdminMngCrowdList(String query, String updown, Integer min, Integer max) {
+		return crowdDao.getAdminMngCrowdList(query, updown, min, max);
+	}
+	
+	@Override
+	public List<Integer> getCrowdTagIdList(int crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getCrowdTagIdList(crowdId);
+	}
 
+	@Override
+	public int deleteCrowd(int id) {
+		return crowdDao.deleteCrowd(id);
+	}
+
+	@Override
+	public int updateCrowd(Crowd crowd) {
+		return crowdDao.updateCrowd(crowd);
+	}
+
+	
+
+	
 }

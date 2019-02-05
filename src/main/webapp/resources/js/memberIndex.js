@@ -10,7 +10,7 @@ window.addEventListener("load",function(){
 
     img.src= "/get-img?folder=member-profile&file="+img.name;    	
 
-    var bindGroup = function(tpl, prt, group){
+    var bindGroup = function(tpl, group){
     	var tempImg = tpl.querySelector("img");
     	var tempName = tpl.querySelector(".tpl-name");
     	var tempContent = tpl.querySelector(".tpl-content");
@@ -47,17 +47,31 @@ window.addEventListener("load",function(){
         crowdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         crowdRequest.onload = function () {	
         	var crowdList = JSON.parse(crowdRequest.responseText);
+            var btn = menu.querySelector("input[name='my-group']");
+            btn.value="내 모임("+crowdList.length+")";
+        	for (var i = 0; i < crowdList.length; i++) {
+                var tpl=document.importNode(tplCrowdLi.content, true);
+                bindGroup(tpl, crowdList[i]);	
+                groupUl.append(tpl);  
+			}
+        };
+        crowdRequest.send("type=1&id="+id.innerText);       
+	 }
+    function reqGroup(){
+        var crowdRequest = new XMLHttpRequest(); 
+        crowdRequest.open("POST", "../get-simplecrowdlist", true); 
+        crowdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+        crowdRequest.onload = function () {	
+        	var crowdList = JSON.parse(crowdRequest.responseText);
+            var btn = menu.querySelector("input[name='req-group']");
+            btn.value="가입 신청 목록("+crowdList.length+")";
         	for (var i = 0; i < crowdList.length; i++) {
                 var tpl=document.importNode(tplCrowdLi.content, true);
                 bindGroup(tpl, groupUl, crowdList[i]);	
                 groupUl.append(tpl);  
 			}
         };
-        crowdRequest.send();
-        
-	 }
-    function reqGroup(){
-		 
+        crowdRequest.send("type=2&id="+id.innerText);
 	 }
     function hitGroup(){
 		 

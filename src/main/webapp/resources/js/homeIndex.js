@@ -23,7 +23,7 @@ window.addEventListener("load",function(){
 		    carouselUl.appendChild(li);
 	    }
 	    
-/////////////////carousel //////////////////////////////////////////////////
+	    /////////////////carousel //////////////////////////////////////////////////
 	    var prevBtn = document.querySelector(".carousel-control-prev");
 	    var nextBtn = document.querySelector(".carousel-control-next");
 

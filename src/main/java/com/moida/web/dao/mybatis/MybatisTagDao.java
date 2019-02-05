@@ -16,11 +16,27 @@ public class MybatisTagDao implements TagDao {
 	 private SqlSessionTemplate session;
 	
 	@Override
-	public List<Tag> getTagList() {
-		
-		TagDao tagDao = session.getMapper(TagDao.class);
-		
+	public List<Tag> getTagList() {		
+		TagDao tagDao = session.getMapper(TagDao.class);	
 		return tagDao.getTagList();
+	}
+
+	@Override
+	public List<Tag> getCategoryTagList(int crowdId) {
+		TagDao tagDao = session.getMapper(TagDao.class);
+		return tagDao.getCategoryTagList(crowdId);
+	}
+
+	@Override
+	public int deleteTag(int crowdId) {
+		TagDao tagDao = session.getMapper(TagDao.class);	
+		return tagDao.deleteTag(crowdId);
+	}
+
+	@Override
+	public int insertTag(int crowdId, int tagId) {
+		TagDao tagDao = session.getMapper(TagDao.class);	
+		return tagDao.insertTag(crowdId, tagId);
 	}
 
 }

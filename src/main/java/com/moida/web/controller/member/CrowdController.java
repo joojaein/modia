@@ -20,8 +20,6 @@ import com.moida.web.service.CrowdService;
 @RequestMapping("/crowd/")
 public class CrowdController {
 	
-	@Autowired
-	private SqlSessionTemplate session;
 		
 	@Autowired
 	public CrowdService crowdService;

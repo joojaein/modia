@@ -24,5 +24,17 @@ public class MybatisBannerDao implements BannerDao {
 		return bannerDao.getBannerList();
 	}
 
+	@Override
+	public int insert(Banner banner) {
+		BannerDao bannerDao = session.getMapper(BannerDao.class);
+		return bannerDao.insert(banner);
+	}
+
+	@Override
+	public int delete() {
+		BannerDao bannerDao = session.getMapper(BannerDao.class);
+		return bannerDao.delete();
+	}
+
 
 }

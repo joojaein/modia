@@ -19,4 +19,14 @@ public class MoidaBannerService implements BannerService {
 		return bannerDao.getBannerList();
 	}
 
+	@Override
+	public int insert(Banner banner) {
+		return bannerDao.insert(banner);
+	}
+
+	@Override
+	public int delete() {
+		return bannerDao.delete();
+	}
+
 }

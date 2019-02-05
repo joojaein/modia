@@ -19,9 +19,9 @@
 	    		<a href="edit">회원정보수정</a>
     		</div>
 	    	<div class="menu">
-	    		<input name="my-group" class="btn selected-tab" type="button" value="내 모임(5)">
-	    		<input name="req-group" class="btn" type="button" value="가입 신청 목록(2)">
-	    		<input name="hit-group" class="btn" type="button" value="최근 본 모임(21)">
+	    		<input name="my-group" class="btn selected-tab" type="button" value="내 모임(${menuCnt[0]})">
+	    		<input name="req-group" class="btn" type="button" value="가입 신청 목록(${menuCnt[1]})">
+	    		<input name="hit-group" class="btn" type="button" value="최근 본 모임()">
 	    	</div>
 	    	
 	    	<ul class="group-list-flex">	

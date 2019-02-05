@@ -17,6 +17,12 @@ public class Banner {
 		this.src = src;
 	}
 
+	public Banner(int ord, String src) {
+		super();
+		this.ord = ord;
+		this.src = src;
+	}
+
 
 	public int getId() {
 		return id;

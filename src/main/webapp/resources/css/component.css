@@ -149,7 +149,8 @@ p{
 	}
 	
     .group-list-flex{
-        display: inline-flex;
+        display: flex;
+        
     }
     .group-list-flex-li{
         margin: 5px;

@@ -164,6 +164,23 @@ main{
     position: fixed;
 
 }
+
+
+
+.div-img{
+    background: none !important;
+    height: unset !important;
+    text-align: center !important;
+}
+.div-img img{
+    width: 100%;
+	margin: 5px 0px;
+}
+
+
+    
+    
+    
 @media (min-width:500px){
     .createCategory{
     	grid-template-columns: repeat(3, 6fr);
