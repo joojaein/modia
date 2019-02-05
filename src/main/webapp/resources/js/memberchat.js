@@ -160,7 +160,7 @@
         		//alert(friendId.innerText);
         		
         		
-        		alert(friendId);
+    //    		alert(friendId);
 				
 				var memberChattingList = new XMLHttpRequest();
 	   			
@@ -173,12 +173,13 @@
 	   				{
 	   					var getmemberChattingList = JSON.parse(memberChattingList.responseText);
 	   						
-	   					alert(getmemberChattingList[0].myid);
-	   					alert(getmemberChattingList[0].regDate);
+	   	//				alert(getmemberChattingList[0].myid);
+	   	//				alert(getmemberChattingList[0].regDate);
+	   	//				alert(getmemberChattingList[0].myid)
 	   					
 	   					var today = new Date();
 	   					
-	   					alert(today);
+	   	//				alert(today);
 	   					var tyear = today.getFullYear();
 	   					var tmonth = today.getMonth()+1;
 	   					var tday = today.getDate();
@@ -223,11 +224,11 @@
 	   					}
 	   					
 	   					var todaydd = tyear+"."+tmonth+"."+tday;
-	   					alert("오늘 날짜 : "+todaydd);
+	   	//				alert("오늘 날짜 : "+todaydd);
 	   					
 	   					
 	   					var testd = new Date(getmemberChattingList[0].regDate);
-	   					alert(testd);
+	   	//				alert(testd);
 	   					var year = testd.getFullYear();
 	   					var month = testd.getMonth()+1;
 	   					var day = testd.getDate();
@@ -278,7 +279,7 @@
 	   					
 	   					var testdd = year+"."+month+"."+day+" "+hour+":"+minutes;
 	   					
-	   					alert(testdd);
+	   	//				alert(testdd);
 	   					
 	   					for (var i = 0; i < getmemberChattingList.length; i++) 
 	   					{
@@ -337,7 +338,7 @@
             var btnschk= true;
             var openchk=false;
 
-            console.log("밖 top:"+openchk);
+      //      console.log("밖 top:"+openchk);
 
             
 
@@ -370,7 +371,7 @@
                 console.log("안:"+openchk);
             })
 
-            console.log("밖 bottom:"+openchk);
+   //         console.log("밖 bottom:"+openchk);
 
             $(".screen-w").click(function () 
                 {
@@ -420,7 +421,7 @@
 	   		
 	   		$(".friend-balloon").click(function()
 			{
-	   			alert($(this).parent().find("label").text());
+	//   			alert($(this).parent().find("label").text());
 	   			
 	   				
 			});

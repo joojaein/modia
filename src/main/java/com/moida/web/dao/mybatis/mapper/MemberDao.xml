@@ -32,12 +32,6 @@ where ${field} = #{query}  => where title = 'hello'
 		where id=#{id}
 	</select>
 	
-	<select id="getFriendData" resultType="com.moida.web.entity.FriendDataView">
-		select * from Member
-		where id=#{id}
-		
-	</select>
-
 	<select id="getMemberIdList" resultType="java.util.Map">
 		select id from Member
 		where email=#{email}

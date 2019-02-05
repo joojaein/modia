@@ -23,14 +23,14 @@ public class MemberChattingController
 	private MemberChattingService memberChattingService;
 	
 	
-	
+	// 접속한 본인과 친구의 아이디를 이용해서 그 친구와 한 대화목록을 가져오기 위한 POST
 	@PostMapping("get-memberChatting")
 	@ResponseBody
-	public String getMemberChatting(String friendId) 
+	public String getMemberChatting(String friendId, Principal principal) 
 	{
 		System.out.println("왓나"+friendId);
 		
-		String myid = "chlwl";
+		String myid = principal.getName();
 		
 		List<MemberChatting> memberChattingList = memberChattingService.getMemberChattingList(friendId,myid);
 		

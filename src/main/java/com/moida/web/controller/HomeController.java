@@ -20,6 +20,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,8 +53,33 @@ public class HomeController {
 	
 	@RequestMapping("/index")
 	public String index() {
+		System.out.println("index 들어옴");
 		return "home.index";
 	}	
+	
+	// 채팅을 위해서 로그인시 로그인 되었음을 확인시켜주는 POST
+	   @PostMapping("/chk-login")
+	   @ResponseBody
+	   public String chkLogin()throws Exception
+	   {   
+	      // 시큐리티 컨텍스트 객체를 얻습니다. 
+	      SecurityContext context = SecurityContextHolder.getContext(); 
+	      System.out.println("context : "+context);
+
+	      // 인증 객체를 얻습니다. 
+	      Authentication authentication = context.getAuthentication();
+	      System.out.println("authentication : "+authentication);
+	      
+	      String principal = (String) authentication.getPrincipal();
+	      
+	      if(principal.equals("anonymousUser")) {
+	         return "anonymousUser";
+	      }else {         
+	         return "loggined";
+	      }
+
+	   }   
+	
 	
 	@PostMapping("/get-categorylist")
 	@ResponseBody

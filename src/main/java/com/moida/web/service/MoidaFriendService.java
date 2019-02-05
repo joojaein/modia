@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.FriendDao;
-import com.moida.web.dao.MemberDao;
 import com.moida.web.entity.Friend;
 import com.moida.web.entity.FriendDataView;
-import com.moida.web.entity.Member;
 
 @Service
 public class MoidaFriendService implements FriendService
@@ -19,19 +17,16 @@ public class MoidaFriendService implements FriendService
 	@Autowired
 	private FriendDao friendDao;
 	
-	@Autowired
-	private MemberDao memberDao;
-	
 	
 	// 친구의 이름과 친구가 몇 명있는지 알기 위해 쓰는 메소드 이다. ( 하.... )
 	@Override
-	public List<Friend> getFriendList() 
+	public List<Friend> getFriendList(String myId) 
 	{
 		// TODO Auto-generated method stub
 		System.out.println("serviceserviceserviceservice");
 		
 		//return friendDao.getFriendList(myId);
-		return friendDao.getFriendList();
+		return friendDao.getFriendList(myId);
 	}
 
 	
@@ -45,7 +40,7 @@ public class MoidaFriendService implements FriendService
 		System.out.println("친구 데이타 가져와라! -모이다프렌드서비스-");
 		
 		
-		return memberDao.getFriendData(friendId);
+		return friendDao.getFriendData(friendId);
 	}
 	
 	

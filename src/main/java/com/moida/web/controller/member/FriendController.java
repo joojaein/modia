@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.moida.web.entity.Friend;
 import com.moida.web.entity.FriendDataView;
-import com.moida.web.entity.Member;
 import com.moida.web.service.FriendService;
 
 
@@ -24,30 +23,19 @@ public class FriendController
 
 	@Autowired
 	private FriendService friendService;
-	
-//	@PostMapping("get-myId")
-//	@ResponseBody
-//	public String getMyId(Principal principal) 
-//	{
-//		
-//		String myid;
-//		
-//		Gson gson = new Gson();
-////		String json = gson.toJson(myid);
-//		
-//		
-//		return json;
-//	}
-	
+
 	
 	@PostMapping("get-friendList")
 	@ResponseBody
-	public String getFriendList() 
+	public String getFriendList(Principal principal) 
 	{
 		
+		String myId = principal.getName();
+		
+		System.out.println("지금 로그인한 아이디 :"+myId);
 		//내 아이디를 이용해서 친구아이디를 가져오는 것
 		//List<Friend> getFriendList = friendService.getFriendList(myId);
-		List<Friend> getFriendList = friendService.getFriendList();
+		List<Friend> getFriendList = friendService.getFriendList(myId);
 		
 		//위에서 가져온 친구아이디를 이용해서 memberDao 에 들어가 member의 msg와 img를 가져오는것
 		//포문을 돌리면서 한 친구의 msg img를 가져오면서 만들어 놓은 List에 넣는다.
@@ -80,6 +68,7 @@ public class FriendController
 			getFriendDatas.add(getFriendData);
 		}
 		
+		System.out.println("최종적으로 나온것 :"+getFriendDatas);
 //		System.out.println("나왔는데 왜지"+getFriendDatas);
 //		
 //		for (int i = 0; i < getFriendDatas.size(); i++) 
@@ -96,6 +85,8 @@ public class FriendController
 		Gson gson = new Gson();
 		String json = gson.toJson(getFriendDatas);
 		
+		System.out.println("=====JSON 가기전======");
+		System.out.println(json);
 		return json;
 	}
 	
