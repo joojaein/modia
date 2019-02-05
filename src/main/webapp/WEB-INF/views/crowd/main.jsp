@@ -68,7 +68,7 @@
 		<hr />
 		<div class="comment-sum">모임멤버 ${crowd.nowPerson}/ ${crowd.maxPerson}명</div>
 		<hr />
-		<c:forEach var="n" items="${crowd}">
+		<c:forEach var="n" items="${list}">
 		<div class="profile-box">
 			<div class="comment-photo"></div>
 			<div class="profile-info">

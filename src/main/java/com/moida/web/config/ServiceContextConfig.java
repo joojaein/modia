@@ -31,10 +31,16 @@ public class ServiceContextConfig {
 	
 	@Bean
 	public BasicDataSource dataSource() {
+<<<<<<< HEAD
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
 		// 외부용
+=======
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+>>>>>>> refs/remotes/origin/master
 		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida?useUnicode=true&characterEncoding=utf8");
 		
 		//집용

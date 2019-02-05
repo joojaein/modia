@@ -22,6 +22,8 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter{
  		http.authorizeRequests()
  			.antMatchers("/admin/**")
  				.hasAnyRole("ADMIN") 
+ 			.antMatchers("/member/**")
+ 				.hasAnyRole("MEMBER") 
  				.and()
 			.formLogin()
  				.loginPage("/login")
@@ -34,12 +36,9 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter{
  				.invalidateHttpSession(true)
  				.and()
 			.csrf()
- 				.disable();
-		
- 		
+ 				.disable(); 		
  		/*
 	 		http.authorizeRequests()
-		 
 			.antMatchers("/admin/**")
 				.hasAnyRole("ADMIN") 
 			.antMatchers("/teacher/**") 

@@ -15,8 +15,11 @@
             var decontainer = $(".detail-list-container");
             var mainul = $(".category-main-ul");
             var chk = false;
-
+            
             mainul.find("li").click(function () {
+              /*   if(mainul.find("li").find("ul").find("li").data("id")==mainul.find("li").find("ul").find("a").data("id")){
+                	alert(mainul.find("li").find("ul").find("li").find("a"));
+                } */
                 if (!chk) {
                     mainul.find("li").find("ul").css({ "visibility": "hidden" });
                     $(this).find("ul").css({ "visibility": "visible" });
@@ -34,8 +37,12 @@
                     }
 
                 }
+
                 chk = !chk;
+                
+
             })
+            
             $("#bar").click(function () {
                 calist.toggleClass("hide-calist");
                 sebu.toggleClass("active");
@@ -64,9 +71,11 @@
                         <c:forEach var="category" items="${list}">
                         <li><a href="#" data-id="${category.id}" class="calist">${category.name}</a>
                             <ul data-id="${category.id}">
-<%--                             	<c:if test="${category.id}">
-                                	<li><a href="#">전체</a></li>
-                                </c:if> --%>
+                              	<c:forEach var="tag" items="${tlist}">
+                             	<c:if test="${category.id == tag.categoryId}">
+                             		<li><a class="tag-name" href="#">${tag.name}</a></li>
+                                </c:if>
+                             	</c:forEach>
                             </ul>
                         </li>
                         </c:forEach>

@@ -13,6 +13,11 @@ where ${field} = #{query}  => where title = 'hello'
 <mapper namespace="com.moida.web.dao.MemberDao">
 
 
+
+	<update id="update" parameterType="com.moida.web.entity.Member">
+		update Member set pwd=#{pwd}, areaSido=#{areaSido}, email=#{email}, msg=#{msg} where id=#{id}
+	</update>
+	
 	<insert id="insert" parameterType="com.moida.web.entity.Member">
 		insert into Member(id, pwd, name, areaSido, email, birth, gender, msg, img)
 		values(#{id},#{pwd},#{name},#{areaSido},#{email},#{birth},#{gender},#{msg},#{img})
@@ -22,7 +27,7 @@ where ${field} = #{query}  => where title = 'hello'
 		insert into MemberRole(memberId, roleId) values(#{memberId},#{roleId})
 	</insert>
 	
-	<select id="getMemberList" resultType="com.moida.web.entity.Member">
+	<select id="getMember" resultType="com.moida.web.entity.Member">
 		select * from Member
 		where id=#{id}
 	</select>
@@ -32,54 +37,24 @@ where ${field} = #{query}  => where title = 'hello'
 		where id=#{id}
 		
 	</select>
-	
-	
-	<!-- 
-	<insert id="insert" resultType="com.moida.web.entity.Member">
-		select * from Member;
-	</insert> -->
-	<!-- 
-	insert into Member(id, pwd, name, areaSido, email, birth, gender, msg, img) values('test1','1234','test1','서울특별시',
-'test@naver.com','20000101',1,'','');
 
- 	-->
-	<!-- 
-	<select id="getViewList" resultType="com.newlecture.web.entity.NoticeView">
-		select * from Notice_View
-		where ${field} like '%${query}%'
-		and num between #{page}*10-9 and #{page}*10
+	<select id="getMemberIdList" resultType="java.util.Map">
+		select id from Member
+		where email=#{email}
 	</select>
 	
-	<select id="getList" resultType="com.newlecture.web.entity.Notice">
-		select id, title, content, writer_id as writerId, regdate, hit from Notice
+	<select id="getMemberCount" resultType="java.lang.Integer">
+		select count(*) cnt from Member
 	</select>
 	
-	<select id="getNoticeView" resultType="com.newlecture.web.entity.NoticeView">
-		select * from Notice_View 
-		where id=#{param1}
-	</select>
 	
-	<select id="getNotice" resultType="com.newlecture.web.entity.Notice">
-		select id, title, content, writer_id as writerId, regdate, hit from Notice
-		where id=#{param1}
+	<select id="getAdminMngMemberList" resultType="com.moida.web.entity.AdminMngMemberView">
+		SELECT * FROM AdminMngMemberView order by ${param1} ${param2}, id asc limit ${param3}, ${param4}
 	</select>
-	
-	<insert id="insert" parameterType="com.newlecture.web.entity.Notice">
-		insert into Notice(id, title, content, writer_Id) 
-		values(NOTICE_SEQ.NEXTVAL, #{title}, #{content}, #{writerId})
 		
+	<delete id="deleteMember" parameterType="com.moida.web.entity.AdminMngMemberView">
+		delete from Member where id=#{id}
+	</delete>
+	
 
-		
-	</insert>
-	
-	<update id="update" parameterType="com.newlecture.web.entity.Notice">
-		update Notice
-		set title=#{title}, 
-			content=#{content},
-			writer_id=#{writerId},
-			hit=#{hit}
-		where id=#{id}
-	</update>
-	
-	 -->
 </mapper>

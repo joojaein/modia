@@ -11,8 +11,6 @@ public class CategoryView {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
 	public CategoryView(String name, int categoryId, int rank) {
 		super();
 		this.name = name;

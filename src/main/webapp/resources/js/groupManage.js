@@ -23,6 +23,14 @@ window.addEventListener("load",function() {
     var approvalPaging = divApproval.querySelector(".paging");
     var approvalUlPaging = approvalPaging.querySelector("ul");
     
+	var crowdId = getParameterByName('crowd');
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	
 	setBoard();
 	 
     menu.addEventListener("click",function(evt){
@@ -106,79 +114,100 @@ window.addEventListener("load",function() {
     	var tbody = divBorder.querySelector("tbody");
     	tbody.innerHTML="";
     	
-    	for (var i = 0; i < 3; i++) {
-        	var tdTitle = document.createElement('td');
-        	tdTitle.innerText="자유게시판"
+    	
+		var boardRequest = new XMLHttpRequest(); 
+		boardRequest.open("POST", "/leader/get-board-list", true); 
+		boardRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		boardRequest.onload = function () {	
+			var boardList = JSON.parse(boardRequest.responseText);
+			for (var i = 0; i < boardList.length; i++) {
+	        	var tdTitle = document.createElement('td');
+	        	tdTitle.innerText=boardList[i].name;
+	    		var title = tdTitle.innerText;
 
-        	var aEdit = document.createElement('a');
-        	aEdit.classList.add("btn");
-        	aEdit.classList.add("edit");
-        	aEdit.innerText = "수정";
-        	var tdEdit = document.createElement('td');
-        	tdEdit.appendChild(aEdit);
-     
-        	var aDel = document.createElement('a');
-        	aDel.classList.add("btn");
-        	aDel.classList.add("del");
-        	aDel.innerText = "삭제";
-        	var tdDel = document.createElement('td');
-        	tdDel.appendChild(aDel);
-        	
-        	var tr = document.createElement('tr');
-        	tr.appendChild(tdTitle);
-        	tr.appendChild(tdEdit);
-        	tr.appendChild(tdDel);
-        
-        	tbody.appendChild(tr);
-        	
-        	aEdit.onclick = function(){
-        		var td = this.parentNode;
-        		var tr = td.parentNode;
-        		var trChildren = tr.childNodes;
-        		var tdTitle = trChildren[0];
-        		
-        		var tdEdit = trChild[1];
-        		var tdEditChildren = tdEdit.childNodes;
-        		var aEdit = tdEditChildren[0];
-        		
-        		var tdDel = trChild[2];
-        		var tdDelChildren = tdDel.childNodes;
-        		var aDel = tdDelChildren[0];
-        		
-        		var tempInput = document.createElement('input');
-            	tempInput.classList.add("temp-input");
-            	tempInput.placeholder = tdTitle.innerText;
-            	tdTitle.innerText="";
-            	tdTitle.appendChild(tempInput);
-            	
-            	aEdit.onclick = function(){
-        			//db에 update 진행
-            		
-        			setBoard();
-            	};
-            	
-            	aDel.innerText="취소";
-            	aDel.onclick = function() {
-        			setBoard();
-				};
-            	
-        	};
-        	
-        	aDel.onclick = function(){
-        		var td = this.parentNode;
-        		var tr = td.parentNode;
-        		var trChildren = tr.childNodes;
-        		var title = trChildren[0];
-        		var confirmDel = confirm("["+title.innerText+"] 게시판을 삭제 하시겠습니까?");
-        		if(confirmDel){
-        			//db에 delete 진행
-        			
-        			setBoard();
-        		}else{
-        			setBoard();
-        		}
-        	};
+	        	var aEdit = document.createElement('a');
+	        	aEdit.classList.add("btn");
+	        	aEdit.classList.add("edit");
+	        	aEdit.innerText = "수정";
+	        	var tdEdit = document.createElement('td');
+	        	tdEdit.appendChild(aEdit);
+	     
+	        	var aDel = document.createElement('a');
+	        	aDel.classList.add("btn");
+	        	aDel.classList.add("del");
+	        	aDel.innerText = "삭제";
+	        	var tdDel = document.createElement('td');
+	        	tdDel.appendChild(aDel);
+	        	
+	        	var tr = document.createElement('tr');
+	        	tr.appendChild(tdTitle);
+	        	tr.appendChild(tdEdit);
+	        	tr.appendChild(tdDel);
+	        	tr.value=boardList[i].id;
+	        	tbody.appendChild(tr);
+	        	
+	        	aEdit.onclick = function(){
+	        		var td = this.parentNode;
+	        		var tr = td.parentNode;
+	        		var trChildren = tr.childNodes;
+	        		var tdTitle = trChildren[0];
+
+	        		var tdEdit = trChildren[1];
+	        		var tdEditChildren = tdEdit.childNodes;
+	        		var aEdit = tdEditChildren[0];
+	        		
+	        		var tdDel = trChildren[2];
+	        		var tdDelChildren = tdDel.childNodes;
+	        		var aDel = tdDelChildren[0];
+	        		
+	        		var tempInput = document.createElement('input');
+	            	tempInput.classList.add("temp-input");
+	            	tempInput.placeholder = tdTitle.innerText;
+	            	tdTitle.innerText="";
+	            	tdTitle.appendChild(tempInput);
+	            	tempInput.focus();
+	            	aEdit.onclick = function(){
+	            		var confirmEdit = confirm("["+title+"] 게시판을 수정 하시겠습니까?");
+	            		if(confirmEdit){
+	            			var updateRequest = new XMLHttpRequest(); 
+	            			updateRequest.open("POST", "/leader/update-board", true); 
+	            			updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	            			updateRequest.onload = function () {
+	            				setBoard("boardId="+tr.value
+	            						+"&name="+tempInput.value);
+	            			};
+	            			updateRequest.send();
+            			}else{
+	            			setBoard();
+	            		}
+	            		
+	        			setBoard();
+	            	};
+	            	
+	            	aDel.innerText="취소";
+	            	aDel.onclick = function() {
+	        			setBoard();
+					};
+	            	
+	        	};
+	        	
+	        	aDel.onclick = function(){
+	        		var td = this.parentNode;
+	        		var tr = td.parentNode;
+	        		var trChildren = tr.childNodes;
+	        		var title = trChildren[0];
+	        		var confirmDel = confirm("["+title.innerText+"] 게시판을 삭제 하시겠습니까?");
+	        		if(confirmDel){
+	        			//db에 delete 진행
+	        			
+	        			setBoard();
+	        		}else{
+	        			setBoard();
+	        		}
+	        	};
+			}
 		}
+		boardRequest.send("crowdId="+crowdId);		
     };
 
     btnCut.onclick = function() {

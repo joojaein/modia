@@ -16,17 +16,25 @@
 		
 		<article class="area-name">
 		    <img class="group-logo" src="/resources/images/mainIcon/backpack.png" />
-		    <span class="fwb">모임명</span>
-	    	<a href="edit">기본정보수정</a>
+		    <span class="fwb">${crowd.name}</span>
+	    	<a href="edit?crowd=${crowd.id}">기본정보수정</a>
 		</article>
 		
 		<article class="area-content">
-			<p>캠핑캠핑에 오신것을 환영합니다
-			   블라블라~~~
-			   공지를 필독 해주세요!</p>
+			<p>${crowd.content}</p>
 			<br/>
 			<span>가입조건:</span> 
-			나이: 20  / 성별: 모두  / 지역: 서울 전체
+			나이: ${crowd.ageMin} ~ ${crowd.ageMax}  / 성별: 
+			<c:if test="${crowd.gender eq 0}">
+				남자
+			</c:if>
+			<c:if test="${crowd.gender eq 1}">
+				여자
+			</c:if>
+			<c:if test="${crowd.gender eq 2}">
+				모두
+			</c:if>
+			  / 지역: ${crowd.areaSido} ${crowd.areaSigungu}
 			<hr class="hr-bold"/>
 		</article>
 		<article class="area-etc">
