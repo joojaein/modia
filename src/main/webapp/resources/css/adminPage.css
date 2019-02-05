@@ -152,7 +152,7 @@
     margin: 10px 0px;
     font-size: 16px;
 }
-.div-msg, .div-pw, .div-email{
+.div-msg, .div-pw, .div-email, .div-banner{
 	text-align: left;
     padding: 0px 10px;	
 }
@@ -196,6 +196,73 @@
     margin-top: 7px;	
 }
 
+.ul-banner{
+    width: 80%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.li-banner {
+	width: 100%;
+    margin-bottom: 5px;	
+    display: flex;
+    justify-content: space-between;    
+}
+
+.li-banner img{	
+    width: 90%;
+    height: 100%;
+}
+
+.li-banner .div-button{
+	width:5%;
+	position: relative;
+}
+
+.li-banner .div-button input{
+	width: 20px;
+	height: 20px;
+	background: none;
+	border: none;
+	padding: 0px;
+	font-size:15px;
+}
+
+.li-banner .div-button .up{
+	position: absolute;
+	top: 0px;
+	margin-top: 10px;
+}
+
+.li-banner .div-button .del{
+	background: url("/resources/images/trash.png") no-repeat center;
+	background-size: 20px;
+	position: absolute;
+	top: 42%;
+}
+
+.li-banner .div-button .down{
+	position: absolute;
+	bottom: 0%;
+	margin-bottom: 10px;
+}
+
+.add-li-banner .btn{
+    background: url(/resources/images/addBanner.png) no-repeat center !important;
+    background-size: 80px !important;
+    border: 1px solid !important;
+    box-sizing: border-box !important;
+}
+
+.div-banner{
+	position: relative;
+}
+.div-banner .right{
+	position: absolute;
+    top: 0px;
+    right: 6px;
+    margin-right: 5px;
+}
 
 @media (min-width:721px){
 	.div-mng {
@@ -261,4 +328,27 @@
 	.email-auth .btn {
     	width: 15%;
     }	
+    
+    .li-banner .div-button input{
+		width: 30px;
+		height: 30px;
+		font-size:30px;
+	}
+	
+	
+	.li-banner .div-button .del{
+		background-size: 30px;
+	}
+    
+    .li-banner .div-button .up{
+		margin-top: 20px;
+	}
+	
+	
+	.li-banner .div-button .down{
+		margin-bottom: 20px;
+	}
+	
+	.add-li-banner .btn{
+    background-size: 160px !important;
 }

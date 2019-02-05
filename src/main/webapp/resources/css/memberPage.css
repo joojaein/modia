@@ -86,7 +86,7 @@
     margin: 10px 0px;
     font-size: 16px;
 }
-.div-msg, .div-pw, .div-email{
+.div-msg, .div-pw, .div-email, .div-location{
 	text-align: left;
     padding: 0px 10px;	
 }
@@ -129,6 +129,11 @@
 	border: none;
 	border-bottom: 1px solid black;
     margin-top: 7px;	
+}
+
+.div-location select{
+	width: 100%;
+    margin: 7px 0px;
 }
 
 

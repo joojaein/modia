@@ -20,16 +20,22 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.moida.web.controller.member.CrowdController;
+import com.moida.web.entity.Banner;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.service.MoidaBannerService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
 
@@ -42,16 +48,42 @@ public class HomeController {
 	private MoidaCategoryService categoryService;
 	@Autowired
 	private MoidaCrowdService crowdService;
+	@Autowired
+	private MoidaBannerService bannerService;
 	
 	@RequestMapping("/index")
 	public String index() {
+		System.out.println("index 들어옴");
 		return "home.index";
 	}	
+	
+	// 채팅을 위해서 로그인시 로그인 되었음을 확인시켜주는 POST
+	   @PostMapping("/chk-login")
+	   @ResponseBody
+	   public String chkLogin()throws Exception
+	   {   
+	      // 시큐리티 컨텍스트 객체를 얻습니다. 
+	      SecurityContext context = SecurityContextHolder.getContext(); 
+	      System.out.println("context : "+context);
+
+	      // 인증 객체를 얻습니다. 
+	      Authentication authentication = context.getAuthentication();
+	      System.out.println("authentication : "+authentication);
+	      
+	      String principal = (String) authentication.getPrincipal();
+	      
+	      if(principal.equals("anonymousUser")) {
+	         return "anonymousUser";
+	      }else {         
+	         return "loggined";
+	      }
+
+	   }   
+	
 	
 	@PostMapping("/get-categorylist")
 	@ResponseBody
 	public String getCategoryList() throws Exception{	
-		System.out.println("web.controller.HomeController - String getCategoryList()");
 		List<Category> memberList = categoryService.getCategoryList();
 		Gson gson = new Gson();
 		String json = gson.toJson(memberList);
@@ -60,11 +92,33 @@ public class HomeController {
 	
 	@PostMapping("/get-simplecrowdlist")
 	@ResponseBody
-	public String getSimpleCrowdList() throws Exception{
-		System.out.println("web.controller.HomeController - String getSimpleCrowdList()");
-		List<CrowdSimpleDataView> crowdList = crowdService.getSimpleList();
+	public String getSimpleCrowdList(
+			@RequestParam(name="type", defaultValue="0") Integer type,
+			@RequestParam(name="id", defaultValue="") String id) throws Exception{
+		List<CrowdSimpleDataView> crowdList = new ArrayList<CrowdSimpleDataView>();
+		switch(type) {
+		case 0:
+			crowdList = crowdService.getSimpleList();
+			break;
+		case 1:
+			crowdList = crowdService.getRealSimpleList(id);
+			break;
+		case 2: 
+			crowdList = crowdService.getRequestSimpleList(id);
+			break;		
+		}
+		
 		Gson gson = new Gson();
 		String json = gson.toJson(crowdList);
+		return json;
+	}
+	
+	@PostMapping("/get-mainbannerlist")
+	@ResponseBody
+	public String getMainBannerList() throws Exception{
+		List<Banner> bannerList = bannerService.getBannerList();
+		Gson gson = new Gson();
+		String json = gson.toJson(bannerList);
 		return json;
 	}
 	
@@ -105,7 +159,6 @@ public class HomeController {
 	@ResponseBody
 	public String upload(MultipartFile file, String id, String root,
 			HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		
 		String originFilename = file.getOriginalFilename();
 		String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
 		byte[] data = file.getBytes();
@@ -131,28 +184,41 @@ public class HomeController {
 		return null;
 	}	
 	
+	@PostMapping("/delete-file")
+	@ResponseBody
+	public String deleteFile(String fileName, String root,
+			HttpServletRequest req, HttpServletResponse resp) throws Exception{
+		String path = req.getServletContext().getRealPath("/"+root+"/"+fileName);
+		File file = new File(path);		
+		if(file.exists()){ 
+			file.delete(); 
+		}
+		return null;
+	}	
+	
+	
 	@RequestMapping("/get-img")
-    public String getImg(HttpServletRequest req, HttpServletResponse resp, 
-          String folder, String file) throws Exception { 
-      
-      ServletOutputStream bout = resp.getOutputStream();
-      String realPath = req.getServletContext().getRealPath("/"+folder+"/"+file);
-      InputStream fis=null;
-      if(!new File(realPath).exists()) {
-         realPath = "http://localhost/resources/images/img404.png";   
-         URL url = new URL("http://localhost/resources/images/img404.png");
-           HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();;
-           fis = urlConnection.getInputStream();      
-      }else {
-         fis = new FileInputStream(realPath);  
-      }
-      int length; 
-      byte[] buffer = new byte[1024];
-      while ( (length = (fis.read( buffer ))) != -1 ) {
-         bout.write( buffer, 0, length );  
-      }
-      fis.close();
-      return null;
-    }
+	 public String getImg(HttpServletRequest req, HttpServletResponse resp, 
+			 String folder, String file) throws Exception { 
+		
+		ServletOutputStream bout = resp.getOutputStream();
+		String realPath = req.getServletContext().getRealPath("/"+folder+"/"+file);
+		InputStream fis=null;
+		if(!new File(realPath).exists()) {
+			realPath = "http://localhost/resources/images/img404.png";	
+			URL url = new URL("http://localhost/resources/images/img404.png");
+	        HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();;
+	        fis = urlConnection.getInputStream();      
+		}else {
+			fis = new FileInputStream(realPath);  
+		}
+		int length; 
+		byte[] buffer = new byte[1024];
+		while ( (length = (fis.read( buffer ))) != -1 ) {
+			bout.write( buffer, 0, length );  
+		}
+		fis.close();
+		return null;
+	 }
 	
 }

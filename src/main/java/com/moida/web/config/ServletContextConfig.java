@@ -102,4 +102,8 @@ public class ServletContextConfig implements WebMvcConfigurer{
 		registry.addViewController("/").setViewName("redirect:/index");
 		WebMvcConfigurer.super.addViewControllers(registry);
 	}
+	
+	
+	
+	
 }

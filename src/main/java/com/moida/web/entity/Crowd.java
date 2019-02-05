@@ -8,9 +8,9 @@ public class Crowd {
 	private String content;
 	private String areaSido;
 	private String areaSigungu;
-	private int ageMin;
-	private int ageMax;
-	private String gender;
+	private String ageMin;
+	private String ageMax;
+	private int gender;
 	private int maxPerson;
 	private String img;
 	private int categoryId;
@@ -20,8 +20,8 @@ public class Crowd {
 
 		// TODO Auto-generated constructor stub
 	}
-	public Crowd(int id, String name, String content, String areaSido, String areaSigungu, int ageMin, int ageMax,
-			String gender, int maxPerson, String img, int categoryId, String leaderId, Date regDate) {
+	public Crowd(int id, String name, String content, String areaSido, String areaSigungu, String ageMin, String ageMax,
+			int gender, int maxPerson, String img, int categoryId, String leaderId, Date regDate) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -67,22 +67,22 @@ public class Crowd {
 	public void setAreaSigungu(String areaSigungu) {
 		this.areaSigungu = areaSigungu;
 	}
-	public int getAgeMin() {
+	public String getAgeMin() {
 		return ageMin;
 	}
-	public void setAgeMin(int ageMin) {
+	public void setAgeMin(String ageMin) {
 		this.ageMin = ageMin;
 	}
-	public int getAgeMax() {
+	public String getAgeMax() {
 		return ageMax;
 	}
-	public void setAgeMax(int ageMax) {
+	public void setAgeMax(String ageMax) {
 		this.ageMax = ageMax;
 	}
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 	public int getMaxPerson() {
