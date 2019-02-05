@@ -6,4 +6,5 @@ import com.moida.web.entity.Tag;
 
 public interface TagService {
 	List<Tag> getTagList();
+	List<Tag> getCategoryTagNameList(Integer categoryId);
 }

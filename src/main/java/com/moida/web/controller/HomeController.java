@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,17 +132,27 @@ public class HomeController {
 	}	
 	
 	@RequestMapping("/get-img")
-	 public String getImg(HttpServletRequest req, HttpServletResponse resp, 
-			 String folder, String file) throws Exception { 	   
-		String realPath = req.getServletContext().getRealPath("/"+folder+"/"+file);
-		ServletOutputStream bout = resp.getOutputStream();
-		FileInputStream fis = new FileInputStream(realPath);  
-		int length; 
-		byte[] buffer = new byte[10];
-		while ( ( length = fis.read( buffer ) ) != -1 ) {
-			bout.write( buffer, 0, length );   
-		}
-		return null;
-	 }
+    public String getImg(HttpServletRequest req, HttpServletResponse resp, 
+          String folder, String file) throws Exception { 
+      
+      ServletOutputStream bout = resp.getOutputStream();
+      String realPath = req.getServletContext().getRealPath("/"+folder+"/"+file);
+      InputStream fis=null;
+      if(!new File(realPath).exists()) {
+         realPath = "http://localhost/resources/images/img404.png";   
+         URL url = new URL("http://localhost/resources/images/img404.png");
+           HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();;
+           fis = urlConnection.getInputStream();      
+      }else {
+         fis = new FileInputStream(realPath);  
+      }
+      int length; 
+      byte[] buffer = new byte[1024];
+      while ( (length = (fis.read( buffer ))) != -1 ) {
+         bout.write( buffer, 0, length );  
+      }
+      fis.close();
+      return null;
+    }
 	
 }

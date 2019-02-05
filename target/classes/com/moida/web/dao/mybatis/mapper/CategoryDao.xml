@@ -11,4 +11,7 @@
 		FROM Tag LEFT JOIN Tag AS lesser ON Tag.categoryId = lesser.categoryId and Tag.id >= lesser.id
 		GROUP BY Tag.id, Tag.name, Tag.categoryId HAVING 5 > COUNT(lesser.categoryId) ORDER BY Tag.id, Tag.categoryId DESC
 	</select>
+	<select id="getCategoryName" resultType="com.moida.web.entity.Category">
+		select * from Category where id=#{param};
+	</select>
 </mapper>

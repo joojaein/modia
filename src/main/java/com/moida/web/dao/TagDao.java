@@ -6,4 +6,5 @@ import com.moida.web.entity.Tag;
 
 public interface TagDao {
 	public List<Tag> getTagList();
+	public List<Tag> getCategoryTagNameList(Integer categoryId);
 }

@@ -16,7 +16,8 @@ public interface CrowdService {
 	List<CrowdNotice> getNoticeList();
 	List<CrowdMemberRole> getCrowdMemberRole();
 	List<CrowdBoard> getBoardList();
-
+	List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
+	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
 	
 	
 }

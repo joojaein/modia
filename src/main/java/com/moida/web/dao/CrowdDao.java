@@ -11,6 +11,8 @@ public interface CrowdDao {
 	
 	public List<CrowdMemberRole> getCrowdMemberRole();
 	public List<CrowdSimpleDataView> getSimpleList();
+	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
+	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
 	public CrowdSimpleDataView getCrowdSimpleDataView();
 	public List<CrowdNotice> getNoticeList();
 	public List<CrowdBoard> getBoradList();

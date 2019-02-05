@@ -47,6 +47,19 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getBoradList();
 	}
 
+	@Override
+	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId) {
+		// TODO Auto-generated method stub
+		System.out.println(crowdDao.getSimpleCategoryList(categoryId));
+		return crowdDao.getSimpleCategoryList(categoryId);
+	}
+
+	@Override
+	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getSimpleCategoryTagList(tagId);
+	}
+
 
 
 }

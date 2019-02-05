@@ -11,9 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdNotice;
+import com.moida.web.entity.Tag;
+import com.moida.web.service.CategoryService;
 import com.moida.web.service.CrowdService;
+import com.moida.web.service.MoidaCategoryService;
+import com.moida.web.service.MoidaTagService;
 
 
 @Controller("memberCrowd")
@@ -69,12 +74,27 @@ public class CrowdController {
 		return "crowd.createCategory";
 	}
 	
+	@Autowired
+	public MoidaCategoryService moidaCategoryService;
+	
+	@Autowired
+	public MoidaTagService moidaTagService;
+	
+	
 	@RequestMapping("create")
 	public String create(
-			@RequestParam(name="t") String title,
+			@RequestParam(name="t") Integer categoryId,
 			Model model) throws FileNotFoundException {		
+		
+		
+		
+		Category categoryName = moidaCategoryService.getCategoryName(categoryId); 
+		List<Tag> categoryTagName = moidaTagService.getCategoryTagNameList(categoryId); 
+		
 		model.addAttribute("href","createCategory");
-		model.addAttribute("title",title);
+		model.addAttribute("title",categoryName.getName());
+		model.addAttribute("categoryName",categoryName);
+		model.addAttribute("tagName", categoryTagName);
 		return "crowd.create";
 
 
