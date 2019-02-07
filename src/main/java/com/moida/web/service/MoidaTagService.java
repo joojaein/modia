@@ -44,5 +44,11 @@ public class MoidaTagService implements TagService {
 		}
 		return cnt;
 	}
+	
+	@Override
+	public List<Tag> getCategoryTagNameList(Integer categoryId) {
+		// TODO Auto-generated method stub
+		return tagDao.getCategoryTagNameList(categoryId);
+	}
 
 }

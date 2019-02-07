@@ -10,12 +10,9 @@
     <div id="layer"></div>
 	<div class="create">
 		<div class="div-tag">
-			<input class="btn" type="button" value="등산">
-			<input class="btn" type="button" value="산책">
-			<input class="btn" type="button" value="캠핑">
-			<input class="btn" type="button" value="여행">
-			<input class="btn" type="button" value="낚시">
-			<input class="btn" type="button" value="기타">
+		<c:forEach var="tagName" items="${tagName}">
+			<input class="btn" type="button" value="${tagName.name}">
+		</c:forEach>
 		</div>
 		<div class="div-input">
 		

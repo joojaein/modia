@@ -111,4 +111,5 @@ public class MyBatisMemberDao implements MemberDao{
 		return memberDao.deleteCrowdMember(crowdId, memberId);
 	}
 	
+	
 }

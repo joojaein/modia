@@ -13,4 +13,7 @@ public interface TagService {
 	int insertTag(int crowdId, int tagId);
 	*/
 	int updateTag(int crowdId, String[] tagIds);
+	
+	List<Tag> getCategoryTagNameList(Integer categoryId);
+	
 }

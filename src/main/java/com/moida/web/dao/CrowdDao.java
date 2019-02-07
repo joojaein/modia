@@ -14,12 +14,15 @@ public interface CrowdDao {
 	
 	public List<CrowdMemberRole> getCrowdMemberRole();
 	public List<CrowdSimpleDataView> getSimpleList();
-	public List<CrowdSimpleDataView> getRealSimpleList(String id);
-	public List<CrowdSimpleDataView> getRequestSimpleList(String id);
+	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
+	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
 	public CrowdSimpleDataView getCrowdSimpleDataView();
 	public List<CrowdNotice> getNoticeList();
 	public List<CrowdBoard> getBoradList();
 		
+	public List<CrowdSimpleDataView> getRealSimpleList(String id);
+	public List<CrowdSimpleDataView> getRequestSimpleList(String id);
+	
 	public int getCrowdCount();
 	public Crowd getCrowd(int id);
 	
@@ -28,6 +31,8 @@ public interface CrowdDao {
 	public List<Integer> getCrowdTagIdList(int crowdId);
 	public int deleteCrowd(int id);
 	public int updateCrowd(Crowd crowd);
+	
+	
 	
 	public List<LeaderMngChartView> getChartList(int crowdId);
 }

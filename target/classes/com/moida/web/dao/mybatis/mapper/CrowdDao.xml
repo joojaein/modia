@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.moida.web.dao.CrowdDao">
 
-	<select id = "getCrowdMemberRole" resultType="com.moida.web.entity.CrowdMemberRole">
-	 select * from crowdmemberRole cmr left join (select id as uid , msg from Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and 2 >= cmr.groupRole
+	<select id="getCrowdMemberRole"
+		resultType="com.moida.web.entity.CrowdMemberRole">
+		select * from crowdmemberRole cmr left join (select id as
+		uid , msg from
+		Member) m on cmr.id where m.uid = cmr.memberId and
+		cmr.crowdId = 5 and
+		2 >= cmr.groupRole
 	</select>
-	
-	<select id = "getCrowdSimpleDataView" resultType="com.moida.web.entity.CrowdSimpleDataView">
-	 select * from CrowdSimpleDataView where id = 5
+
+	<select id="getCrowdSimpleDataView"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select * from CrowdSimpleDataView where id = 5
 	</select>
-	
-	<select id = "getNoticeList" resultType="com.moida.web.entity.CrowdNotice">
-	select * from boardListView where type = 0;
+
+	<select id="getNoticeList"
+		resultType="com.moida.web.entity.CrowdNotice">
+		select * from boardListView where type = 0;
 	</select>
-	
-	<select id = "getBoardList" resultType="com.moida.web.entity.CrowdBoard">
-	select * from boardListView where type = 1;
+
+	<select id="getBoardList"
+		resultType="com.moida.web.entity.CrowdBoard">
+		select * from boardListView where type = 1;
 	</select>
-		
-	<select id="getSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
+	<select id="getSimpleList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select * from CrowdSimpleDataView
 	</select>
 	
@@ -74,4 +83,17 @@
 		select * from LeaderMngChartView where crowdId=#{param3};
 	</select>
 
+	<select id="getSimpleCategoryList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select csd.* from CrowdSimpleDataView as csd
+		inner Join
+		(select * from Category where id=#{param}) as cd on csd.categoryId = cd.id
+	</select>
+
+	<select id="getSimpleCategoryTagList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select csd.* from CrowdSimpleDataView as csd
+		inner Join
+		(select * from CrowdTag where tagId=#{param}) as cd on csd.id = cd.crowdId
+	</select>
 </mapper>

@@ -17,4 +17,10 @@
 	<insert id="insertTag" parameterType="java.lang.Integer">
 		insert into CrowdTag(crowdId, tagId) value(#{param1}, #{param2});
 	</insert>
+	
+	<select id="getCategoryTagNameList"
+		resultType="com.moida.web.entity.Tag">
+		select * from Tag where categoryId = #{param};
+	</select>
+	
 </mapper>

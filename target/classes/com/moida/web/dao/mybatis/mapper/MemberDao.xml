@@ -79,4 +79,5 @@ where ${field} = #{query}  => where title = 'hello'
 		delete from MemberCrowd where memberId=#{param2} and crowdId=#{param1};
 	</delete>
 	 
+
 </mapper>

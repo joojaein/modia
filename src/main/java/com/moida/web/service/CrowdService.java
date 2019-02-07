@@ -34,4 +34,7 @@ public interface CrowdService {
 
 	List<LeaderMngChartView> getChartList(int crowdId);
 
+	List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
+	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
+
 }
