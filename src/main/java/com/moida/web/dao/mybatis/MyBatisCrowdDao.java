@@ -13,6 +13,7 @@ import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.LeaderMngChartView;
 
 @Repository
 public class MyBatisCrowdDao implements CrowdDao{
@@ -100,6 +101,12 @@ public class MyBatisCrowdDao implements CrowdDao{
 	public int updateCrowd(Crowd crowd) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.updateCrowd(crowd);
+	}
+
+	@Override
+	public List<LeaderMngChartView> getChartList(int crowdId) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getChartList(crowdId);
 	}
 
 

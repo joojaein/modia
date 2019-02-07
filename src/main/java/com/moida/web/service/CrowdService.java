@@ -8,6 +8,7 @@ import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.LeaderMngChartView;
 
 public interface CrowdService {
 	
@@ -31,5 +32,6 @@ public interface CrowdService {
 	int deleteCrowd(int id);
 	int updateCrowd(Crowd crowd);
 
+	List<LeaderMngChartView> getChartList(int crowdId);
 
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +55,20 @@ public class HomeController {
 	@RequestMapping("/index")
 	public String index() {
 		return "home.index";
+	}	
+	
+	@PostMapping("/chk-login")
+	@ResponseBody
+	public String chkLogin()throws Exception{	
+		SecurityContext context = SecurityContextHolder.getContext(); 
+		Authentication authentication = context.getAuthentication();		
+		String principal = (String) authentication.getPrincipal();
+
+		if(principal.equals("anonymousUser")) {
+			return "anonymousUser";
+		}else {			
+			return "loggined";
+		}
 	}	
 	
 	@PostMapping("/get-categorylist")

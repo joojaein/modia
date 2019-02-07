@@ -11,9 +11,6 @@ where ${field} = #{query}  => where title = 'hello'
 -->
 
 <mapper namespace="com.moida.web.dao.MemberDao">
-
-
-
 	<update id="update" parameterType="com.moida.web.entity.Member">
 		update Member set pwd=#{pwd}, areaSido=#{areaSido}, email=#{email}, msg=#{msg} where id=#{id}
 	</update>
@@ -41,7 +38,6 @@ where ${field} = #{query}  => where title = 'hello'
 		select count(*) cnt from Member
 	</select>
 	
-	
 	<select id="getAdminMngMemberList" resultType="com.moida.web.entity.AdminMngMemberView">
 		SELECT * FROM AdminMngMemberView order by ${param1} ${param2}, id asc limit ${param3}, ${param4}
 	</select>
@@ -49,4 +45,38 @@ where ${field} = #{query}  => where title = 'hello'
 	<delete id="deleteMember" parameterType="com.moida.web.entity.AdminMngMemberView">
 		delete from Member where id=#{id}
 	</delete>
+	
+	<select id="getLeaderMngRealMemberCnt" resultType="java.lang.Integer">
+		<![CDATA[ 
+		select count(memberId) cnt from LeaderMngMemberView where crowdId=#{crowdId} and groupRole<3
+		]]> 
+	</select>
+	
+	<select id="getLeaderMngRequestMemberCnt" resultType="java.lang.Integer">
+		select count(memberId) cnt from LeaderMngMemberView where crowdId=#{crowdId} and groupRole=3
+	</select>
+	
+	<select id="getLeaderMngRealMemberList" resultType="com.moida.web.entity.LeaderMngMemberView">
+		<![CDATA[ 
+		select * from LeaderMngMemberView where crowdId=${param5} and groupRole<3 order by ${param1} ${param2}, memberId asc limit ${param3}, ${param4};
+		]]> 
+	</select>
+	
+	<select id="getLeaderMngRequestMemberList" resultType="com.moida.web.entity.LeaderMngMemberView">
+		select * from LeaderMngMemberView where crowdId=${param5} and groupRole=3 order by ${param1} ${param2}, memberId asc limit ${param3}, ${param4};
+	</select>
+	
+	<update id="updateRequestCrowdMember">
+		update MemberCrowd set regDate=current_timestamp(), groupRole=2 where memberId=#{param2} and crowdId=#{param1};
+	</update>
+	
+	<update id="updateRealCrowdMember">
+		update MemberCrowd set groupRole=#{param3} where memberId=#{param2} and crowdId=#{param1}; 
+	</update>
+	
+	
+	<delete id="deleteCrowdMember">
+		delete from MemberCrowd where memberId=#{param2} and crowdId=#{param1};
+	</delete>
+	 
 </mapper>

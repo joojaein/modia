@@ -11,7 +11,7 @@
 	<div class="grid">
 	
 		<article class="area-banner">
-			<img src="/resources/images/test.jpg">
+		    	<img src="/resources/images/img404.png" name="${crowd.img}"> 
 		</article>
 		
 		<article class="area-name">
@@ -68,33 +68,33 @@
 	    			<table>
 			    		<colgroup>
 						<col width="6%" />
-						<col width="34%" />
-						<col width="20%" />
-						<col width="20%" />
+						<col width="24%" />
+						<col width="25%" />
+						<col width="25%" />
 						<col width="20%" />
 						</colgroup>
 		    			<thead>
 		    				<tr>
-		    					<td colspan="2">
-		    						<span class="btn id" >아이디</span>
+	    						<td style="border-right:none !important"></td>
+		    					<td style="border-left:none !important">
+		    						<span class="btn memberId" >아이디</span>
 		    						<span class="up d-none">&uarr;</span>
 		    						<span class="down d-none">&darr;</span>
 	    						</td>
 		    					<td>
-		    						<span class="btn regdate">가입일</span>
+		    						<span class="btn regDate">가입일</span>
 		    						<span class="up d-none">&uarr;</span>
 		    						<span class="down d-none">&darr;</span>
 	    						</td>
 		    					<td>
-		    						<span class="btn visitdate">최종접속일</span>
+		    						<span class="btn recently">최종접속일</span>
 		    						<span class="up d-none">&uarr;</span>
 		    						<span class="down d-none">&darr;</span>
 		    					</td>
 		    					<td>
-		    						<span class="btn level">등급</span>
-		    						<span class="up d-none">&uarr;</span>
-		    						<span class="down d-none">&darr;</span>
-		    					</td>
+		    						<span class="btn groupRole">등급</span>
+		    						<span class="down">&darr;</span>
+		    						<span class="up d-none">&uarr;</span>		    						
 		    				</tr>
 		    			</thead>
 		    			<tbody>
@@ -104,11 +104,6 @@
 	    			<div class="paging">
 		    			<input class="btn" type="button" value="&#9664;">
 		    			<ul>
-		    				<li><input class="btn now-page" type="button" value="1"></li>
-		    				<li><input class="btn" type="button" value="2"></li>
-		    				<li><input class="btn" type="button" value="3"></li>
-		    				<li><input class="btn" type="button" value="4"></li>
-		    				<li><input class="btn" type="button" value="5"></li>
 		    			</ul> 
 		    			<input class="btn" type="button" value="&#9654;">	 
 		    		</div>
@@ -125,14 +120,15 @@
 						</colgroup>
 		    			<thead>
 		    				<tr>
-		    					<td colspan="2">
-		    						<span class="btn id" >아이디</span>
+	    						<td style="border-right:none !important"></td>
+		    					<td style="border-left:none !important">
+		    						<span class="btn memberId">아이디</span>		    						
 		    						<span class="up d-none">&uarr;</span>
 		    						<span class="down d-none">&darr;</span>
 	    						</td>
 		    					<td>
-		    						<span class="btn reqdate">가입요청일</span>
-		    						<span class="up d-none">&uarr;</span>
+		    						<span class="btn regDate">가입요청일</span>
+		    						<span class="up">&uarr;</span>
 		    						<span class="down d-none">&darr;</span>
 	    						</td>
 	    					</tr>
@@ -144,11 +140,6 @@
 	    			<div class="paging">
 		    			<input class="btn" type="button" value="&#9664;">
 		    			<ul>
-		    				<li><input class="btn now-page" type="button" value="1"></li>
-		    				<li><input class="btn" type="button" value="2"></li>
-		    				<li><input class="btn" type="button" value="3"></li>
-		    				<li><input class="btn" type="button" value="4"></li>
-		    				<li><input class="btn" type="button" value="5"></li>
 		    			</ul> 
 		    			<input class="btn" type="button" value="&#9654;">	 
 		    		</div>
@@ -176,13 +167,19 @@
 								<thead>
 				    				<tr>
 				    					<td>
-				    						<span class="btn period">기간</span>
+				    						<span class="btn date">기간</span>    						
+		    								<span class="up">&uarr;</span>
+		    								<span class="down d-none">&darr;</span>
 			    						</td>
 				    					<td>
-				    						<span class="btn join">가입자수</span>
+				    						<span class="btn regCnt">가입자수</span>    						
+				    						<span class="up d-none">&uarr;</span>
+				    						<span class="down d-none">&darr;</span>
 			    						</td>
 				    					<td>
-				    						<span class="btn visit">방문자수</span>
+				    						<span class="btn hitCnt">방문자수</span>    						
+				    						<span class="up d-none">&uarr;</span>
+				    						<span class="down d-none">&darr;</span>
 			    						</td>
 			    					</tr>
 				    			</thead>

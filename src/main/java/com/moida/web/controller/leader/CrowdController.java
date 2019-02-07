@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Crowd;
+import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.LeaderMngMemberView;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCrowdService;
+import com.moida.web.service.MoidaMemberService;
 import com.moida.web.service.MoidaTagService;
 
 @Controller("leaderCrowd")
@@ -30,6 +33,8 @@ public class CrowdController {
 	public MoidaTagService tagService;
 	@Autowired
 	public MoidaBoardService boardService;
+	@Autowired
+	public MoidaMemberService memberService;
 	
 	
 	@RequestMapping("edit") // 태그, 주요지역, 등등 기본 정보 수정하는 페이지
@@ -44,7 +49,7 @@ public class CrowdController {
 		List<Tag> tagList = tagService.getCategoryTagList(crowd.getId());
 		List<Integer> crowdTagIdList = crowdService.getCrowdTagIdList(crowd.getId());
 		
-		model.addAttribute("href","manage");  
+		model.addAttribute("href","manage?crowd="+crowdId);  
 		model.addAttribute("title","모임관리");	
 		model.addAttribute("crowd",crowd);  
 		model.addAttribute("tagList",tagList);  
@@ -116,29 +121,115 @@ public class CrowdController {
 		String json = gson.toJson(boardList);
 		return json;
 	}	
-	/*
+	
 	@PostMapping("insert-board")
 	@ResponseBody
-	public String insertBoard() throws Exception{	
-		List<Board> boardList = boardService.getBoardListType1(crowdId);
-		Gson gson = new Gson();
-		String json = gson.toJson(boardList);
-		return json;
+	public String insertBoard(int crowdId, String name) throws Exception{
+		Board board = new Board(name, crowdId);
+		return boardService.insertBoardType1(board)+"";
 	}
-	*/
+	
 	@PostMapping("update-board")
 	@ResponseBody
 	public String updateBoard(int boardId, String name) throws Exception{	
 		return boardService.updateBoard(boardId, name)+"";
 	}
-	/*
+	
 	@PostMapping("delete-board")
 	@ResponseBody
-	public String deleteBoard() throws Exception{	
-		List<Board> boardList = boardService.getBoardListType1(crowdId);
+	public String deleteBoard(int boardId) throws Exception{	
+		return boardService.deleteBoard(boardId)+"";
+	}
+	
+	@PostMapping("get-real-member-cnt")
+	@ResponseBody
+	public String getRealMemberCnt(int crowdId) throws Exception{	
+		Integer memberCnt=memberService.getLeaderMngRealMemberCnt(crowdId);
+		return memberCnt+"";
+	}
+	
+	@PostMapping("get-request-member-cnt")
+	@ResponseBody
+	public String getRequestMemberCnt(int crowdId) throws Exception{	
+		Integer memberCnt=memberService.getLeaderMngRequestMemberCnt(crowdId);
+		return memberCnt+"";
+	}
+	
+	@PostMapping("get-real-member-list")
+	@ResponseBody
+	public String getRealMemberList(String query, String updown, int min, int max, int crowdId) throws Exception{	
+		List<LeaderMngMemberView> memberList=memberService.getLeaderMngRealMemberList(query, updown, min, max, crowdId);
 		Gson gson = new Gson();
-		String json = gson.toJson(boardList);
+		String json = gson.toJson(memberList);
+		return json;	
+	}
+	
+	@PostMapping("get-request-member-list")
+	@ResponseBody
+	public String getRequestMemberList(String query, String updown, int min, int max, int crowdId) throws Exception{	
+		List<LeaderMngMemberView> memberList=memberService.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
+		Gson gson = new Gson();
+		String json = gson.toJson(memberList);
 		return json;
 	}
-	*/
+		
+	@PostMapping("update-request-member")
+	@ResponseBody
+	public String updaetRequestMember(int crowdId, String memberIds) throws Exception{	
+		String[] memberIdArray = memberIds.split(","); 
+		int cnt=0;
+		for (int i = 0; i < memberIdArray.length; i++) {
+			memberService.updateRequestCrowdMember(crowdId, memberIdArray[i].trim());
+			cnt++;
+		}		
+		return cnt+"";
+	}
+	
+
+	@PostMapping("update-real-member")
+	@ResponseBody
+	public String updaetRealMember(int crowdId, String memberId, int groupRole) throws Exception{	
+		Integer memberCnt=memberService.updateRealCrowdMember(crowdId, memberId, groupRole);
+		return memberCnt+"";
+	}
+	
+	@PostMapping("del-real-member")
+	@ResponseBody
+	public String deleteRealMember(int crowdId, String memberIds) throws Exception{	
+		String[] memberIdArray = memberIds.split(","); 
+		int cnt=0;
+		for (int i = 0; i < memberIdArray.length; i++) {
+			memberService.deleteCrowdMember(crowdId, memberIdArray[i].trim());
+			cnt++;
+		}		
+		return cnt+"";
+	}
+	
+	@PostMapping("get-chart-data")
+	@ResponseBody
+	public String getChartData(int crowdId) throws Exception{	
+		List<LeaderMngChartView> chartList=crowdService.getChartList(crowdId);
+		Gson gson = new Gson();
+		String json = gson.toJson(chartList);
+		return json;				
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -49,8 +49,9 @@ function drawChart() {
         chart.setSelection(selectArr);
     }
 }
-
+/*
 function drawChart_v(dataVal) {
+	alert("(dataVal)");
     var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
     var data = google.visualization.arrayToDataTable(dataVal);
     chart.draw(data, options);
@@ -68,3 +69,4 @@ function drawChart_v(dataVal) {
         chart.setSelection(selectArr);
     }
 }
+*/

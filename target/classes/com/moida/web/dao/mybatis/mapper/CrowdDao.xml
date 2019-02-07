@@ -69,5 +69,9 @@
 	<delete id="deleteCrowd" parameterType="java.lang.Integer">
 		delete from Crowd where id=#{id}
 	</delete>
+	
+	<select id="getChartList" resultType="com.moida.web.entity.LeaderMngChartView">
+		select * from LeaderMngChartView where crowdId=#{param3};
+	</select>
 
 </mapper>

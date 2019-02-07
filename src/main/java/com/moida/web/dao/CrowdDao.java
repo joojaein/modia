@@ -8,6 +8,7 @@ import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.LeaderMngChartView;
 
 public interface CrowdDao {
 	
@@ -27,4 +28,6 @@ public interface CrowdDao {
 	public List<Integer> getCrowdTagIdList(int crowdId);
 	public int deleteCrowd(int id);
 	public int updateCrowd(Crowd crowd);
+	
+	public List<LeaderMngChartView> getChartList(int crowdId);
 }

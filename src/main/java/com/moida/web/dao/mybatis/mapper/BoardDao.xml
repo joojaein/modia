@@ -11,7 +11,7 @@
 		insert into Board(name, type, crowdId) values(#{name}, 1, #{crowdId});	
 	</insert>
 	
-	<update id="updateBoard" parameterType="java.lang.Integer">
+	<update id="updateBoard">
 		update Board set name=#{param2} where id=#{param1};	
 	</update>
 	
