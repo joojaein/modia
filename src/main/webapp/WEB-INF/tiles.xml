@@ -30,11 +30,19 @@
 		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
 	</definition>
 	
-		<definition name="crowd.category*" template="/WEB-INF/views/inc/layout.jsp">
+	<definition name="crowd.categorySearch" template="/WEB-INF/views/inc/layout.jsp">
 		<put-attribute name="title" value="MOIDA" />
 		<put-attribute name="header" value="/WEB-INF/views/inc/header/searchHeader.jsp" />
 		<put-attribute name="aside" value="/WEB-INF/views/inc/aside.jsp"/>
-		<put-attribute name="main" value="/WEB-INF/views/crowd/category{1}.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/crowd/categorySearch.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+	</definition>
+	
+	<definition name="crowd.search" template="/WEB-INF/views/inc/layout.jsp">
+		<put-attribute name="title" value="MOIDA" />
+		<put-attribute name="header" value="/WEB-INF/views/inc/header/searchHeader.jsp" />
+		<put-attribute name="aside" value="/WEB-INF/views/inc/aside.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/crowd/search.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
 	</definition>
 

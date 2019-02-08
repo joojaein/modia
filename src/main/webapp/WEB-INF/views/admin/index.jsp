@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <main>
 	<link href="/resources/css/adminPage.css" type="text/css" rel="stylesheet" />
     <script src="/resources/js/adminIndex.js"> </script>
@@ -7,10 +8,10 @@
     <div class="admin-index">
 	    <div class="profile">
 			<div class="profile-img">	
-		    	<img src="/resources/images/profile.png">
+		    	<img src="/resources/images/img404.png" name="${member.img}">
 	    	</div>	    	
-	    	<div class="id fs16 fwb">관리자</div>
-   	    	<div class="message">1:1 문의</div>	 
+	    	<div class="id fs16 fwb">${member.id}</div>
+	    	<div class="message">${member.msg}</div> 
 	    </div>
 	    
 	    <div class="div-mng">
@@ -24,7 +25,7 @@
 	    	
 	    	<div class="table">
 		   		<div class="right">
-		    		<input class="btn" type="button" value="모임삭제"/>
+		    		<input class="submit-btn btn" type="button" value="모임삭제"/>
 	    		</div>
 	    		<table>
 		    		<colgroup>
@@ -35,99 +36,40 @@
 					</colgroup>
 	    			<thead>
 	    				<tr>
-	    					<td colspan="2">
+	    					<td colspan="2" class="td-name">
 	    						<span class="btn name" >모임명</span>
 	    						<span class="up d-none">&uarr;</span>
 	    						<span class="down d-none">&darr;</span>
     						</td>
-	    					<td>
+	    					<td class="td-regdate">
 	    						<span class="btn regdate">개설일</span>
 	    						<span class="up d-none">&uarr;</span>
 	    						<span class="down d-none">&darr;</span>
     						</td>
-	    					<td>
-	    						<span class="btn rtrc">신고횟수</span>
+	    					<td class="td-rprt">
+	    						<span class="btn rprt">신고횟수</span>
 	    						<span class="up d-none">&uarr;</span>
-	    						<span class="down d-none">&darr;</span>
+	    						<span class="down">&darr;</span>
 	    					</td>
 	    				</tr>
 	    			</thead>
 	    			<tbody>
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임가가모임가가모임가가모임가가모임가가모임가가모임가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>    
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
-	    				<tr>
-	    					<td><input type="checkbox"></td>
-	    					<td>가가모임</td>
-	    					<td>2018.01.01</td>
-	    					<td>3</td>
-	    				</tr>   
+						<template id="crowd-td-template">
+							<tr>
+		    					<td><input type="checkbox"></td>
+		    					<td class="tpl-name"></td>
+		    					<td class="tpl-regdate"></td>
+		    					<td class="tpl-rprt"></td>
+		    				</tr>  
+	    				</template>  
 	    			</tbody>
 	    		</table>
 	    		
 	    		<div class="paging">
-	    			<input class="btn" type="button" value="&#9664;">
+	    			<input class="btn prev" type="button" value="&#9664;">
 	    			<ul>
-	    				<li><input class="btn now-page" type="button" value="1"></li>
-	    				<li><input class="btn" type="button" value="2"></li>
-	    				<li><input class="btn" type="button" value="3"></li>
-	    				<li><input class="btn" type="button" value="4"></li>
-	    				<li><input class="btn" type="button" value="5"></li>
 	    			</ul> 
-	    			<input class="btn" type="button" value="&#9654;">
-	    			 
-	    			 
+	    			<input class="btn next" type="button" value="&#9654;">
 	    		</div>
 	    	</div>
 	    </div>

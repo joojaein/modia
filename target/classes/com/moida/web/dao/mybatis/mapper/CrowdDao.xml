@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.moida.web.dao.CrowdDao">
 
 	<select id="getCrowdMemberRole"
 		resultType="com.moida.web.entity.CrowdMemberRole">
-		select * from crowdmemberRole cmr left join (select id as uid , msg from
-		Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and
+		select * from crowdmemberRole cmr left join (select id as
+		uid , msg from
+		Member) m on cmr.id where m.uid = cmr.memberId and
+		cmr.crowdId = 5 and
 		2 >= cmr.groupRole
 	</select>
 
@@ -32,5 +35,69 @@
 	<insert id="insertBoardReg" parameterType="com.moida.web.entity.CrowdBoard">
 		insert into Posts(boardId, title, content, writerId) values(#{boardId}, #{title}, #{content}, #{writerId});
 	</insert>
+	
+	<select id="getRealSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
+		<![CDATA[ 
+		select v.* from (select * from MemberCrowd where memberId=#{param1} and groupRole<3) mc 
+		inner join 
+		CrowdSimpleDataView v 
+		on mc.crowdId = v.id
+		]]> 
+	</select>
+	
+	<select id="getRequestSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select v.* from (select * from MemberCrowd where memberId=#{param1} and groupRole=3) mc 
+		inner join 
+		CrowdSimpleDataView v 
+		on mc.crowdId = v.id 
+	</select>
+	
+	
+	<select id="getCrowdCount" resultType="java.lang.Integer">
+		select count(*) cnt from Crowd
+	</select>
+	
+	<select id = "getCrowd" resultType="com.moida.web.entity.Crowd">
+	 select * from Crowd where id = #{crowdId}
+	</select>	
 
+	<select id="getAdminMngCrowdList" resultType="com.moida.web.entity.AdminMngCrowdView">
+		SELECT * FROM AdminMngCrowdView order by ${param1} ${param2}, id asc limit ${param3}, ${param4}
+	</select>
+	
+	
+	<select id="getCrowdTagIdList" resultType="java.lang.Integer">
+	    select tagId from CrowdTag where crowdId=#{crowdId}
+	</select>
+	
+	<update id="updateCrowd" parameterType="com.moida.web.entity.Crowd">		
+		update Crowd set areaSido=#{areaSido}, areaSigungu=#{areaSigungu},
+		name=#{name}, content=#{content},
+		ageMin=#{ageMin}, ageMax=#{ageMax},
+		gender=#{gender}, maxPerson=#{maxPerson}, img=#{img}
+		where id=#{id}
+	</update>
+	
+	
+	<delete id="deleteCrowd" parameterType="java.lang.Integer">
+		delete from Crowd where id=#{id}
+	</delete>
+	
+	<select id="getChartList" resultType="com.moida.web.entity.LeaderMngChartView">
+		select * from LeaderMngChartView where crowdId=#{param3};
+	</select>
+
+	<select id="getSimpleCategoryList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select csd.* from CrowdSimpleDataView as csd
+		inner Join
+		(select * from Category where id=#{param}) as cd on csd.categoryId = cd.id
+	</select>
+
+	<select id="getSimpleCategoryTagList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select csd.* from CrowdSimpleDataView as csd
+		inner Join
+		(select * from CrowdTag where tagId=#{param}) as cd on csd.id = cd.crowdId
+	</select>
 </mapper>

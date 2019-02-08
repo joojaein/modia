@@ -213,7 +213,24 @@
 			<scope>test</scope>
 		</dependency>   
 		
- 
+ 	<!-- 채팅을 위한 소켓 설정 -->
+
+ 	<!-- <dependency>
+ 		<groupId>org.springframework</groupId>
+ 		<artifactId>spring-websocket</artifactId>
+ 		<version>5.1.3.RELEASE</version>
+ 	</dependency> -->
+
+
+
+	<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-websocket-api</artifactId>
+			<version>9.0.14</version>
+		</dependency>
+
+ 	
+ 	
 	</dependencies>
     <build>
         <plugins>

@@ -38,7 +38,7 @@ window.addEventListener("load",function(){
 	txtId.onkeyup = function(){
 		overlap = true;
     };
-	
+    
 	
     //selSido 관련//////////////////////////////////////////////////
 	var selSido = join.querySelector(".sido")
@@ -91,7 +91,7 @@ window.addEventListener("load",function(){
 	});
 
 
-	//이메일 인증 관련 //////////////////////////////////////////////////
+	//이메일 인증 관련 //////////////////////////////////////////////////    
     var formTimer = function(btn){
     	var timeString = btn.value;
     	var min = timeString.substring(0,1);
@@ -123,9 +123,11 @@ window.addEventListener("load",function(){
     		formTimer(btnEmailSend);
     		if(btnEmailSend.value=="0&nbsp;00" ||
     				btnEmailSend.value=="0 : 00"){
+                clearInterval(timer);
     	    	btnEmailSend.classList.remove("timer");
     	    	btnEmailSend.value = "인증번호 발송"; 
-                clearInterval(timer);
+            	txtAuthNum.classList.add("d-none");
+            	btnEmailAuth.classList.add("d-none");
     		}},1000);
     	
 		btnEmailAuth.onclick = function(){};

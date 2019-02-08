@@ -4,55 +4,48 @@
     
 <main>
 	<link href="/resources/css/groupCreate.css" type="text/css" rel="stylesheet" />
-    <script src="/resources/js/groupCreate.js"> </script>
+    <script src="/resources/js/groupEdit.js"> </script>
 	
     <div id="layer"></div>
 	<div class="create">
 		<div class="div-tag">
-			<input class="btn" type="button" value="등산">
-			<input class="btn" type="button" value="산책">
-			<input class="btn" type="button" value="캠핑">
-			<input class="btn" type="button" value="여행">
-			<input class="btn" type="button" value="낚시">
-			<input class="btn" type="button" value="기타">
-		</div>
-		<div class="div-input">
 		
-			<!-- <input id="roadAddress" class="btn location" type="button" value="지역"> -->
-			
+		<c:forEach var="t" items="${tagList}">
+			<c:set var="setSelected" value="false" />
+			<c:forEach var="ct" items="${crowdTagIdList}">
+				<c:set var="crowdTag" value="${ct}" />
+			    <c:if test="${crowdTag eq t.id}">
+					<input class="btn selected-tag" type="button" value="${t.name}" name="${t.id}">
+					<c:set var="setSelected" value="true" />
+				</c:if>
+			</c:forEach>
+			    <c:if test="${not setSelected}">
+					<c:if test="${crowdTag ne t.id}">
+						<input class="btn" type="button" value="${t.name}" name="${t.id}">
+					</c:if>	
+				</c:if>
+		</c:forEach>
+		
+		</div>
+		<div class="div-input">			
 			<div class="div-location">
 				<select class="sido">				
 				</select>
 				<select class="sigungu">
-					<option>시군구</option>
 				</select>
 			</div>
 			<div class="div-text">
-				<input type="text" placeholder="모임이름을 작성해 주세요">
-				<textarea placeholder="모임을 소개해 주세요"></textarea>
+				<input class="input-name" type="text" placeholder="모임이름을 작성해 주세요" value="${crowd.name}">
+				<textarea class="textarea-content" placeholder="모임을 소개해 주세요">${crowd.content}</textarea>
 			</div>
 			<div class="div-age">
 				<div class="left">
 					<span>나이</span>
 				</div>
 				<select class="age-min">
-					<option>10대</option>
-					<option>20대</option>
-					<option>30대</option>
-					<option>40대</option>
-					<option>50대</option>
-					<option>60대</option>
-					<option selected="selected">무관</option>
 				</select>					
 				<span class="etc-span">~</span>
 				<select class="age-max">
-					<option>10대</option>
-					<option>20대</option>
-					<option>30대</option>
-					<option>40대</option>
-					<option>50대</option>
-					<option>60대</option>
-					<option selected="selected">무관</option>
 				</select>
 			</div>
 			<div class="div-gender">
@@ -60,9 +53,6 @@
 					<span>성별</span>
 				</div>
 				<select class="gender">
-					<option>남자</option>
-					<option>여자</option>
-					<option selected="selected">무관</option>
 				</select>
 			</div>
 			<div class="div-maxperson">
@@ -77,7 +67,10 @@
 				</div>
 	 			<input style="display:none" type="file" />				
 				<input class="btn" type="button">
-			</div>			
+			</div>	
+			<div class="div-img">
+				<img/>
+			</div>
 		</div>
 		<input class="btn-create btn fs14 fwb" type="button" value="수정하기">
 	</div>									

@@ -2,7 +2,6 @@ package com.moida.web.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,19 +10,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -36,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.moida.web.controller.member.CrowdController;
 import com.moida.web.entity.Member;
 import com.moida.web.service.MoidaMemberService;
 
@@ -64,7 +56,6 @@ public class MemberController {
 	public String join(String id, String pwd, String name, String areaSido,
 			String email, String birth, int gender, String msg, String img) throws ParseException{
 			
-				
 		String extName = img.substring(img.lastIndexOf("."), img.length());
 		img = id+extName;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -72,21 +63,20 @@ public class MemberController {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		pwd = encoder.encode(pwd);
 		Member member = new Member(id, pwd, name, areaSido, email, parsed, gender, msg, img);
-		System.out.println("com.moida.web.controller-MemberController - join(...)");
-
+		
     	return memberService.joinMember(member)+""; 
 	}
 		
 	
 	@RequestMapping("/chk-overlap")
 	@ResponseBody
-	public String chkOverlap(String id) throws FileNotFoundException {
-		System.out.println("com.moida.web.controller-MemberController - chkOverlap(String id) : "+ id);
-		List<Member> memberList = memberService.getMemberList(id);
-		System.out.println("com.moida.web.controller-MemberController - chkOverlap(String id) / memberService.getMemberList(id) 후: " + memberList.size());
-		return memberList.size()+"";
+	public String chkOverlap(String id) {
+		Member member = memberService.getMember(id);
+		if(member==null) {
+			return "0";
+		}
+		return "1";
 	}
-	
 	
 	@RequestMapping("/email-send") 
 	@ResponseBody
@@ -135,7 +125,6 @@ public class MemberController {
 	        }catch (FileNotFoundException e) {
 	        }catch(IOException e){
 	        }		
-		
     	helper.setFrom(adminMail.get(0));
     	helper.setTo(email);
     	helper.setText(html.toString(), true);
@@ -145,12 +134,29 @@ public class MemberController {
     	return checkId;
     }
 	
-	
+
 	@GetMapping("/idpw")
 	public String idpw() {	
 		return "home.idpw";
 	}	
 	
+	@RequestMapping("/get-memberid")
+	@ResponseBody
+	public String getMemberId(String email) {
+		List<String> idList = memberService.getMemberIdList(email);	
+		Gson gson = new Gson();
+		String json = gson.toJson(idList);
+		return json;
+	}
 	
-	
+	@RequestMapping("/update-pw")
+	@ResponseBody
+	public String updatePw(String id, String pw) {
+		Member member = memberService.getMember(id);
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		pw = encoder.encode(pw);
+		member.setPwd(pw);
+		memberService.update(member);
+		return null;
+	}
 }
