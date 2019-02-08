@@ -55,10 +55,18 @@ public class MyBatisCrowdDao implements CrowdDao{
 
 
 	@Override
-	public List<CrowdBoard> getBoradList() {
+	public List<CrowdBoard> getBoardList() {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getBoradList();
+		return crowdDao.getBoardList();
+	}
+
+
+	@Override
+	public int insertBoardReg(CrowdBoard board) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertBoardReg(board);
 	}
 
 

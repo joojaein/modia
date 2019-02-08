@@ -3,24 +3,34 @@
 
 <mapper namespace="com.moida.web.dao.CrowdDao">
 
-<select id = "getCrowdMemberRole" resultType="com.moida.web.entity.CrowdMemberRole">
- select * from crowdmemberRole cmr left join (select id as uid , msg from Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and 2 >= cmr.groupRole
-</select>
-
-<select id = "getCrowdSimpleDataView" resultType="com.moida.web.entity.CrowdSimpleDataView">
- select * from CrowdSimpleDataView where id = 5
-</select>
-
-<select id = "getNoticeList" resultType="com.moida.web.entity.CrowdNotice">
-select * from boardListView where type = 0;
-</select>
-
-<select id = "getBoardList" resultType="com.moida.web.entity.CrowdBoard">
-select * from boardListView where type = 1;
-</select>
-	
-	<select id="getSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
-		select * from CrowdSimpleDataView
+	<select id="getCrowdMemberRole"
+		resultType="com.moida.web.entity.CrowdMemberRole">
+		select * from crowdmemberRole cmr left join (select id as uid , msg from
+		Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and
+		2 >= cmr.groupRole
 	</select>
+
+	<select id="getCrowdSimpleDataView"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select * from CrowdSimpleDataView where id = 5
+	</select>
+
+	<select id="getNoticeList"
+		resultType="com.moida.web.entity.CrowdNotice">
+		select * from boardListView where type = 0
+	</select>
+
+	<select id="getBoardList"
+		resultType="com.moida.web.entity.CrowdBoard">
+		select * from boardListView where type = 1 and crowdId = 5 order by regDate desc
+	</select>
+	<select id="getSimpleList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select * from CrowdSimpleDataVieww
+	</select>
+
+	<insert id="insertBoardReg" parameterType="com.moida.web.entity.CrowdBoard">
+		insert into Posts(boardId, title, content, writerId) values(#{boardId}, #{title}, #{content}, #{writerId});
+	</insert>
 
 </mapper>

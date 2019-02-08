@@ -54,8 +54,8 @@
 			</div>
 			</div>
 </section>
-	<c:forEach var="b" items="${blist}">
 	<article class="content">
+	<c:forEach var="b" items="${blist}">
 		<div class="profile-box">
 			<div class="photo"></div>
 			<div class="profile-info">
@@ -64,13 +64,15 @@
 		</div>
 		<div class="content-title">${b.title}</div>
 		<p style="margin: 0;">${b.content}</p>
-	</article>
 	</c:forEach>
+	</article>
 	<article class="preview">
+	<c:forEach var="b" items="${blist}">
 		<div>
 			<span>조회수</span> <span>댓글수</span>
 		</div>
 		<span><img src="../../../resources/images/twice.jpg" alt=""></span>
+	</c:forEach>
 	</article>
 </div>
 <hr />

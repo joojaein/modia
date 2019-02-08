@@ -13,6 +13,6 @@ public interface CrowdDao {
 	public List<CrowdSimpleDataView> getSimpleList();
 	public CrowdSimpleDataView getCrowdSimpleDataView();
 	public List<CrowdNotice> getNoticeList();
-	public List<CrowdBoard> getBoradList();
-		
+	public List<CrowdBoard> getBoardList();
+	int insertBoardReg(CrowdBoard board);
 }

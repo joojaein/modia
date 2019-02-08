@@ -16,7 +16,6 @@ public interface CrowdService {
 	List<CrowdNotice> getNoticeList();
 	List<CrowdMemberRole> getCrowdMemberRole();
 	List<CrowdBoard> getBoardList();
-
-	
+	int insertBoardReg(CrowdBoard board);
 	
 }
