@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +26,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,37 +54,40 @@ public class HomeController {
 	private MoidaCrowdService crowdService;
 	@Autowired
 	private MoidaBannerService bannerService;
+
 	
 	@RequestMapping("/index")
 	public String index() {
-		System.out.println("index 들어옴");
 		return "home.index";
 	}	
 	
-
-	// 채팅을 위해서 로그인시 로그인 되었음을 확인시켜주는 POST  
-	   @PostMapping("/chk-login")
-	   @ResponseBody
-	   public String chkLogin()throws Exception
-	   {   
-	      // 시큐리티 컨텍스트 객체를 얻습니다. 
-	      SecurityContext context = SecurityContextHolder.getContext(); 
-	      System.out.println("context : "+context);
-
-	      // 인증 객체를 얻습니다. 
-	      Authentication authentication = context.getAuthentication();
-	      System.out.println("authentication : "+authentication);
-	      
-	      String principal = (String) authentication.getPrincipal();
-	      
-	      if(principal.equals("anonymousUser")) {
-	         return "anonymousUser";
-	      }else {         
-	         return "loggined";
-	      }
-
-	   }   
 	
+	
+	
+	// 채팅을 위해서 로그인시 로그인 되었음을 확인시켜주는 POST  
+	@PostMapping("/chk-login")
+	@ResponseBody
+	public String chkLogin()throws Exception
+	{   
+		/*
+		SecurityContext context = SecurityContextHolder.getContext(); // 시큐리티 컨텍스트 객체를 얻습니다. 
+		Authentication authentication = context.getAuthentication(); // 인증 객체를 얻습니다. 
+		String principal = (String) authentication.getPrincipal();
+		if(principal.equals("anonymousUser")) {
+			return "anonymousUser";
+		}else {         
+			return "loggined";
+		}
+		*/
+		SecurityContext context = SecurityContextHolder.getContext(); // 시큐리티 컨텍스트 객체를 얻습니다. 
+		Authentication authentication = context.getAuthentication(); //
+		if(authentication.getPrincipal().equals("anonymousUser")) {
+			return "anonymousUser";
+		}else {         
+			return "loggined";
+		}
+		
+	}   
 	
 	@PostMapping("/get-categorylist")
 	@ResponseBody
@@ -94,7 +100,7 @@ public class HomeController {
 	
 	@PostMapping("/get-simplecrowdlist")
 	@ResponseBody
-	public String getSimpleCrowdList(
+	public String getSimpleCrowdList(HttpServletRequest request,
 			@RequestParam(name="type", defaultValue="0") Integer type,
 			@RequestParam(name="id", defaultValue="") String id) throws Exception{
 		List<CrowdSimpleDataView> crowdList = new ArrayList<CrowdSimpleDataView>();
@@ -107,7 +113,21 @@ public class HomeController {
 			break;
 		case 2: 
 			crowdList = crowdService.getRequestSimpleList(id);
-			break;		
+			break;	
+		case 3:
+			String values = "";
+			Cookie[] cookies = request.getCookies();
+			for (Cookie c : cookies) {
+				if(c.getName().equals(id)) {
+					values = c.getValue();
+					break;
+				}
+			}
+			String[] valArr = values.split("/");
+			for (int i = 0; i < valArr.length; i++) {
+				crowdList.add(crowdService.getCrowdSimpleDataView()); // valArr[i]
+			}
+			break;
 		}
 		
 		Gson gson = new Gson();
@@ -224,3 +244,6 @@ public class HomeController {
 	 }
 	
 }
+
+
+

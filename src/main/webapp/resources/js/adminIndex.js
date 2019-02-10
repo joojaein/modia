@@ -90,25 +90,28 @@ window.addEventListener("load",function(){
         evt.target.classList.add("selected-tab");
         
         var td = thead.querySelectorAll("td");
-        for (var i = 0; i < td.length; i++) {
+        for (var i = 1; i < td.length; i++) {
 			var span = td[i].children;
 			span[1].classList.add("d-none");
 			span[2].classList.add("d-none");
 		}
-        var rprtDown = main.querySelector(".td-rprt .down");
+        var rprt = table.querySelector(".td-rprt");
+        var rprtDown = rprt.querySelector(".down");
         rprtDown.classList.remove("d-none");
         thead.name="rprtCnt/desc";
         
         if(evt.target.name == "group"){
         	//모임관리 탭을 누른 경우      	
             var td = thead.querySelectorAll("td");
-            for (var i = 0; i < td.length; i++) {
+            for (var i = 1; i < td.length; i++) {
                 var span = td[i].querySelector(".btn");
                 if(span.classList.contains("name")){
                 	span.innerText="모임명";
                 }else if(span.classList.contains("regdate")){
                 	span.innerText="개설일";
-                }                
+                }else if(span.classList.contains("rprt")){
+                	span.innerText="신고횟수";
+                }               
 			}
             btnSubmit.value="모임삭제";
             divPaging.name="crowd";
@@ -117,14 +120,16 @@ window.addEventListener("load",function(){
         }else if(evt.target.name == "member"){
         	//회원관리 탭을 누른 경우
         	var td = thead.querySelectorAll("td");
-            for (var i = 0; i < td.length; i++) {
+            for (var i = 1; i < td.length; i++) {
                 var span = td[i].querySelector(".btn");
                 if(span.classList.contains("name")){
                 	span.innerText="회원 ID";
                 }else if(span.classList.contains("regdate")){
                 	span.innerText="가입일";
-                }
-			}
+                }else if(span.classList.contains("rprt")){
+                	span.innerText="신고횟수";
+                }               			
+            }
             btnSubmit.value="회원추방";
             divPaging.name="member";
             setPaging();
@@ -139,29 +144,26 @@ window.addEventListener("load",function(){
         indexNowPage = 1;
         var tempTheadName="";
         var td = thead.querySelectorAll("td");
-        for (var i = 0; i < td.length; i++) {
+        for (var i = 1; i < td.length; i++) {
 			var span = td[i].children;			
 			if(span[0]==evt.target){		
-				
 				switch(i){
-				case 0:
-					//모임명 or 아이디
-					if(span[0].innerText=="모임명"){
+				case 1:
+					if(divPaging.name=="crowd"){
 						tempTheadName+="name/"
-					}else if(span.innerText=="회원 ID"){
+					}else if(divPaging.name=="member"){
 						tempTheadName+="id/"						
 					}					
 					break;
-				case 1:
+				case 2:
 					//regdate
 					tempTheadName+="regDate/"
 					break;
-				case 2:
+				case 3:
 					//rprtCnt
 					tempTheadName+="rprtCnt/"
 					break;
 				}
-
 				
 				if(span[1].classList.contains("d-none")){
 					span[1].classList.remove("d-none");

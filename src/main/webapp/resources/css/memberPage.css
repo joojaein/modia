@@ -27,7 +27,7 @@
 	margin-right: 5%;
 }
 
-.profile-img{
+.page-profile-img{
 	width: 100px;
 	height: 100px;
     display: inline-block;
@@ -136,6 +136,10 @@
     margin: 7px 0px;
 }
 
+.schedule-flex-content{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 @media (min-width:721px){
 	.group {
