@@ -8,25 +8,35 @@
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> 
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <title>Document</title>
     <style>
         
-        .photo {
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
-            vertical-align: middle;
-        }
-        img:nth-child(1) {
-            width: 30%;
-            height: 100%;
-        }
-        img:nth-child(2) {
-            width: 10%;
-            height: 10%;
-        }
+        .photo-box{
+            display:table;
+            position:relative;
+            width:100%;
+            height:auto;
+            border:2px solid #666;
+            }
 
-        .photo img:first-child:before {
+        .photo-box div{
+            display:table-cell;
+            vertical-align:middle;
+            }
+
+        .uploadcon{
+            display:block;
+            margin:0 auto;
+            padding:10px;
+            width:90px;
+            font-size:12px;
+            }
+
+        .photo:first-child:before {
         content: "대표";
         font-size: 10px;
         color: #fff;
@@ -35,17 +45,28 @@
         padding-left: 2px;
         position: absolute;
     }
+    
+
     </style>
 </head>
 
 <body>
     <section class="content">
-        <div class="photo">
-                <img src="../../../resources/images/twice.jpg" alt="">
-                <img src="../../../resources/images/hamburger.png" alt="" />
-        </div>
+        <div class="photo-box">
+            <div>
+                <img class="uploadcon" src="../../../resources/images/twice.jpg" alt="">
+                <div class="ham-box">
+                    <div class="ham"></div>
+                </div>
+                <p class="paa"></p>
+                <input class="iaa" type="text" />
+            </div>
+            </div>
     </section>
-
+<script>
+var ;
+var $("")
+    </script>
 </body>
 
 </html>

@@ -20,17 +20,21 @@
 
 	<select id="getNoticeList"
 		resultType="com.moida.web.entity.CrowdNotice">
-		select * from boardListView where type = 0;
+		select * from boardListView where type = 0
 	</select>
 
 	<select id="getBoardList"
 		resultType="com.moida.web.entity.CrowdBoard">
-		select * from boardListView where type = 1;
+		select * from boardListView where type = 1 and crowdId = 5 order by regDate desc
 	</select>
 	<select id="getSimpleList"
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select * from CrowdSimpleDataView
 	</select>
+
+	<insert id="insertBoardReg" parameterType="com.moida.web.entity.CrowdBoard">
+		insert into Posts(boardId, title, content, writerId) values(#{boardId}, #{title}, #{content}, #{writerId});
+	</insert>
 	
 	<select id="getRealSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
 		<![CDATA[ 

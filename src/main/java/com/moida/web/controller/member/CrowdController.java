@@ -8,8 +8,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdBoard;
@@ -45,11 +49,23 @@ public class CrowdController {
 		
 		return "crowd.board";
 	}
-	
-	@RequestMapping("boardreg")
-	public String boardreg() {		
-		
+	@GetMapping("boardreg")
+	public String reg(Model model) {
+		List<CrowdBoard> boardlist = crowdService.getBoardList();
+		model.addAttribute("blist", boardlist);
 		return "crowd.boardreg";
+	}
+	@PostMapping("boardreg")
+	public String boardreg (CrowdBoard board, Model model) {
+		board.setWriterId("chlwl");
+		board.setBoardId(2);
+		int affected = crowdService.insertBoardReg(board);
+		model.addAttribute("result", board);
+		System.out.println("id"+board.getBoardId());
+		System.out.println("제목"+board.getTitle());
+		System.out.println("내용"+board.getContent());
+		System.out.println("작성자"+board.getWriterId());
+		return "redirect:board";
 	}
 	
 	@RequestMapping("calendar")

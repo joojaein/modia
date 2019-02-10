@@ -32,7 +32,14 @@ public class MoidaCrowdService implements CrowdService {
 
 	@Override
 	public List<CrowdBoard> getBoardList() {
-		return crowdDao.getBoradList();
+		// TODO Auto-generated method stub
+		return crowdDao.getBoardList();
+	}
+
+	@Override
+	public int insertBoardReg(CrowdBoard board) {
+		// TODO Auto-generated method stub
+		return crowdDao.insertBoardReg(board);
 	}
 
 	@Override

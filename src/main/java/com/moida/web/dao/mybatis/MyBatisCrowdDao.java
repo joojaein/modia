@@ -36,9 +36,9 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
-	public List<CrowdBoard> getBoradList() {
+	public List<CrowdBoard> getBoardList() {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getBoradList();
+		return crowdDao.getBoardList();
 	}
 	
 	@Override
@@ -66,11 +66,21 @@ public class MyBatisCrowdDao implements CrowdDao{
 		return crowdDao.getRequestSimpleList(id);
 	}
 
+		
 	@Override
 	public int getCrowdCount() {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getCrowdCount();
 	}
+
+	@Override
+	public int insertBoardReg(CrowdBoard board) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertBoardReg(board);
+	}
+
+
 
 	@Override
 	public Crowd getCrowd(int id) {

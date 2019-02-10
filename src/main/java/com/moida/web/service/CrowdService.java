@@ -31,10 +31,9 @@ public interface CrowdService {
 
 	int deleteCrowd(int id);
 	int updateCrowd(Crowd crowd);
-
+	int insertBoardReg(CrowdBoard board);
 	List<LeaderMngChartView> getChartList(int crowdId);
-
 	List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
 	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
-
+	
 }

@@ -36,7 +36,7 @@ public class ServiceContextConfig {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
 		// 외부용
-
+		
 		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida?useUnicode=true&characterEncoding=utf8");
 		
 		//집용
