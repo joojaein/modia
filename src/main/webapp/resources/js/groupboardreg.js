@@ -1,98 +1,43 @@
 window.addEventListener("load", function () {
-//	var board = document.SelectorAll('#select2');
-	var selectItem = document.querySelector("#select1");
+	var select1 = document.querySelector("#select1");
 	var select2 = document.querySelector("#select2");
 	var hr = document.querySelector(".hr");
-//	for (var i = 0; i < board.length; i++) {
-//	var option = $("<option>" + board[i] + "</option>");
-////	$("#select2").append(option);
-//	}
-	selectItem.onchange = function () {
-		if (selectItem.value == "게시판") {
+	var boardId = select2.value;
+	var location = "board";
+	select1.onchange = function () {
+		if (select1.selectedIndex==0) {
 			select2.classList.remove("d-none");
 			hr.classList.remove("d-none");
-			console.log(selectItem.value);
-		} else if (selectItem.value == "사진첩") {
-			console.log(selectItem.value);
+		} else if (select1.selectedIndex==1) {
 			select2.classList.add("d-none");
 			hr.classList.add("d-none");
+			boardId = select1.value;
 		}
 	}
-
-
-	var divContent = document.querySelector(".content");
-	divContent.addEventListener("click", function(evt){
-		if(evt.target.nodeName!="TEXTAREA") return;
-		evt.target.focus();
-
-	});
-});
-
-$(function() {
-	var textarea =  $(".text-content div");
-	var textinputdiv = $(".post-content:nth-child(3)");
-	var textinput = $(".text-input");
-	$(".content").sortable({
-		placeholder:"itemBoxHighlight",
-		start: function(event, ui) {
-			ui.item.data('start_pos', ui.item.index());
-		},
-		stop: function(event, ui) {
-			var spos = ui.item.data('start_pos');
-			var epos = ui.item.index();
-			reorder();
-		}
-	})
-
-});
-
-/** 아이템 추가 */
-function createItem() {
-	$(createBox())
-	.appendTo(".content")
-	.append("<div class='deleteBox'><img src='/resources/images/trash.png'></img><div>")
-	.find(".deleteBox").click(function() {
-		var valueCheck = false;
-		$(this).parent().find('textarea').each(function() {
-			if($(this).attr("name") != "type" && $(this).val() != '') {
-				valueCheck = true;
-			}
-		});
-
-		if(valueCheck) {
-			var delCheck = confirm('입력하신 내8용이 있습니다.\n삭제하시겠습니까?');
-		}
-		if(!valueCheck || delCheck == true) {
-			$(this).parent().remove();
-			reorder();
-		}
-	});
-	// 숫자를 다시 붙인다.
-	reorder();
-
-
-
-}
-
-
-function createBox(){
-	if($('.post-content .text-input').length < 2){
-		var contents ="<div name='item' class='post-content'>"
-			+"<textarea name='content' class='text-input' autofocus></textarea>"
-			+"<img src='../../../resources/images/bighamburger.png' />"
-			+"<span class='itemNum d-none'></span>"
-			+"</div>";
+	
+	select2.onchange = function () {
+		boardId = select2.value;
+		location = "board";
 	}
-	return contents;
-
-}
-
-$(function(){
+	
+	var secContent = document.querySelector(".text-content");
+	var textTpl = document.querySelector("#text-template");
+	var imgTpl = document.querySelector("#img-template");
+	
+	var firstTextTpl = document.importNode(textTpl.content, true);
+	var tempTextarea = firstTextTpl.querySelector("textarea");
+	tempTextarea.onkeyup=function(){
+		resize(tempTextarea);
+	};
+	tempTextarea.focus();
+	secContent.append(firstTextTpl);
+	var btnSubmit = document.querySelector(".btn-submit");
 	var imgbtn= document.querySelector(".img-btn");
 	var fileDnone = document.querySelector("input[type='file']");
-	var file;
-	var imagefile;
-	var source;
+    var fileMap = new Map();
+
+    var clickIndex=-1;
+    
 	imgbtn.onclick=function(){
 		var evt = new MouseEvent("click", {
 			"view":window,
@@ -100,98 +45,188 @@ $(function(){
 			"cancelable":true
 		});
 		fileDnone.dispatchEvent(evt);
-
-
-	}
-	fileDnone.addEventListener('change', function(evt){
-		var curFiles = fileDnone.files;
-		file = curFiles[0];
-		source = window.URL.createObjectURL(file);
-
-		imagefile ="<div name='item' class='post-content'>"
-			+"<img name='content' class='post-img' src="+source+">"
-			+"<img src='../../../resources/images/bighamburger.png' />"
-			+"<span class='itemNum d-none'></span>"
-			+"</div>";
-		$(imagefile).appendTo(".content")
-		.append("<div class='deleteBox'><img src='/resources/images/trash.png'></img><div>")
-		.find(".deleteBox").click(function() {
-			var valueCheck = false;
-			$(this).parent().find('textarea').each(function() {
-				if($(this).attr("name") != "type" && $(this).val() != '') {
-					valueCheck = true;
-				}
-			});
-
-			if(valueCheck) {
-				var delCheck = confirm('입력하신 내8용이 있습니다.\n삭제하시겠습니까?');
-			}
-			if(!valueCheck || delCheck == true) {
-				$(this).parent().remove();
-				reorder();
-			}
-		});
-		reorder();
-	});
-
-
-});
-
-function imgupload(){
-	var profileFile = $(".file").val();
-
-	alert(profileFile);
-	var fd = new FormData();
-	fd.append("file", profileFile);  
-	fd.append("id", "test2");   //파일 이름
-	fd.append("root", "posts-img");  
-	$.ajax({
-		url: "/file-upload",
-		data: fd,
-		dataType: 'text',
-		processData: false,
-		contentType: false,
-		type: 'POST',
-		success : function(data) {
-			//업로드 완료 후 할 동작들
-		}   
-	});
-};
-
-
-function reorder() {
-	$(".post-content").each(function(i) {
-		$(this).find(".itemNum").html(i + 1);
-	});
-}
-
-function boardreg() {
-	var selected1 = $('#select1');
-	var items = $('[name="item"]');
-	var concon = "";
-	if(selected1.val() == '게시판'){
-					console.log($('#select1').val());
-					var boardId = $('#select2').val();
-					alert(boardId);
-					var title = $('#title').val();
-		for(var i = 0; i < items.length; i++ ){
-			if(items[i].firstChild.classList == 'post-img'){
-				concon += items[i].firstChild.src;
-			}
-			else if(items[i].firstChild.classList == 'text-input'){
-				concon += items[i].firstChild.value;
-			}
-		}
-	}else if (selected1.val() == '사진첩'){
-		console.log(tab_one = $('#select1').val());
-		for(var i = 0; i < items.length; i++ ){
-			if(items[i].firstChild.classList == 'post-img'){
-				concon += items[i].firstChild.src;
-			}
-			else if(items[i].firstChild.classList == 'text-input'){
-				concon += items[i].firstChild.value;
-			}
-		}
 	}
 	
-}
+	fileDnone.addEventListener('change', function(evt){
+		var curFiles = fileDnone.files;
+		for (var i = 0; i < curFiles.length; i++) {
+			var tpl=document.importNode(imgTpl.content, true);
+			var tempImg = tpl.querySelector(".img-div img");
+			tempImg.src= window.URL.createObjectURL(curFiles[i]);  
+			tempImg.name = curFiles[i].name;
+            fileMap.set(tempImg.name, curFiles[i]);		
+        	secContent.append(tpl);
+		}
+		
+		var tpl = document.importNode(textTpl.content, true);
+		var tempTextarea = tpl.querySelector(".content-text");
+		tempTextarea.onkeyup=function(){
+			resize(tempTextarea);
+		};
+		tempTextarea.focus();
+		secContent.append(tpl);
+		
+		var chkMain = secContent.querySelectorAll(".main-img");
+		if(chkMain.length==0){
+			var imgDivs = secContent.querySelectorAll(".img-div");
+			imgDivs[0].classList.add("main-img");
+		}
+	});
+	
+	secContent.addEventListener("click",function(evt){
+		if(!evt.target.classList.contains("content-img")) return;
+		
+		var tplDiv = evt.target.parentNode.parentNode;
+		var divAlert = document.querySelector(".content-img-alert");
+		
+		var clientWidth = document.body.clientWidth;
+		divAlert.style.left = (clientWidth/2 - 160)+"px";
+		divAlert.classList.remove("d-none");
+		
+		var btnMain = divAlert.querySelector(".btn-main");
+		var btnDel = divAlert.querySelector(".btn-del");
+		var btnCancel = divAlert.querySelector(".btn-cancel");
+		
+		btnMain.onclick=function(){
+			divAlert.classList.add("d-none");
+			var imgDivs = secContent.querySelectorAll(".img-div");
+			for (var i = 0; i < imgDivs.length; i++) {
+				imgDivs[i].classList.remove("main-img");
+			}
+			evt.target.parentNode.classList.add("main-img");
+		};
+		
+		btnDel.onclick=function(){
+			divAlert.classList.add("d-none");
+			if(tplDiv.children[0].classList.contains("main-img")){
+				secContent.removeChild(tplDiv);
+				var imgDivs = secContent.querySelectorAll(".img-div");
+				if(imgDivs.length>0){
+					imgDivs[0].classList.add("main-img");
+				}
+			}else{
+				secContent.removeChild(tplDiv);
+			}
+			cleanUpTextarea();
+		};
+		
+		btnCancel.onclick=function(){
+			divAlert.classList.add("d-none");
+		};
+	});
+
+	btnSubmit.onclick = function(){
+		cleanUpTextarea();
+		 var tpls = secContent.querySelectorAll(".tpl-div");
+		 for (var i=0; i<tpls.length; i++) {
+			if(tpls[i].classList.contains("tpl-div-text")){
+				var nowTextarea = tpls[i].children[0];
+				var nowText = nowTextarea.value;
+				if(nowText==""){
+					secContent.removeChild(tpls[i]);
+				}
+			}
+		}		 
+		 
+		var title = document.querySelector("#title").value;
+		var mainImg="";
+		
+		var tpls = secContent.querySelectorAll(".tpl-div");
+		var imgCnt=0;
+		var contentArr=[];
+		
+		for (var i = 0; i < tpls.length; i++) {
+			var firstChild = tpls[i].children[0];
+			if(firstChild.classList.contains("content-text")){
+				var temp={text:firstChild.value, ord:i}
+				contentArr.push(temp);
+			}else{
+				imgCnt++;
+				var tempSrc = boardId+"_"+i;
+				var img = firstChild.children[0];
+				var file = fileMap.get(img.name);
+				var filename = file.name;
+			    var _fileExt = filename.substring(filename.lastIndexOf('.'), filename.length).toLowerCase();
+			    tempSrc+=_fileExt;
+				var temp={src:tempSrc, ord:i}
+				contentArr.push(temp);
+
+				if(firstChild.classList.contains("main-img")){
+					mainImg = "_"+i+_fileExt;
+				}
+			}
+		}
+		var jsonContent = JSON.stringify(contentArr);
+		
+		var postsRequest = new XMLHttpRequest(); 
+		postsRequest.open("POST", "/crowd/boardreg", true); 
+		postsRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		postsRequest.onload = function () {
+			var postsId = postsRequest.responseText;
+			var cnt=0;
+			for (var i = 0; i < tpls.length; i++) {
+				var firstChild = tpls[i].children[0];
+				if(firstChild.classList.contains("img-div")){
+					var img = firstChild.children[0];
+					var file = fileMap.get(img.name);
+					var fd = new FormData();
+					fd.append("file", file);  
+					fd.append("id", postsId+"_"+i);  
+					fd.append("root", "crowd-postsImg");  
+					$.ajax({
+						url: '/file-upload',
+						data: fd,
+						dataType: 'text',
+						processData: false,
+						contentType: false,
+						type: 'POST',
+						success : function(data) {
+							cnt++;
+							if(cnt==imgCnt){
+								var crowdId = getParameterByName('crowd');
+								function getParameterByName(name) {
+								    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+								    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+								        results = regex.exec(location.search);
+								    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+								}
+								window.location.href="/crowd/"+location+"?="+crowdId;
+							}
+						}	
+					});
+				}				
+			}
+		}
+		postsRequest.send("boardId="+boardId+
+				"&title="+title+
+				"&jsonContent="+jsonContent+
+				"&mainImg="+mainImg);	
+	};
+	
+	 $( function() {
+		    $( "#sortable" ).sortable();
+		    $( "#sortable" ).disableSelection();
+	    } );
+	 
+	 function resize(obj) {
+		  obj.style.height = "1px";
+		  obj.style.height = (12+obj.scrollHeight)+"px";
+		}
+	
+	 function cleanUpTextarea(){
+		 var tpls = secContent.querySelectorAll(".tpl-div");
+		 for (var i = tpls.length-1; i >0; i--) {
+			if(tpls[i].classList.contains("tpl-div-text")
+					&& tpls[i-1].classList.contains("tpl-div-text")){
+				var prevTextarea = tpls[i-1].children[0];
+				var nowTextarea = tpls[i].children[0];
+				var prevText = prevTextarea.value;
+				var nowText = nowTextarea.value;
+				prevText+="\r"+nowText;
+				prevTextarea.value =prevText;
+				resize(prevTextarea);
+				secContent.removeChild(tpls[i]);
+			}
+		}
+	 }
+});

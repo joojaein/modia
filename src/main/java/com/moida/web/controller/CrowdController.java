@@ -1,13 +1,11 @@
 package com.moida.web.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -15,11 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,9 +42,8 @@ public class CrowdController {
 	public String index(@RequestParam(name="crowd") Integer crowdId,
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 		
-		
-		SecurityContext context = SecurityContextHolder.getContext(); // 시큐리티 컨텍스트 객체를 얻습니다. 
-		Authentication authentication = context.getAuthentication(); //
+		SecurityContext context = SecurityContextHolder.getContext(); 
+		Authentication authentication = context.getAuthentication(); 
 		if(!authentication.getPrincipal().equals("anonymousUser")) {
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
@@ -72,7 +66,6 @@ public class CrowdController {
 				}	
 				value = value + result;
 			}
-			
 			Cookie cookie = new Cookie(userId, value);		
 			cookie.setMaxAge(60*60*24*7); 
 			cookie.setPath("/"); 

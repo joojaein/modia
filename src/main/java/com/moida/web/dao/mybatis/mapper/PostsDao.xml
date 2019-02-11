@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moida.web.dao.PostsDao">
+ 	
+	<insert id="insert" parameterType="com.moida.web.entity.Posts">
+		insert into Posts(boardId, title, mainImg, writerId) 
+		values(#{boardId},#{title},#{mainImg},#{writerId})	
+	</insert>
+	
+	<update id="update" parameterType="com.moida.web.entity.Posts">
+		update Posts set boardId=#{boardId}, title=#{title}, 
+		mainImg=#{mainImg} where id=#{id}
+	</update>
+	
+		
+	<select id="getLastPosts" resultType="com.moida.web.entity.Posts">
+		SELECT * FROM Posts order by regDate desc limit 1
+	</select>
+</mapper>

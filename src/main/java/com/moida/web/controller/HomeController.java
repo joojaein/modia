@@ -61,32 +61,18 @@ public class HomeController {
 		return "home.index";
 	}	
 	
-	
-	
-	
 	// 채팅을 위해서 로그인시 로그인 되었음을 확인시켜주는 POST  
 	@PostMapping("/chk-login")
 	@ResponseBody
 	public String chkLogin()throws Exception
 	{   
-		/*
-		SecurityContext context = SecurityContextHolder.getContext(); // 시큐리티 컨텍스트 객체를 얻습니다. 
-		Authentication authentication = context.getAuthentication(); // 인증 객체를 얻습니다. 
-		String principal = (String) authentication.getPrincipal();
-		if(principal.equals("anonymousUser")) {
-			return "anonymousUser";
-		}else {         
-			return "loggined";
-		}
-		*/
-		SecurityContext context = SecurityContextHolder.getContext(); // 시큐리티 컨텍스트 객체를 얻습니다. 
-		Authentication authentication = context.getAuthentication(); //
+		SecurityContext context = SecurityContextHolder.getContext(); 
+		Authentication authentication = context.getAuthentication(); 
 		if(authentication.getPrincipal().equals("anonymousUser")) {
 			return "anonymousUser";
 		}else {         
 			return "loggined";
 		}
-		
 	}   
 	
 	@PostMapping("/get-categorylist")
@@ -128,6 +114,8 @@ public class HomeController {
 				crowdList.add(crowdService.getCrowdSimpleDataView()); // valArr[i]
 			}
 			break;
+		case 4 :
+			crowdList = crowdService.getRankSimpleList();
 		}
 		
 		Gson gson = new Gson();

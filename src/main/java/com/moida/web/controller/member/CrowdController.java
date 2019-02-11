@@ -2,26 +2,35 @@ package com.moida.web.controller.member;
 
 
 import java.io.FileNotFoundException;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdNotice;
+import com.moida.web.entity.Posts;
+import com.moida.web.entity.PostsContent;
 import com.moida.web.entity.Tag;
-import com.moida.web.service.CategoryService;
 import com.moida.web.service.CrowdService;
+import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
+import com.moida.web.service.MoidaPostsService;
 import com.moida.web.service.MoidaTagService;
 
 
@@ -33,7 +42,12 @@ public class CrowdController {
 	@Autowired
 	public CrowdService crowdService;
 	
-
+	@Autowired
+	public MoidaBoardService boardService;
+	
+	@Autowired
+	public MoidaPostsService postsService;
+	
 	@RequestMapping("notice")
 	public String notice(Model model) {		
 	
@@ -49,23 +63,42 @@ public class CrowdController {
 		
 		return "crowd.board";
 	}
+	
+	
 	@GetMapping("boardreg")
-	public String reg(Model model) {
-		List<CrowdBoard> boardlist = crowdService.getBoardList();
+	public String reg(Model model, int crowd) {
+		List<Board> boardlist = boardService.getBoardListType1(crowd);
+		Board boardType2 = boardService.getBoardType2(crowd);
+		
 		model.addAttribute("blist", boardlist);
+		model.addAttribute("boardType2", boardType2);
 		return "crowd.boardreg";
 	}
+	
+
 	@PostMapping("boardreg")
-	public String boardreg (CrowdBoard board, Model model) {
-		board.setWriterId("chlwl");
-		board.setBoardId(2);
-		int affected = crowdService.insertBoardReg(board);
-		model.addAttribute("result", board);
-		System.out.println("id"+board.getBoardId());
-		System.out.println("제목"+board.getTitle());
-		System.out.println("내용"+board.getContent());
-		System.out.println("작성자"+board.getWriterId());
-		return "redirect:board";
+	@ResponseBody
+	public String boardreg (
+			int boardId,
+			String title,
+			String jsonContent,
+			String mainImg,
+			Model model, Principal principal) {
+		
+		Posts posts = new Posts(boardId, title, mainImg, principal.getName());
+
+        Gson gson = new Gson();      
+        JsonParser parser = new JsonParser();
+        JsonElement elem = parser.parse(jsonContent);
+        JsonArray elemArr = elem.getAsJsonArray();
+        List<PostsContent> postsContentList = new ArrayList<PostsContent>();
+ 
+        for (int i = 0; i < elemArr.size(); i++) {
+            PostsContent content = gson.fromJson(elemArr.get(i), PostsContent.class);
+            postsContentList.add(content);
+		}
+             
+		return postsService.regPosts(posts, postsContentList)+"";
 	}
 	
 	@RequestMapping("calendar")

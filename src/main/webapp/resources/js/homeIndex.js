@@ -287,7 +287,7 @@ window.addEventListener("load",function(){
            groupListUl.appendChild(li);
        }
     };
-    crowdRequest.send();   
+    crowdRequest.send("type=4");   
 
    areaGroup.style.width = document.body.clientWidth+"px";
    $(window).resize(function (){

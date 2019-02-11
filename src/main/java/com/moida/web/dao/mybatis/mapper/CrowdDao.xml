@@ -52,6 +52,12 @@
 		on mc.crowdId = v.id 
 	</select>
 	
+	<select id="getRankSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select c.* from CrowdSimpleDataView c 
+		inner join 
+		(select crowdId, count(crowdId) cnt from CrowdHit group by crowdId) ch on 
+		c.id = ch.crowdId order by ch.cnt desc limit 0, 6
+	</select>
 	
 	<select id="getCrowdCount" resultType="java.lang.Integer">
 		select count(*) cnt from Crowd

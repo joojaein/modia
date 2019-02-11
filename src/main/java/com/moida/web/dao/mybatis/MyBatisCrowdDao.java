@@ -65,7 +65,12 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getRequestSimpleList(id);
 	}
-
+	
+	@Override
+	public List<CrowdSimpleDataView> getRankSimpleList() {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getRankSimpleList();
+	}
 		
 	@Override
 	public int getCrowdCount() {
@@ -131,6 +136,5 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getSimpleCategoryTagList(tagId);
 	}
-
 
 }

@@ -22,6 +22,7 @@ public interface CrowdDao {
 	int insertBoardReg(CrowdBoard board);
 	public List<CrowdSimpleDataView> getRealSimpleList(String id);
 	public List<CrowdSimpleDataView> getRequestSimpleList(String id);
+	public List<CrowdSimpleDataView> getRankSimpleList();
 	
 	public int getCrowdCount();
 	public Crowd getCrowd(int id);
@@ -31,8 +32,6 @@ public interface CrowdDao {
 	public List<Integer> getCrowdTagIdList(int crowdId);
 	public int deleteCrowd(int id);
 	public int updateCrowd(Crowd crowd);
-	
-	
-	
+		
 	public List<LeaderMngChartView> getChartList(int crowdId);
 }
