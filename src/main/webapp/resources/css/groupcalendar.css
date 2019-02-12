@@ -1,267 +1,300 @@
-    .screen{
-    width: 100%;
-    height: 100%;
-    background: #000000;
-    opacity: 0;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 9999;
-
-    transition: 500ms;
+.screen {
+	width: 100%;
+	height: 100%;
+	background: #000000;
+	opacity: 0;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 9999;
+	transition: 500ms;
 }
-    body {
-      /* margin: 40px 10px; */
-      padding: 0;
-      font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-      font-size: 14px;
-    }
 
-    #calendar {
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .koHolidays {
-      background: #ff9090;
-      border: none;
-      text-align: center !important;
-      font-weight: bold;
-      padding: 3px;
-    }
-
-    .fc-day-header {
-      background: gray;
-      height: 30px;
-      line-height: 30px;
-    }
-
-    .fc-next-button,
-    .fc-prev-button {
-      border: none;
-      background: #494949;
-      color: white;
-    }
-
-    .fc-sat .fc-day-number {
-      color: #0000ff !important;
-    }
-
-    .fc-sun .fc-day-number {
-      color: #ff0000 !important;
-    }
-
-    .fc-scroller {
-      height: 100% !important;
-    }
-
-    .fc-addEventButton-button {
-      border: none;
-      background: #494949;
-      color: white;
-      text-shadow: none;
-      box-shadow: none;
-    }
-
-    header {
-      border-bottom: 1px solid gray;
-    }
-
-    main {
-      margin: 0px 10px;
-    }
-
-    .d-none {
-      display: none;
-    }
-
-    .sirenedit img {
-      border: 1px solid gray;
-      width: 15px;
-      height: 15px;
-      padding: 5px;
-      border-radius: 5px;
-    }
-
-    .sirenedit {
-      line-height: 3.1;
-    }
-
-    a {
-      text-decoration: none;
-      color: black;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    .main-head {
-      margin: 0 !important;
-      grid-area: header;
-      font-size: 13px;
-      height: 30px;
-      line-height: 30px;
-      border-bottom: 1px solid gray;
-      padding: 0px 10px 0px 10px;
-    }
-
-    .main-head nav {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .content {
-      grid-area: content;
-      font-size: 13px;
-    }
-
-    .days-info {
-      grid-area: info;
-      width: 100%;
-      height: 150px;
-
-    }
-
-    .wrapper {
-      max-width: 1200px;
-      display: grid;
-      grid-gap: 10px;
-      grid-template-areas:
-        "header"
-        "content"
-        "info"
-      ;
-      margin: auto;
-    }
- /* 모달 ------------------------------- */
-
-          .modal-backdrop.in {
-            filter: alpha(opacity=50);
-            opacity: .5;
-        } 
-        .send-modal{
-          
-          left: 15%;
-        }
-          .day-modal{
-              position: fixed;
-              top: -100%;
-              width: 70%;
-              
-              z-index: 99999;
-              transition: 500ms;
-              
-            }
-            .day-modal.hide{
-              top: 0px;
-            }
-            .day-modal.show{
-                display: block;
-                top: 15%;
-            }
-                  
-            .modal-content{
-              position: relative;
-              background-color: white;
-              background-clip: padding-box;
-              border: 1px solid gray;
-              border-radius:6px; 
-              outline: 0;
-            }
-            .modal-header{
-              min-height: 16.43px;
-              padding: 15px;
-              border-bottom: 1px solid #e5e5e5;
-          }
-          .modal-header .close {
-      margin-top: -2px;
-  }
-          button.close {
-      -webkit-appearance: none;
-      padding: 0;
-      cursor: pointer;
-      background: 0 0;
-      border: 0;
+body {
+	/* margin: 40px 10px; */
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
 }
+
+#calendar {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.event-info {
+	width: 100%;
+}
+
+.eh {
+	position: relative;
+}
+.r-0{
+	right: 0
+}
+.r-35{
+	right: 35px;
+}
+.delete-btn, .edit-btn {
+	position: absolute;
+	border: none;
+	background: #494949;
+	color: white;
+	text-shadow: none;
+	box-shadow: none;
+	border-radius: 3px;
+	font-size: 5px;
+	padding: 4px 6px 4px 6px;
+}
+
+.koHolidays {
+	background: #ff9090;
+	border: none;
+	text-align: center !important;
+	font-weight: bold;
+	padding: 3px;
+}
+
+.fc-day-header {
+	background: gray;
+	height: 30px;
+	line-height: 30px;
+}
+
+.fc-next-button, .fc-prev-button {
+	border: none;
+	background: #494949;
+	color: white;
+}
+
+.fc-sat .fc-day-number {
+	color: #0000ff !important;
+}
+
+.fc-sun .fc-day-number {
+	color: #ff0000 !important;
+}
+
+.fc-scroller {
+	height: 100% !important;
+}
+
+.fc-addEventButton-button {
+	border: none;
+	background: #494949;
+	color: white;
+	text-shadow: none;
+	box-shadow: none;
+}
+
+header {
+	border-bottom: 1px solid gray;
+}
+
+main {
+	margin: 0px 10px;
+}
+
+.d-none {
+	display: none;
+}
+
+.sirenedit img {
+	border: 1px solid gray;
+	width: 15px;
+	height: 15px;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.sirenedit {
+	line-height: 3.1;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+p {
+	margin: 0;
+}
+
+.eh {
+	text-align: left;
+}
+
+.main-head {
+	margin: 0 !important;
+	grid-area: header;
+	font-size: 13px;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid gray;
+	padding: 0px 10px 0px 10px;
+}
+
+.main-head nav {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.content {
+	grid-area: content;
+	font-size: 13px;
+}
+
+.days-info {
+	grid-area: info;
+	width: 100%;
+	height: 150px;
+}
+
+.wrapper {
+	max-width: 1200px;
+	display: grid;
+	grid-gap: 10px;
+	grid-template-areas: "header" "content" "info";
+	margin: auto;
+}
+/* 모달 ------------------------------- */
+.modal-backdrop.in {
+	filter: alpha(opacity = 50);
+	opacity: .5;
+}
+
+.send-modal {
+	left: 15%;
+}
+
+.day-modal {
+	position: fixed;
+	top: -100%;
+	width: 70%;
+	z-index: 99999;
+	transition: 500ms;
+}
+
+.day-modal.hide {
+	top: 0px;
+}
+
+.day-modal.show {
+	display: block;
+	top: 15%;
+}
+
+.modal-content {
+	position: relative;
+	background-color: white;
+	background-clip: padding-box;
+	border: 1px solid gray;
+	border-radius: 6px;
+	outline: 0;
+}
+
+.modal-header {
+	min-height: 16.43px;
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header .close {
+	margin-top: -2px;
+}
+
+button.close {
+	-webkit-appearance: none;
+	padding: 0;
+	cursor: pointer;
+	background: 0 0;
+	border: 0;
+}
+
 .close {
-    float: right;
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 1;
-    color: rgb(93, 93, 93);
+	float: right;
+	font-size: 21px;
+	font-weight: 700;
+	line-height: 1;
+	color: rgb(93, 93, 93);
+}
 
-}
 .modal-body {
-    position: relative;
-    padding: 15px;
+	position: relative;
+	padding: 15px;
 }
+
 form {
-    display: block;
-    margin-top: 0em;
+	display: block;
+	margin-top: 0em;
 }
+
 .form-group {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
+
 label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 5px;
-    font-weight: 700;
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 5px;
+	font-weight: 700;
 }
+
 .form-control {
-  box-sizing: border-box;
-    display: block;
-    width: 100%;
-    height: 34px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	height: 34px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 .modal-footer {
-    padding: 15px;
-    text-align: right;
-    border-top: 1px solid #e5e5e5;
+	padding: 15px;
+	text-align: right;
+	border-top: 1px solid #e5e5e5;
 }
 
 .modal-footer .btn+.btn {
-    margin-bottom: 0;
-    margin-left: 5px;
+	margin-bottom: 0;
+	margin-left: 5px;
 }
-.add-btn {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+
+.add-btn, .edi-btn {
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
 }
+
 .btn-default {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
 }
+
 .btn {
-    display: inline-block;
-    padding: 6px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    touch-action: manipulation;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+	display: inline-block;
+	padding: 6px 12px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	touch-action: manipulation;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
 }
-.mb-10{
-  margin-bottom: 10px;
+
+.mb-10 {
+	margin-bottom: 10px;
 }
-    

@@ -2,26 +2,32 @@ package com.moida.web.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
+import com.moida.web.entity.Crowd;
+import com.moida.web.entity.CrowdHeaderTag;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdTag;
 import com.moida.web.entity.Tag;
-import com.moida.web.service.CrowdService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaCrowdTagService;
@@ -32,19 +38,53 @@ import com.moida.web.service.MoidaTagService;
 public class CrowdController {
 
 	@Autowired
-	public CrowdService crowdService;
+	public MoidaCrowdService crowdService;
 
 	@RequestMapping("main")
-	public String index(Model model) {
-		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole();
-		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView();
+	public String index(
+			@RequestParam(name="crowd") Integer crowdId,
+			Model model, HttpServletRequest request, HttpServletResponse response) {
 
-//		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		model.addAttribute("list", list);
+		SecurityContext context = SecurityContextHolder.getContext(); 
+		Authentication authentication = context.getAuthentication(); 
+		if(!authentication.getPrincipal().equals("anonymousUser")) {
+			User user = (User) authentication.getPrincipal();
+			String userId = user.getUsername();
+			String values = "";
+			Cookie[] cookies = request.getCookies();
+			for (Cookie c : cookies) {
+				if(c.getName().equals(userId)) {
+					values = c.getValue();
+					break;
+				}
+			}   
+			String value =crowdId+"";
+			String result = "";
+			if(!values.equals("")) {
+				String[] valArr = values.split("/");
+				for (int i = 0; i < valArr.length; i++) {
+					if(!valArr[i].equals(value)) {
+						result = result + "/" + valArr[i];
+					}
+				}   
+				value = value + result;
+			}
+			Cookie cookie = new Cookie(userId, value);      
+			cookie.setMaxAge(60*60*24*7); 
+			cookie.setPath("/"); 
+			response.addCookie(cookie);
+		}
+
+
+		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole(crowdId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("list", list);
 
 		return "crowd.main";
 	}
+
+
 
 	@Autowired
 	private MoidaCategoryService moidaCategoryService;

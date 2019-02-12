@@ -108,6 +108,7 @@ $(function(){
 		file = curFiles[0];
 		source = window.URL.createObjectURL(file);
 
+		alert(source);
 		imagefile ="<div name='item' class='post-content'>"
 			+"<img name='content' class='post-img' src="+source+">"
 			+"<img src='../../../resources/images/bighamburger.png' />"
@@ -140,11 +141,10 @@ $(function(){
 function imgupload(){
 	var profileFile = $(".file").val();
 
-	alert(profileFile);
 	var fd = new FormData();
 	fd.append("file", profileFile);  
 	fd.append("id", "test2");   //파일 이름
-	fd.append("root", "posts-img");  
+	fd.append("root", "post-img");  
 	$.ajax({
 		url: "/file-upload",
 		data: fd,
@@ -172,7 +172,6 @@ function boardreg() {
 	if(selected1.val() == '게시판'){
 					console.log($('#select1').val());
 					var boardId = $('#select2').val();
-					alert(boardId);
 					var title = $('#title').val();
 		for(var i = 0; i < items.length; i++ ){
 			if(items[i].firstChild.classList == 'post-img'){
@@ -182,6 +181,7 @@ function boardreg() {
 				concon += items[i].firstChild.value;
 			}
 		}
+		alert(concon);
 	}else if (selected1.val() == '사진첩'){
 		console.log(tab_one = $('#select1').val());
 		for(var i = 0; i < items.length; i++ ){
