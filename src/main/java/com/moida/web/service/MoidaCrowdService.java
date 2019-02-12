@@ -67,6 +67,11 @@ public class MoidaCrowdService implements CrowdService {
 	}
 	
 	@Override
+	public List<CrowdSimpleDataView> getRankSimpleList() {
+		return crowdDao.getRankSimpleList();
+	}
+	
+	@Override
 	public int getCrowdCount() {
 		return crowdDao.getCrowdCount();
 	}
@@ -114,6 +119,8 @@ public class MoidaCrowdService implements CrowdService {
 		// TODO Auto-generated method stub
 		return crowdDao.getSimpleCategoryTagList(tagId);
 	}
+
+
 
 	@Override
 	public CrowdBoard getBoardList(int id) {

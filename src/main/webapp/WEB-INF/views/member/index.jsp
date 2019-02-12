@@ -8,7 +8,7 @@
     
     <div class="member-index">
 	    <div class="profile">
-			<div class="profile-img">	
+	    	<div class="page-profile-img">	
 		    	<img src="/resources/images/img404.png" name="${member.img}">
 	    	</div>	    	
 	    	<div class="id fs16 fwb">${member.id}</div>
@@ -21,7 +21,7 @@
 	    	<div class="menu">
 	    		<input name="my-group" class="btn selected-tab" type="button" value="내 모임(${menuCnt[0]})">
 	    		<input name="req-group" class="btn" type="button" value="가입 신청 목록(${menuCnt[1]})">
-	    		<input name="hit-group" class="btn" type="button" value="최근 본 모임()">
+	    		<input name="hit-group" class="btn" type="button" value="최근 본 모임(${menuCnt[2]})">
 	    	</div>
 	    	
 	    	<ul class="group-list-flex">	
@@ -36,6 +36,20 @@
 							<div class="left">- 나이 : <span class="tpl-minage">20대</span> ~ <span class="tpl-maxage">40대</span></div>
 							<div class="left">- 성별 : <span class="tpl-gen">모두</span></div>
 							<div class="left">- 지역 : <span class="tpl-location">서울 종로구</span></div>
+							<div>회원수  <span class="tpl-nowperson">10</span> / <span class="tpl-maxperson">20명</span></div>
+						</div>
+					</li>
+	    		</template>
+	    		
+				<template id="group-schedule-list-flex-li-template">
+			    	<li class="group-list-flex-li">
+			    		<img src="/resources/images/test.jpg">
+						<div class="group-list-flex-content ellipsis schedule-flex-content">
+							<div class="fs14 fwb left tpl-name">캠핑캠핑</div>
+							<div class="ellipsis tpl-content">다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~</div>
+							<br />
+							<div class="fs14 fwb left">다가오는 모임 일정</div>
+							<div class="left tpl-sch">d-day</div>
 							<div>회원수  <span class="tpl-nowperson">10</span> / <span class="tpl-maxperson">20명</span></div>
 						</div>
 					</li>

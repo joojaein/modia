@@ -2,14 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <main>
-<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
-	rel="stylesheet" type="text/css" />
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script> <script
-	type="text/javascript"
-	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/groupboardreg.js"></script>
 <link href="/resources/css/groupboardreg.css" type="text/css"
@@ -39,33 +33,57 @@
 			<div class="board-list" style="width: 100%;">
 				<select id="select1">
 					<option value="게시판">게시판</option>
-					<option value="사진첩">사진첩</option>
+					<option value="${boardType2.id}">사진첩</option>
 				</select>
 				<hr class="hr" style="margin: 0;" />
 				<select id="select2">
 					<c:forEach var="b" items="${blist}">
-						<option value="${b.name}">${b.name}</option>
+						<option value="${b.id}">${b.name}</option>
 					</c:forEach>
 				</select>
 			</div>
 		</section>
 		<input id="title" name="title" type="text" placeholder="제목" />
 	</section>
-	<div class="content"></div>
 
-
-	<section class="text-content">
-		<div>
-			<div class="createitem" onclick="createItem();">내용</div>
-		</div>
-		<hr />
-		<div class="reg-btn">
-			<input class='file' style="display: none" type="file"
-				accept=".jpg, .jpeg, .png" /> <img class="img-btn"
-				src="/resources/images/camera.png" />
-			<button id="btn" type="submit" onclick="boardreg();">등록하기</button>
-		</div>
+	<section class="text-content" id="sortable">
+		
+		<template id="text-template">
+			<div class="tpl-div tpl-div-text ui-state-default">
+				<textarea class="content-text" placeholder="내용"></textarea>
+				<div class="hamburger-div">
+					<img class="hamburger" src="/resources/images/bighamburger.png"/>
+				</div>	
+			</div>
+		</template>	
+		
+		<template id="img-template">
+			<div class="tpl-div tpl-div-img ui-state-default">
+				<div class="img-div">
+					<img class="content-img" src="/resources/images/test.jpg"/>
+				</div>
+				<div class="hamburger-div">
+					<img class="hamburger" src="/resources/images/bighamburger.png"/>
+				</div>	
+			</div>
+		</template>
 	</section>
+	
+	<div class="reg-btn">
+		<input class='file' style="display: none" type="file" accept=".jpg, .jpeg, .png" multiple/> 
+		<img class="img-btn btn" src="/resources/images/camera.png" />
+		<input class="btn btn-submit" value="등록하기"></input>
+	</div>
+</div>
+
+<div class="content-img-alert content-alert d-none">
+	<h1>옵션 선택</h1>
+	<hr/>
+	<span class="btn btn-main">대표 이미지로 지정</span>
+	<hr/>
+	<span class="btn btn-del">삭제하기</span>
+	<hr/>
+	<input class="btn btn-cancel" type="button" value="취소">
 </div>
 
 <section class="rprt-box">

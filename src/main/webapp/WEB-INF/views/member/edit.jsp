@@ -6,7 +6,7 @@
  
     <div class="member-edit">
 	    <div class="profile">
-	    	<div class="profile-img">	
+	    	<div class="page-profile-img">	
 		    	<img src="/resources/images/img404.png" name="${member.img}">
 	 			<input style="display:none" type="file" />
    		    	<input class="btn" type="button">    	

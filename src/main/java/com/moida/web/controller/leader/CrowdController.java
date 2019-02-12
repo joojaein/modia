@@ -105,9 +105,7 @@ public class CrowdController {
 		Crowd crowd = crowdService.getCrowd(crowdId);
 		if(!id.equals(crowd.getLeaderId())) return "home.index";
 		
-		
-		model.addAttribute("href","/index");  
-		//모임상세페이지에 @모임관리@ 버튼이 있기 때문에 추후에 /index 대신 상세페이지의 주소를 기록해야함 
+		model.addAttribute("href","/crowd/main?crowd="+crowdId);  
 		model.addAttribute("title","모임관리");
 		model.addAttribute("crowd",crowd);  
 		return "leader.manage";

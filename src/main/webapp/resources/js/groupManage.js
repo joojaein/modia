@@ -632,7 +632,7 @@ window.addEventListener("load",function() {
         if (mm < 10) mm = '0' + mm
         today = yyyy + "-" + mm + "-" + dd;
         if (inputEndDate.value > today) return;
-        if (inputEndDate.value < "2000-01-01") return;
+        if (inputBeginDate.value < "2018-01-01") return;
         
         
         var td = thead.querySelectorAll("td");
@@ -672,8 +672,11 @@ window.addEventListener("load",function() {
 	        var term = areaFilter.querySelector('input[name="radio-period"]:checked').value;
 	        
 	        if (term == "month") {
-	            endDate.setMonth(endDate.getMonth() + 1);
-	            endDate.setDate(0);
+	        	endDate = new Date(endDate.getFullYear(), endDate.getMonth()+1, 0);
+	        	if(endDate>new Date()){
+	        		endDate = new Date();
+	        	}
+	            beginDate.setDate(1);
 	        }
 
 	        var tempDate=[''];
@@ -739,7 +742,7 @@ window.addEventListener("load",function() {
 	        
 	        drawChart();
 	        drawTable();
-	    	}
+	    }
 		dataRequest.send("crowdId="+crowdId);
 	};
 

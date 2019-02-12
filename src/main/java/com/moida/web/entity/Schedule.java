@@ -96,6 +96,7 @@ public void setContent(String content) {
 public String toString() {
 	return "Schedule [id=" + id + ", crowdId=" + crowdId + ", startdate=" + startDate + ", endtdate=" + endDate
 			+ ", title=" + title + ", content=" + content + "]";
+
 }
    
 }

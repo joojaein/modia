@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.Schedule;
+import com.moida.web.entity.Posts;
+import com.moida.web.entity.PostsContent;
 import com.moida.web.entity.Tag;
+import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
+import com.moida.web.service.MoidaPostsService;
 import com.moida.web.service.MoidaTagService;
 
 
@@ -35,7 +48,12 @@ public class CrowdController {
 	@Autowired
 	public MoidaCrowdService crowdService;
 
-
+	@Autowired
+	public MoidaBoardService boardService;
+	
+	@Autowired
+	public MoidaPostsService postsService;
+	
 	@RequestMapping("notice")
 	public String notice(
 			@RequestParam(name="crowd") Integer crowdId,
@@ -76,21 +94,33 @@ public class CrowdController {
 		model.addAttribute("blist", boardlist);
 		return "crowd.boardreg";
 	}
-	@PostMapping("boardreg")
-	public String boardreg (CrowdBoard board, Model model) {
+	
 
-		System.out.println(board.toString());
+	@PostMapping("boardreg")
+	@ResponseBody
+	public String boardreg (
+			int boardId,
+			String title,
+			String content,
+			String jsonContent,
+			String mainImg,
+			Model model, Principal principal) {
 		
-		board.setWriterId("chlwl");
-		board.setBoardId(2);
-		int affected = crowdService.insertBoardReg(board);
-		model.addAttribute("result", board);
-		System.out.println("id"+board.getBoardId());
-		System.out.println("제목"+board.getTitle());
-		System.out.println("내용"+board.getContent());
-		System.out.println("작성자"+board.getWriterId());
-		return "redirect:board";
-	}
+		Posts posts = new Posts(boardId, title, content, mainImg, principal.getName());
+
+        Gson gson = new Gson();      
+        JsonParser parser = new JsonParser();
+        JsonElement elem = parser.parse(jsonContent);
+        JsonArray elemArr = elem.getAsJsonArray();
+        List<PostsContent> postsContentList = new ArrayList<PostsContent>();
+ 
+        for (int i = 0; i < elemArr.size(); i++) {
+            PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
+            postsContentList.add(postcontent);
+		}
+             
+		return postsService.regPosts(posts, postsContentList)+"";
+}
 
 	@GetMapping("calendar")
 	public String calendar(
@@ -133,7 +163,7 @@ public class CrowdController {
 	@PostMapping("calendarlist-delete")
 	public String deleteCalendar(int id) {
 		int affected = crowdService.deleteCalendarList(id);
-		return "crowd.category";
+		return "crowd.calendar";
 		
 	}
 	
@@ -175,9 +205,6 @@ public class CrowdController {
 		model.addAttribute("categoryName",categoryName);
 		model.addAttribute("tagName", categoryTagName);
 		return "crowd.create";
-
-
-
 
 	}
 }

@@ -19,15 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CategoryView;
-import com.moida.web.entity.Crowd;
-import com.moida.web.entity.CrowdHeaderTag;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdTag;
 import com.moida.web.entity.Tag;
+import com.moida.web.service.CrowdService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaCrowdTagService;
@@ -41,8 +39,7 @@ public class CrowdController {
 	public MoidaCrowdService crowdService;
 
 	@RequestMapping("main")
-	public String index(
-			@RequestParam(name="crowd") Integer crowdId,
+	public String index(@RequestParam(name="crowd") Integer crowdId,
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 
 		SecurityContext context = SecurityContextHolder.getContext(); 
@@ -78,13 +75,13 @@ public class CrowdController {
 
 		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		model.addAttribute("crowd", crowd);
+		
+		
 		model.addAttribute("list", list);
-
+		model.addAttribute("crowd", crowd);
+		
 		return "crowd.main";
 	}
-
-
 
 	@Autowired
 	private MoidaCategoryService moidaCategoryService;
@@ -111,8 +108,9 @@ public class CrowdController {
 	private MoidaCrowdTagService moidaCrowdTagService;
 
 	@RequestMapping("search")
-	public String search(Model model) {
-		System.out.println("tsetstse");
+	public String search(Model model, String query, String categoryId) {
+		System.out.println("query :"+query);
+		System.out.println("categoryId :"+categoryId);
 		List<Category> list = moidaCategoryService.getCategoryList();
 		List<Tag> tlist = moidaTagService.getTagList();
 		List<CrowdSimpleDataView> simpleDataList = moidaCrowdService.getSimpleList();

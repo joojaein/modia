@@ -85,75 +85,19 @@ select {
 
 .content {
 	grid-area: content;
-
-}
-.itemBoxHighlight {
-    width:400px;
-    height:50px;
-    padding:10px;
-    margin-bottom:10px;
-    background-color: pink;
-}
-.deleteBox {
-	float: right;
-    display:none;
-    cursor:pointer;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    padding:0;
-    width: 30px;
-    text-align: right;
 }
 
-.deleteBox img{
-	width: 50%;
-}
-
-
-.content .image1 {
-	width: 50%;
-	text-align: left;
-}
-.post-content{
-	padding-bottom: 5px;
-    padding-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-    border-bottom: 1px solid lightgray;
-    border-top: 1px solid lightgray;
-    background: white;
-    align-items: center;
-}
-.post-img{
-	width: 100px;
-}
-
-textarea{
-	border: none;
-	resize: none;
-}
-.text-input{
-	width: 80%;
-	height: 80%;
-}
-.text-content div div{
-	width: 100%;
-	height: 150px;
-	background:white;
-	color: gray;
-}
 .reg-btn{
 	display: flex;
 	flex-direction: column;
     align-items: center;
 }
+
 .reg-btn img{
 	width: 13%;
 }
 
-.reg-btn button{
+.reg-btn .btn-submit{
 	border: none;
 	border-radius: 5px;
 	background: #494949;
@@ -162,30 +106,66 @@ textarea{
 	font-weight: bold;
 	width: 80%;
 	height: 40px;
+    text-align: center;
+}
+
+.main-img:before {
+    content: "대표";
+    font-size: 13px;
+    color: #fff;
+    background: #494949;
+    padding: 2px 5px;
+    padding-left: 6px;
+    position: absolute;
+}
+
+.tpl-div{
+    display: flex;
+    box-sizing: content-box;
+    position: relative;
+}
+
+.tpl-div textarea{
+    margin-right: 15px;
+	width: -webkit-fill-available;
+	border: none;
+	resize: none;
+}
+
+.tpl-div .img-div{
+    margin-right: 15px;
+	width: -webkit-fill-available;
+}
+
+.tpl-div .img-div img{
+    margin-right: 15px;
+	max-width: 100%;
 	
 }
 
-/* .post-content:first-child:before {
-	content: "대표";
-	font-size: 10px;
-	color: #fff;
-	background: #002060;
-	padding: 2px 5px;
-	padding-left: 2px;
-	position: absolute;
-} */
-
-
-
-
-.post-content img:nth-child(2) {
-  	 height: 25px;
-    width: 35px;
+.tpl-div .hamburger-div{
+    width: 30px;
+    display: flex;
+    align-items: center;
 }
 
+.tpl-div .hamburger-div img{	
+    width: 30px;
+    height: 30px;
+}
 
-.post p {
-	margin: 0;
+.content-alert{
+	
+    border: 1px red solid;
+    padding: 10px;
+    padding-top: 0px;
+    text-align: center;
+    background: white;
+    position: fixed;
+    width: 300px;
+    top: 30%;
+    z-index: 10;
+
 }
 
 .wrapper {

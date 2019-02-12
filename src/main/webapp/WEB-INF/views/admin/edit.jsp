@@ -6,7 +6,7 @@
  
     <div class="admin-edit">
 	     <div class="profile">
-	    	<div class="profile-img">	
+	    	<div class="page-profile-img">	
 		    	<img src="/resources/images/img404.png" name="${member.img}">
 	 			<input style="display:none" type="file" />
    		    	<input class="btn" type="button">    	
@@ -70,16 +70,13 @@
 					</template>
 					<template id="add-banner-li-template">
 						<li class="li-banner add-li-banner">
-				 			<input style="display:none" type="file" />	
+				 			<input style="display:none" type="file" multiple/>	
 				 			<div class="btn add-btn">					
 							</div>
 						</li>
 					</template>
 				</ul>	
 			</div>
-			
-			
-			<canvas ></canvas>
    		</div>
    	</div>
 </main>

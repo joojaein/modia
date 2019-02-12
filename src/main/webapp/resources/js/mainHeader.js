@@ -5,11 +5,11 @@ window.addEventListener("load",function(){
     var hamburger = header.querySelector("#headerMenu input");
     var back = header.querySelector(".back");
     var modal = header.querySelector(".modal");
-   
+   /*
     inputSearch.onclick = function(){
     	window.location.href = "crowd/search";
     };
-
+*/
     var modalShow = function(){
         modal.classList.add("show")
         back.removeEventListener("transitionend",modalShow);
@@ -46,8 +46,19 @@ window.addEventListener("load",function(){
             }
             // /////////////////////////////////////
             modal.removeEventListener("transitionend",this);
-
 		});
-    });    
+    });  
+    
+	back.onclick = function(){
+		 back.style.opacity="0.0";
+	     back.classList.remove("show");
+	
+	     setTimeout(function(evt){
+	         modal.classList.remove("show")
+	     },0);
+	     modal.addEventListener("transitionend", function() {
+	         modal.removeEventListener("transitionend",this);
+	     });
+	};
 });
 
