@@ -81,11 +81,12 @@ public class CrowdController {
 	public String boardreg (
 			int boardId,
 			String title,
+			String content,
 			String jsonContent,
 			String mainImg,
 			Model model, Principal principal) {
 		
-		Posts posts = new Posts(boardId, title, mainImg, principal.getName());
+		Posts posts = new Posts(boardId, title, content, mainImg, principal.getName());
 
         Gson gson = new Gson();      
         JsonParser parser = new JsonParser();
@@ -94,8 +95,8 @@ public class CrowdController {
         List<PostsContent> postsContentList = new ArrayList<PostsContent>();
  
         for (int i = 0; i < elemArr.size(); i++) {
-            PostsContent content = gson.fromJson(elemArr.get(i), PostsContent.class);
-            postsContentList.add(content);
+            PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
+            postsContentList.add(postcontent);
 		}
              
 		return postsService.regPosts(posts, postsContentList)+"";

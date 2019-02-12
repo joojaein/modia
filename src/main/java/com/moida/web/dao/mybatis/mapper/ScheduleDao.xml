@@ -5,7 +5,7 @@
 <mapper namespace="com.moida.web.dao.ScheduleDao">
 	
 	<select id="getRecentlySchedule" resultType="com.moida.web.entity.Schedule">
-		select * from Schedule where date>=current_date() and crowdId=#{crowdId} order by date asc limit 0, 1
+		select * from Schedule where startDate>=current_date() and crowdId=#{crowdId} order by startDate asc limit 0, 1
 	</select>
 
 </mapper>

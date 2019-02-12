@@ -130,7 +130,7 @@ window.addEventListener("load", function () {
 		 
 		var title = document.querySelector("#title").value;
 		var mainImg="";
-		
+		var mainContent="";
 		var tpls = secContent.querySelectorAll(".tpl-div");
 		var imgCnt=0;
 		var contentArr=[];
@@ -139,6 +139,10 @@ window.addEventListener("load", function () {
 			var firstChild = tpls[i].children[0];
 			if(firstChild.classList.contains("content-text")){
 				var temp={text:firstChild.value, ord:i}
+				if(mainContent==""){
+					mainContent=firstChild.value;
+					alert(mainContent);
+				}
 				contentArr.push(temp);
 			}else{
 				imgCnt++;
@@ -199,6 +203,7 @@ window.addEventListener("load", function () {
 		}
 		postsRequest.send("boardId="+boardId+
 				"&title="+title+
+				"&content="+mainContent+
 				"&jsonContent="+jsonContent+
 				"&mainImg="+mainImg);	
 	};

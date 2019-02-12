@@ -84,13 +84,13 @@ window.addEventListener("load",function(){
         	var schedule = JSON.parse(scheduleRequest.responseText);
         	var crowdId = schedule.crowdId;   
     		var dateMent="다가오는 모임 일정이 없습니다."
-        	if(schedule.date==null || schedule.date==""){
+        	if(schedule.startDate==null || schedule.startDate==""){
                 var tpl=document.importNode(tplCrowdSchLi.content, true);
                 bindGroupSch(tpl, crowdList[i], dateMent);	
                 groupUl.append(tpl);
         	}else{
         		dateMent = schedule.title;	
-            	var date = new Date(schedule.date);
+            	var date = new Date(schedule.startDate);
             	var tempDay=999;
             	for (var j=0; j < 8; j++) {
                 	var today = new Date();

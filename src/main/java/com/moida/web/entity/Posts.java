@@ -6,6 +6,7 @@ public class Posts {
 	private int id;
 	private int boardId;
 	private String title;
+	private String content;
 	private String mainImg;
 	private String writerId;
 	private Date regDate;
@@ -14,21 +15,23 @@ public class Posts {
 	public Posts() {
 	}
 
-	public Posts(int id, int boardId, String title, String mainImg, String writerId, Date regDate, int hit) {
+	public Posts(int id, int boardId, String title, String content, String mainImg, String writerId, Date regDate, int hit) {
 		super();
 		this.id = id;
 		this.boardId = boardId;
 		this.title = title;
+		this.content = content;
 		this.mainImg = mainImg;
 		this.writerId = writerId;
 		this.regDate = regDate;
 		this.hit = hit;
 	}
 	
-	public Posts(int boardId, String title, String mainImg, String writerId) {
+	public Posts(int boardId, String title, String content, String mainImg, String writerId) {
 		super();
 		this.boardId = boardId;
 		this.title = title;
+		this.content = content;
 		this.mainImg = mainImg;
 		this.writerId = writerId;
 	}

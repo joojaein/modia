@@ -5,8 +5,8 @@
 <mapper namespace="com.moida.web.dao.PostsDao">
  	
 	<insert id="insert" parameterType="com.moida.web.entity.Posts">
-		insert into Posts(boardId, title, mainImg, writerId) 
-		values(#{boardId},#{title},#{mainImg},#{writerId})	
+		insert into Posts(boardId, title, content, mainImg, writerId) 
+		values(#{boardId},#{title},#{content},#{mainImg},#{writerId})	
 	</insert>
 	
 	<update id="update" parameterType="com.moida.web.entity.Posts">
