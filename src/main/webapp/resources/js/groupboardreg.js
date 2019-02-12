@@ -141,12 +141,11 @@ window.addEventListener("load", function () {
 				var temp={text:firstChild.value, ord:i}
 				if(mainContent==""){
 					mainContent=firstChild.value;
-					alert(mainContent);
 				}
 				contentArr.push(temp);
 			}else{
 				imgCnt++;
-				var tempSrc = boardId+"_"+i;
+				var tempSrc = "_"+i;
 				var img = firstChild.children[0];
 				var file = fileMap.get(img.name);
 				var filename = file.name;

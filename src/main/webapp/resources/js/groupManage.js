@@ -676,7 +676,6 @@ window.addEventListener("load",function() {
 	        	if(endDate>new Date()){
 	        		endDate = new Date();
 	        	}
-	            console.log(endDate);
 	            beginDate.setDate(1);
 	        }
 

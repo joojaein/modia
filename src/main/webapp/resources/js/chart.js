@@ -2,14 +2,16 @@ google.charts.load('current', { 'packages': ['corechart'] });
 //google.charts.setOnLoadCallback(drawChart);
 
 var options = {
-    vAxis: { minValue: 0 },
-    chartArea: {left:20, right:20, top:20, bottom:20},
-    width:document.body.clientWidth+"px",
-    height: document.body.clientWidth+"px"*2/3,
-    legend:{position:'top', alignment:'center', textStyle:{fontSize:13}},
-    selectionMode: 'multiple', 
-    tooltip: { trigger: 'selection' },
-    aggregationTarget: 'none'
+		width:document.body.clientWidth+"px",
+	    height: document.body.clientWidth+"px"*2/3,
+	    series: {5: {type: "line"}},
+	      animation:{
+	        duration: 500,
+	        easing: 'linear'
+	      },
+	    vAxis: { minValue: 0 },
+	    chartArea: {left:20, right:20, top:20, bottom:20},    
+	    legend:{position:'top', alignment:'center', textStyle:{fontSize:13}},
 };
 
 var dataVal=[
@@ -20,6 +22,45 @@ var dataVal=[
     ['11월', 30, 90]
 ];
 
+function drawChart() {
+    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+   
+    var dataVal0=[];
+    dataVal0.push(dataVal[0]);
+    
+    var max=0;
+    for (var i = 1; i < dataVal.length; i++) {
+        var tempVal=[]
+    	for (var j = 0; j < dataVal[i].length; j++) {
+    		if(j==0) {
+    			tempVal.push(dataVal[i][j]);
+    		}
+    		else {
+    			tempVal.push(0);
+    			if(dataVal[i][j]>max) max=dataVal[i][j];
+    		}
+    	}
+    	dataVal0.push(tempVal);
+	}
+    options.vAxis.maxValue = max;
+    
+    var data = google.visualization.arrayToDataTable(dataVal0);
+    chart.draw(data, options);
+    data = google.visualization.arrayToDataTable(dataVal);
+    chart.draw(data, options);  
+}
+
+/*
+var options = {
+    vAxis: { minValue: 0 },
+    chartArea: {left:20, right:20, top:20, bottom:20},
+    width:document.body.clientWidth+"px",
+    height: document.body.clientWidth+"px"*2/3,
+    legend:{position:'top', alignment:'center', textStyle:{fontSize:13}},
+    selectionMode: 'multiple', 
+    tooltip: { trigger: 'selection' },
+    aggregationTarget: 'none'
+};
 
 function drawChart() {
     var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
@@ -49,7 +90,7 @@ function drawChart() {
         chart.setSelection(selectArr);
     }
 }
-/*
+
 function drawChart_v(dataVal) {
 	alert("(dataVal)");
     var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
