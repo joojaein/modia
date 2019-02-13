@@ -98,7 +98,6 @@ public class CrowdController {
 		return "crowd.boardreg";
 	}
 	
-
 	@PostMapping("boardreg")
 	@ResponseBody
 	public String boardreg (
@@ -130,7 +129,7 @@ public class CrowdController {
 			@RequestParam(name="crowd") Integer crowdId,
 			Model model) {
 		CrowdBoard boards = crowdService.getBoards(crowdId);
-		List<Schedule> schedule = crowdService.getScheduleList();
+		List<Schedule> schedule = crowdService.getScheduleList(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		model.addAttribute("board", boards);
 		model.addAttribute("schedule", schedule);
@@ -149,16 +148,17 @@ public class CrowdController {
 		System.out.println(startDate);
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-
+		end.setDate(end.getDate()+1);
 		Schedule schedule = new Schedule(crowdId, start, end, title, content);
 		return	crowdService.insertSchedule(schedule)+"";
 	}
 	
 	@PostMapping("calendarlist-update")
-	public String updateCalendarList(int crowdId, String startDate, String endDate, String title, String content, int id) throws ParseException {
+	public String updateCalendarList(Integer crowdId, String startDate, String endDate, String title, String content, int id) throws ParseException {
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-		
+
+		end.setDate(end.getDate()+1);
 		Schedule schedule = new Schedule(crowdId, start, end, title, content, id);
 		return crowdService.updateCalendarList(schedule)+"";
 	}
@@ -166,7 +166,7 @@ public class CrowdController {
 	@PostMapping("calendarlist-delete")
 	public String deleteCalendar(int id) {
 		int affected = crowdService.deleteCalendarList(id);
-		return "crowd.calendar";
+		return affected+"";
 		
 	}
 	

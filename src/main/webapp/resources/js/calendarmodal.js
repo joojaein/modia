@@ -25,6 +25,7 @@ function modalopen() {
 	}, 10);
 };
 function dataadd() {
+	var corwdId = window.location.search.split("=")[1];
 	var startday = document.querySelector(".from-date").value;
 	var endday = document.querySelector(".to-date").value;
 	var sday = moment(startday);
@@ -43,11 +44,12 @@ function dataadd() {
     	window.location.href="";
     	}
 	
-		if(endday == ""){
+		if(endday ==""){
 			endday = startday;
-        cListRequest.send("crowdId="+5+"&startDate="+startday+"&endDate="+endday+"&title="+titletxt.value+"&content="+contenttxt);
+
+        cListRequest.send("crowdId="+corwdId+"&startDate="+startday+"&endDate="+endday+"&title="+titletxt.value+"&content="+contenttxt);
 		}else{
-			cListRequest.send("crowdId="+5+"&startDate="+startday+"&endDate="+endday+"&title="+titletxt.value+"&content="+contenttxt);	
+			cListRequest.send("crowdId="+corwdId+"&startDate="+startday+"&endDate="+endday+"&title="+titletxt.value+"&content="+contenttxt);	
 		}
 		modal.classList.remove("show");
 		modal.classList.remove("hide");

@@ -42,7 +42,7 @@ public interface CrowdDao {
 	public Board getCrowdBoard(Integer type, Integer crowdId);
 	public CrowdNotice getNotice(Integer crowdId);
 	public CrowdBoard getBoards(Integer crowdId);
-	public List<Schedule> getScheduleList();
+	public List<Schedule> getScheduleList(Integer crowdId);
 	public int insertSchedule(Schedule schedule);
 	public int deleteCalendarList(int id);
 	public int updateCalendarList(Schedule schedule);

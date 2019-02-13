@@ -144,9 +144,9 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getBoards(crowdId);
 	}
 
-	public List<Schedule> getScheduleList() {
+	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
-		return crowdDao.getScheduleList();
+		return crowdDao.getScheduleList(crowdId);
 	}
 
 	public int insertSchedule(Schedule schedule) {

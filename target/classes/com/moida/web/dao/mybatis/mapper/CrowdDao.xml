@@ -35,7 +35,7 @@
 	
 	<select id="getScheduleList"
 		resultType="com.moida.web.entity.Schedule">
-		select * from Schedule where crowdId=5;
+		select * from Schedule where crowdId=#{param1};
 	</select>
 	
 	<select id="getBoardList"

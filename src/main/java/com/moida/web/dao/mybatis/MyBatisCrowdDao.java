@@ -168,10 +168,10 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
-	public List<Schedule> getScheduleList() {
+	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getScheduleList();
+		return crowdDao.getScheduleList(crowdId);
 	}
 
 	@Override

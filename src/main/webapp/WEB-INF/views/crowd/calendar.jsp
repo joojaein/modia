@@ -24,13 +24,13 @@ var dataset = [
            	"id":'<c:out value="${s.id}" />',
             "title":'<c:out value="${s.title}" />',
             "data":'<c:out value="${s.content}"/>',
-            "start":"<c:out value="${startDate}" />",
-             "end":"<c:out value="${endDate}" />"
-            }<c:if test="${!status.last}">,</c:if>
+            "start":'<c:out value="${startDate}" />',
+             "end":'<c:out value="${endDate}" />'
+             }<c:if test="${!status.last}">,</c:if>
     </c:forEach>
 ];
 $(document).ready(function() {
-
+	
 	$('#calendar').fullCalendar({
 		header: {
 			left: '',
@@ -46,8 +46,6 @@ $(document).ready(function() {
 		defaultDate: new Date(),
 		selectable: true,
 		selectHelper: true,
-		editable: true,
-		eventLimit: true, // allow "more" link when too many events
 		googleCalendarApiKey: "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
 		eventSources:[ 
 		{
@@ -64,26 +62,44 @@ $(document).ready(function() {
 			var p = $(".p");
 			var title = $(".fc-title").text();
 			
-			if(eventObj.url && eventObj.end != null){
+			var temp=eventObj.end.format();
+			/*
+			if(eventObj.end.format() == null){
+				temp = eventObj.start.format();
+			}else{
+				temp = eventObj.end.format();
+			}*/
+			//alert("temp : "+temp.setDate(temp.getDate()-1));
+			var tempdate = new Date(temp);
+			tempdate.setDate(tempdate.getDate()-1);
+			
+			 var month = '' + (tempdate.getMonth() + 1);
+	         var day = '' + tempdate.getDate();
+	         var year = tempdate.getFullYear();
+	         if (month.length < 2) month = '0' + month;
+	         if (day.length < 2) day = '0' + day;
+	         var temEnd = year+"-"+month+"-"+day;
+
+	         if(eventObj.url && temEnd != eventObj.start.format()){
 				p.empty();
-				eh.text(eventObj.start.format()+" - "+eventObj.end.format());
+				eh.text(eventObj.start.format()+" - "+temEnd);
 				tp.text(eventObj.title);
 				p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
 				return false;
-			}else if(eventObj.url && eventObj.end == null){
+			}else if(eventObj.url && eventObj.start.format() == temEnd){
 				p.empty();
 				eh.text(eventObj.start.format());
 				tp.text(eventObj.title);
 				p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
-				
+				return false;
 			}
 		
-			if(eventObj.end != null){
+			if(temEnd != eventObj.start.format()){
 			p.empty();
-			eh.text(eventObj.start.format()+" - "+eventObj.end.format());
+			eh.text(eventObj.start.format()+" - "+ temEnd);
 			tp.text(eventObj.title);
 			p.text(eventObj.data).append("<p class='d-none calendar-id'>"+eventObj.id+"</p>");
-			}else if(eventObj.end == null){
+			}else if(temEnd == eventObj.start.format()){
 				p.empty();
 				eh.text(eventObj.start.format());
 				tp.text(eventObj.title);
@@ -115,6 +131,7 @@ function editbtn(){
 	}
 
 function dataedit(){
+	var crowdId = window.location.search.split("=")[1];
 	var modal = document.querySelector(".send-modal");
 	var screen = document.createElement("div");
 	var cid = $(".calendar-id").text();
@@ -126,13 +143,14 @@ function dataedit(){
     cListRequest.open("POST", "/crowd/calendarlist-update", true);
     cListRequest.setRequestHeader("Content-Type",
           "application/x-www-form-urlencoded");
-  
+
 
 if(todate == ""){
 	todate = fdate;
-	cListRequest.send("crowdId="+5+"&startDate="+fdate+"&endDate="+todate+"&title="+tt+"&content="+ct+"&id="+cid);
+	
+	cListRequest.send("crowdId="+crowdId+"&startDate="+fdate+"&endDate="+todate+"&title="+tt+"&content="+ct+"&id="+cid);
 }else{
-	cListRequest.send("crowdId="+5+"&startDate="+fdate+"&endDate="+todate+"&title="+tt+"&content="+ct+"&id="+cid);	
+	cListRequest.send("crowdId="+crowdId+"&startDate="+fdate+"&endDate="+todate+"&title="+tt+"&content="+ct+"&id="+cid);	
 }
 
 
@@ -145,21 +163,19 @@ cListRequest.onload = function() {
 	window.location.href="";
 	}
 
-
 }
 
 function delbtn(){
-	
 	
 	var cid = $(".calendar-id").text();
 	var cListRequest = new XMLHttpRequest();
     cListRequest.open("POST", "/crowd/calendarlist-delete", true);
     cListRequest.setRequestHeader("Content-Type",
           "application/x-www-form-urlencoded");
+    cListRequest.send("id="+cid);
     cListRequest.onload = function() {
     	window.location.href="";
     	}
-    cListRequest.send("id="+cid);
 }
 function deleteBox(){
 	var deletebtn = "<input type='button' class='edit-btn r-35' value='수정' onclick='editbtn();'/>"
