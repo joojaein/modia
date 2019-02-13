@@ -17,6 +17,11 @@ public class Board {
 		this.crowdId = crowdId;
 	}
 
+	public Board(String name, int crowdId) {
+		super();
+		this.name = name;
+		this.crowdId = crowdId;
+	}
 
 	public int getId() {
 		return id;

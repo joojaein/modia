@@ -1,15 +1,14 @@
 package com.moida.web.dao.mybatis;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.moida.web.dao.CrowdDao;
 import com.moida.web.dao.MemberDao;
 import com.moida.web.entity.AdminMngMemberView;
+import com.moida.web.entity.LeaderMngMemberView;
 import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberRole;
 
@@ -65,6 +64,51 @@ public class MyBatisMemberDao implements MemberDao{
 	public int deleteMember(String id) {
 		MemberDao memberDao = session.getMapper(MemberDao.class);
 		return memberDao.deleteMember(id);
+	}
+
+	@Override
+	public int getLeaderMngRealMemberCnt(int crowdId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.getLeaderMngRealMemberCnt(crowdId);
+	}
+
+	@Override
+	public int getLeaderMngRequestMemberCnt(int crowdId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.getLeaderMngRequestMemberCnt(crowdId);
+	}
+
+	@Override
+	public List<LeaderMngMemberView> getLeaderMngRealMemberList(String query, String updown, Integer min, Integer max,
+			int crowdId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.getLeaderMngRealMemberList(query, updown, min, max, crowdId);
+	}
+
+	@Override
+	public List<LeaderMngMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min,
+			Integer max, int crowdId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
+	}
+
+	@Override
+	public int updateRequestCrowdMember(int crowdId, String memberId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		int result = memberDao.updateRequestCrowdMember(crowdId, memberId);
+		return result;
+	}
+
+	@Override
+	public int updateRealCrowdMember(int crowdId, String memberId, int groupRole) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.updateRealCrowdMember(crowdId, memberId, groupRole);
+	}
+
+	@Override
+	public int deleteCrowdMember(int crowdId, String memberId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.deleteCrowdMember(crowdId, memberId);
 	}
 	
 	

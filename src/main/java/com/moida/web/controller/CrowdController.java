@@ -3,6 +3,11 @@ package com.moida.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -36,17 +41,50 @@ import com.moida.web.service.MoidaTagService;
 public class CrowdController {
 
 	@Autowired
-	public CrowdService crowdService;
-
+	public MoidaCrowdService crowdService;
+ 
 	@RequestMapping("main")
-	public String index(Model model) {
-		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole();
-		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView();
+	public String index(@RequestParam(name="crowd") Integer crowdId,
+			Model model, HttpServletRequest request, HttpServletResponse response) {
 
-//		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		SecurityContext context = SecurityContextHolder.getContext(); 
+		Authentication authentication = context.getAuthentication(); 
+		if(!authentication.getPrincipal().equals("anonymousUser")) {
+			User user = (User) authentication.getPrincipal();
+			String userId = user.getUsername();
+			String values = "";
+			Cookie[] cookies = request.getCookies();
+			for (Cookie c : cookies) {
+				if(c.getName().equals(userId)) {
+					values = c.getValue();
+					break;
+				}
+			}   
+			String value =crowdId+"";
+			String result = "";
+			if(!values.equals("")) {
+				String[] valArr = values.split("/");
+				for (int i = 0; i < valArr.length; i++) {
+					if(!valArr[i].equals(value)) {
+						result = result + "/" + valArr[i];
+					}
+				}   
+				value = value + result;
+			}
+			Cookie cookie = new Cookie(userId, value);      
+			cookie.setMaxAge(60*60*24*7); 
+			cookie.setPath("/"); 
+			response.addCookie(cookie);
+		}
+
+
+		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole(crowdId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		
+		
 		model.addAttribute("list", list);
 		model.addAttribute("crowd", crowd);
-
+		
 		return "crowd.main";
 	}
 
@@ -84,6 +122,10 @@ public class CrowdController {
 			@RequestParam(name="word",defaultValue="") String word,
 			Model model) {
 		System.out.println("search 들가지냐");		
+
+		/*public String search(Model model, String query, String categoryId) {
+		System.out.println("query :"+query);
+		System.out.println("categoryId :"+categoryId);*/
 		List<Category> list = moidaCategoryService.getCategoryList();
 		List<Tag> tlist = moidaTagService.getTagList();
 		List<CrowdSimpleDataView> tempList = moidaCrowdService.getSimpleList();

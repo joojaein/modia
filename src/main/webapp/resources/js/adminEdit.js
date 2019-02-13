@@ -192,16 +192,30 @@ var main = document.querySelector("main");
 		}	
 		
 		tempFileDnone.addEventListener('change', function(evt){
+			var oldtplAdd = ulBanner.querySelector(".add-li-banner")
+			oldtplAdd.remove();
+			
 			var curFiles = tempFileDnone.files;
+			
+			for (var i = 0; i < curFiles.length; i++) {
+				var tpl=document.importNode(tplBannerLi.content, true);
+				var tempImg = tpl.querySelector("img");
+				tempImg.src= window.URL.createObjectURL(curFiles[i]);  
+				tempImg.name = curFiles[i].name;
+	            fileMap.set(tempImg.name, curFiles[i]);		
+	            ulBanner.append(tpl);
+			}
+			/*
 			var tpl=document.importNode(tplBannerLi.content, true);
 			var tempImg = tpl.querySelector("img");
 			tempImg.src= window.URL.createObjectURL(curFiles[0]);  
 			tempImg.name = tempFileDnone.value;
             fileMap.set(tempImg.name, curFiles[0]);
-            
+            */
+			/*
 			var oldtplAdd = ulBanner.querySelector(".add-li-banner")
 			oldtplAdd.remove();
-			ulBanner.append(tpl);  
+			ulBanner.append(tpl);  */
 			appendAddBanner();
 		});
 		
@@ -283,7 +297,7 @@ var main = document.querySelector("main");
 	 });
 	 
 	btnSubmitBanner.onclick = function(){	
-		
+		/*
 		var bannerDBdelRequest = new XMLHttpRequest(); 
 		bannerDBdelRequest.open("POST", "/admin/delete-banner", true); 
 		bannerDBdelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
@@ -296,7 +310,6 @@ var main = document.querySelector("main");
 				var fileName = imgList[i].src;
 				if(imgList[i].name!=null && imgList[i].name!=""){
 					fileName = imgList[i].name;
-					console.log(fileMap.get(fileName))
 					file = fileMap.get(fileName);
 				}
 
@@ -318,7 +331,7 @@ var main = document.querySelector("main");
 							bannerRequest.open("POST", "/admin/banner-folder-setting", true); 
 							bannerRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 							bannerRequest.onload = function () {
-				  				window.location.href = "/admin/index";
+				  				//window.location.href = "/admin/index";
 							}
 							bannerRequest.send();
 						}
@@ -327,7 +340,47 @@ var main = document.querySelector("main");
 			}
 		}
 		bannerDBdelRequest.send();
+		*/
+		
+		var imgList = ulBanner.querySelectorAll(".banner-img");
+		var cnt=0;
+		for (var i = 0; i < imgList.length; i++) {
+			var file=null;
+			var fileName = imgList[i].src;
+			if(imgList[i].name!=null && imgList[i].name!=""){
+				fileName = imgList[i].name;
+				file = fileMap.get(fileName);
+			}
+
+			var fd = new FormData();
+			fd.append("file", file);  
+			fd.append("fileName", fileName);  
+			fd.append("ord",i);  
+			$.ajax({
+				url: '/admin/update-banner',
+				data: fd,
+				dataType: 'text',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success : function(data) {
+					cnt++;
+					if(cnt==imgList.length){
+						var bannerRequest = new XMLHttpRequest(); 
+						bannerRequest.open("POST", "/admin/banner-folder-setting", true); 
+						bannerRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+						bannerRequest.onload = function () {
+			  				window.location.href = "/admin/index";
+						}
+						bannerRequest.send();
+					}
+				}	
+			});
+		}
+		
 	};
+	
+	
 });
 
 

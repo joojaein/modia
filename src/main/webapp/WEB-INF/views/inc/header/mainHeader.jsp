@@ -8,7 +8,14 @@
     <h1 class="logo"><a href="/index">MOIDA</a></h1>
 
     <div id="headerSearch">
-            <input type="text" placeholder="모임을 검색하세요"/>
+	    <form method="POST" action="crowd/search">
+		    <input type="text" placeholder="모임을 검색하세요" name="query" />
+		    <input type="hidden" name="categoryId" value="0" />
+			 <!-- http://localhost/crowd/search?query=input.value-->
+		</form>
+   		<!-- 
+        <input type="text" placeholder="모임을 검색하세요"/>
+        -->
     </div>
     <div id="headerMenu">
         <input type="button"></input>
@@ -20,7 +27,12 @@
            		<a class="fwb fs11" href="/join">회원가입</a>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
-           		<a class="fwb fs11" href="/member/index">마이페이지</a>
+				<s:authorize access="hasAnyRole('ADMIN')">
+					<a class="fwb fs11" href="/admin/index">관리자페이지</a>
+				</s:authorize>
+				<s:authorize access="hasAnyRole('MEMBER')">
+				    <a class="fwb fs11" href="/member/index">마이페이지</a>
+				</s:authorize>
 			</s:authorize>
             <span class="fs11">|</span>
             <s:authorize access="isAnonymous()">
@@ -44,7 +56,14 @@
             	<input class="fwb fs18 btn" type="button" value="회원가입" name="join"><hr class="hr-dot"/>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
+				<s:authorize access="hasAnyRole('ADMIN')">
+            	<input class="fwb fs18 btn" type="button" value="관리자페이지" name="admin/index"><hr class="hr-dot"/>
+				</s:authorize>
+				<s:authorize access="hasAnyRole('MEMBER')">
             	<input class="fwb fs18 btn" type="button" value="마이페이지" name="member/index"><hr class="hr-dot"/>
+				</s:authorize>
+				
+				
 			</s:authorize>
             
             

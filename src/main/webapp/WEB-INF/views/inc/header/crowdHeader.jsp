@@ -6,15 +6,15 @@
     <script src="/resources/js/groupHeader.js"> </script>
     <script src="/resources/js/rprtmodal.js"> </script>
 	
-	<h1 class="logo"><a href="">MOIDA</a></h1>
+	<h1 class="logo"><a href="/index">MOIDA</a></h1>
     <div>
       	  ${crowd.name}
     </div>
 
     <div class="sirenedit">
-        <a href="#"><img src="/resources/images/settings.png" /></a>
+        <a href="/leader/manage?crowd=${crowd.id}"><img src="/resources/images/settings.png" /></a>
         <a class="siren" href="#"><img src="/resources/images/siren.png" /></a>
-        <a href="boardreg"><img src="/resources/images/edit.png" /></a>
+        <a href="boardreg?crowd=${crowd.id}"><img src="/resources/images/edit.png" /></a>
     </div>
      
 </header>

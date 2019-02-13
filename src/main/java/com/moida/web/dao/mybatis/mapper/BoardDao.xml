@@ -7,11 +7,15 @@
 		select * from Board where type=1 and crowdId=#{crowdId};
 	</select>
 	
+	<select id="getBoardType2" resultType="com.moida.web.entity.Board">
+		select * from Board where type=2 and crowdId=#{crowdId};
+	</select>
+	
 	<insert id="insertBoardType1" parameterType="com.moida.web.entity.Board">
 		insert into Board(name, type, crowdId) values(#{name}, 1, #{crowdId});	
 	</insert>
 	
-	<update id="updateBoard" parameterType="java.lang.Integer">
+	<update id="updateBoard">
 		update Board set name=#{param2} where id=#{param1};	
 	</update>
 	

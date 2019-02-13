@@ -210,6 +210,7 @@ public class HomeController {
 			}    
 		}
 		Banner banner = new Banner(ord, loadName);
+		moidaBannerService.insert(banner);
 		return null;
 	}
 	

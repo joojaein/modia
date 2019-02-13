@@ -69,7 +69,7 @@
 				<input class="btn" type="button">
 			</div>	
 			<div class="div-img">
-				<img/>
+				<img style="max-height: 413px"/>
 			</div>
 		</div>
 		<input class="btn-create btn fs14 fwb" type="button" value="수정하기">

@@ -25,7 +25,6 @@
             
             <article class="area-group">
             	<hr class="hr-bold" />
-            	
 				<ul class="group-list-flex">
 				</ul>
             </article>

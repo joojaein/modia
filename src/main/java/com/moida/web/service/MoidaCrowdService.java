@@ -8,11 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.moida.web.dao.CrowdDao;
 import com.moida.web.entity.AdminMngCrowdView;
+import com.moida.web.entity.Board;
 import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.Schedule;
+
+
 
 @Service
 public class MoidaCrowdService implements CrowdService {
@@ -21,23 +26,30 @@ public class MoidaCrowdService implements CrowdService {
 	private CrowdDao crowdDao;
 
 	@Override
-	public List<CrowdMemberRole> getCrowdMemberRole() {
-		return crowdDao.getCrowdMemberRole();
+	public List<CrowdMemberRole> getCrowdMemberRole(int id) {
+		return crowdDao.getCrowdMemberRole(id);
 	}
 
 	@Override
-	public List<CrowdNotice> getNoticeList() {
-		return crowdDao.getNoticeList();
+	public List<CrowdNotice> getNoticeList(Integer crowdId) {
+		return crowdDao.getNoticeList(crowdId);
 	}
 
 	@Override
-	public List<CrowdBoard> getBoardList() {
-		return crowdDao.getBoradList();
+	public List<CrowdBoard> getBoardList(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getBoardList(crowdId);
 	}
 
 	@Override
-	public CrowdSimpleDataView getCrowdSimpleDataView() {
-		return crowdDao.getCrowdSimpleDataView();
+	public int insertBoardReg(CrowdBoard board) {
+		// TODO Auto-generated method stub
+		return crowdDao.insertBoardReg(board);
+	}
+
+	@Override
+	public CrowdSimpleDataView getCrowdSimpleDataView(int id) {
+		return crowdDao.getCrowdSimpleDataView(id);
 	}
 	
 	@Override
@@ -53,6 +65,11 @@ public class MoidaCrowdService implements CrowdService {
 	@Override
 	public List<CrowdSimpleDataView> getRequestSimpleList(String id) {
 		return crowdDao.getRequestSimpleList(id);
+	}
+	
+	@Override
+	public List<CrowdSimpleDataView> getRankSimpleList() {
+		return crowdDao.getRankSimpleList();
 	}
 	
 	@Override
@@ -132,5 +149,54 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getSearchResultList(word);
 	}
 
-	
+
+
+	@Override
+	public CrowdBoard getBoardList(int id) {
+		// TODO Auto-generated method stub
+		return crowdDao.getBoardList(id);
+	}
+
+	@Override
+	public Board getCrowdBoard(Integer type, Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getCrowdBoard(type, crowdId);
+	}
+
+	public CrowdNotice getNotice(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getNotice(crowdId);
+	}
+
+	public CrowdBoard getBoards(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getBoards(crowdId);
+	}
+
+	public List<Schedule> getScheduleList(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getScheduleList(crowdId);
+	}
+
+	public int insertSchedule(Schedule schedule) {
+		// TODO Auto-generated method stub
+		return crowdDao.insertSchedule(schedule);
+	}
+
+	public int deleteCalendarList(int id) {
+		// TODO Auto-generated method stub
+		return crowdDao.deleteCalendarList(id);
+	}
+
+
+	public int updateCalendarList(Schedule schedule) {
+		// TODO Auto-generated method stub
+		return crowdDao.updateCalendarList(schedule);
+	}
+
+	@Override
+	public List<LeaderMngChartView> getChartList(int crowdId) {
+	      return crowdDao.getChartList(crowdId); 
+	}
+
 }

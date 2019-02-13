@@ -4,6 +4,7 @@ package com.moida.web.service;
 import java.util.List;
 
 import com.moida.web.entity.AdminMngMemberView;
+import com.moida.web.entity.LeaderMngMemberView;
 import com.moida.web.entity.Member;
 
 public interface MemberService {
@@ -18,5 +19,14 @@ public interface MemberService {
 	List<AdminMngMemberView> getAdminMngMemberList(String query, String updown, Integer min, Integer max);
 	
 	int deleteMember(String id);
+	
+	int getLeaderMngRealMemberCnt(int crowdId);
+	int getLeaderMngRequestMemberCnt(int crowdId);
+	List<LeaderMngMemberView> getLeaderMngRealMemberList(String query, String updown, Integer min, Integer max, int crowdId);
+	List<LeaderMngMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min, Integer max, int crowdId);
+	
+	int updateRequestCrowdMember(int crowdId, String memberId);	
+	int updateRealCrowdMember(int crowdId, String memberId, int groupRole);	
+	int deleteCrowdMember(int crowdId, String memberId);	
 
 }

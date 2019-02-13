@@ -7,7 +7,7 @@
     
     <div class="admin-index">
 	    <div class="profile">
-			<div class="profile-img">	
+	    	<div class="page-profile-img">	
 		    	<img src="/resources/images/img404.png" name="${member.img}">
 	    	</div>	    	
 	    	<div class="id fs16 fwb">${member.id}</div>
@@ -36,7 +36,8 @@
 					</colgroup>
 	    			<thead>
 	    				<tr>
-	    					<td colspan="2" class="td-name">
+    						<td style="border-right:none !important"></td>
+	    					<td style="border-left:none !important">
 	    						<span class="btn name" >모임명</span>
 	    						<span class="up d-none">&uarr;</span>
 	    						<span class="down d-none">&darr;</span>

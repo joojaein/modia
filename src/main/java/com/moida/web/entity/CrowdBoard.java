@@ -19,6 +19,14 @@ public class CrowdBoard {
 		// TODO Auto-generated constructor stub
 	}
 
+	public CrowdBoard(int boardId, String title, String content, String writerId) {
+		super();
+		this.boardId = boardId;
+		this.title = title;
+		this.content = content;
+		this.writerId = writerId;
+	}
+
 	public CrowdBoard(int id, String name, int type, int crowdId, int boardId, String title, String content,
 			String writerId, Date regDate, int hit) {
 		super();
