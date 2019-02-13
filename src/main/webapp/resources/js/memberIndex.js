@@ -68,8 +68,6 @@ window.addEventListener("load",function(){
         crowdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         crowdRequest.onload = function () {	
         	var crowdList = JSON.parse(crowdRequest.responseText);
-            var btn = menu.querySelector("input[name='my-group']");
-            btn.value="내 모임("+crowdList.length+")";
             synchronizationGetSchedule(crowdList,0);
         };
         crowdRequest.send("type=1&id="+id.innerText);       
@@ -143,8 +141,6 @@ window.addEventListener("load",function(){
         crowdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         crowdRequest.onload = function () {	
         	var crowdList = JSON.parse(crowdRequest.responseText);
-            var btn = menu.querySelector("input[name='req-group']");
-            btn.value="가입 신청 목록("+crowdList.length+")";
         	for (var i = 0; i < crowdList.length; i++) {
                 var tpl=document.importNode(tplCrowdLi.content, true);
                 bindGroup(tpl, crowdList[i]);	
@@ -160,8 +156,6 @@ window.addEventListener("load",function(){
         crowdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         crowdRequest.onload = function () {	
         	var crowdList = JSON.parse(crowdRequest.responseText);
-            var btn = menu.querySelector("input[name='req-group']");
-            btn.value="가입 신청 목록("+crowdList.length+")";
         	for (var i = 0; i < crowdList.length; i++) {
                 var tpl=document.importNode(tplCrowdLi.content, true);
                 bindGroup(tpl, crowdList[i]);	

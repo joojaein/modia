@@ -20,6 +20,11 @@ window.addEventListener("load", function () {
 		location = "board";
 	}
 	
+	document.onclick = function(evt){
+		if(evt.target.nodeName!="TEXTAREA") return;
+		evt.target.focus();
+	};
+
 	var secContent = document.querySelector(".text-content");
 	var textTpl = document.querySelector("#text-template");
 	var imgTpl = document.querySelector("#img-template");
@@ -29,8 +34,9 @@ window.addEventListener("load", function () {
 	tempTextarea.onkeyup=function(){
 		resize(tempTextarea);
 	};
-	tempTextarea.focus();
 	secContent.append(firstTextTpl);
+	tempTextarea.focus();
+
 	var btnSubmit = document.querySelector(".btn-submit");
 	var imgbtn= document.querySelector(".img-btn");
 	var fileDnone = document.querySelector("input[type='file']");
@@ -63,8 +69,9 @@ window.addEventListener("load", function () {
 		tempTextarea.onkeyup=function(){
 			resize(tempTextarea);
 		};
-		tempTextarea.focus();
+
 		secContent.append(tpl);
+		tempTextarea.focus();
 		
 		var chkMain = secContent.querySelectorAll(".main-img");
 		if(chkMain.length==0){
@@ -75,7 +82,7 @@ window.addEventListener("load", function () {
 	
 	secContent.addEventListener("click",function(evt){
 		if(!evt.target.classList.contains("content-img")) return;
-		
+		var contentImg = evt.target;
 		var tplDiv = evt.target.parentNode.parentNode;
 		var divAlert = document.querySelector(".content-img-alert");
 		
@@ -98,6 +105,10 @@ window.addEventListener("load", function () {
 		
 		btnDel.onclick=function(){
 			divAlert.classList.add("d-none");
+			
+			fileMap.delete(contentImg.name);
+			
+			
 			if(tplDiv.children[0].classList.contains("main-img")){
 				secContent.removeChild(tplDiv);
 				var imgDivs = secContent.querySelectorAll(".img-div");
@@ -193,6 +204,7 @@ window.addEventListener("load", function () {
 								        results = regex.exec(location.search);
 								    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 								}
+								alert("crowdId : "+crowdId)
 								window.location.href="/crowd/"+location+"?="+crowdId;
 							}
 						}	
