@@ -2,6 +2,8 @@ package com.moida.web.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moida.web.entity.AdminMngCrowdView;
 import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdBoard;
@@ -13,12 +15,14 @@ public interface CrowdDao {
 	
 	public List<CrowdMemberRole> getCrowdMemberRole();
 	public List<CrowdSimpleDataView> getSimpleList();
-	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
-	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
+	public List<CrowdSimpleDataView> getRealSimpleList(String id);
+	public List<CrowdSimpleDataView> getRequestSimpleList(String id);
+	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId,@Param("word") String word);
+	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId,@Param("word") String word);
 	public CrowdSimpleDataView getCrowdSimpleDataView();
 	public List<CrowdNotice> getNoticeList();
 	public List<CrowdBoard> getBoradList();
-		
+	
 	public int getCrowdCount();
 	public Crowd getCrowd(int id);
 	
@@ -27,4 +31,11 @@ public interface CrowdDao {
 	public List<Integer> getCrowdTagIdList(int crowdId);
 	public int deleteCrowd(int id);
 	public int updateCrowd(Crowd crowd);
+	
+	public int insertCrowd(Crowd newcrowd);
+	public int insertMemberCrowd(String leaderId, Integer crowdId);
+	public int insertCrowdTag(Integer crowdId, String tagId);
+	public Crowd getLastCrowd();
+	public int insertBoard(String name, Integer type, Integer crowdId);
+	public List<CrowdSimpleDataView> getSearchResultList(@Param("word") String word);
 }

@@ -15,7 +15,7 @@
 
 	<select id="getCrowdSimpleDataView"
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
-		select * from CrowdSimpleDataView where id = 5
+		select * from CrowdSimpleDataView where id = ${param}
 	</select>
 
 	<select id="getNoticeList"
@@ -83,13 +83,44 @@
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select csd.* from CrowdSimpleDataView as csd
 		inner Join
-		(select * from Category where id=#{param}) as cd on csd.categoryId = cd.id
+		(select * from Category where id=#{param1}) as cd on csd.categoryId = cd.id
+		where csd.name like '%${word}%' or csd.content like '%${word}%'
 	</select>
 
 	<select id="getSimpleCategoryTagList"
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select csd.* from CrowdSimpleDataView as csd
 		inner Join
-		(select * from CrowdTag where tagId=#{param}) as cd on csd.id = cd.crowdId
+		(select * from CrowdTag where tagId=#{param1}) as cd on csd.id = cd.crowdId
+ 		where csd.name like '%${word}%' or csd.content like '%${word}%'
 	</select>
+
+	<select id="getLastCrowd" resultType="com.moida.web.entity.Crowd">
+		select * from Crowd order by regdate desc limit 0,1
+	</select>	
+	
+	<insert id="insertCrowd"
+		parameterType="com.moida.web.entity.Crowd">
+		insert into Crowd
+		(name, content, areaSido, areaSigungu, ageMin, ageMax, gender, maxPerson, img, categoryId, leaderId)
+		values
+		(#{name}, #{content}, #{areaSido}, #{areaSigungu}, #{ageMin}, #{ageMax}, #{gender}, #{maxPerson}, #{img}, #{categoryId}, #{leaderId});
+	</insert>
+
+	<insert id="insertMemberCrowd" parameterType="com.moida.web.entity.Crowd">
+		insert into MemberCrowd(memberId,crowdId,groupRole) values(#{param1},#{param2},0)
+	</insert>
+
+	<insert id="insertCrowdTag" parameterType="com.moida.web.entity.Crowd">
+		insert into CrowdTag(crowdId,tagId) values(#{param1},#{param2})
+	</insert>
+	
+	<insert id="insertBoard" parameterType="com.moida.web.entity.Crowd">
+		insert into Board(name,type,crowdId) values(#{param1} , #{param2} , #{param3})
+	</insert>
+	
+	<select id="getSearchResultList" parameterType="java.lang.String" resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select * from CrowdSimpleDataView where name like '%${word}%' or content like '%${word}%'
+	</select>
+	
 </mapper>

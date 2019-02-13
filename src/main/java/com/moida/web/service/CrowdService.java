@@ -31,6 +31,10 @@ public interface CrowdService {
 	int deleteCrowd(int id);
 	int updateCrowd(Crowd crowd);
 
-	List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
-	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
+	List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId, String word);
+	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId, String word);
+	
+	int createCrowd(Crowd newcrowd, String tagId);
+	
+	List<CrowdSimpleDataView> getSearchResultList(String word);
 }

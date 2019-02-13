@@ -2,22 +2,30 @@ package com.moida.web.controller.member;
 
 
 import java.io.FileNotFoundException;
+import java.security.Principal;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.moida.web.entity.Category;
+import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.CategoryService;
 import com.moida.web.service.CrowdService;
 import com.moida.web.service.MoidaCategoryService;
+import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaTagService;
 
 
@@ -27,7 +35,7 @@ public class CrowdController {
 	
 		
 	@Autowired
-	public CrowdService crowdService;
+	public MoidaCrowdService crowdService;
 	
 
 	@RequestMapping("notice")
@@ -91,13 +99,39 @@ public class CrowdController {
 		
 		model.addAttribute("href","createCategory");
 		model.addAttribute("title",categoryName.getName());
-		model.addAttribute("categoryName",categoryName);
+		model.addAttribute("categoryId",categoryName.getId());
 		model.addAttribute("tagName", categoryTagName);
+		
 		return "crowd.create";
+	}
+
+	@PostMapping("Reg")
+	@ResponseBody
+	public String Reg(String json, String tagId, Principal principal) {
+		
+		Gson gson = new Gson();
+		
+		Crowd crowd = gson.fromJson(json, Crowd.class);
+		crowd.setLeaderId(principal.getName());
 
 
-
+		return crowdService.createCrowd(crowd, tagId)+"";
 
 	}
+	
+	@RequestMapping("checkId")
+	@ResponseBody
+	public String checkId(Principal principal) {
+		String answer = "";
+		if(principal == null) {
+			System.out.println("zzzzzzzzzzzzzzz");
+			answer = "no";
+		}else {
+			System.out.println(principal.getName());
+			answer = "yes";
+		}
+		return answer;
+	}
+	
 }
 

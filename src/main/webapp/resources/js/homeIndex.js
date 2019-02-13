@@ -140,7 +140,7 @@ window.addEventListener("load",function(){
                   case "자유주제" : img.src="/resources/images/mainIcon/puzzle.png"
                      break;
                }
-
+               div.setAttribute("data-cid",i+1);
                div.appendChild(img);
                div.appendChild(br);
                div.appendChild(span);

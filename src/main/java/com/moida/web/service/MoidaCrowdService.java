@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.moida.web.dao.CrowdDao;
 import com.moida.web.entity.AdminMngCrowdView;
@@ -85,17 +86,50 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.updateCrowd(crowd);
 	}
 
-		@Override
-	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId) {
+	@Override
+	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId, String word) {
 		// TODO Auto-generated method stub
-		System.out.println(crowdDao.getSimpleCategoryList(categoryId));
-		return crowdDao.getSimpleCategoryList(categoryId);
+		System.out.println("getSimpleCategoryList");
+		return crowdDao.getSimpleCategoryList(categoryId, word);
 	}
 
 	@Override
-	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId) {
+	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId, String word) {
 		// TODO Auto-generated method stub
-		return crowdDao.getSimpleCategoryTagList(tagId);
+		return crowdDao.getSimpleCategoryTagList(tagId, word);
+	}
+	
+	@Transactional 
+	@Override
+	public int createCrowd(Crowd newcrowd, String tagId) {
+
+		
+		crowdDao.insertCrowd(newcrowd);
+		
+		Crowd crowd = crowdDao.getLastCrowd();
+		 System.out.println(crowd.getLeaderId()+","+crowd.getId()); 
+		crowdDao.insertMemberCrowd(crowd.getLeaderId(), crowd.getId());
+		//board insert    
+		
+		 System.out.println(tagId); 
+		 String[] tags = tagId.split(","); 
+		 for (String tagpar : tags) 
+		 {
+			 System.out.println(tagpar);
+			 crowdDao.insertCrowdTag(crowd.getId(), tagpar); 
+			 }
+		 crowdDao.insertBoard("공지사항",0,crowd.getId());
+		 crowdDao.insertBoard("자유게시판",1,crowd.getId());
+		 crowdDao.insertBoard("사진첩",2,crowd.getId());
+
+		
+		return 1;
+	}
+
+	@Override
+	public List<CrowdSimpleDataView> getSearchResultList(String word) {
+		System.out.println("서비스 :"+word);
+		return crowdDao.getSearchResultList(word);
 	}
 
 	
