@@ -46,17 +46,24 @@ public class HomeController {
 		List<CrowdSimpleDataView> reqCrowd = moidaCrowdService.getRequestSimpleList(id);
 		menuCnt.add(reqCrowd.size());
 		
+		List<CrowdSimpleDataView> hitCrowd = new ArrayList<CrowdSimpleDataView>();
 		String values = "";
 		Cookie[] cookies = request.getCookies();
 		for (Cookie c : cookies) {
-			if(c.getName().equals(principal.getName())) {
+			if(c.getName().equals(id)) {
 				values = c.getValue();
 				break;
 			}
 		}
-		
 		String[] valArr = values.split("/");
-		menuCnt.add(valArr.length);
+		for (int i = 0; i < valArr.length; i++) {
+			int index = Integer.parseInt(valArr[i]);
+			CrowdSimpleDataView temp = moidaCrowdService.getCrowdSimpleDataView(index);
+			if(temp!=null){
+			hitCrowd.add(temp);
+			}
+		}
+		menuCnt.add(hitCrowd.size());
 		
 		model.addAttribute("member", member);
 		model.addAttribute("menuCnt", menuCnt);

@@ -9,23 +9,38 @@
 		select * from crowdmemberRole cmr left join (select id as
 		uid , msg from
 		Member) m on cmr.id where m.uid = cmr.memberId and
-		cmr.crowdId = 5 and
+		cmr.crowdId = #{param1} and
 		2 >= cmr.groupRole
 	</select>
 
 	<select id="getCrowdSimpleDataView"
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
-		select * from CrowdSimpleDataView where id = 5
+		select * from CrowdSimpleDataView where id = #{param1}
 	</select>
-
+	
+	<select id="getBoards"
+		resultType="com.moida.web.entity.CrowdBoard">
+		select * from Board where type=0 and crowdId=#{param1};
+	</select>
+	
+	<select id="getNotice"
+		resultType="com.moida.web.entity.CrowdNotice">
+		select * from boardListView where type = 0 and crowdId=#{param1};
+	</select>
+	
 	<select id="getNoticeList"
 		resultType="com.moida.web.entity.CrowdNotice">
-		select * from boardListView where type = 0
+		select * from boardListView where type = 0 and crowdId=#{param1};
 	</select>
-
+	
+	<select id="getScheduleList"
+		resultType="com.moida.web.entity.Schedule">
+		select * from Schedule where crowdId=5;
+	</select>
+	
 	<select id="getBoardList"
 		resultType="com.moida.web.entity.CrowdBoard">
-		select * from boardListView where type = 1 and crowdId = 5 order by regDate desc
+		select * from boardListView where type = 1 and crowdId = #{param2} order by regDate desc
 	</select>
 	<select id="getSimpleList"
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
@@ -35,6 +50,19 @@
 	<insert id="insertBoardReg" parameterType="com.moida.web.entity.CrowdBoard">
 		insert into Posts(boardId, title, content, writerId) values(#{boardId}, #{title}, #{content}, #{writerId});
 	</insert>
+	
+	<insert id="insertSchedule" parameterType="com.moida.web.entity.Schedule">
+		insert into Schedule(crowdId, startDate, endDate, title, content) values(#{crowdId}, #{startDate},#{endDate},#{title},#{content}); 
+	</insert>
+	
+	<delete id="deleteCalendarList" parameterType="java.lang.Integer">
+	delete from Schedule where id = #{id};
+	</delete>
+	<update id="updateCalendarList" parameterType="com.moida.web.entity.Schedule">		
+		update Schedule set crowdId=#{crowdId}, startDate=#{startDate},
+		endDate=#{endDate}, title=#{title}, content=#{content} where id=#{id}
+	</update>
+	 
 	
 	<select id="getRealSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
 		<![CDATA[ 

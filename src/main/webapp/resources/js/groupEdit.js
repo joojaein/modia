@@ -9,7 +9,7 @@ window.addEventListener("load",function() {
 	var file;
 	
 	var btnSubmit = divEdit.querySelector(".btn-create");
-	var crowdId = getParameterByName('crowd');
+	var crowdId =  getQuerystring('crowd')
 
 	var divLocation = divEdit.querySelector(".div-location");
 	var selSido = divLocation.querySelector(".sido")
@@ -127,11 +127,15 @@ window.addEventListener("load",function() {
 		}
 	});
 	
-	function getParameterByName(name) {
-	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	        results = regex.exec(location.search);
-	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	function getQuerystring(paramName){ 
+		var _tempUrl = window.location.search.substring(1); 
+		var _tempArray = _tempUrl.split('&'); 
+		for(var i = 0; _tempArray.length; i++) { 
+			var _keyValuePair = _tempArray[i].split('='); 
+			if(_keyValuePair[0] == paramName){ 
+				return _keyValuePair[1]; 
+			}
+		}
 	}
 
 	var crowdRequest = new XMLHttpRequest(); 

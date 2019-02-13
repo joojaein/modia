@@ -11,19 +11,19 @@
 	<section class="main-head">
 		<nav>
 			<div>
-				<a href="main">정보</a>
+				<a href="main?crowd=${crowd.id}">정보</a>
 			</div>
 			<div>
-				<a href="notice">공지사항</a>
+				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
 			</div>
 			<div>
-				<a href="calendar">일정</a>
+				<a href="calendar?crowd=${crowd.id}">일정</a>
 			</div>
 			<div>
-				<a href="board">게시판</a>
+				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
 			</div>
 			<div>
-				<a href="album">사진첩</a>
+				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
 				<a href="album">단체채팅</a>

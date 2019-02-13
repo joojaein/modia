@@ -17,67 +17,86 @@ public class Schedule{
    }
 
 public Schedule(int id, int crowdId, Date startDate, Date endDate, String title, String content) {
-   super();
-   this.id = id;
-   this.crowdId = crowdId;
-   this.startDate = startDate;
-   this.endDate = endDate;
-   this.title = title;
-   this.content = content;
+	super();
+	this.id = id;
+	this.crowdId = crowdId;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.title = title;
+	this.content = content;
+}
+public Schedule(int crowdId, Date startDate, Date endDate, String title, String content) {
+	super();
+	this.crowdId = crowdId;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.title = title;
+	this.content = content;
+}
+
+public Schedule(int crowdId, Date startDate, Date endDate, String title, String content, int id) {
+	super();
+	this.crowdId = crowdId;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.title = title;
+	this.content = content;
+	this.id = id;
 }
 
 public int getId() {
-   return id;
+	return id;
 }
 
 public void setId(int id) {
-   this.id = id;
+	this.id = id;
 }
 
 public int getCrowdId() {
-   return crowdId;
+	return crowdId;
 }
 
 public void setCrowdId(int crowdId) {
-   this.crowdId = crowdId;
+	this.crowdId = crowdId;
 }
 
-public Date getStartdate() {
-   return startDate;
+public Date getStartDate() {
+	return startDate;
 }
 
-public void setStartdate(Date startDate) {
-   this.startDate = startDate;
+public void setStartDate(Date startDate) {
+	this.startDate = startDate;
 }
 
-public Date getEnddate() {
-   return endDate;
+public Date getEndDate() {
+	return endDate;
 }
 
-public void setEnddate(Date endDate) {
-   this.endDate = endDate;
+public void setEndDate(Date endDate) {
+	this.endDate = endDate;
 }
 
 public String getTitle() {
-   return title;
+	return title;
 }
 
 public void setTitle(String title) {
-   this.title = title;
+	this.title = title;
 }
 
 public String getContent() {
-   return content;
+	return content;
 }
 
 public void setContent(String content) {
-   this.content = content;
+	this.content = content;
 }
 
 @Override
 public String toString() {
-   return "Schedule [id=" + id + ", crowdId=" + crowdId + ", startDate=" + startDate + ", endDate=" + endDate
-         + ", title=" + title + ", content=" + content + "]";
+	return "Schedule [id=" + id + ", crowdId=" + crowdId + ", startdate=" + startDate + ", endtdate=" + endDate
+			+ ", title=" + title + ", content=" + content + "]";
+
 }
    
 }

@@ -364,7 +364,7 @@
 <%-- <c:forEach var="tag" items="${tlist}"> --%>
 	<div class="content-box" data-cid="${simple.categoryId}" data-tid="${crowdTag.tagId}">
 		<div class="content-image">
-			<a href="groupid"></a> <img src="/resources/images/tempImg.png"alt="">
+			<a href="main?crowd=${simple.id}"></a> <img src="/resources/images/tempImg.png"alt="">
 		</div>
 		<div class="content-detail">
 			<h4>${simple.name}/카테고리번호:${simple.categoryId}/태그번호:${tag.tagId} <%-- <c:forEach var="tag" items="${tlist}"> </c:forEach> --%>/모임번호:${simple.id}</h4>

@@ -36,12 +36,12 @@ import com.moida.web.service.MoidaTagService;
 public class CrowdController {
 
 	@Autowired
-	public CrowdService crowdService;
+	public MoidaCrowdService crowdService;
 
 	@RequestMapping("main")
 	public String index(@RequestParam(name="crowd") Integer crowdId,
 			Model model, HttpServletRequest request, HttpServletResponse response) {
-		
+
 		SecurityContext context = SecurityContextHolder.getContext(); 
 		Authentication authentication = context.getAuthentication(); 
 		if(!authentication.getPrincipal().equals("anonymousUser")) {
@@ -54,7 +54,7 @@ public class CrowdController {
 					values = c.getValue();
 					break;
 				}
-			}	
+			}   
 			String value =crowdId+"";
 			String result = "";
 			if(!values.equals("")) {
@@ -63,23 +63,23 @@ public class CrowdController {
 					if(!valArr[i].equals(value)) {
 						result = result + "/" + valArr[i];
 					}
-				}	
+				}   
 				value = value + result;
 			}
-			Cookie cookie = new Cookie(userId, value);		
+			Cookie cookie = new Cookie(userId, value);      
 			cookie.setMaxAge(60*60*24*7); 
 			cookie.setPath("/"); 
 			response.addCookie(cookie);
 		}
-		
-		
-		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole();
-		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView();
 
-//		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+
+		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole(crowdId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		
+		
 		model.addAttribute("list", list);
 		model.addAttribute("crowd", crowd);
-
+		
 		return "crowd.main";
 	}
 

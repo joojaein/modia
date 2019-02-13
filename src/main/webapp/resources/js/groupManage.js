@@ -23,16 +23,20 @@ window.addEventListener("load",function() {
     var approvalPaging = divApproval.querySelector(".paging");
     var approvalUlPaging = approvalPaging.querySelector("ul");
     
-	var crowdId = getParameterByName('crowd');
+	var crowdId =  getQuerystring('crowd')
     var trMax = 10;
     var indexNowPage = 1;
     var listCnt=0;
 
-	function getParameterByName(name) {
-	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	        results = regex.exec(location.search);
-	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	function getQuerystring(paramName){ 
+		var _tempUrl = window.location.search.substring(1); 
+		var _tempArray = _tempUrl.split('&'); 
+		for(var i = 0; _tempArray.length; i++) { 
+			var _keyValuePair = _tempArray[i].split('='); 
+			if(_keyValuePair[0] == paramName){ 
+				return _keyValuePair[1]; 
+			}
+		}
 	}
 	
     var img = main.querySelector(".area-banner img");

@@ -111,7 +111,8 @@ public class HomeController {
 			}
 			String[] valArr = values.split("/");
 			for (int i = 0; i < valArr.length; i++) {
-				crowdList.add(crowdService.getCrowdSimpleDataView()); // valArr[i]
+				int index = Integer.parseInt(valArr[i]);
+				crowdList.add(crowdService.getCrowdSimpleDataView(index));
 			}
 			break;
 		case 4 :

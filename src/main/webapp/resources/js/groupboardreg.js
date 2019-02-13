@@ -12,6 +12,7 @@ window.addEventListener("load", function () {
 			select2.classList.add("d-none");
 			hr.classList.add("d-none");
 			boardId = select1.value;
+			location = "album";
 		}
 	}
 	
@@ -19,6 +20,19 @@ window.addEventListener("load", function () {
 		boardId = select2.value;
 		location = "board";
 	}
+	
+	function getQuerystring(paramName){ 
+		var _tempUrl = window.location.search.substring(1); 
+		var _tempArray = _tempUrl.split('&'); 
+		for(var i = 0; _tempArray.length; i++) { 
+			var _keyValuePair = _tempArray[i].split('='); 
+			if(_keyValuePair[0] == paramName){ 
+				return _keyValuePair[1]; 
+			}
+		}
+	}
+	
+	var crowdId =  getQuerystring('crowd')
 	
 	document.onclick = function(evt){
 		if(evt.target.nodeName!="TEXTAREA") return;
@@ -54,7 +68,7 @@ window.addEventListener("load", function () {
 	}
 	
 	fileDnone.addEventListener('change', function(evt){
-		var curFiles = fileDnone.files;
+		var curFiles = fileDnone.files;	
 		for (var i = 0; i < curFiles.length; i++) {
 			var tpl=document.importNode(imgTpl.content, true);
 			var tempImg = tpl.querySelector(".img-div img");
@@ -164,7 +178,7 @@ window.addEventListener("load", function () {
 			    tempSrc+=_fileExt;
 				var temp={src:tempSrc, ord:i}
 				contentArr.push(temp);
-
+				
 				if(firstChild.classList.contains("main-img")){
 					mainImg = "_"+i+_fileExt;
 				}
@@ -177,40 +191,38 @@ window.addEventListener("load", function () {
 		postsRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 		postsRequest.onload = function () {
 			var postsId = postsRequest.responseText;
-			var cnt=0;
-			for (var i = 0; i < tpls.length; i++) {
-				var firstChild = tpls[i].children[0];
-				if(firstChild.classList.contains("img-div")){
-					var img = firstChild.children[0];
-					var file = fileMap.get(img.name);
-					var fd = new FormData();
-					fd.append("file", file);  
-					fd.append("id", postsId+"_"+i);  
-					fd.append("root", "crowd-postsImg");  
-					$.ajax({
-						url: '/file-upload',
-						data: fd,
-						dataType: 'text',
-						processData: false,
-						contentType: false,
-						type: 'POST',
-						success : function(data) {
-							cnt++;
-							if(cnt==imgCnt){
-								var crowdId = getParameterByName('crowd');
-								function getParameterByName(name) {
-								    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-								    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-								        results = regex.exec(location.search);
-								    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			
+			if(imgCnt==0){
+				window.location.href="/crowd/"+location+"?crowd="+crowdId;
+			}else{
+				var cnt=0;
+				for (var i = 0; i < tpls.length; i++) {
+					var firstChild = tpls[i].children[0];
+					if(firstChild.classList.contains("img-div")){
+						var img = firstChild.children[0];
+						var file = fileMap.get(img.name);
+						var fd = new FormData();
+						fd.append("file", file);  
+						fd.append("id", postsId+"_"+i);  
+						fd.append("root", "crowd-postsImg");  
+						$.ajax({
+							url: '/file-upload',
+							data: fd,
+							dataType: 'text',
+							processData: false,
+							contentType: false,
+							type: 'POST',
+							success : function(data) {
+								cnt++;
+								if(cnt==imgCnt){									
+									window.location.href="/crowd/"+location+"?crowd="+crowdId;
 								}
-								alert("crowdId : "+crowdId)
-								window.location.href="/crowd/"+location+"?="+crowdId;
-							}
-						}	
-					});
-				}				
+							}	
+						});
+					}	
+				}
 			}
+			
 		}
 		postsRequest.send("boardId="+boardId+
 				"&title="+title+

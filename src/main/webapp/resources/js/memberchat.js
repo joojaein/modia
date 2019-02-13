@@ -411,7 +411,7 @@
        $(function()
 	   {
 	    	// localhost에 접속하고 싶은 ip를 쓰고 사이트는 내 ip로 접속 하면  상대방에게 채팅을 보낼 수 있다.
-	   		var socket = new WebSocket("ws://localhost:8090/chat-server");
+	   		var socket = new WebSocket("ws://localhost:8080/chat-server");
 	
 	   		socket.onmessage = function(e)
 	   		{

@@ -2,6 +2,9 @@ package com.moida.web.controller.member;
 
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +28,14 @@ import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdNotice;
+import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.Schedule;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
 import com.moida.web.entity.Tag;
-import com.moida.web.service.CrowdService;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
+import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaPostsService;
 import com.moida.web.service.MoidaTagService;
 
@@ -37,11 +43,11 @@ import com.moida.web.service.MoidaTagService;
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
-	
-		
+
+
 	@Autowired
-	public CrowdService crowdService;
-	
+	public MoidaCrowdService crowdService;
+
 	@Autowired
 	public MoidaBoardService boardService;
 	
@@ -49,29 +55,46 @@ public class CrowdController {
 	public MoidaPostsService postsService;
 	
 	@RequestMapping("notice")
-	public String notice(Model model) {		
-	
-		List<CrowdNotice> list = crowdService.getNoticeList();
+	public String notice(
+			@RequestParam(name="crowd") Integer crowdId,
+			Model model) {		
+		List<CrowdNotice> list = crowdService.getNoticeList(crowdId);
+		CrowdNotice listId = crowdService.getNotice(crowdId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		model.addAttribute("listId", listId);
 		model.addAttribute("list", list);
+		model.addAttribute("crowd", crowd);
 		return "crowd.notice";
 	}
-	
+
 	@RequestMapping("board")
-	public String board(Model model) {
-		List<CrowdBoard> boardlist = crowdService.getBoardList();
+	public String board(
+			@RequestParam(name="crowd") Integer crowdId,
+			Model model) {
+		List<CrowdBoard> boardlist = crowdService.getBoardList(crowdId);
 		model.addAttribute("blist", boardlist);
-		
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		model.addAttribute("crowd", crowd);
 		return "crowd.board";
 	}
-	
-	
+
+	@RequestMapping("{id}")
+	public String detail(
+			@PathVariable("id") Integer id
+			,Model model) {
+
+		return "crowd.board.detail";
+	}
+
 	@GetMapping("boardreg")
-	public String reg(Model model, int crowd) {
-		List<Board> boardlist = boardService.getBoardListType1(crowd);
-		Board boardType2 = boardService.getBoardType2(crowd);
-		
+	public String reg(
+			@RequestParam(name="crowd") Integer crowdId,
+			Model model) {
+		List<CrowdBoard> boardlist = crowdService.getBoardList(crowdId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+
 		model.addAttribute("blist", boardlist);
-		model.addAttribute("boardType2", boardType2);
+		model.addAttribute("crowd", crowd);
 		return "crowd.boardreg";
 	}
 	
@@ -100,20 +123,63 @@ public class CrowdController {
 		}
              
 		return postsService.regPosts(posts, postsContentList)+"";
+}
+
+	@GetMapping("calendar")
+	public String calendar(
+			@RequestParam(name="crowd") Integer crowdId,
+			Model model) {
+		CrowdBoard boards = crowdService.getBoards(crowdId);
+		List<Schedule> schedule = crowdService.getScheduleList();
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		model.addAttribute("board", boards);
+		model.addAttribute("schedule", schedule);
+		model.addAttribute("crowd", crowd);
+		return "crowd.calendar"; 
 	}
 	
-	@RequestMapping("calendar")
-	public String calendar() {		
-		
-		return "crowd.calendar";
-	}
+	@PostMapping("calendar")
+	public String calendarreg(
+			Integer crowdId,
+			String startDate,
+			String endDate,
+			String title,
+			String content,
+			Model model) throws Exception {
+		System.out.println(startDate);
+		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 
-	@RequestMapping("album")
-	public String album() {		
+		Schedule schedule = new Schedule(crowdId, start, end, title, content);
+		return	crowdService.insertSchedule(schedule)+"";
+	}
+	
+	@PostMapping("calendarlist-update")
+	public String updateCalendarList(int crowdId, String startDate, String endDate, String title, String content, int id) throws ParseException {
+		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 		
+		Schedule schedule = new Schedule(crowdId, start, end, title, content, id);
+		return crowdService.updateCalendarList(schedule)+"";
+	}
+	
+	@PostMapping("calendarlist-delete")
+	public String deleteCalendar(int id) {
+		int affected = crowdService.deleteCalendarList(id);
+		return "crowd.calendar";
+		
+	}
+	
+	
+	@RequestMapping("album")
+	public String album(
+			@RequestParam(name="crowd") Integer crowdId,
+			Model model) {		
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		model.addAttribute("crowd", crowd);
 		return "crowd.album";
 	}
-	
+
 	@RequestMapping("createCategory")
 	public String createCategory(Model model) {		
 		model.addAttribute("href","/index");  
@@ -121,32 +187,27 @@ public class CrowdController {
 		model.addAttribute("title","카테고리 선택");
 		return "crowd.createCategory";
 	}
-	
+
 	@Autowired
 	public MoidaCategoryService moidaCategoryService;
-	
+
 	@Autowired
 	public MoidaTagService moidaTagService;
-	
-	
+
+
 	@RequestMapping("create")
 	public String create(
 			@RequestParam(name="t") Integer categoryId,
 			Model model) throws FileNotFoundException {		
-		
-		
-		
+
 		Category categoryName = moidaCategoryService.getCategoryName(categoryId); 
 		List<Tag> categoryTagName = moidaTagService.getCategoryTagNameList(categoryId); 
-		
+
 		model.addAttribute("href","createCategory");
 		model.addAttribute("title",categoryName.getName());
 		model.addAttribute("categoryName",categoryName);
 		model.addAttribute("tagName", categoryTagName);
 		return "crowd.create";
-
-
-
 
 	}
 }
