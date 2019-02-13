@@ -90,8 +90,11 @@ public class CrowdController {
 	public String reg(
 			@RequestParam(name="crowd") Integer crowdId,
 			Model model) {
-		List<CrowdBoard> boardlist = crowdService.getBoardList(crowdId);
+		List<Board> boardlist = boardService.getBoardListType1(crowdId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+
 		model.addAttribute("blist", boardlist);
+		model.addAttribute("crowd", crowd);
 		return "crowd.boardreg";
 	}
 	
