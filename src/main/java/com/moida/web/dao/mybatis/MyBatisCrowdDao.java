@@ -141,7 +141,7 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
-ㄲ	public int insertCrowd(Crowd newcrowd) {
+	public int insertCrowd(Crowd newcrowd) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.insertCrowd(newcrowd);
 	}
