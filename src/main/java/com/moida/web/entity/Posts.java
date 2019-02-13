@@ -60,6 +60,14 @@ public class Posts {
 		this.title = title;
 	}
 
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public String getMainImg() {
 		return mainImg;
 	}
@@ -92,7 +100,6 @@ public class Posts {
 		this.hit = hit;
 	}
 
-	
 	
 	
 }
