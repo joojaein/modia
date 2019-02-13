@@ -38,37 +38,41 @@ public class HomeController {
 	@RequestMapping("index")
 	public String index(Model model, HttpServletRequest request, Principal principal) {
 		String id = principal.getName();
-		Member member = moidamemberService.getMember(id);	
-		
-		List<Integer> menuCnt = new ArrayList<Integer>();
-		List<CrowdSimpleDataView> realCrowd = moidaCrowdService.getRealSimpleList(id);
-		menuCnt.add(realCrowd.size());
-		List<CrowdSimpleDataView> reqCrowd = moidaCrowdService.getRequestSimpleList(id);
-		menuCnt.add(reqCrowd.size());
-		
-		List<CrowdSimpleDataView> hitCrowd = new ArrayList<CrowdSimpleDataView>();
-		String values = "";
-		Cookie[] cookies = request.getCookies();
-		for (Cookie c : cookies) {
-			if(c.getName().equals(id)) {
-				values = c.getValue();
-				break;
-			}
-		}
-		String[] valArr = values.split("/");
-		for (int i = 0; i < valArr.length; i++) {
-			int index = Integer.parseInt(valArr[i]);
-			CrowdSimpleDataView temp = moidaCrowdService.getCrowdSimpleDataView(index);
-			if(temp!=null){
-			hitCrowd.add(temp);
-			}
-		}
-		menuCnt.add(hitCrowd.size());
-		
-		model.addAttribute("member", member);
-		model.addAttribute("menuCnt", menuCnt);
+		Member member = moidamemberService.getMember(id);   
 
-		return "member.index";
+	      List<Integer> menuCnt = new ArrayList<Integer>();
+	      List<CrowdSimpleDataView> realCrowd = moidaCrowdService.getRealSimpleList(id);
+	      menuCnt.add(realCrowd.size());
+	      List<CrowdSimpleDataView> reqCrowd = moidaCrowdService.getRequestSimpleList(id);
+	      menuCnt.add(reqCrowd.size());
+	      
+	      List<CrowdSimpleDataView> hitCrowd = new ArrayList<CrowdSimpleDataView>();
+	      String values = "";
+	      Cookie[] cookies = request.getCookies();
+	      for (Cookie c : cookies) {
+	         if(c.getName().equals(id)) {
+	            values = c.getValue();
+	            break;
+	         }
+	      }
+	      
+	      if(!values.equals("")) {
+	         String[] valArr = values.split("/");
+	         for (int i = 0; i < valArr.length; i++) {
+	            int index = Integer.parseInt(valArr[i]);
+	            CrowdSimpleDataView temp = moidaCrowdService.getCrowdSimpleDataView(index);
+	            if(temp!=null){
+	            hitCrowd.add(temp);
+	            }
+	         }
+	      }
+	      menuCnt.add(hitCrowd.size());
+
+	      model.addAttribute("member", member);
+	      model.addAttribute("menuCnt", menuCnt);
+
+	      return "member.index";
+
 	}	
 	
 	@RequestMapping("edit")
