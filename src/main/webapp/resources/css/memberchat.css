@@ -28,6 +28,10 @@ aside{
     overflow: hidden;
 }
 
+#aside-div textarea
+{
+	resize:none;
+}
 
 #open-chat
 {
@@ -71,7 +75,7 @@ aside{
     display: flex;
     justify-content: space-around;
 }
-.visited{
+.chat-visited{
     background: green !important;
     color: white;
     transition: .5s cubic-bezier(.5,.06,.55,.96) forwards;
@@ -145,6 +149,7 @@ aside{
     top: 10%;
 }
 .friend-balloon{
+	
     position: absolute;
     width: 40px;
     height: 40px;
@@ -171,7 +176,7 @@ aside{
     box-shadow: 0px 0px 39px 0px rgba(0,0,0,0.1);
     background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 31%, rgba(241,231,103,1) 59%, rgba(241,231,103,1) 77%, rgba(254,182,69,1) 100%);
 }
-.profile-img{
+.chat-profile-img{
     margin: 20px;
     background: url("image/autumn.jpg") no-repeat center;
     background-size: cover;
@@ -180,7 +185,7 @@ aside{
     z-index: 11;
     border-radius: 200px 200px 200px 200px;
 }
-.profile-detail{
+.chat-profile-detail{
     position: absolute;
     left: 140px;
     top: 40px;
@@ -306,7 +311,7 @@ aside{
     justify-content: center;
 }
 
-.rprt{
+.chat-rprt{
     position: relative;
     width: 70%;
     max-width: 500px;
@@ -322,7 +327,7 @@ aside{
     border-radius: 10px 10px 10px 10px;
     text-align: center;
 }
-.rprt h1{
+.chat-rprt h1{
     margin-top: 4%;
     font-size: 20px;
 }
@@ -333,20 +338,20 @@ aside{
     text-align: left;
     margin-bottom: 5px;
 }
-.rprt select {
+.chat-rprt select {
     width: 80%;
     height: 7%;
     line-height: 7%;
 }
-.rprt textarea{
+.chat-rprt textarea{
     width: 80%;
     height: 40%;
 }
-.rprt-btn{
+.chat-rprt-btn{
     margin: 5%;
     height: 16%;
 }
-.rprt input{
+.chat-rprt input{
     width: 45%;
     background: #494949;
     color: white;
@@ -354,7 +359,7 @@ aside{
     border-radius: 8px;
     border: none;
 }
-.rprt-exit{
+.chat-rprt-exit{
     position: absolute;
     width: 20px;
     height: 20px;
@@ -402,6 +407,9 @@ aside{
     position: relative;
     flex-grow: 0;
     left: 10%;
+    font-size: 20px !important;
+    
+    font-weight:bold;
 }
 .chat-window-header span::before{
     content: "";
@@ -434,7 +442,7 @@ aside{
 }
 .you-img{
     grid-area: img;
-    background: url("image/autumn.jpg") no-repeat center center;
+ /*   background: url("image/autumn.jpg") no-repeat center center;*/
     background-size: cover;
     display: inline-block;
     height: 40px;
@@ -445,7 +453,7 @@ aside{
 }
 .chat-you > span{
     grid-area: name;
-    line-height: 40px;
+    line-height: 70px;
     font-size: 14px;
     font-weight: 600;
 }
@@ -474,26 +482,37 @@ aside{
     border-radius: 3px;
 } */
 .date-time-set{
+	position:relative;
     text-align: right;
     grid-area: datetime;
 }
 .date-time-set span{
-    text-align: center;
-    font-size: 12px;
+	
+	
+    text-align: center !important;
+/*    font-size: 12px !important;  */
 }
+.friend-chat-date
+{
+	position:absolute !important;
+	top:-14px;
+	right:20px;
+}
+
+
 /* ---------------------------- */
 .chat-me{
-    margin: 10px;
-    display: grid;
-    grid-template-columns: 1fr 50px;
-    grid-template-rows: 40px 50px;
+    margin: 10px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 50px !important;
+    grid-template-rows: 40px 50px !important;
     grid-template-areas: 
     "me-name me-img"
-    "me-datetime me-chatting";
+    "me-datetime me-chatting" !important;
 }
 .me-img{
     grid-area: me-img;
-    background: url("image/autumn.jpg") no-repeat center center;
+  /*  background: url("image/autumn.jpg") no-repeat center center;  */
     background-size: cover;
     height: 40px;
     width: 40px;
@@ -502,34 +521,42 @@ aside{
     border-radius: 200px 200px 200px 200px;
 }
 .chat-me > span{
-    grid-area: me-name;
-    line-height: 40px;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: right;
+    grid-area: me-name !important;
+    line-height: 70px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-align: right !important;
 }
 .me-chatting textarea{
-    position: relative;
-    left: -230px;
-    grid-area: me-chatting;
-    margin-top: 5px;
-    margin-left: 6px;
+    position: relative !important;
+    left: -230px !important;
+    grid-area: me-chatting !important;
+    margin-top: 5px !important;
+    margin-left: 6px !important;
     border-radius: 10px 0px 10px 10px;
     border: none;
     background: powderblue;
 }
 .me-date{
-    text-align: left;
-    grid-area : me-datetime;
+	position:relative !important;
+    text-align: left !important;
+    grid-area : me-datetime !important;
 
+}
+.me-date span
+{
+	position:absolute !important;
+	top:-12px;
+	left:20px;
+	
 }
 .me-chatting
 {
-    position: relative;
+    position: relative !important;
 }
 .me-chatting .image
 {
-    position: absolute;
+    position: absolute !important;
     
     top: 0px;
     right: 0px;
@@ -649,3 +676,430 @@ aside{
     line-height: 30px;
     margin: 10px;
 }
+
+
+/*------------ADMIN 전용 틀 CSS---------------*/
+#adminchat
+{
+	
+    z-index:100;
+    position: fixed;
+    bottom: 0px;
+    left:-360px;
+    background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
+    height : 640px;
+    width: 360px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.adminchat-container{
+    height: 640px;
+    box-sizing: border-box;
+    border: 1px solid;
+}
+.adminchat-header {
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr); */
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.adminchat-list {
+    cursor: pointer;
+    background: white;
+    width: 100px;
+    line-height: 30px;
+    text-align: center;
+    display: block;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    font-size: 14px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+/* -------------------------- */
+.adminchat-search{
+    text-align: center;
+}
+.adminchat-search fieldset{
+    border: none;
+}
+.adminchat-search input[type='text']{
+    border: none;
+    border-bottom : 1px solid black;
+    background: none;
+}
+.adminchat-search-icon{
+    vertical-align: middle;
+    background: url("image/ic_search_black_24dp_2x.png") no-repeat center;
+    width: 21px;
+    height: 21px;
+    background-size: cover;
+    border: none;
+}
+/* ---------------------------- */
+.adminfriend-list-container{
+    scroll-behavior: smooth;
+    height: 450px;
+    overflow: auto;
+}
+
+.adminfriend{
+    position: relative;
+    margin: 10px;
+    margin-left: 0;
+    width :100%;
+    height: 50px;
+    display: flex;
+    border-bottom: 1px solid black;
+}
+.adminfriend-img{
+    position: absolute;
+    background: url("image/autumn.jpg") no-repeat center center;
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+    left: 10px;
+    top: -4px;
+    border-radius: 200px 200px 200px 200px;
+}
+.adminfriend-detail{
+    position: absolute;
+    left: 20%;
+    top: 10%;
+}
+
+
+
+/* ----------------- */
+
+.adminmessage-date{
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+}
+.adminmessage-detail p{
+    margin: 0;
+    font-size: 12px;
+}
+.adminmessage-detail{
+    height: 100%;
+    width: 100%;
+}
+/* ------------------------ */
+#adminchat::before{
+    content: "";
+    position: absolute;
+    border: 10px solid;
+    right: 0;
+    border-width: 0px 0px 0px 0px;
+    /* border-width: 0px 300px 500px 0; */
+    border-color: rgba(241,231,103,1) white;
+    display: block;
+    transition: .5s linear;
+    box-shadow: -5px 4px 5px 0px rgba(0,0,0,0.75);
+    transform-origin: left;
+    z-index: 1;
+}
+
+/* ---------------------- */
+.adminadmin-list{
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow-x: hidden;
+    display: block; 
+}
+ .adminclose-chat{
+    position: absolute;
+    border: 1px solid black;
+    width: 100px;
+    height: 30px;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    font-size: 15px;
+    line-height: 30px;
+    margin: 10px;
+} 
+/*----------------------------------------------------------*/
+.admin-chat-window-container{
+    position: relative;
+}
+.admin-chat-window{
+    box-sizing: border-box;
+    border: 1px solid;
+    z-index: 1;
+    left: 100%;
+    width: 100%;
+    height: 640px;
+    position: absolute;
+    top: 0;
+    display: grid;
+    grid-template-rows: 50px 550px 30px;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+    background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
+}
+.admin-chat-window-header{
+    z-index: 10;
+    grid-area: header;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+.admin-chat-window-header span{
+    position: relative;
+    flex-grow: 0;
+    left: 10%;
+    font-size: 20px !important;
+    
+    font-weight:bold;
+}
+.admin-chat-window-header span::before{
+    content: "";
+    position: absolute;
+    border-top: 2px solid black;
+    height: 10px;
+    width: 11px;
+    border-left: 2px solid black;
+    height: 11px;
+    transform: rotate(-45deg);
+    top: 15%;
+    left: -40%;
+}
+.admin-chat-window-main{
+    overflow:scroll;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    grid-area: main;
+    height: 100%;
+}
+.admin-chat-you{
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 50px 2fr ;
+    grid-template-rows: 40px 50px;
+    grid-template-areas: 
+    "img name"
+    "chatting datetime";
+
+}
+.admin-you-img{
+    grid-area: img;
+ /*   background: url("image/autumn.jpg") no-repeat center center;*/
+    background-size: cover;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    left: 10px;
+    top: -4px;
+    border-radius: 200px 200px 200px 200px;
+}
+.admin-chat-you > span{
+    grid-area: name;
+    line-height: 70px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.admin-you-chatting{
+    grid-area: chatting;
+    display: inline-block;
+}
+.admin-you-chatting textarea{
+    grid-area: text;
+    grid-area: footer;
+    height: auto;
+    display: block;
+    margin-top: 5px;
+    margin-left: 12px;
+    border-radius: 0px 10px 10px 10px;
+    border: none;
+}
+/* .you-chatting::before{
+    content: "";
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    background: white;
+    transform: rotate(-47deg) translateX(-24px) translateY(41px);
+    top: 0;
+    border-radius: 3px;
+} */
+.admin-date-time-set{
+	position:relative;
+    text-align: right;
+    grid-area: datetime;
+}
+.admin-date-time-set span{
+	
+	
+    text-align: center !important;
+/*    font-size: 12px !important;  */
+}
+.admin-friend-chat-date
+{
+	position:absolute !important;
+	top:-14px;
+	right:20px;
+}
+
+
+/* ---------------------------- */
+.admin-chat-me{
+    margin: 10px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 50px !important;
+    grid-template-rows: 40px 50px !important;
+    grid-template-areas: 
+    "me-name me-img"
+    "me-datetime me-chatting" !important;
+}
+.admin-me-img{
+    grid-area: me-img;
+  /*  background: url("image/autumn.jpg") no-repeat center center;  */
+    background-size: cover;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    top: -4px;
+    border-radius: 200px 200px 200px 200px;
+}
+.admin-chat-me > span{
+    grid-area: me-name !important;
+    line-height: 70px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-align: right !important;
+}
+.admin-me-chatting textarea{
+    position: relative !important;
+    left: -230px !important;
+    grid-area: me-chatting !important;
+    margin-top: 5px !important;
+    margin-left: 6px !important;
+    border-radius: 10px 0px 10px 10px;
+    border: none;
+    background: powderblue;
+}
+.admin-me-date{
+	position:relative !important;
+    text-align: left !important;
+    grid-area : me-datetime !important;
+
+}
+.admin-me-date span
+{
+	position:absolute !important;
+	top:-12px;
+	left:20px;
+	
+}
+.admin-me-chatting
+{
+    position: relative !important;
+}
+.admin-me-chatting .image
+{
+    position: absolute !important;
+    
+    top: 0px;
+    right: 0px;
+}
+.admin-me-chatting .image img
+{   
+    width: 200px;
+    height: 200px;
+}
+/* --------------------- */
+.admin-text-area
+{
+    display: grid;
+    position: absolute;
+    background: white;
+    text-align: center;
+    left:0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    z-index: 100;
+
+
+    grid-template-rows: 100%;
+    grid-template-areas:
+    "text-base"
+    "btns-round";
+    line-height: 25px;
+}
+.grid-hide
+{
+    grid-template-rows: 100%;
+    height: 30px;
+}
+
+
+.admin-text-base
+{
+    display: table-cell;
+    position: relative;
+    grid-area: text-base;
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    width: 100%;
+
+    
+}
+.admin-text-base textarea{
+    width: 250px;
+    height: 25px;
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid;
+    font-size: 18px;
+    vertical-align: middle;
+}
+.admin-text-area-btns-div
+{
+    box-sizing: border-box;
+    margin: 0px !important;
+}
+.admin-text-area-btns
+{
+    vertical-align: middle;
+    padding: 0px !important;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.admin-text-area input{
+    
+    right: 0;
+    box-sizing: border-box;
+    height: 25px;
+    vertical-align: middle;
+}
+.admin-btns-round
+{
+    
+    grid-area: btns-round;
+    width: 100%;
+    height: 0%;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 25% 25% 25% 25%;
+    text-align: center;
+}
+.admin-btns-round div
+{
+    margin-top: auto  !important;
+    margin-bottom: auto !important;
+
+}
+

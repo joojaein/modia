@@ -28,4 +28,47 @@
 		
 	</select>
 
+	<select id="getLastTalkData" resultType="com.moida.web.entity.MemberChattingViewF">
+	
+		select * from MemberChattingViewF
+		where 
+		(
+			( id = #{myId} and receiverId = #{friendId} )
+			or
+			( id = #{friendId} and receiverId = #{myId} )
+		) order by regDate desc limit 1
+	
+	
+	</select>
+	
+	<!-- 내가 ADMIN일 경우 나에게 채팅을 한 멤버의 아이디를 반환하기 위해 만든 select 문이다. -->
+	<select id="getAdMemberList" resultType="com.moida.web.entity.AdminChatMemberView">
+	
+		select * from AdminChatMemberView
+		where receiverId='admin'
+	
+	
+	</select>
+
+	<select id="getLastAdminTalkData" resultType="com.moida.web.entity.MemberChat">
+	
+		select * from MemberChat
+		where 
+		(
+			( senderId = #{myId} and receiverId = 'admin' )
+			or
+			( senderId = 'admin' and receiverId = #{myId} )
+		) order by regDate desc limit 1
+	
+	</select>
+	
+	<!-- ADMIN은 친구가 아니라서 사진을 새로 가져와야 한다. -->
+	<select id="getAdminImg" resultType="com.moida.web.entity.FriendDataView">
+	
+		select * from FriendDataView
+		where id='admin'
+	
+	</select>
+
+
 </mapper>

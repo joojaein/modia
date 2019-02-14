@@ -2,19 +2,19 @@ package com.moida.web.entity;
 
 import java.util.Date;
 
-public class MemberChatting 
+public class MemberChat 
 {
 	private int id;
 	private String content;
 	private String receiverId;
 	private String senderId;
 	private Date regDate;
-	public MemberChatting() {
+	public MemberChat() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MemberChatting(int id, String content, String receiverId, String senderId, Date regDate) {
+	public MemberChat(int id, String content, String receiverId, String senderId, Date regDate) {
 		super();
 		this.id = id;
 		this.content = content;

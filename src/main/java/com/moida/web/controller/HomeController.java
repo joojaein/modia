@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,21 +63,21 @@ public class HomeController {
 	   @ResponseBody
 	   public String chkLogin()throws Exception
 	   {   
-	      // 시큐리티 컨텍스트 객체를 얻습니다. 
-	      SecurityContext context = SecurityContextHolder.getContext(); 
-	      System.out.println("context : "+context);
-
-	      // 인증 객체를 얻습니다. 
-	      Authentication authentication = context.getAuthentication();
-	      System.out.println("authentication : "+authentication);
-	      
-	      String principal = (String) authentication.getPrincipal();
-	      
-	      if(principal.equals("anonymousUser")) {
-	         return "anonymousUser";
-	      }else {         
-	         return "loggined";
-	      }
+		   SecurityContext context = SecurityContextHolder.getContext(); 
+		      Authentication authentication = context.getAuthentication();
+		      if(authentication.getPrincipal().equals("anonymousUser")) {
+		         return "anonymousUser";
+		} 
+		      else {       
+		          
+		          final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		            final String username = userDetails.getUsername();
+		              
+		         return username;
+		      }
+		      /*
+			 * else { return "loggined"; }
+			 */
 
 	   }   
 	

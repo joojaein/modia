@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.moida.web.dao.MemberChattingDao;
-import com.moida.web.entity.MemberChatting;
+import com.moida.web.entity.MemberChat;
 
 @Repository
 public class MybatisMemberChattingDao implements MemberChattingDao
@@ -17,24 +17,36 @@ public class MybatisMemberChattingDao implements MemberChattingDao
 	private SqlSessionTemplate session;  
 	
 	@Override
-	public List<MemberChatting> getMemberChatting(String friendid, String myid) {
+	public List<MemberChat> getMemberChatting(String friendid, String myid) {
 		// TODO Auto-generated method stub
 		
 		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
-		System.out.println("여기는 MybatisMemberChattingDao 겟멤버채팅 입니다.");
+//		System.out.println("여기는 MybatisMemberChattingDao 겟멤버채팅 입니다.");
 		
 		return memberChattingDao.getMemberChatting(friendid, myid);
 	}
 
 	@Override
-	public int insert(MemberChatting memberChatting) 
+	public int insert(String myId, String friendId, String content) 
 	{
 		// TODO Auto-generated method stub
 		
 		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
-		System.out.println("여기는 MybatisMemberChattingDao 채팅insert 입니다.");
+//		System.out.println("여기는 MybatisMemberChattingDao 채팅insert 입니다.");
 		
-		return memberChattingDao.insert(memberChatting);
+		return memberChattingDao.insert(myId,friendId,content);
+	}
+
+	@Override
+	public List<MemberChat> getMemberAdminChatting(String myid) 
+	{
+		// TODO Auto-generated method stub
+		
+		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
+	//	System.out.println("관리자랑 대화한 내용 내놔라 - 마바멤버채팅다오");
+
+		
+		return memberChattingDao.getMemberAdminChatting(myid);
 	}
 
 	
