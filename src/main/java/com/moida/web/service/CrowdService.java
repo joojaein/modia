@@ -27,7 +27,7 @@ public interface CrowdService {
 	
 	int requestCrowdJoin(int crowdId, String memberId);
 
-	int getCrowdCount();
+	int getCrowdCount(); 
 	Crowd getCrowd(int id);
 	List<AdminMngCrowdView> getAdminMngCrowdList(String query, String updown, Integer min, Integer max);
 
@@ -35,10 +35,15 @@ public interface CrowdService {
 	
 	int deleteCrowd(int id);
 	int updateCrowd(Crowd crowd);
+
+	List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId, String word);
+	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId, String word);
+	
+	int createCrowd(Crowd newcrowd, String tagId);
+	
+	List<CrowdSimpleDataView> getSearchResultList(String word);
 	int insertBoardReg(CrowdBoard board);
 	List<LeaderMngChartView> getChartList(int crowdId);
-	List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId);
-	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
 	int insertSchedule(Schedule schedule);
 	int deleteCalendarList(int id);
 }

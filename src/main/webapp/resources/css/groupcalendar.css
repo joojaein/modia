@@ -46,6 +46,9 @@ body {
 	font-size: 5px;
 	padding: 4px 6px 4px 6px;
 }
+.fc-content{
+	cursor: pointer;
+}
 
 .koHolidays {
 	background: #ff9090;

@@ -145,7 +145,7 @@ window.addEventListener("load",function(){
         for (var i = 0; i < categoryList.length; i++) { 
               var li = document.createElement('li');
                var div = document.createElement('div');
-               var img = document.createElement('img');
+               var img = document.createElement('img'); 
                var br = document.createElement('br');
                var span = document.createElement('span');
                
@@ -188,6 +188,7 @@ window.addEventListener("load",function(){
                   case "자유주제" : img.src="/resources/images/mainIcon/puzzle.png"
                      break;
                }
+
                img.name = categoryList[i].id;
                div.appendChild(img);
                div.appendChild(br);

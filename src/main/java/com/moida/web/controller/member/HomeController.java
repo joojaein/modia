@@ -71,7 +71,7 @@ public class HomeController {
 		model.addAttribute("member", member);
 		model.addAttribute("menuCnt", menuCnt);
 
-		return "member.index";
+	      return "member.index";
 	}	
 	
 	@RequestMapping("edit")

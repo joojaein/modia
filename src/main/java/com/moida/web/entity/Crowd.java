@@ -37,6 +37,20 @@ public class Crowd {
 		this.leaderId = leaderId;
 		this.regDate = regDate;
 	}
+	public Crowd(String name, String content, String areaSido, String areaSigungu, String ageMin, String ageMax,
+			int gender, int maxPerson, String img, int categoryId) {
+		super();
+		this.name = name;
+		this.content = content;
+		this.areaSido = areaSido;
+		this.areaSigungu = areaSigungu;
+		this.ageMin = ageMin;
+		this.ageMax = ageMax;
+		this.gender = gender;
+		this.maxPerson = maxPerson;
+		this.img = img;
+		this.categoryId = categoryId;
+	}
 	public int getId() {
 		return id;
 	}

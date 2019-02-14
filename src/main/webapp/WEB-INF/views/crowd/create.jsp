@@ -10,8 +10,9 @@
     <div id="layer"></div>
 	<div class="create">
 		<div class="div-tag">
+		<input style="display:none" class="categoryId" type="button" value="${categoryId}"> 
 		<c:forEach var="tagName" items="${tagName}">
-			<input class="btn" type="button" value="${tagName.name}">
+			<input class="btn" data-tid="${tagName.id}" type="button" value="${tagName.name}">
 		</c:forEach>
 		</div>
 		<div class="div-input">
@@ -58,9 +59,9 @@
 					<span>성별</span>
 				</div>
 				<select class="gender">
+					<option selected="selected">무관</option>
 					<option>남자</option>
 					<option>여자</option>
-					<option selected="selected">무관</option>
 				</select>
 			</div>
 			<div class="div-maxperson">
@@ -75,7 +76,10 @@
 				</div>
 	 			<input style="display:none" type="file" />				
 				<input class="btn" type="button">
-			</div>			
+			</div>
+			<div class="div-img">
+				<img style="max-height: 413px" />
+			</div>
 		</div>
 		<input class="btn-create btn fs14 fwb" type="button" value="모임개설">
 	</div>

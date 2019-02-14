@@ -341,6 +341,10 @@ top: 0;
     height: 100%;
 }
 .content-detail div span{
+	display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 14px;
 }
 .content-detail .member-cnt{

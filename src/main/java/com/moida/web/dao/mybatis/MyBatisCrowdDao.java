@@ -122,24 +122,64 @@ public class MyBatisCrowdDao implements CrowdDao{
 	@Override
 	public List<LeaderMngChartView> getChartList(int crowdId) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getChartList(crowdId);
+		return crowdDao.getChartList(crowdId);  
 	}
 
 
 	@Override
-	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId) {
+	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId, String word) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getSimpleCategoryList(categoryId);
+		System.out.println("심플 카테고리1!!!!");
+		return crowdDao.getSimpleCategoryList(categoryId, word);
 	}
 
 
 	@Override
-	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId) {
+	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId, String word) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getSimpleCategoryTagList(tagId);
+		return crowdDao.getSimpleCategoryTagList(tagId, word);
 	}
 
 	@Override
+	public int insertCrowd(Crowd newcrowd) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertCrowd(newcrowd);
+	}
+
+	@Override
+	public int insertMemberCrowd(String leaderId, Integer crowdId) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertMemberCrowd(leaderId, crowdId);
+	}
+	
+
+	@Override
+	public Crowd getLastCrowd() {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getLastCrowd();
+	}
+
+	@Override
+	public int insertCrowdTag(Integer crowdId, String tagId) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertCrowdTag(crowdId, tagId);
+	}
+
+	@Override
+	public int insertBoard(String name, Integer type, Integer crowdId) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertBoard(name, type, crowdId);
+	}
+
+	@Override
+	public List<CrowdSimpleDataView> getSearchResultList(String word) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		System.out.println("메퍼당");
+		List<CrowdSimpleDataView> temp = crowdDao.getSearchResultList(word);
+		System.out.println("메퍼 템프"+temp);
+		return crowdDao.getSearchResultList(word);
+	}
+
 	public CrowdBoard getBoardList(int id) {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -168,10 +208,10 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
-	public List<Schedule> getScheduleList() {
+	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getScheduleList();
+		return crowdDao.getScheduleList(crowdId);
 	}
 
 	@Override
@@ -194,13 +234,5 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.updateCalendarList(schedule);
 	}
-
-	@Override
-	public Crowd getCrowdName(Integer crowdId) {
-		// TODO Auto-generated method stub
-		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getCrowdName(crowdId);
-	}
-
 
 }

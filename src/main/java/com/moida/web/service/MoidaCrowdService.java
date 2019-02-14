@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.moida.web.dao.CrowdDao;
 import com.moida.web.dao.MemberDao;
@@ -111,21 +112,49 @@ public class MoidaCrowdService implements CrowdService {
 	}
 
 	@Override
-	public List<LeaderMngChartView> getChartList(int crowdId) {
-		return crowdDao.getChartList(crowdId);
+	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId, String word) {
+		// TODO Auto-generated method stub
+		System.out.println("getSimpleCategoryList");
+		return crowdDao.getSimpleCategoryList(categoryId, word);
 	}
 
 	@Override
-	public List<CrowdSimpleDataView> getSimpleCategoryList(Integer categoryId) {
+	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId, String word) {
 		// TODO Auto-generated method stub
-		System.out.println(crowdDao.getSimpleCategoryList(categoryId));
-		return crowdDao.getSimpleCategoryList(categoryId);
+		return crowdDao.getSimpleCategoryTagList(tagId, word);
+	}
+	
+	@Transactional 
+	@Override
+	public int createCrowd(Crowd newcrowd, String tagId) {
+
+		
+		crowdDao.insertCrowd(newcrowd);
+		
+		Crowd crowd = crowdDao.getLastCrowd();
+		 System.out.println(crowd.getLeaderId()+","+crowd.getId()); 
+		crowdDao.insertMemberCrowd(crowd.getLeaderId(), crowd.getId());
+		//board insert    
+		
+		 System.out.println(tagId); 
+		 String[] tags = tagId.split(","); 
+		 for (String tagpar : tags) 
+		 {
+			 System.out.println(tagpar);
+			 crowdDao.insertCrowdTag(crowd.getId(), tagpar); 
+			 }
+		 crowdDao.insertBoard("공지사항",0,crowd.getId());
+		 crowdDao.insertBoard("자유게시판",1,crowd.getId());
+		 crowdDao.insertBoard("사진첩",2,crowd.getId());
+
+		
+		return 1;
 	}
 
 	@Override
-	public List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId) {
-		// TODO Auto-generated method stub
-		return crowdDao.getSimpleCategoryTagList(tagId);
+	public List<CrowdSimpleDataView> getSearchResultList(String word) {
+		System.out.println("서비스 :"+word);
+		return crowdDao.getSearchResultList(word);
 	}
 
 
@@ -152,9 +181,9 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getBoards(crowdId);
 	}
 
-	public List<Schedule> getScheduleList() {
+	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
-		return crowdDao.getScheduleList();
+		return crowdDao.getScheduleList(crowdId);
 	}
 
 	public int insertSchedule(Schedule schedule) {
@@ -167,12 +196,14 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.deleteCalendarList(id);
 	}
 
-
 	public int updateCalendarList(Schedule schedule) {
 		// TODO Auto-generated method stub
 		return crowdDao.updateCalendarList(schedule);
 	}
 
-
+	@Override
+	public List<LeaderMngChartView> getChartList(int crowdId) {
+	      return crowdDao.getChartList(crowdId); 
+	}
 
 }

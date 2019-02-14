@@ -23,6 +23,8 @@
 	<delete id="deleteBoard" parameterType="java.lang.Integer">
 		delete from Board where id=#{boardId};
 	</delete>
-	
+
+
+
 
 </mapper>

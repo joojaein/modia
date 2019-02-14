@@ -7,7 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
-
+ 
 <script>
 	$(function() {
 		var calist = $(".calist");
@@ -20,14 +20,128 @@
 		var chk = false;
 		var tagname = $(".tag-name");
 		var contentbox = $(".content-box");
-		
 		var jsContainer = document.querySelector(".category-content-container");
+		var temp = document.querySelector(".temp");
+		var cUrl = "categoryList";
+		var tUrl = "tagList";
+		var cQuery = "categoryId=";
+		var tQuery = "tagId=";
 		
+		
+		var autoBox = document.querySelector(".autoBox");
+		var autoUl = autoBox.querySelector(".autoUl");
+		var searchText = document.querySelector("input[type=text]");
+		var preid = null;
+		calist.click(function(e){
+			var id = $(this).data("id");
+			if(!chk){
+			jsContainer.innerHTML = "";
+			var cListRequest = new XMLHttpRequest();
+			cListRequest.open("POST", "/crowd/"+cUrl, true);
+			cListRequest.setRequestHeader("Content-Type",
+					"application/x-www-form-urlencoded");
+			cListRequest.onload = function() {
+				var crowdCategoryList = JSON.parse(cListRequest.responseText);
+				//카테고리 아이디만 받았을 경우
+				for (var i = 0; i < crowdCategoryList.length; i++) {
+					var tBox = document.importNode(temp.content, true);
+
+					var tempH4 = tBox.querySelector("h4");
+					tempH4.innerText = crowdCategoryList[i].name;
+					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+					tempSpan1.innerText = crowdCategoryList[i].content+"/카테고리:"+crowdCategoryList[i].categoryId;
+					jsContainer.append(tBox);
+				}
+			}
+			
+			cListRequest.send(cQuery + id + "&word="+searchText.value);
+			}
+			if(chk && preId!=id){
+				jsContainer.innerHTML = "";
+				var cListRequest = new XMLHttpRequest();
+				cListRequest.open("POST", "/crowd/"+cUrl, true);
+				cListRequest.setRequestHeader("Content-Type",
+						"application/x-www-form-urlencoded");
+				cListRequest.onload = function() {
+					var crowdCategoryList = JSON.parse(cListRequest.responseText);
+					//카테고리 아이디만 받았을 경우
+					for (var i = 0; i < crowdCategoryList.length; i++) {
+						var tBox = document.importNode(temp.content, true);
+
+						var tempH4 = tBox.querySelector("h4");
+						tempH4.innerText = crowdCategoryList[i].name;
+						var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+						tempSpan1.innerText = crowdCategoryList[i].content+"/카테고리:"+crowdCategoryList[i].categoryId;
+						jsContainer.append(tBox);
+					}
+				}
+				
+				cListRequest.send(cQuery + id + "&word="+searchText.value);
+			}
+			
+			chk!=chk;
+			preId = id;
+			
+		})
+		
+		if(${categoryId}!=0){
+
+		jsContainer.innerHTML = "";
+
+		var target = ${categoryId};
+		var tempThis;
+		var jsUl =document.querySelector(".category-main-ul");
+		var ulChildren = jsUl.querySelectorAll(".calist");
+		for (var i = 0; i < ulChildren.length; i++) {
+			if(ulChildren[i].getAttribute("data-id")==target){
+				tempThis = ulChildren[i].parentNode;
+				console.log(" in : " +ulChildren[i].innerText);
+			}
+		} 
+			mainul.find("li").find("ul").css({
+				"visibility" : "hidden"
+			});
+			$(tempThis).find("ul").css({
+				"visibility" : "visible"
+			});
+			cacontainer.addClass("height");
+			chk=!chk;
+
+		var chkRequest = new XMLHttpRequest();
+		chkRequest.open("POST","/crowd/search",true);
+		chkRequest.setRequestHeader("Content-Type",
+				"application/x-www-form-urlencoded");
+		chkRequest.onload = function(){
+			//태그아이디를 받았을 경우
+			var crowdCategoryList = ${chkCategory};
+ 			for (var i = 0; i < crowdCategoryList.length; i++) {
+				var tBox = document.importNode(temp.content, true);
+				console.log(tBox);
+				var tempH4 = tBox.querySelector("h4");
+				tempH4.innerText = crowdCategoryList[i].name;
+				var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+				tempSpan1.innerText = crowdCategoryList[i].content+"/카테고리:"+crowdCategoryList[i].categoryId;
+
+				jsContainer.append(tBox); 
+			}
+			
+		}
+		
+		chkRequest.send("categoryId="+${categoryId}+"&word="+searchText.value);
+
+			event(cUrl,tUrl,cQuery,tQuery);
+		
+		}else{
+			
+			event(cUrl,tUrl,cQuery,tQuery);
+		}
+
+		function event(cUrl,tUrl,cQuery,tQuery){
 		
 		alllist.on("click", function(e){
 			e.stopPropagation();
 			window.location.href="/crowd/search";
-		});
+		}); 
 		
 		tagname.click(function(evt) {
 			var sebuchk = $(this).hasClass("category-name");
@@ -36,7 +150,7 @@
 			
 /* 			alert(cid);
 			alert(tid); */
-			var temp = document.getElementsByTagName("template")[0];
+		
 			jsContainer.innerHTML = "";
 
 			if(tid==undefined){
@@ -87,33 +201,7 @@
 					}
 
 					chk = !chk;
-					
-					
-					
-					
-					
-					
-					//////////////////////////////////////////////////////
-					
-					//var testThis = ;
-					
-					
-					
-					/*
-					
-					
-					alert(mainul.find("li").find("ul").data("id"));
-					alert($(this).data("cid"));
-					
-					mainul.find("li").find("ul").css({"visibility" : "visible"});
-					
-					if(mainul.find("li").find("ul").data("id")!=$(this).data("cid")){
-						mainul.find("li").find("ul").css({"visibility" : "hidden"});						
-					}*/
-		/* 			if(mainul.find("li").find("ul").data("id")==$(this).data("cid")){
-						alert(mainul.find("li").data("id"));
-						mainul.find("li").find("ul").css({"visibility" : "visible"});
-					} */
+
 					cacontainer.addClass("height");
 					calist.removeClass("hide-calist");
 					sebu.removeClass("active");
@@ -124,7 +212,7 @@
 					
 				}
 				var cListRequest = new XMLHttpRequest();
-				cListRequest.open("POST", "/crowd/categoryList", true);
+				cListRequest.open("POST", "/crowd/"+cUrl, true);
 				cListRequest.setRequestHeader("Content-Type",
 						"application/x-www-form-urlencoded");
 				cListRequest.onload = function() {
@@ -141,11 +229,11 @@
 					}
 				}
 				
-				cListRequest.send("categoryId=" + cid);
+				cListRequest.send(cQuery + cid + "&word="+searchText.value);
 				
 			}else{
 				var tListRequest = new XMLHttpRequest();
-				tListRequest.open("POST","/crowd/tagList",true);
+				tListRequest.open("POST","/crowd/"+tUrl,true);
 				tListRequest.setRequestHeader("Content-Type",
 						"application/x-www-form-urlencoded");
 				tListRequest.onload = function(){
@@ -166,50 +254,13 @@
 					
 				}
 				
-				tListRequest.send("tagId=" + tid);
+				tListRequest.send(tQuery + tid +"&word="+searchText.value);
 			
 			}
 		})
 
-		/*             tagname.click(function(){
-		           	 	alert($(this).data("cid"));
-		           		alert($(this).data("tid"));
-		           	if((contentbox.data("cid")==$(this).data("cid"))&&(contentbox.data("tid")==$(this).data("tid"))){
-		           		alert("cid가 같습니다.");
-		           		contentbox.data("tid").toggleClass("d-none");
-		           	} 
-		           	var cid = $(this).data("cid");
-		           	var tid = $(this).data("tid");
-
-		           	$.ajax({
-		           		type : "get",
-		           		url : "/crowd/categoryList?l="+cid,
-		           		success : function(data){
-		           			var aaa = "<thead><tr>name</tr><td>내용</td></thead>"
-		           			aaa += "<tbody>"
-		    
-		           				aaa += "<tr>";
-		           				aaa += "<td>";
-		           				aaa += cid;
-		           				aaa += "</td>";
-		           				aaa += "</tr>";          				
-		           
-		           			aaa += "</tbody>";
-		           			contentbox.html(aaa);  
-
-		           		},
-		           		error : function(){
-		           			alert("실패...");
-		           		}
-		           	})
-
-			}) */
-
 		mainul.find("li").click(function() {
 
-	/*   if(mainul.find("li").find("ul").find("li").data("id")==mainul.find("li").find("ul").find("a").data("id")){
-							  	alert(mainul.find("li").find("ul").find("li").find("a"));
-							  } */
 							if (!chk) {
 								mainul.find("li").find("ul").css({
 									"visibility" : "hidden"
@@ -281,16 +332,79 @@
 				opacity : 0
 			});
 		});
+		}
+		
+		
+
+		searchText.onkeyup = function(e){
+			if(e.keyCode == 13 /* || e.keyCode == 8 */){
+				jsContainer.innerHTML = "";
+				
+				var resultRequest = new XMLHttpRequest();
+				resultRequest.open("GET","/crowd/searchResultList?word="+e.target.value,true);
+				resultRequest.onload = function(){
+
+					var resultList = JSON.parse(resultRequest.responseText);
+					for (var i = 0; i < resultList.length; i++) {
+						var tBox = document.importNode(temp.content, true);
+						var tempH4 = tBox.querySelector("h4");
+						tempH4.innerText = resultList[i].name;
+						var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+						tempSpan1.innerText = resultList[i].content+"/카테고리:"+resultList[i].categoryId;
+						
+						jsContainer.append(tBox);
+					}
+				}
+				resultRequest.send();
+//----------------------------------------------------
+
+				return autoUl.innerHTML = "";
+			}
+			searchText.onchange = function(){
+				autoUl.innerHTML = "";
+			}
+			if((searchText.value=="")){
+
+				autoUl.innerHTML = "";
+				return;
+			}else{
+				window.addEventListener("reset",function(){
+					
+				});
+			}
+			autoUl.innerHTML = "";
+			var autoRequest = new XMLHttpRequest();
+			autoRequest.open("GET","/crowd/searchResultList?word="+e.target.value,true); 
+			autoRequest.onload = function(){
+				var nameList = JSON.parse(autoRequest.responseText);
+
+				for (var i = 0; i < nameList.length; i++) {
+					console.log(nameList[i].name);
+					var li = document.createElement("LI");
+					li.setAttribute("data-id",nameList[i].id);
+					li.onclick = function(e){
+						window.location.href="/crowd/main?crowd="+li.getAttribute("data-id");
+					}
+					li.innerHTML = "제목 : "+nameList[i].name+" / 내용 : "+nameList[i].content+" / 카테고리 : " + nameList[i].categoryId;
+					autoUl.append(li);					
+				}
+
+			}
+
+			console.log(e.target.value);
+			autoRequest.send(); 
+
+		}
 
 	})
 </script>
 
 <main>
 <section>
-<template>
+<template class="temp">
 		<div class="content-box" data-cid="${simple.categoryId}" data-tid="${crowdTag.tagId}">
 		<div class="content-image">
-			<a href="groupid"></a> <img src="/resources/images/tempImg.png"alt="">
+			<a href="main/${simple.id}"></a> <img src="/resources/images/tempImg.png"alt="">
 		</div>
 		<div class="content-detail">
 			<h4>카테고리번호:태그번호:모임번호:</h4>
@@ -367,7 +481,7 @@
 			<a href="main?crowd=${simple.id}"></a> <img src="/resources/images/tempImg.png"alt="">
 		</div>
 		<div class="content-detail">
-			<h4>${simple.name}/카테고리번호:${simple.categoryId}/태그번호:${tag.tagId} <%-- <c:forEach var="tag" items="${tlist}"> </c:forEach> --%>/모임번호:${simple.id}</h4>
+			<h4>${simple.name}/카테고리번호:${simple.categoryId}/태그번호:${tag.tagId}/모임번호:${simple.id}</h4>
 			<div>
 				<span>${simple.content}/</span>
 				<span>가입조건 : 나이 ${simple.ageMin} ~ ${simple.ageMax}/</span>
