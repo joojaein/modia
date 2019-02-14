@@ -55,4 +55,6 @@ public interface CrowdDao {
 	public int insertSchedule(Schedule schedule);
 	public int deleteCalendarList(int id);
 	public int updateCalendarList(Schedule schedule);
+	
+	public int getCrowdGroupRole(@Param("crowdId") int crowdId, @Param("memberId") String memberId);
 }

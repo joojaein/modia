@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.moida.web.entity.AdminMngMemberView;
 import com.moida.web.entity.LeaderMngMemberView;
+import com.moida.web.entity.LeaderMngRequestMemberView;
 import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberRole;
 
@@ -23,8 +24,9 @@ public interface MemberDao {
 	public int getLeaderMngRealMemberCnt(int crowdId);
 	public int getLeaderMngRequestMemberCnt(int crowdId);
 	
-	public List<LeaderMngMemberView> getLeaderMngRealMemberList(String query, String updown, Integer min, Integer max, int crowdId);
-	public List<LeaderMngMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min, Integer max, int crowdId);
+	public List<LeaderMngMemberView> getRealLeaderMngMemberList(String query, String updown, Integer min, Integer max, int crowdId);
+	public List<LeaderMngMemberView> getRequestLeaderMngMemberList(String query, String updown, Integer min, Integer max, int crowdId);
+	public List<LeaderMngRequestMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min, Integer max, int crowdId);
 
 	public int insertCrowdMember(int crowdId, String memberId);
 	public int updateRequestCrowdMember(int crowdId, String memberId);	

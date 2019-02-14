@@ -235,4 +235,11 @@ public class MyBatisCrowdDao implements CrowdDao{
 		return crowdDao.updateCalendarList(schedule);
 	}
 
+	@Override
+	public int getCrowdGroupRole(int crowdId, String memberId) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getCrowdGroupRole(crowdId, memberId);
+	}
+
 }

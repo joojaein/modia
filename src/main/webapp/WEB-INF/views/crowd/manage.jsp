@@ -114,9 +114,13 @@
 		    		</div>
 	    			<table>
 			    		<colgroup>
-						<col width="10%" />
-						<col width="45%" />
-						<col width="45%" />
+						<col width="6%" />
+						<col width="20%" />
+						<col width="17%" />
+						<col width="11%" />
+						<col width="11%" />
+						<col width="20%" />
+						<col width="20%" />
 						</colgroup>
 		    			<thead>
 		    				<tr>
@@ -126,8 +130,28 @@
 		    						<span class="up d-none">&uarr;</span>
 		    						<span class="down d-none">&darr;</span>
 	    						</td>
+	    						<td>
+		    						<span class="btn name">이름</span>
+		    						<span class="up d-none">&uarr;</span>
+		    						<span class="down d-none">&darr;</span>
+	    						</td>
+	    						<td>
+		    						<span class="btn age">나이</span>
+		    						<span class="up d-none">&uarr;</span>
+		    						<span class="down d-none">&darr;</span>
+	    						</td>
+	    						<td>
+		    						<span class="btn gender">성별</span>
+		    						<span class="up d-none">&uarr;</span>
+		    						<span class="down d-none">&darr;</span>
+	    						</td>
+	    						<td>
+		    						<span class="btn areaSido">지역</span>
+		    						<span class="up d-none">&uarr;</span>
+		    						<span class="down d-none">&darr;</span>
+	    						</td>
 		    					<td>
-		    						<span class="btn regDate">가입요청일</span>
+		    						<span class="btn reqDate">가입요청일</span>
 		    						<span class="up">&uarr;</span>
 		    						<span class="down d-none">&darr;</span>
 	    						</td>

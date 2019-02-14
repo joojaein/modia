@@ -56,14 +56,18 @@ where ${field} = #{query}  => where title = 'hello'
 		select count(memberId) cnt from LeaderMngMemberView where crowdId=#{crowdId} and groupRole=3
 	</select>
 	
-	<select id="getLeaderMngRealMemberList" resultType="com.moida.web.entity.LeaderMngMemberView">
+	<select id="getRealLeaderMngMemberList" resultType="com.moida.web.entity.LeaderMngMemberView">
 		<![CDATA[ 
 		select * from LeaderMngMemberView where crowdId=${param5} and groupRole<3 order by ${param1} ${param2}, memberId asc limit ${param3}, ${param4};
 		]]> 
 	</select>
 	
-	<select id="getLeaderMngRequestMemberList" resultType="com.moida.web.entity.LeaderMngMemberView">
+	<select id="getRequestLeaderMngMemberList" resultType="com.moida.web.entity.LeaderMngMemberView">
 		select * from LeaderMngMemberView where crowdId=${param5} and groupRole=3 order by ${param1} ${param2}, memberId asc limit ${param3}, ${param4};
+	</select>
+	
+	<select id="getLeaderMngRequestMemberList" resultType="com.moida.web.entity.LeaderMngRequestMemberView">
+		select * from LeaderMngRequestMemberView where crowdId=${param5} order by ${param1} ${param2}, memberId asc limit ${param3}, ${param4};
 	</select>
 	
 	<insert id="insertCrowdMember">

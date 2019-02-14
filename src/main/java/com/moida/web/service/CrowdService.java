@@ -2,6 +2,8 @@ package com.moida.web.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moida.web.entity.AdminMngCrowdView;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Crowd;
@@ -46,4 +48,7 @@ public interface CrowdService {
 	List<LeaderMngChartView> getChartList(int crowdId);
 	int insertSchedule(Schedule schedule);
 	int deleteCalendarList(int id);
+	
+	int getCrowdGroupRole(int crowdId, String memberId);
+
 }

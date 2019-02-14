@@ -103,12 +103,21 @@ public class CrowdController {
 	@GetMapping("boardreg")
 	public String reg(
 			@RequestParam(name="crowd") Integer crowdId,
-			Model model) {
+			Model model, Principal principal) {
 		List<Board> boardlist = boardService.getBoardListType1(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		Board boardType0 = boardService.getBoardType0(crowdId);
+		Board boardType2 = boardService.getBoardType2(crowdId);
+		
+        String userId = principal.getName();
+		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
 
 		model.addAttribute("blist", boardlist);
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("boardType0", boardType0);
+		model.addAttribute("boardType2", boardType2);
+		model.addAttribute("groupRole", groupRole);
+		
 		return "crowd.boardreg";
 	}
 	
@@ -228,15 +237,10 @@ public class CrowdController {
 	@PostMapping("Reg")
 	@ResponseBody
 	public String Reg(String json, String tagId, Principal principal) {
-		
 		Gson gson = new Gson();
-		
 		Crowd crowd = gson.fromJson(json, Crowd.class);
 		crowd.setLeaderId(principal.getName());
-
-
 		return crowdService.createCrowd(crowd, tagId)+"";
-
 	}
 	 
 	@RequestMapping("checkId")

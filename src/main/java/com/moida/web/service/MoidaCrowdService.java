@@ -18,8 +18,6 @@ import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.Schedule;
 
-
-
 @Service
 public class MoidaCrowdService implements CrowdService {
 
@@ -204,6 +202,12 @@ public class MoidaCrowdService implements CrowdService {
 	@Override
 	public List<LeaderMngChartView> getChartList(int crowdId) {
 	      return crowdDao.getChartList(crowdId); 
+	}
+
+	@Override
+	public int getCrowdGroupRole(int crowdId, String memberId) {
+	      return crowdDao.getCrowdGroupRole(crowdId, memberId); 
+
 	}
 
 }

@@ -26,6 +26,7 @@ import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.LeaderMngMemberView;
+import com.moida.web.entity.LeaderMngRequestMemberView;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCrowdService;
@@ -139,9 +140,14 @@ public class CrowdController {
 			return null;
 		} 
 		
+		int realCnt = memberService.getLeaderMngRealMemberCnt(crowdId);
+		int requestCnt = memberService.getLeaderMngRequestMemberCnt(crowdId);
+		
 		model.addAttribute("href","/crowd/main?crowd="+crowdId);  
 		model.addAttribute("title","모임관리");
 		model.addAttribute("crowd",crowd);  
+		model.addAttribute("realCnt",realCnt);  
+		model.addAttribute("requestCnt",requestCnt);  
 		return "leader.manage";
 	}
 	
@@ -190,7 +196,7 @@ public class CrowdController {
 	@PostMapping("get-real-member-list")
 	@ResponseBody
 	public String getRealMemberList(String query, String updown, int min, int max, int crowdId) throws Exception{	
-		List<LeaderMngMemberView> memberList=memberService.getLeaderMngRealMemberList(query, updown, min, max, crowdId);
+		List<LeaderMngMemberView> memberList=memberService.getRealLeaderMngMemberList(query, updown, min, max, crowdId);
 		Gson gson = new Gson();
 		String json = gson.toJson(memberList);
 		return json;	
@@ -198,10 +204,10 @@ public class CrowdController {
 	
 	@PostMapping("get-request-member-list")
 	@ResponseBody
-	public String getRequestMemberList(String query, String updown, int min, int max, int crowdId) throws Exception{	
-		List<LeaderMngMemberView> memberList=memberService.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
+	public String getRequestMemberList(String query, String updown, int min, int max, int crowdId) throws Exception{			
+		List<LeaderMngRequestMemberView> requestMemberList=memberService.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
 		Gson gson = new Gson();
-		String json = gson.toJson(memberList);
+		String json = gson.toJson(requestMemberList);
 		return json;
 	}
 		

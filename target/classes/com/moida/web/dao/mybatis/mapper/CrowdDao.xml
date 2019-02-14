@@ -165,4 +165,8 @@
 		select * from CrowdSimpleDataView where name like '%${word}%' or content like '%${word}%'
 	</select>
 	
+	<select id="getCrowdGroupRole" resultType="java.lang.Integer">
+		select groupRole from MemberCrowd where memberid=#{memberId} and crowdId=${crowdId};
+	</select>
+	
 </mapper>

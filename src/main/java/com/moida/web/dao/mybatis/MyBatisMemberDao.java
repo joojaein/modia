@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.moida.web.dao.MemberDao;
 import com.moida.web.entity.AdminMngMemberView;
 import com.moida.web.entity.LeaderMngMemberView;
+import com.moida.web.entity.LeaderMngRequestMemberView;
 import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberRole;
 
@@ -79,14 +80,21 @@ public class MyBatisMemberDao implements MemberDao{
 	}
 
 	@Override
-	public List<LeaderMngMemberView> getLeaderMngRealMemberList(String query, String updown, Integer min, Integer max,
+	public List<LeaderMngMemberView> getRealLeaderMngMemberList(String query, String updown, Integer min, Integer max,
 			int crowdId) {
 		MemberDao memberDao = session.getMapper(MemberDao.class);
-		return memberDao.getLeaderMngRealMemberList(query, updown, min, max, crowdId);
+		return memberDao.getRealLeaderMngMemberList(query, updown, min, max, crowdId);
 	}
 
 	@Override
-	public List<LeaderMngMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min,
+	public List<LeaderMngMemberView> getRequestLeaderMngMemberList(String query, String updown, Integer min,
+			Integer max, int crowdId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.getRequestLeaderMngMemberList(query, updown, min, max, crowdId);
+	}
+	
+	@Override
+	public List<LeaderMngRequestMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min,
 			Integer max, int crowdId) {
 		MemberDao memberDao = session.getMapper(MemberDao.class);
 		return memberDao.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
@@ -115,6 +123,8 @@ public class MyBatisMemberDao implements MemberDao{
 		MemberDao memberDao = session.getMapper(MemberDao.class);
 		return memberDao.deleteCrowdMember(crowdId, memberId);
 	}
+
+
 
 	
 	

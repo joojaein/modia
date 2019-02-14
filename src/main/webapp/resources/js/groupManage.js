@@ -400,7 +400,7 @@ window.addEventListener("load",function() {
 	
     function setApproval() {
     	var thead = divApproval.querySelector("thead");
-        thead.name="regDate/asc";
+        thead.name="reqDate/asc";
     	setApprovalPaging();
         setApprovalTable();
         
@@ -463,13 +463,26 @@ window.addEventListener("load",function() {
 	    		
 	    		var tdId = document.createElement('td');
 	    		tdId.innerText=list[i].memberId;
-	
+	    		var tdName = document.createElement('td');
+	    		tdName.innerText=list[i].name;
+	    		var tdAge = document.createElement('td');
+	    		tdAge.innerText=list[i].age;
+	    		var tdGender = document.createElement('td');
+	    		var tempGender="남";
+	    		if(list[i].gender==1) tempGender="여";
+	    		tdGender.innerText=tempGender;	
+	    		var tdAreaSido = document.createElement('td');
+	    		tdAreaSido.innerText=list[i].areaSido;	
 	    		var tdReqDate = document.createElement('td');
-	    		tdReqDate.innerText=dateFormat(list[i].regDate);
+	    		tdReqDate.innerText=dateFormat(list[i].reqDate);
 	    		
 	        	var tr = document.createElement('tr');
 	        	tr.appendChild(tdChkbox);
 	        	tr.appendChild(tdId);
+	        	tr.appendChild(tdName);
+	        	tr.appendChild(tdAge);
+	        	tr.appendChild(tdGender);
+	        	tr.appendChild(tdAreaSido);
 	        	tr.appendChild(tdReqDate);
 	        
 	        	tbody.appendChild(tr);

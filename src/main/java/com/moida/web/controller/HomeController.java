@@ -15,6 +15,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -54,7 +55,12 @@ public class HomeController {
 
    
    @RequestMapping("/index")
-   public String index() {
+   public String index(HttpSession session) {
+      String preurl = (String)session.getAttribute("preurl");
+      if(preurl!=null){
+    	  session.removeAttribute("preurl");
+    	  return "redirect:"+preurl;
+      }
       return "home.index";
    }   
    
@@ -229,6 +235,12 @@ public class HomeController {
       return null;
     }
    
+   @RequestMapping("/set-session")
+   @ResponseBody
+   public String setSession(String href, HttpSession session) {
+	   session.setAttribute("preurl", href);
+ 	  return null;
+   }   
 }
 
 

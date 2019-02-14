@@ -33,19 +33,37 @@
 					<a href="album">단체채팅</a>
 				</div>
 			</nav>
+		</section>
+		<section class="reg-head">	
 			<section class="select-box">
 				<div class="board-list" style="width: 100%;">
-					<select id="select1">
-						<option value="게시판">게시판</option>
-						<option value="${boardType2.id}">사진첩</option>
-					</select>
-					<hr class="hr" style="margin: 0;" />
-					<select id="select2">
-						<c:forEach var="b" items="${blist}">
-							<option value="${b.id}">${b.name}</option>
-						</c:forEach>
-					</select>
-				</div>
+					<c:if test="${groupRole lt 2}">
+						<select id="select1">
+							<option value="${boardType0.id}">공지사항</option>	
+							<option>게시판</option>
+							<option value="${boardType2.id}">사진첩</option>
+						</select>
+						<hr class="hr" style="margin: 0;" />
+						<select class="d-none" id="select2">
+							<c:forEach var="b" items="${blist}">
+								<option value="${b.id}">${b.name}</option>
+							</c:forEach>
+						</select>
+					</c:if>
+					
+					<c:if test="${groupRole eq 2}">
+						<select id="select1">
+							<option>게시판</option>
+							<option value="${boardType2.id}">사진첩</option>
+						</select>
+						<hr class="hr" style="margin: 0;" />
+						<select id="select2">
+							<c:forEach var="b" items="${blist}">
+								<option value="${b.id}">${b.name}</option>
+							</c:forEach>
+						</select>
+					</c:if>
+					</div>
 			</section>
 			<input id="title" name="title" type="text" placeholder="제목" />
 		</section>

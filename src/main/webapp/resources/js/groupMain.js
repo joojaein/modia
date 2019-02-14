@@ -11,7 +11,12 @@ $(function () {
 		joinRequest.onload = function () {	
 			var joinResult = joinRequest.responseText;
 			if(joinResult=="anonymousUser"){
-				window.location.href = "/login";
+				var sesssionRequest = new XMLHttpRequest(); 
+				sesssionRequest.open("GET", "/set-session?href="+window.location, true); 
+				sesssionRequest.onload = function () {
+					window.location.href = "/login";
+				}
+				sesssionRequest.send();
 			}
 			else{
 				alert("가입요청이 완료 되었습니다.\n모임장이 승인하면 가입이 완료됩니다.");
