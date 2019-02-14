@@ -24,6 +24,8 @@ public interface CrowdService {
 	List<CrowdSimpleDataView> getRealSimpleList(String id);
 	List<CrowdSimpleDataView> getRequestSimpleList(String id);
 	List<CrowdSimpleDataView> getRankSimpleList();
+	
+	int requestCrowdJoin(int crowdId, String memberId);
 
 	int getCrowdCount();
 	Crowd getCrowd(int id);

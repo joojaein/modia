@@ -1,10 +1,17 @@
 package com.moida.web.controller.leader;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Crowd;
+import com.moida.web.entity.CrowdMemberRole;
+import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.LeaderMngMemberView;
 import com.moida.web.entity.Tag;
@@ -38,13 +47,25 @@ public class CrowdController {
 	
 	
 	@RequestMapping("edit") // 태그, 주요지역, 등등 기본 정보 수정하는 페이지
-	public String edit(Model model, Principal principal,
-			@RequestParam(name="crowd") String crowdIdStr) {
-		
+	public String edit(Model model, @RequestParam(name="crowd") String crowdIdStr,
+			HttpServletResponse response) throws IOException {
 		int crowdId = Integer.parseInt(crowdIdStr);
-		String id = principal.getName();
-		Crowd crowd = crowdService.getCrowd(crowdId);
-		if(!id.equals(crowd.getLeaderId())) return "home.index";
+		
+		SecurityContext context = SecurityContextHolder.getContext(); 
+	    Authentication authentication = context.getAuthentication(); 
+	    if(authentication.getPrincipal().equals("anonymousUser")) {
+			response.sendRedirect("/crowd/main?crowd="+crowdId);
+			return null;
+	    }
+	    
+	    User user = (User) authentication.getPrincipal();
+        String userId = user.getUsername();
+
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		if(!userId.equals(crowd.getLeaderId())) {
+			response.sendRedirect("/crowd/main?crowd="+crowdId);
+			return null;
+		} 
 		
 		List<Tag> tagList = tagService.getCategoryTagList(crowd.getId());
 		List<Integer> crowdTagIdList = crowdService.getCrowdTagIdList(crowd.getId());
@@ -97,13 +118,26 @@ public class CrowdController {
 	}	
 	
 	@RequestMapping("manage")
-	public String manage(Model model, Principal principal,
-			@RequestParam(name="crowd") String crowdIdStr) {	
+	public String manage(Model model, @RequestParam(name="crowd") String crowdIdStr,
+			HttpServletResponse response) throws IOException {	
 		
 		int crowdId = Integer.parseInt(crowdIdStr);
-		String id = principal.getName();
-		Crowd crowd = crowdService.getCrowd(crowdId);
-		if(!id.equals(crowd.getLeaderId())) return "home.index";
+		
+		SecurityContext context = SecurityContextHolder.getContext(); 
+	    Authentication authentication = context.getAuthentication(); 
+	    if(authentication.getPrincipal().equals("anonymousUser")) {
+			response.sendRedirect("/crowd/main?crowd="+crowdId);
+			return null;
+	    }
+	    
+	    User user = (User) authentication.getPrincipal();
+        String userId = user.getUsername();
+
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		if(!userId.equals(crowd.getLeaderId())) {
+			response.sendRedirect("/crowd/main?crowd="+crowdId);
+			return null;
+		} 
 		
 		model.addAttribute("href","/crowd/main?crowd="+crowdId);  
 		model.addAttribute("title","모임관리");

@@ -29,6 +29,8 @@
 				<a href="album">사진첩</a>
 			</div>
 		</nav>
+	</section>
+	<section class="reg-head">	
 		<section class="select-box">
 			<div class="board-list" style="width: 100%;">
 				<select id="select1">

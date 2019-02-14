@@ -91,12 +91,17 @@ public class MyBatisMemberDao implements MemberDao{
 		MemberDao memberDao = session.getMapper(MemberDao.class);
 		return memberDao.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
 	}
+	
+	@Override
+	public int insertCrowdMember(int crowdId, String memberId) {
+		MemberDao memberDao = session.getMapper(MemberDao.class);
+		return memberDao.insertCrowdMember(crowdId, memberId);
+	}
 
 	@Override
 	public int updateRequestCrowdMember(int crowdId, String memberId) {
 		MemberDao memberDao = session.getMapper(MemberDao.class);
-		int result = memberDao.updateRequestCrowdMember(crowdId, memberId);
-		return result;
+		return memberDao.updateRequestCrowdMember(crowdId, memberId);
 	}
 
 	@Override
@@ -110,6 +115,7 @@ public class MyBatisMemberDao implements MemberDao{
 		MemberDao memberDao = session.getMapper(MemberDao.class);
 		return memberDao.deleteCrowdMember(crowdId, memberId);
 	}
+
 	
 	
 }

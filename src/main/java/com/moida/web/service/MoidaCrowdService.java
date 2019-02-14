@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.CrowdDao;
+import com.moida.web.dao.MemberDao;
 import com.moida.web.entity.AdminMngCrowdView;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Crowd;
@@ -23,6 +24,8 @@ public class MoidaCrowdService implements CrowdService {
 
 	@Autowired
 	private CrowdDao crowdDao;
+	@Autowired
+	private MemberDao memberDao;
 
 	@Override
 	public List<CrowdMemberRole> getCrowdMemberRole(int id) {
@@ -69,6 +72,11 @@ public class MoidaCrowdService implements CrowdService {
 	@Override
 	public List<CrowdSimpleDataView> getRankSimpleList() {
 		return crowdDao.getRankSimpleList();
+	}
+	
+	@Override
+	public int requestCrowdJoin(int crowdId, String memberId) {
+		return memberDao.insertCrowdMember(crowdId, memberId);
 	}
 	
 	@Override
@@ -164,5 +172,7 @@ public class MoidaCrowdService implements CrowdService {
 		// TODO Auto-generated method stub
 		return crowdDao.updateCalendarList(schedule);
 	}
+
+
 
 }

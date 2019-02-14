@@ -1,5 +1,6 @@
 package com.moida.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -41,10 +42,16 @@ public class CrowdController {
 	@RequestMapping("main")
 	public String index(@RequestParam(name="crowd") Integer crowdId,
 			Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		int userCrowdAuthType = -1;
 
+		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		
 		SecurityContext context = SecurityContextHolder.getContext(); 
 		Authentication authentication = context.getAuthentication(); 
 		if(!authentication.getPrincipal().equals("anonymousUser")) {
+			userCrowdAuthType=3;
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
 			String values = "";
@@ -70,14 +77,16 @@ public class CrowdController {
 			cookie.setMaxAge(60*60*24*7); 
 			cookie.setPath("/"); 
 			response.addCookie(cookie);
+			
+			for (int i = 0; i < memberList.size(); i++) {
+				if(memberList.get(i).getMemberId().equals(userId)) {
+					userCrowdAuthType = memberList.get(i).getGroupRole();
+					break;
+				}
+			}
 		}
-
-
-		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole(crowdId);
-		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		
-		
-		model.addAttribute("list", list);
+		model.addAttribute("userCrowdAuthType", userCrowdAuthType);
+		model.addAttribute("list", memberList);
 		model.addAttribute("crowd", crowd);
 		
 		return "crowd.main";
@@ -140,4 +149,55 @@ public class CrowdController {
 		String json = gson.toJson(simpleCategoryTagList);
 		return json;
 	}
+	
+	@RequestMapping("get-crowd-auth")
+	@ResponseBody
+	public String getCrowdAuth(@RequestParam(name="crowd") String crowdIdStr,
+			HttpServletResponse response) throws IOException {
+		/*
+		int crowdId = Integer.parseInt(crowdIdStr);
+
+		SecurityContext context = SecurityContextHolder.getContext(); 
+	    Authentication authentication = context.getAuthentication(); 
+	    if(authentication.getPrincipal().equals("anonymousUser")) {
+			return null;
+	    }
+	    
+	    User user = (User) authentication.getPrincipal();
+        String userId = user.getUsername();
+		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);
+
+		String isMember = "nonmember";
+		for (int i = 0; i < memberList.size(); i++) {
+			if(memberList.get(i).getMemberId().equals(userId)) {
+				isMember = "member";
+				break;
+			}
+		}
+        
+        return isMember;
+        */
+        
+
+		int crowdId = Integer.parseInt(crowdIdStr);
+		int userCrowdAuthType = -1;
+		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);		
+		SecurityContext context = SecurityContextHolder.getContext(); 
+		Authentication authentication = context.getAuthentication(); 
+		if(!authentication.getPrincipal().equals("anonymousUser")) {
+			userCrowdAuthType=3;
+			User user = (User) authentication.getPrincipal();
+	        String userId = user.getUsername();
+			for (int i = 0; i < memberList.size(); i++) {
+				if(memberList.get(i).getMemberId().equals(userId)) {
+					userCrowdAuthType = memberList.get(i).getGroupRole();
+					break;
+				}
+			}
+		}
+
+		return userCrowdAuthType+"";
+	}
+	
+	
 }

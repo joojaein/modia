@@ -66,6 +66,10 @@ where ${field} = #{query}  => where title = 'hello'
 		select * from LeaderMngMemberView where crowdId=${param5} and groupRole=3 order by ${param1} ${param2}, memberId asc limit ${param3}, ${param4};
 	</select>
 	
+	<insert id="insertCrowdMember">
+		insert into MemberCrowd(memberId, crowdId, groupRole) values(#{param2},#{param1},3);
+	</insert>
+	
 	<update id="updateRequestCrowdMember">
 		update MemberCrowd set regDate=current_timestamp(), groupRole=2 where memberId=#{param2} and crowdId=#{param1};
 	</update>

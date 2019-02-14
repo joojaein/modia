@@ -2,6 +2,7 @@ package com.moida.web.controller.member;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +10,13 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +34,7 @@ import com.google.gson.JsonParser;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.CrowdBoard;
+import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.Schedule;
@@ -210,5 +218,25 @@ public class CrowdController {
 		return "crowd.create";
 
 	}
+	
+	
+	@RequestMapping("request-join")
+	@ResponseBody
+	public String requestJoin(@RequestParam(name="crowd") String crowdIdStr,
+			HttpServletResponse response) throws IOException {
+		int crowdId = Integer.parseInt(crowdIdStr);
+
+		SecurityContext context = SecurityContextHolder.getContext(); 
+	    Authentication authentication = context.getAuthentication(); 
+	    if(authentication.getPrincipal().equals("anonymousUser")) {
+			return "anonymousUser";
+	    }
+	    
+	    User user = (User) authentication.getPrincipal();
+        String userId = user.getUsername();
+		
+        return crowdService.requestCrowdJoin(crowdId, userId)+"";
+	}
+	
 }
 

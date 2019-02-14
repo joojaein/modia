@@ -57,6 +57,17 @@ a {
 	border: none;
 }
 
+.reg-head {
+	margin: 0 !important;
+	font-size: 13px;
+	line-height: 30px;
+	border-bottom: 5px solid gray;
+}
+
+.reg-head input {
+	border: none;
+}
+
 select {
 	width: 100%;
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */
