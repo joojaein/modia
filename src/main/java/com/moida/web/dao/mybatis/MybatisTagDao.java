@@ -38,5 +38,13 @@ public class MybatisTagDao implements TagDao {
 		TagDao tagDao = session.getMapper(TagDao.class);	
 		return tagDao.insertTag(crowdId, tagId);
 	}
+	
+	@Override
+	public List<Tag> getCategoryTagNameList(Integer categoryId) {
+		
+		TagDao tagDao = session.getMapper(TagDao.class);
+		
+		return tagDao.getCategoryTagNameList(categoryId);
+	}
 
 }

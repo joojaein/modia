@@ -9,22 +9,22 @@
 	<section class="main-head">
 		<nav>
 			<div>
-				<a href="main">정보</a>
+				<a href="main?crowd=${listId.crowdId}">정보</a>
 			</div>
 			<div>
-				<a href="notice">공지사항</a>
+				<a href="notice?t=0&crowd=${listId.crowdId}">공지사항</a>
 			</div>
 			<div>
-				<a href="calendar">일정</a>
+				<a href="calendar?crowd=${listId.crowdId}">일정</a>
 			</div>
 			<div>
-				<a href="board">게시판</a>
+				<a href="board?t=1&crowd=${listId.crowdId}">게시판</a>
 			</div>
 			<div>
-				<a href="album">사진첩</a>
+				<a href="album?t=2&crowd=${listId.crowdId}">사진첩</a>
 			</div>
 			<div>
-				<a href="">단체채팅</a>
+				<a href="album">단체채팅</a>
 			</div>
 		</nav>
 	</section>

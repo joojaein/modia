@@ -29,7 +29,8 @@ main{
 
 .area-banner img{
     width: 100%;
-    margin-top: 10px;    
+    margin-top: 10px;   
+    max-height: 550px;     
 }
 
 .area-name {
@@ -168,6 +169,7 @@ tbody td{
 tbody td select{
 	font-size: 11px;
     border: none;	
+    width: 100%;
 }
 
 
@@ -220,8 +222,13 @@ tbody td select{
 }
 
 .stat-grid input{
-    font-size: 11px;
+    font-size: 11px;    
 }
+
+.area-filter input[type="date"]{
+    width: 85px;
+}
+
 
 .area-filter{
     height: 20px;
@@ -233,6 +240,11 @@ tbody td select{
 	width: 10px;	
 }
 
+.area-filter input[type="date"]::-webkit-inner-spin-button {
+	display: none; 
+    appearance: none;
+}
+ 
 @media (min-width:721px){
 	.grid{
 	    font-size: 14px;
@@ -257,4 +269,9 @@ tbody td select{
 	.stat-grid td{
 	    font-size: 14px;
 	}
+	
+	.area-filter input[type="date"]{
+	    width: 105px;
+	}
+
 }

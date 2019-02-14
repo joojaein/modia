@@ -23,7 +23,19 @@ public class MybatisBoardDao implements BoardDao {
 		BoardDao boardDao = session.getMapper(BoardDao.class);
 		return boardDao.getBoardListType1(crowdId);
 	}
-
+	
+	@Override
+	public Board getBoardType0(int crowdId) {
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardType0(crowdId);
+	}
+	
+	@Override
+	public Board getBoardType2(int crowdId) {
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardType2(crowdId);
+	}
+	
 	@Override
 	public int insertBoardType1(Board board) {
 		BoardDao boardDao = session.getMapper(BoardDao.class);
@@ -41,6 +53,5 @@ public class MybatisBoardDao implements BoardDao {
 		BoardDao boardDao = session.getMapper(BoardDao.class);
 		return boardDao.deleteBoard(boardId);
 	}
-
 
 }

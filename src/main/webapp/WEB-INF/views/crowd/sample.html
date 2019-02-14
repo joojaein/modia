@@ -21,10 +21,12 @@
         data: {id:23},
         dataType:'json',
         success:function(result){
+            var nn = document.querySelector("#name");
             var name = result.name;
             var email = result.email;
+            nn.innerHTML = name;
+            alert(nn);
             
-            alert(name+","+email);
             
         }
     });

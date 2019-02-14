@@ -191,23 +191,21 @@ window.addEventListener("load",function(){
     		joinRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 			joinRequest.onload = function () {
 				if(joinRequest.responseText == "1"){
-					
-
-					  var fd = new FormData();
-			          fd.append("file", profileFile);  
-			          fd.append("id", join.querySelector(".txt-id").value);  
-			          fd.append("root", "member-profile");  
-			          $.ajax({
-			  			url: 'file-upload',
-			  			data: fd,
-			  			dataType: 'text',
-			  			processData: false,
-			  			contentType: false,
-			  			type: 'POST',
-			  			success : function(data) {
-			  				window.location.href = "/login";
-			  			}	
-			          });
+					var fd = new FormData();
+					fd.append("file", profileFile);  
+					fd.append("id", join.querySelector(".txt-id").value);  
+					fd.append("root", "member-profile");  
+					$.ajax({
+						url: 'file-upload',
+						data: fd,
+						dataType: 'text',
+						processData: false,
+						contentType: false,
+						type: 'POST',
+						success : function(data) {
+						window.location.href = "/login";
+						}	
+					});
 				}
 			};    		
 			joinRequest.send("id="+join.querySelector(".txt-id").value

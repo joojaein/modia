@@ -1,27 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.moida.web.dao.CrowdDao">
 
-	<select id = "getCrowdMemberRole" resultType="com.moida.web.entity.CrowdMemberRole">
-	 select * from crowdmemberRole cmr left join (select id as uid , msg from Member) m on cmr.id where m.uid = cmr.memberId and cmr.crowdId = 5 and 2 >= cmr.groupRole
+	<select id="getCrowdMemberRole"
+		resultType="com.moida.web.entity.CrowdMemberRole">
+		select * from crowdmemberRole cmr left join (select id as
+		uid , msg from
+		Member) m on cmr.id where m.uid = cmr.memberId and
+		cmr.crowdId = #{param1} and
+		2 >= cmr.groupRole
+	</select>
+ 
+	<select id="getCrowdSimpleDataView"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select * from CrowdSimpleDataView where id = #{param1}
 	</select>
 	
-	<select id = "getCrowdSimpleDataView" resultType="com.moida.web.entity.CrowdSimpleDataView">
-	 select * from CrowdSimpleDataView where id = 5
+	<select id="getBoards"
+		resultType="com.moida.web.entity.CrowdBoard">
+		select * from Board where type=0 and crowdId=#{param1};
 	</select>
 	
-	<select id = "getNoticeList" resultType="com.moida.web.entity.CrowdNotice">
-	select * from boardListView where type = 0;
+	<select id="getNotice"
+		resultType="com.moida.web.entity.CrowdNotice">
+		select * from boardListView where type = 0 and crowdId=#{param1};
 	</select>
 	
-	<select id = "getBoardList" resultType="com.moida.web.entity.CrowdBoard">
-	select * from boardListView where type = 1;
+	<select id="getNoticeList"
+		resultType="com.moida.web.entity.CrowdNotice">
+		select * from boardListView where type = 0 and crowdId=#{param1};
 	</select>
-		
-	<select id="getSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
+	
+	<select id="getScheduleList"
+		resultType="com.moida.web.entity.Schedule">
+		select * from Schedule where crowdId=#{param1};
+	</select>
+	
+	<select id="getBoardList"
+		resultType="com.moida.web.entity.CrowdBoard">
+		select * from boardListView where type = 1 and crowdId = #{param2} order by regDate desc
+	</select>
+	<select id="getSimpleList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select * from CrowdSimpleDataView
 	</select>
+
+	<insert id="insertBoardReg" parameterType="com.moida.web.entity.CrowdBoard">
+		insert into Posts(boardId, title, content, writerId) values(#{boardId}, #{title}, #{content}, #{writerId});
+	</insert>
+	
+	<insert id="insertSchedule" parameterType="com.moida.web.entity.Schedule">
+		insert into Schedule(crowdId, startDate, endDate, title, content) values(#{crowdId}, #{startDate},#{endDate},#{title},#{content}); 
+	</insert>
+	
+	<delete id="deleteCalendarList" parameterType="java.lang.Integer">
+	delete from Schedule where id = #{id};
+	</delete>
+	<update id="updateCalendarList" parameterType="com.moida.web.entity.Schedule">		
+		update Schedule set crowdId=#{crowdId}, startDate=#{startDate},
+		endDate=#{endDate}, title=#{title}, content=#{content} where id=#{id}
+	</update>
+	 
 	
 	<select id="getRealSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
 		<![CDATA[ 
@@ -39,6 +80,12 @@
 		on mc.crowdId = v.id 
 	</select>
 	
+	<select id="getRankSimpleList" resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select ifnull(ch.cnt,0), c.* from CrowdSimpleDataView c 
+		left join 
+		(select crowdId, count(crowdId) cnt from CrowdHit group by crowdId) ch on 
+		c.id = ch.crowdId order by ch.cnt desc limit 0, 6
+	</select>
 	
 	<select id="getCrowdCount" resultType="java.lang.Integer">
 		select count(*) cnt from Crowd
@@ -69,5 +116,57 @@
 	<delete id="deleteCrowd" parameterType="java.lang.Integer">
 		delete from Crowd where id=#{id}
 	</delete>
+	
+	<select id="getChartList" resultType="com.moida.web.entity.LeaderMngChartView">
+		select * from LeaderMngChartView where crowdId=#{param3};
+	</select>
 
+	<select id="getSimpleCategoryList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select csd.* from CrowdSimpleDataView as csd
+		inner Join
+		(select * from Category where id=#{param1}) as cd on csd.categoryId = cd.id
+		where csd.name like '%${word}%' or csd.content like '%${word}%'
+	</select>
+
+	<select id="getSimpleCategoryTagList"
+		resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select csd.* from CrowdSimpleDataView as csd
+		inner Join
+		(select * from CrowdTag where tagId=#{param1}) as cd on csd.id = cd.crowdId
+ 		where csd.name like '%${word}%' or csd.content like '%${word}%'
+	</select>
+
+	<select id="getLastCrowd" resultType="com.moida.web.entity.Crowd">
+		select * from Crowd order by regdate desc limit 0,1
+	</select>	
+	
+	<insert id="insertCrowd"
+		parameterType="com.moida.web.entity.Crowd">
+		insert into Crowd
+		(name, content, areaSido, areaSigungu, ageMin, ageMax, gender, maxPerson, img, categoryId, leaderId)
+		values
+		(#{name}, #{content}, #{areaSido}, #{areaSigungu}, #{ageMin}, #{ageMax}, #{gender}, #{maxPerson}, #{img}, #{categoryId}, #{leaderId});
+	</insert>
+
+	<insert id="insertMemberCrowd" parameterType="com.moida.web.entity.Crowd">
+		insert into MemberCrowd(memberId,crowdId,groupRole) values(#{param1},#{param2},0)
+	</insert>
+
+	<insert id="insertCrowdTag" parameterType="com.moida.web.entity.Crowd">
+		insert into CrowdTag(crowdId,tagId) values(#{param1},#{param2})
+	</insert>
+	
+	<insert id="insertBoard" parameterType="com.moida.web.entity.Crowd">
+		insert into Board(name,type,crowdId) values(#{param1} , #{param2} , #{param3})
+	</insert>
+	
+	<select id="getSearchResultList" parameterType="java.lang.String" resultType="com.moida.web.entity.CrowdSimpleDataView">
+		select * from CrowdSimpleDataView where name like '%${word}%' or content like '%${word}%'
+	</select>
+	
+	<select id="getCrowdGroupRole" resultType="java.lang.Integer">
+		select groupRole from MemberCrowd where memberid=#{memberId} and crowdId=${crowdId};
+	</select>
+	
 </mapper>

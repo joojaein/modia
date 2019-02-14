@@ -11,5 +11,6 @@ public interface TagDao {
 	public int deleteTag(int crowdId);
 	public int insertTag(int crowdId, int tagId);
 	
+	public List<Tag> getCategoryTagNameList(Integer categoryId);
 
 }

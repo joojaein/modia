@@ -4,24 +4,25 @@
 <main>
 <link href="/resources/css/groupMain.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/rprtmodal.js"> </script>
+<script src="/resources/js/groupMain.js"> </script>
 
 <div class="wrapper">
 	<section class="main-head">
 		<nav>
 			<div>
-				<a href="main">정보</a>
+				<a href="main?crowd=${crowd.id}">정보</a>
 			</div>
 			<div>
-				<a href="notice">공지사항</a>
+				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
 			</div>
 			<div>
-				<a href="calendar">일정</a>
+				<a href="calendar?crowd=${crowd.id}">일정</a>
 			</div>
 			<div>
-				<a href="board">게시판</a>
+				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
 			</div>
 			<div>
-				<a href="album">사진첩</a>
+				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
 				<a href="album">단체채팅</a>
@@ -64,7 +65,12 @@
 		</p>
 	</article>
 	<section class="content-comment">
-		<input class="join" type="button" value="가입하기" />
+		<c:if test="${userCrowdAuthType eq -1 || userCrowdAuthType eq 3}">
+			<input class="join" type="button" value="가입하기" />
+		</c:if>
+		<c:if test="${userCrowdAuthType ne -1 && userCrowdAuthType ne 3}">
+			<input class="join d-none" type="button" value="가입하기" />
+		</c:if>
 		<hr />
 		<div class="comment-sum">모임멤버 ${crowd.nowPerson}/ ${crowd.maxPerson}명</div>
 		<hr />

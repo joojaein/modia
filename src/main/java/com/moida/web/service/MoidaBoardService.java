@@ -20,6 +20,16 @@ public class MoidaBoardService implements BoardService {
 	public List<Board> getBoardListType1(int crowdId) {		
 		return boardDao.getBoardListType1(crowdId);
 	}
+	
+	@Override
+	public Board getBoardType0(int crowdId) {		
+		return boardDao.getBoardType0(crowdId);
+	}	
+	
+	@Override
+	public Board getBoardType2(int crowdId) {		
+		return boardDao.getBoardType2(crowdId);
+	}
 
 	@Override
 	public int insertBoardType1(Board board) {
@@ -35,4 +45,5 @@ public class MoidaBoardService implements BoardService {
 	public int deleteBoard(int boardId) {
 		return boardDao.deleteBoard(boardId);
 	}
+
 }

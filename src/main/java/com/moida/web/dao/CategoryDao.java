@@ -8,4 +8,5 @@ import com.moida.web.entity.CategoryView;
 public interface CategoryDao {
 	public List<Category> getCategoryList();
 	public List<CategoryView> getCategoryViewList();
+	public Category getCategoryName(Integer categoryId);
 }

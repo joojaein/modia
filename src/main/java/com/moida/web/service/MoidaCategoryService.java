@@ -28,4 +28,10 @@ public class MoidaCategoryService implements CategoryService {
 		return categoryDao.getCategoryViewList();
 	}
 
+	@Override
+	public Category getCategoryName(Integer categoryId) {
+		// TODO Auto-generated method stub
+		return categoryDao.getCategoryName(categoryId);
+	}
+
 }

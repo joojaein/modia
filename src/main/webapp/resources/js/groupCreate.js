@@ -1,4 +1,8 @@
 window.addEventListener("load",function() {
+	
+	/*var t = {"name":"","content":"","areaSido":"null","areaSigungu":"시군구","ageMin":"무관","ageMax":"무관","gender":0,"maxPerson":20,"img":"5.png","categoryId":2};
+	alert(t.areaSigungu);*/
+	
 	var main = document.querySelector("main");
 	var divCreate = main.querySelector(".create");
 	
@@ -64,7 +68,7 @@ window.addEventListener("load",function() {
 	}
 	postRequest.send();	
 	
-	selSido.onchange= function() {
+	selSido.onchange= function(e) {
 		if(selSido.selectedIndex==0) return;
 		var sidoIndex = selSido.selectedIndex-1;
 		selSigungu.innerHTML="";
@@ -79,9 +83,67 @@ window.addEventListener("load",function() {
 		    opt.innerHTML = jsonPost[sidoIndex][i];
 		    opt.classList.add("option");
 		    selSigungu.appendChild(opt);
-		}	
+		}
 	};
-	
+
+	var regBtn = document.querySelector(".btn-create");
+	var titleBox = document.querySelector(".div-text input");
+	var contentBox = document.querySelector(".div-text textarea");
+	var minAge = document.querySelector(".age-min");
+	var maxAge = document.querySelector(".age-max");
+	var gender = document.querySelector(".gender");
+	var maxPer = document.querySelector(".div-maxperson input");
+	var categoryId = document.querySelector(".categoryId");
+	var tagBtn = document.querySelectorAll(".selected-tag");
+	var chk = true;
+	regBtn.onclick = function(){
+		var cnt = 0;
+		var divTag = document.querySelector(".div-tag");
+		var children = divTag.children;
+
+				
+		console.log(titleBox.value);
+		console.log(contentBox.value);
+		console.log(selSido.options[selSido.selectedIndex].value);
+		console.log(selSigungu.options[selSigungu.selectedIndex].value);
+		console.log(minAge.options[minAge.selectedIndex].value);
+		console.log(maxAge.options[maxAge.selectedIndex].value);
+		console.log(gender.selectedIndex);
+		console.log(maxPer.value);
+		console.log(categoryId.getAttribute("data-cid"));
+		var tagArray=[];
+		for (var i = 0; i < children.length; i++) {
+			if (children[i].classList.contains("selected-tag")) {
+				
+				tagArray.push(children[i].getAttribute("data-tid"));
+				
+			}
+		}
+		console.log("어레이"+tagArray);
+		
+		var json = JSON.stringify({
+			name:titleBox.value,
+			content:contentBox.value,
+			areaSido:selSido.options[selSido.selectedIndex].value,
+			areaSigungu:selSigungu.options[selSigungu.selectedIndex].value,
+			ageMin:minAge.options[minAge.selectedIndex].value,
+			ageMax:maxAge.options[maxAge.selectedIndex].value,
+			gender:gender.selectedIndex,
+			maxPerson:parseInt(maxPer.value),
+			img:"5.png",
+			categoryId:parseInt(categoryId.value)
+		})
+		
+
+		var regRequest = new XMLHttpRequest();
+		regRequest.open("POST","/crowd/Reg",true);
+		regRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		regRequest.onload = function(){
+			
+		}
+		regRequest.send("json="+json+"&tagId="+tagArray);
+		
+	}
 });
 
 

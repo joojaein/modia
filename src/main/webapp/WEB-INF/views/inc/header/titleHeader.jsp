@@ -8,5 +8,5 @@
 	<div class="pre-page">
 		<a href="${href}"><img src="/resources/images/btnPrePage.png" /></a>
 	</div>
-	<div class="header-title">${title}</div>
+	<div data-cid="${title}" class="header-title">${title}</div>
 </header>

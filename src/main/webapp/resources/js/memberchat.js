@@ -1387,10 +1387,11 @@ function adminMemberChat()
         
         
         
-       function soketchatting()
+       function soketchatting() 
 	   {
 	    	// localhost에 접속하고 싶은 ip를 쓰고 사이트는 내 ip로 접속 하면  상대방에게 채팅을 보낼 수 있다.
-	   		var socket = new WebSocket("ws://192.168.0.59:80/chat-server");
+
+	   		var socket = new WebSocket("ws://localhost:80/chat-server");
 	
 	   		// WebsocketEndPonint가 메시지를 보내주면 오는 onmessage
 	   		socket.onmessage = function(e)

@@ -36,4 +36,13 @@ public class MybatisCategoryDao implements CategoryDao {
 	}
 
 
+	@Override
+	public Category getCategoryName(Integer categoryId) {
+		
+		CategoryDao categoryDao = session.getMapper(CategoryDao.class);
+		
+		return categoryDao.getCategoryName(categoryId);
+	}
+
+
 }
