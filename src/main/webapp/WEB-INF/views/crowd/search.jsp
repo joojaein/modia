@@ -27,7 +27,11 @@
 		var cQuery = "categoryId=";
 		var tQuery = "tagId=";
 		
-		
+/* 		var setTagId = document.querySelectorAll(".tag-name");
+		for (var i = 0; i < setTagId.length; i++) {
+			console.log("뭐냐"+setTagId[i].getAttribute("data-tid")+"/////"+tagname.index(i)+"장난하냐");
+		}
+		 */
 		var autoBox = document.querySelector(".autoBox");
 		var autoUl = autoBox.querySelector(".autoUl");
 		var searchText = document.querySelector("input[type=text]");
@@ -47,9 +51,18 @@
 					var tBox = document.importNode(temp.content, true);
 
 					var tempH4 = tBox.querySelector("h4");
-					tempH4.innerText = crowdCategoryList[i].name;
-					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
-					tempSpan1.innerText = crowdCategoryList[i].content+"/카테고리:"+crowdCategoryList[i].categoryId;
+					tempH4.innerText = "모임명 : "+crowdCategoryList[i].name;
+ 					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+					var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+					var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+					var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+					var tempSpan5 = tBox.querySelector(".member-cnt span");
+					tempSpan1.innerText = "모임내용 : "+crowdCategoryList[i].content;
+ 					tempSpan2.innerText = "가입조건 : "+crowdCategoryList[i].ageMin+" ~ "+crowdCategoryList[i].ageMax;
+					tempSpan3.innerText = "성별 : "+crowdCategoryList[i].gender;
+					tempSpan4.innerText = "지역 : "+crowdCategoryList[i].areaSido; 
+					tempSpan5.innerText = "모이다원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
+
 					jsContainer.append(tBox);
 				}
 			}
@@ -69,9 +82,18 @@
 						var tBox = document.importNode(temp.content, true);
 
 						var tempH4 = tBox.querySelector("h4");
-						tempH4.innerText = crowdCategoryList[i].name;
-						var tempSpan1 = tBox.querySelector("span:nth-child(1)");
-						tempSpan1.innerText = crowdCategoryList[i].content+"/카테고리:"+crowdCategoryList[i].categoryId;
+						tempH4.innerText = "모임명 : "+crowdCategoryList[i].name;
+	 					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+						var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+						var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+						var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+						var tempSpan5 = tBox.querySelector(".member-cnt span");
+						tempSpan1.innerText = "모임내용 : "+crowdCategoryList[i].content;
+	 					tempSpan2.innerText = "가입조건 : "+crowdCategoryList[i].ageMin+" ~ "+crowdCategoryList[i].ageMax;
+						tempSpan3.innerText = "성별 : "+crowdCategoryList[i].gender;
+						tempSpan4.innerText = "지역 : "+crowdCategoryList[i].areaSido;
+						tempSpan5.innerText = "모이다원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
+
 						jsContainer.append(tBox);
 					}
 				}
@@ -83,9 +105,61 @@
 			preId = id;
 			
 		})
-		
-		if(${categoryId}!=0){
+ 		if(${tagId}!=0){
+			jsContainer.innerHTML = "";
+			var categoryTarget = ${categoryId};
+			var tagTarget = ${tagId};
+			var tempThis;
+			var jsUl =document.querySelector(".category-main-ul");
+			var liChildren = jsUl.querySelectorAll(".tag-name");
+			for (var i = 0; i < liChildren.length; i++) {
+				if(liChildren[i].getAttribute("data-tid")==tagTarget){
+					if(liChildren[i].getAttribute("data-cid")==categoryTarget){
+						tempThis = liChildren[i].parentNode.parentNode.parentNode;
+					}
+				}
+			} 
+				mainul.find("li").find("ul").css({
+					"visibility" : "hidden"
+				});
+				$(tempThis).find("ul").css({
+					"visibility" : "visible"
+				});
+				cacontainer.addClass("height");
+				chk=!chk;
+			var chkRequest = new XMLHttpRequest();
+			chkRequest.open("POST","/crowd/search?categoryId="+${categoryId},true);
+			chkRequest.setRequestHeader("Content-Type",
+					"application/x-www-form-urlencoded");
+			chkRequest.onload = function(){
+				//태그아이디를 받았을 경우
+				var crowdCategoryList = ${chkCategoryTag};
+	 			for (var i = 0; i < crowdCategoryList.length; i++) {
+					var tBox = document.importNode(temp.content, true);
+					var tempH4 = tBox.querySelector("h4");
+					tempH4.innerText = "모임명 : "+crowdCategoryList[i].name;
+ 					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+					var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+					var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+					var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+					var tempSpan5 = tBox.querySelector(".member-cnt span");
+					tempSpan1.innerText = "모임내용 : "+crowdCategoryList[i].content;
+ 					tempSpan2.innerText = "가입조건 : "+crowdCategoryList[i].ageMin+" ~ "+crowdCategoryList[i].ageMax;
+					tempSpan3.innerText = "성별 : "+crowdCategoryList[i].gender;
+					tempSpan4.innerText = "지역 : "+crowdCategoryList[i].areaSido;
+					tempSpan5.innerText = "모이다원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
 
+					jsContainer.append(tBox);
+
+				}
+				
+			}
+			
+			chkRequest.send("tagId="+${tagId}+"&word="+searchText.value);
+
+			event(cUrl,tUrl,cQuery,tQuery);
+		}
+		else if((${categoryId}!=0)){
 		jsContainer.innerHTML = "";
 
 		var target = ${categoryId};
@@ -95,7 +169,6 @@
 		for (var i = 0; i < ulChildren.length; i++) {
 			if(ulChildren[i].getAttribute("data-id")==target){
 				tempThis = ulChildren[i].parentNode;
-				console.log(" in : " +ulChildren[i].innerText);
 			}
 		} 
 			mainul.find("li").find("ul").css({
@@ -116,13 +189,21 @@
 			var crowdCategoryList = ${chkCategory};
  			for (var i = 0; i < crowdCategoryList.length; i++) {
 				var tBox = document.importNode(temp.content, true);
-				console.log(tBox);
-				var tempH4 = tBox.querySelector("h4");
-				tempH4.innerText = crowdCategoryList[i].name;
-				var tempSpan1 = tBox.querySelector("span:nth-child(1)");
-				tempSpan1.innerText = crowdCategoryList[i].content+"/카테고리:"+crowdCategoryList[i].categoryId;
 
-				jsContainer.append(tBox); 
+				var tempH4 = tBox.querySelector("h4");
+				tempH4.innerText = "모임명 : "+crowdCategoryList[i].name;
+				var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+				var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+				var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+				var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+				var tempSpan5 = tBox.querySelector(".member-cnt span");
+				tempSpan1.innerText = "모임내용 : "+crowdCategoryList[i].content;
+				tempSpan2.innerText = "가입조건 : "+crowdCategoryList[i].ageMin+" ~ "+crowdCategoryList[i].ageMax;
+				tempSpan3.innerText = "성별 : "+crowdCategoryList[i].gender;
+				tempSpan4.innerText = "지역 : "+crowdCategoryList[i].areaSido;
+				tempSpan5.innerText = "모이다원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
+
+				jsContainer.append(tBox);
 			}
 			
 		}
@@ -148,9 +229,6 @@
 			var cid = $(this).data("cid");
 			var tid = $(this).data("tid");
 			
-/* 			alert(cid);
-			alert(tid); */
-		
 			jsContainer.innerHTML = "";
 
 			if(tid==undefined){
@@ -162,7 +240,6 @@
 					for (var i = 0; i < ulChildren.length; i++) {
 						if(ulChildren[i].innerText == target.innerText){
 							tempThis = ulChildren[i].parentNode;
-							console.log(" in : " +ulChildren[i].innerText)
 						}
 					}
 					
@@ -222,9 +299,17 @@
 						var tBox = document.importNode(temp.content, true);
 	
 						var tempH4 = tBox.querySelector("h4");
-						tempH4.innerText = crowdCategoryList[i].name;
-						var tempSpan1 = tBox.querySelector("span:nth-child(1)");
-						tempSpan1.innerText = crowdCategoryList[i].content+"/카테고리:"+crowdCategoryList[i].categoryId;
+						tempH4.innerText = "모임명 : "+crowdCategoryList[i].name;
+	 					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+						var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+						var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+						var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+						var tempSpan5 = tBox.querySelector(".member-cnt span");
+						tempSpan1.innerText = "모임내용 : "+crowdCategoryList[i].content;
+	 					tempSpan2.innerText = "가입조건 : "+crowdCategoryList[i].ageMin+" ~ "+crowdCategoryList[i].ageMax;
+						tempSpan3.innerText = "성별 : "+crowdCategoryList[i].gender;
+						tempSpan4.innerText = "지역 : "+crowdCategoryList[i].areaSido;
+						tempSpan5.innerText = "모이다원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
 						jsContainer.append(tBox);
 					}
 				}
@@ -239,16 +324,21 @@
 				tListRequest.onload = function(){
 					//태그아이디를 받았을 경우
 					var crowdTagList = JSON.parse(tListRequest.responseText);
-					console.log(crowdTagList);
 					for (var i = 0; i < crowdTagList.length; i++) {
 						var tBox = document.importNode(temp.content, true);
 	
 						var tempH4 = tBox.querySelector("h4");
-						tempH4.innerText = crowdTagList[i].name;
-						var tempSpan1 = tBox.querySelector("span:nth-child(1)");
-						tempSpan1.innerText = crowdTagList[i].content+"/태그:"+crowdTagList[i].categoryId;
-	
-	
+						tempH4.innerText = "모임명 : "+crowdTagList[i].name;
+	 					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+						var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+						var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+						var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+						var tempSpan5 = tBox.querySelector(".member-cnt span");
+						tempSpan1.innerText = "모임내용 : "+crowdTagList[i].content;
+	 					tempSpan2.innerText = "가입조건 : "+crowdTagList[i].ageMin+" ~ "+crowdTagList[i].ageMax;
+						tempSpan3.innerText = "성별 : "+crowdTagList[i].gender;
+						tempSpan4.innerText = "지역 : "+crowdTagList[i].areaSido;
+						tempSpan5.innerText = "모이다원 "+crowdTagList[i].nowPerson+" / "+crowdTagList[i].maxPerson;
 						jsContainer.append(tBox);
 					}
 					
@@ -333,8 +423,39 @@
 			});
 		});
 		}
-		
-		
+		if(searchText.value!=""){
+ 	
+			jsContainer.innerHTML = "";
+			
+			var resultRequest = new XMLHttpRequest();
+			resultRequest.open("GET","/crowd/searchResultList?word="+searchText.value,true);
+			resultRequest.onload = function(){
+
+				var resultList = JSON.parse(resultRequest.responseText);
+				for (var i = 0; i < resultList.length; i++) {
+					var tBox = document.importNode(temp.content, true);
+					
+					var tempH4 = tBox.querySelector("h4");
+					tempH4.innerText = "모임명 : "+resultList[i].name;
+ 					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+					var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+					var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+					var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+					var tempSpan5 = tBox.querySelector(".member-cnt span");
+					tempSpan1.innerText = "모임내용 : "+resultList[i].content;
+ 					tempSpan2.innerText = "가입조건 : "+resultList[i].ageMin+" ~ "+resultList[i].ageMax;
+					tempSpan3.innerText = "성별 : "+resultList[i].gender;
+					tempSpan4.innerText = "지역 : "+resultList[i].areaSido;
+					tempSpan5.innerText = "모이다원 "+resultList[i].nowPerson+" / "+resultList[i].maxPerson;
+					jsContainer.append(tBox);
+				}
+			}
+			resultRequest.send();
+//----------------------------------------------------
+
+			return autoUl.innerHTML = "";
+		}
+
 
 		searchText.onkeyup = function(e){
 			if(e.keyCode == 13 /* || e.keyCode == 8 */){
@@ -347,11 +468,19 @@
 					var resultList = JSON.parse(resultRequest.responseText);
 					for (var i = 0; i < resultList.length; i++) {
 						var tBox = document.importNode(temp.content, true);
-						var tempH4 = tBox.querySelector("h4");
-						tempH4.innerText = resultList[i].name;
-						var tempSpan1 = tBox.querySelector("span:nth-child(1)");
-						tempSpan1.innerText = resultList[i].content+"/카테고리:"+resultList[i].categoryId;
 						
+						var tempH4 = tBox.querySelector("h4");
+						tempH4.innerText = "모임명 : "+resultList[i].name;
+	 					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+						var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+						var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+						var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+						var tempSpan5 = tBox.querySelector(".member-cnt span");
+						tempSpan1.innerText = "모임내용 : "+resultList[i].content;
+	 					tempSpan2.innerText = "가입조건 : "+resultList[i].ageMin+" ~ "+resultList[i].ageMax;
+						tempSpan3.innerText = "성별 : "+resultList[i].gender;
+						tempSpan4.innerText = "지역 : "+resultList[i].areaSido;
+						tempSpan5.innerText = "모이다원 "+resultList[i].nowPerson+" / "+resultList[i].maxPerson;
 						jsContainer.append(tBox);
 					}
 				}
@@ -379,7 +508,6 @@
 				var nameList = JSON.parse(autoRequest.responseText);
 
 				for (var i = 0; i < nameList.length; i++) {
-					console.log(nameList[i].name);
 					var li = document.createElement("LI");
 					li.setAttribute("data-id",nameList[i].id);
 					li.onclick = function(e){
@@ -391,11 +519,10 @@
 
 			}
 
-			console.log(e.target.value);
 			autoRequest.send(); 
 
 		}
-
+		
 	})
 </script>
 
@@ -410,22 +537,12 @@
 			<h4>카테고리번호:태그번호:모임번호:</h4>
 			<div>
 				<span></span>
-				<span>가입조건 :</span>
-				<c:choose>
-				<c:when test="${simple.gender==0}">
-					<span>성별 : 남자/</span>
-				</c:when>
-				<c:when test="${simple.gender==1}">
-					<span>성별 : 여자/</span>
-				</c:when>
-				<c:when test="${simple.gender==2}">
-					<span>성별 : 모두/</span>
-				</c:when>
-				</c:choose>
-				<span>지역 :</span>
+				<span></span>
+				<span></span>
+				<span></span>
 			</div>
 			<div class="member-cnt">
-				<span>회원수 /명</span>
+				<span></span>
 			</div>
 		</div>
 	</div>
@@ -481,25 +598,25 @@
 			<a href="main?crowd=${simple.id}"></a> <img src="/resources/images/tempImg.png"alt="">
 		</div>
 		<div class="content-detail">
-			<h4>${simple.name}/카테고리번호:${simple.categoryId}/태그번호:${tag.tagId}/모임번호:${simple.id}</h4>
+			<h4>모임명 : ${simple.name}</h4>
 			<div>
-				<span>${simple.content}/</span>
-				<span>가입조건 : 나이 ${simple.ageMin} ~ ${simple.ageMax}/</span>
+				<span>모임내용 : ${simple.content}</span>
+				<span>가입조건 : 나이 ${simple.ageMin} ~ ${simple.ageMax}</span>
 				<c:choose>
 				<c:when test="${simple.gender==0}">
-					<span>성별 : 남자/</span>
+					<span>성별 : 남자</span>
 				</c:when>
 				<c:when test="${simple.gender==1}">
-					<span>성별 : 여자/</span>
+					<span>성별 : 여자</span>
 				</c:when>
 				<c:when test="${simple.gender==2}">
-					<span>성별 : 모두/</span>
+					<span>성별 : 모두</span>
 				</c:when>
 				</c:choose>
 				<span>지역 : ${simple.areaSido}</span>
 			</div>
 			<div class="member-cnt">
-				<span>회원수 ${simple.nowPerson}/${simple.maxPerson}명</span>
+				<span>모이다원 ${simple.nowPerson} / ${simple.maxPerson}명</span>
 			</div>
 		</div>
 	</div>

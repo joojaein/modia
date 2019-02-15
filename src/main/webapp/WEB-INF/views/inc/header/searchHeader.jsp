@@ -14,7 +14,7 @@
 	</div>
 
 	<div id="headerSearch">
-		<input type="text" value="" placeholder="모임을 검색하세요" />
+		<input type="text" value="${indexWord}" placeholder="모임을 검색하세요" />
 		<div class="autoBox">
 			<ul class="autoUl">
 			</ul>
@@ -37,9 +37,8 @@
 			abtn.onclick = function(e) {
 				e.preventDefault();
 				var chkRequest = new XMLHttpRequest();
-				chkRequest.open("GET", "/crowd/checkId", true);
+				chkRequest.open("GET", "/crowd/checkId?url="+document.location.pathname, true);
 				chkRequest.onload = function() {
-
 					var chkturn = chkRequest.responseText;
 					if (chkturn == "no") {
 						swal({

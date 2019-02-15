@@ -105,10 +105,8 @@ public class CrowdController {
 
 	@RequestMapping("categorySearch")
 	public String categorySearch(Model model) {
-
 		List<Category> list = moidaCategoryService.getCategoryList();
 		List<CategoryView> categoryViewList = moidaCategoryService.getCategoryViewList();
-
 		model.addAttribute("list", list);
 		model.addAttribute("cvl", categoryViewList);
 
@@ -131,13 +129,10 @@ public class CrowdController {
 	public String search(
 			@RequestParam(name="categoryId",defaultValue="0") Integer categoryId,
 			/* String query, */
+			@RequestParam(name="tagId",defaultValue="0") Integer tagId,
 			@RequestParam(name="word",defaultValue="") String word,
 			Model model) {
-		System.out.println("search 들가지냐");		
 
-		/*public String search(Model model, String query, String categoryId) {
-		System.out.println("query :"+query);
-		System.out.println("categoryId :"+categoryId);*/
 		List<Category> list = moidaCategoryService.getCategoryList();
 		List<Tag> tlist = moidaTagService.getTagList();
 		List<CrowdSimpleDataView> tempList = moidaCrowdService.getSimpleList();
@@ -146,16 +141,12 @@ public class CrowdController {
 		if(word==null) {
 			word = "";
 		}
-		System.out.println("word : "+word + categoryId);
 		List<CrowdSimpleDataView> simpleCategoryList = moidaCrowdService.getSimpleCategoryList(categoryId, word);
-		System.out.println("simpleCategoryList : "+simpleCategoryList);
-
-		//System.out.println(simpleCategoryList.get(0).getName()+"please");
-		System.out.println("나온당");
+		List<CrowdSimpleDataView> simpleCategoryTagList = moidaCrowdService.getSimpleCategoryTagList(tagId, word);
+		
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		if (!authentication.getPrincipal().equals("anonymousUser")) {
-			/*System.out.println("if ");*/
 
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
@@ -163,33 +154,37 @@ public class CrowdController {
 
 			Member member = memberService.getMember(userId);
 			List<CrowdSimpleDataView> simpleDataList = new ArrayList<CrowdSimpleDataView>();
-			
-			/*System.out.println("simpleDataList : "+simpleDataList.size());*/
 
 			for (int i = 0; i < tempList.size(); i++) {
-				
-				System.out.println("member.getAreaSido() : "+member.getAreaSido());
-				System.out.println("tempList.get(i).getAreaSido() : "+tempList.get(i).getAreaSido());
+
 				if (member.getAreaSido().equals(tempList.get(i).getAreaSido())) {
 					simpleDataList.add(tempList.get(i));
-					System.out.println("시도야 나와라!"+tempList.get(i).getAreaSido());
 				}
 			}
 			model.addAttribute("simpleDataList", simpleDataList);
 		} else {
-			System.out.println("else ");
 
 			model.addAttribute("simpleDataList", tempList);
 		}
+		List<CrowdSimpleDataView> searchTempList = moidaCrowdService.getSearchResultList(word);
+		System.out.println(searchTempList);
 
 		Gson gson = new Gson();
 		String json = gson.toJson(simpleCategoryList);
+		Gson gson2 = new Gson();
+		String json2 = gson2.toJson(simpleCategoryTagList);
+		Gson gson3 = new Gson();
+		String json3 = gson3.toJson(searchTempList);
 		model.addAttribute("chkCategory", json);
+		model.addAttribute("chkCategoryTag", json2);
+		model.addAttribute("searchResult", json3);
 		model.addAttribute("list", list);
 		model.addAttribute("tlist", tlist);
 		model.addAttribute("crowdTagList", crowdTagList);
 		/* model.addAttribute("query",query); */
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("tagId", tagId);
+		model.addAttribute("indexWord",word);
 		
 		
 		

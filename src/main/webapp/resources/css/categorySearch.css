@@ -41,7 +41,7 @@ main{
     z-index: 1;
 }
 
-.category-list aside{
+.category-list .tag-aside{
     display: none;
 }
 .category-list div>span{
@@ -142,7 +142,7 @@ main{
         text-align: center;
         top:120px;
     }
-    .category-list aside{
+    .category-list .tag-aside{
         position: absolute;
         width: 95%;
         height: 95%;
@@ -153,39 +153,39 @@ main{
         cursor: pointer;
         transform:scale(0);
     }
-    .category-list div aside span{
+    .category-list div .tag-aside span{
         display: inline-block;
         transform: translate3d(0,285%,0) rotate(-45deg);
     }
-    .category-list div aside:hover{
+    .category-list div .tag-aside:hover{
         background: pink;
     }
     @keyframes scale{
         0%{transform:scale(0)}
         100%{transform:scale(1)}
     }
-    .category-list div:hover aside:nth-child(3){
+    .category-list div:hover .tag-aside:nth-child(3){
         display: block;
-        left: 102.5%;
+        left: 102.5% !important;
         z-index: -1;
         top: 2.5%;
         animation: scale .2s linear forwards;
     }
-    .category-list div:hover aside:nth-child(4){
+    .category-list div:hover .tag-aside:nth-child(4){
         display: block;
         top: 102.5%;
         z-index: -1;
-        left: 2.5%;
+        left: 2.5% !important;
         animation: scale .2s linear forwards .1s;
     }
-    .category-list div:hover aside:nth-child(5){
+    .category-list div:hover .tag-aside:nth-child(5){
         display: block;
-        right: 102.5%;
         z-index: -1;
+        left:-97.5%;
         top: 2.5%;
         animation: scale .2s linear forwards .2s;
     }
-    .category-list div:hover aside:nth-child(6){
+    .category-list div:hover .tag-aside:nth-child(6){
         display: block;
         bottom: 102.5%;
         z-index: -1;
@@ -234,12 +234,12 @@ main{
         width: 100%;
         height: 100%;
     }
-    .category-list div:nth-child(12) aside:nth-child(3) span{
+    .category-list div:nth-child(12) .tag-aside:nth-child(3) span{
     transform: translate3d(0,87%,0) rotate(-45deg);
     line-height: 50px;
     width: 100%;
 }
-    .category-list div:nth-child(11) aside:nth-child(5) span{
+    .category-list div:nth-child(11) .tag-aside:nth-child(5) span{
     transform: translate3d(0,87%,0) rotate(-45deg);
     line-height: 50px;
     width: 100%;

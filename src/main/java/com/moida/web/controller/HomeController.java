@@ -58,11 +58,14 @@ public class HomeController {
    
    @RequestMapping("/index")
    public String index(HttpSession session) {
-      String preurl = (String)session.getAttribute("preurl");
-      if(preurl!=null){
-    	  session.removeAttribute("preurl");
-    	  return "redirect:"+preurl;
-      }
+
+	   String preurl = (String)session.getAttribute("preurl");
+	   System.out.println(preurl);
+	   if(preurl!=null)
+	   {
+		session.removeAttribute("preurl");
+		   return "redirect:"+preurl;
+	   }
       return "home.index";
    }   
    

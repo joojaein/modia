@@ -69,7 +69,15 @@ window.addEventListener("load",function() {
 	postRequest.send();	
 	
 	selSido.onchange= function(e) {
-		if(selSido.selectedIndex==0) return;
+		if(selSido.selectedIndex==0){
+			selSigungu.innerHTML="";
+			var temp = document.createElement('option');
+			temp.value="null";
+			temp.innerHTML = "시군구";
+			temp.classList.add("option");
+			selSigungu.appendChild(temp);
+			return 
+		}
 		var sidoIndex = selSido.selectedIndex-1;
 		selSigungu.innerHTML="";
 		var temp = document.createElement('option');
@@ -96,11 +104,114 @@ window.addEventListener("load",function() {
 	var categoryId = document.querySelector(".categoryId");
 	var tagBtn = document.querySelectorAll(".selected-tag");
 	var chk = true;
+
 	regBtn.onclick = function(){
 		var cnt = 0;
 		var divTag = document.querySelector(".div-tag");
 		var children = divTag.children;
+		if(warn()==1){
+			return;
+		}
+		function warn(){
+			
+/*			var patt = new RegExp(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/);*/
+			var patt = new RegExp('^([0-9]|[1-9][0-9]|[1-9][0-9][0-9])$');
+			
+			if((selSigungu.value=="null")||(selSigungu.value=="시군구")){
+				swal({
+					  title: "지역을 입력해주세요",
+					  text: "정확한 시도,시군구의 지역이 필요합니다",
+					  icon: "warning",
+					  button : "그랭",
+					  dangerMode: true,
+				  	})
+					.then((willDelete) => {
+					  if (willDelete) {
+	
+					  }
+					});		
+				return 1;
+			}
+			else if(titleBox.value==""){
+				swal({
+					  title: "모임이름을 입력해주세요",
+					  text: "적어도 한글자 이상의 이름이 필요합니다.",
+					  icon: "warning",
+					  button : "그랭",
+					  dangerMode: true,
+				  	})
+					.then((willDelete) => {
+					  if (willDelete) {
 
+					  }
+					});		
+				return 1;
+			}
+			else if(contentBox.value==""){
+				swal({
+					  title: "소개란을 입력해주세요",
+					  text: "적어도 100자 이상의 소개가 필요합니다.",
+					  icon: "warning",
+					  button : "그랭",
+					  dangerMode: true,
+				  	})
+					.then((willDelete) => {
+					  if (willDelete) {
+
+					  }
+					});				
+				return 1;
+
+			}
+			else if(minAge.value > maxAge.value){
+				swal({
+					  title: "나이을 선택해주세요",
+					  text: "최소 나이가 최대 나이보다 클 수 없습니다.",
+					  icon: "warning",
+					  button : "그랭",
+					  dangerMode: true,
+				  	})
+					.then((willDelete) => {
+					  if (willDelete) {
+
+					  }
+					});
+				return 1;
+			}
+			else if(!patt.test(maxPer.value)){
+				swal({
+					  title: "정원을 제대로 입력해주세요",
+					  text: "정원수는 1~999까지의 숫자들만 가능합니다",
+					  icon: "warning",
+					  button : "그랭",
+					  dangerMode: true,
+				  	})
+					.then((willDelete) => {
+					  if (willDelete) {
+
+					  }
+					});
+			}
+		}
+
+/*		if((selSido.value=="null")&&(selSigungu.value=="시군구")&&
+				(titleBox.value=="")&&(contentBox.value=="")&&
+				(minAge.value=="무관")&&(maxAge.value=="무관")&&
+				(gender.value==0)||(maxPer.value<2)){
+			swal({
+				  title: "아직",
+				  text: "모임을 만들기 위해선 다 필요합니다.",
+				  icon: "warning",
+				  button : "그랭",
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+
+				  }
+				});
+			return;
+		};*/
 				
 		console.log(titleBox.value);
 		console.log(contentBox.value);

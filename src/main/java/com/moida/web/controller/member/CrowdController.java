@@ -2,7 +2,6 @@ package com.moida.web.controller.member;
 
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +10,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,11 @@ import com.google.gson.Gson;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
 import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdBoard;
-import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.Schedule;
@@ -246,14 +245,15 @@ public class CrowdController {
 	 
 	@RequestMapping("checkId")
 	@ResponseBody
-	public String checkId(Principal principal) {
+	public String checkId(Principal principal,String url,HttpServletRequest request, HttpSession session) {
 		String answer = "";
 		if(principal == null) {
-			System.out.println("zzzzzzzzzzzzzzz");
+			request.getSession(true).setAttribute("preurl", url);
 			answer = "no";
 		}else {
-			System.out.println(principal.getName());
-			answer = "yes";
+			request.getSession(true).setAttribute("preurl", url);
+			String preurl = (String)session.getAttribute("preurl");
+			answer = preurl;
 		}
 		return answer;
 	}
