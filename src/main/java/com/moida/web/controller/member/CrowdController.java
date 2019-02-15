@@ -12,8 +12,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -28,7 +33,6 @@ import com.google.gson.Gson;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
@@ -39,6 +43,7 @@ import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.Schedule;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
@@ -98,12 +103,21 @@ public class CrowdController {
 	@GetMapping("boardreg")
 	public String reg(
 			@RequestParam(name="crowd") Integer crowdId,
-			Model model) {
+			Model model, Principal principal) {
 		List<Board> boardlist = boardService.getBoardListType1(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		Board boardType0 = boardService.getBoardType0(crowdId);
+		Board boardType2 = boardService.getBoardType2(crowdId);
+		
+        String userId = principal.getName();
+		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
 
 		model.addAttribute("blist", boardlist);
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("boardType0", boardType0);
+		model.addAttribute("boardType2", boardType2);
+		model.addAttribute("groupRole", groupRole);
+		
 		return "crowd.boardreg";
 	}
 	
@@ -223,15 +237,10 @@ public class CrowdController {
 	@PostMapping("Reg")
 	@ResponseBody
 	public String Reg(String json, String tagId, Principal principal) {
-		
 		Gson gson = new Gson();
-		
 		Crowd crowd = gson.fromJson(json, Crowd.class);
 		crowd.setLeaderId(principal.getName());
-
-
 		return crowdService.createCrowd(crowd, tagId)+"";
-
 	}
 	 
 	@RequestMapping("checkId")
@@ -248,7 +257,33 @@ public class CrowdController {
 		}
 		return answer;
 	}
+
+	@RequestMapping("request-join")
+	@ResponseBody
+	public String requestJoin(@RequestParam(name="crowd") String crowdIdStr,
+			HttpServletResponse response){
+		int crowdId = Integer.parseInt(crowdIdStr);
+
+		SecurityContext context = SecurityContextHolder.getContext(); 
+	    Authentication authentication = context.getAuthentication(); 
+	    if(authentication.getPrincipal().equals("anonymousUser")) {
+			return "anonymousUser";
+	    }
+	    
+	    User user = (User) authentication.getPrincipal();
+        String userId = user.getUsername();
+		
+        return crowdService.requestCrowdJoin(crowdId, userId)+"";
+	}
 	
+	@RequestMapping("set-rprt-crowd")
+	@ResponseBody
+	public String setRprtCrowd(String crowdIdStr, String title, String content, Principal principal) {
+		int crowdId = Integer.parseInt(crowdIdStr);
+        String userId = principal.getName();
+		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId, title, content);
+        return crowdService.insertRprtCrowd(rprtCrowd)+"";
+	}
 
 }
 

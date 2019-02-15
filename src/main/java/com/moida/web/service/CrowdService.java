@@ -2,6 +2,8 @@ package com.moida.web.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moida.web.entity.AdminMngCrowdView;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Crowd;
@@ -10,6 +12,7 @@ import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
 public interface CrowdService {
@@ -24,6 +27,8 @@ public interface CrowdService {
 	List<CrowdSimpleDataView> getRealSimpleList(String id);
 	List<CrowdSimpleDataView> getRequestSimpleList(String id);
 	List<CrowdSimpleDataView> getRankSimpleList();
+	
+	int requestCrowdJoin(int crowdId, String memberId);
 
 	int getCrowdCount(); 
 	Crowd getCrowd(int id);
@@ -44,4 +49,9 @@ public interface CrowdService {
 	List<LeaderMngChartView> getChartList(int crowdId);
 	int insertSchedule(Schedule schedule);
 	int deleteCalendarList(int id);
+	
+	int getCrowdGroupRole(int crowdId, String memberId);
+	int insertCrowdHit(int crowdId, String memberId);
+	int insertRprtCrowd(RprtCrowd rprtCrowd);
+
 }

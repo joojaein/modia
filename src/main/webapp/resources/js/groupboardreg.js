@@ -4,16 +4,26 @@ window.addEventListener("load", function () {
    var hr = document.querySelector(".hr");
    var boardId = select2.value;
    var location = "board";
+   
    select1.onchange = function () {
-      if (select1.selectedIndex==0) {
+	   
+	   var selectedOpt = select1.options[select1.selectedIndex];
+
+      if (selectedOpt.innerText=="게시판") {
          select2.classList.remove("d-none");
          hr.classList.remove("d-none");
-      } else if (select1.selectedIndex==1) {
-         select2.classList.add("d-none");
-         hr.classList.add("d-none");
-         boardId = select1.value;
-         location = "album";
-      }
+         boardId = select2.value;
+         location = "board";
+      } else{
+    	  select2.classList.add("d-none");
+    	  hr.classList.add("d-none");
+	      boardId = select1.value;
+	      if(selectedOpt.innerText=="공지사항"){
+	    	  location = "notice";
+	      }else if(selectedOpt.innerText=="사진첩"){
+	    	  location = "album";
+		  }
+      } 
    }
    
    select2.onchange = function () {
@@ -23,11 +33,11 @@ window.addEventListener("load", function () {
    
    function getQuerystring(paramName){ 
       var _tempUrl = window.location.search.substring(1); 
-      var _tempArray = _tempUrl.split('&'); 
+      var _tempArray = _tempUrl.split('&');       
       for(var i = 0; _tempArray.length; i++) { 
          var _keyValuePair = _tempArray[i].split('='); 
          if(_keyValuePair[0] == paramName){ 
-            return _keyValuePair[1]; 
+        	 return _keyValuePair[1]; 
          }
       }
    }

@@ -25,6 +25,12 @@ public class MybatisBoardDao implements BoardDao {
 	}
 	
 	@Override
+	public Board getBoardType0(int crowdId) {
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardType0(crowdId);
+	}
+	
+	@Override
 	public Board getBoardType2(int crowdId) {
 		BoardDao boardDao = session.getMapper(BoardDao.class);
 		return boardDao.getBoardType2(crowdId);

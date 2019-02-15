@@ -165,4 +165,25 @@
 		select * from CrowdSimpleDataView where name like '%${word}%' or content like '%${word}%'
 	</select>
 	
+	<select id="getCrowdGroupRole" resultType="java.lang.Integer">
+		select groupRole from MemberCrowd where memberid=#{memberId} and crowdId=${crowdId}
+	</select>
+	
+	<select id="getIsVisited" resultType="java.lang.Integer">
+		select count(*) from CrowdHit where crowdId=${crowdId} and memberId=#{memberId} and date=current_date()
+	</select>
+	
+	<insert id="insertCrowdHit">
+		insert into CrowdHit(crowdId,date,memberId) values(${crowdId},current_date(),#{memberId})
+	</insert>
+		
+	<select id="getIsRprtedCrowd" resultType="java.lang.Integer">
+		select count(*) from RprtCrowd where crowdId=${crowdId} and writerId=#{writerId};
+	</select>
+	
+	<insert id="insertRprtCrowd">
+		insert into RprtCrowd values (${crowdId}, #{writerId}, #{title}, #{content});
+	</insert>
+	
+	
 </mapper>

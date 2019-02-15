@@ -15,6 +15,7 @@ import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
 @Repository
@@ -233,6 +234,36 @@ public class MyBatisCrowdDao implements CrowdDao{
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.updateCalendarList(schedule);
+	}
+
+	@Override
+	public int getCrowdGroupRole(int crowdId, String memberId) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getCrowdGroupRole(crowdId, memberId);
+	}
+	
+	@Override
+	public int getIsVisited(int crowdId, String memberId) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getIsVisited(crowdId, memberId);
+	}
+	
+	@Override
+	public int insertCrowdHit(int crowdId, String memberId) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertCrowdHit(crowdId, memberId);
+	}
+
+	@Override
+	public int getIsRprtedCrowd(RprtCrowd rprtCrowd) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getIsRprtedCrowd(rprtCrowd);
+	}
+
+	@Override
+	public int insertRprtCrowd(RprtCrowd rprtCrowd) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.insertRprtCrowd(rprtCrowd);
 	}
 
 }

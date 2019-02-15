@@ -29,21 +29,20 @@ public class ServiceContextConfig {
 	@Autowired 
 	ApplicationContext applicationContext;
 	
-	@Bean
+	@Bean 
 	public BasicDataSource dataSource() {
 
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
-		// 외부용
-		
+
 		dataSource.setUrl("jdbc:mysql://180.70.100.166:46603/moida?useUnicode=true&characterEncoding=utf8");
 		
 		//집용
 		//dataSource.setUrl("jdbc:mysql://192.168.0.2:3306/moida?useUnicode=true&characterEncoding=utf8");
 		
 		dataSource.setUsername("moida");
-		dataSource.setPassword("moida1234");	
+		dataSource.setPassword("moida1234");
 
 		return dataSource;
 	} 

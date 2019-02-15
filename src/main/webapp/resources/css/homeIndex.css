@@ -45,6 +45,7 @@
     height: 100%;
 	position: absolute;
 	transition: 1000ms left;
+	will-change: left;
 }
 
 .carousel img{

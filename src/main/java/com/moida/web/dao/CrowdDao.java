@@ -13,6 +13,7 @@ import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
 public interface CrowdDao {
@@ -55,4 +56,12 @@ public interface CrowdDao {
 	public int insertSchedule(Schedule schedule);
 	public int deleteCalendarList(int id);
 	public int updateCalendarList(Schedule schedule);
+	
+	public int getCrowdGroupRole(@Param("crowdId") int crowdId, @Param("memberId") String memberId);
+	public int getIsVisited(@Param("crowdId") int crowdId, @Param("memberId") String memberId);
+	public int insertCrowdHit(@Param("crowdId") int crowdId, @Param("memberId") String memberId);
+
+	public int getIsRprtedCrowd(RprtCrowd rprtCrowd);
+	public int insertRprtCrowd(RprtCrowd rprtCrowd);
+	
 }
