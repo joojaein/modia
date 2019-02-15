@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.moida.web.dao.MemberDao;
 import com.moida.web.entity.AdminMngMemberView;
 import com.moida.web.entity.LeaderMngMemberView;
+import com.moida.web.entity.LeaderMngRequestMemberView;
 import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberRole;
 
@@ -69,19 +70,25 @@ public class MoidaMemberService implements MemberService{
 	}
 
 	@Override
-	public List<LeaderMngMemberView> getLeaderMngRealMemberList(String query, String updown, Integer min, Integer max,
+	public List<LeaderMngMemberView> getRealLeaderMngMemberList(String query, String updown, Integer min, Integer max,
 			int crowdId) {
-		return memberDao.getLeaderMngRealMemberList(query, updown, min, max, crowdId);
+		return memberDao.getRealLeaderMngMemberList(query, updown, min, max, crowdId);
 
 	}
 
 	@Override
-	public List<LeaderMngMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min,
+	public List<LeaderMngMemberView> getRequestLeaderMngMemberList(String query, String updown, Integer min,
 			Integer max, int crowdId) {
-		return memberDao.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
+		return memberDao.getRequestLeaderMngMemberList(query, updown, min, max, crowdId);
 
 	}
-
+	
+	@Override
+	public List<LeaderMngRequestMemberView> getLeaderMngRequestMemberList(String query, String updown, Integer min,
+			Integer max, int crowdId) {
+		return memberDao.getLeaderMngRequestMemberList(query, updown, min, max, crowdId);
+	}
+	
 	@Override
 	public int updateRequestCrowdMember(int crowdId, String memberId) {
 		return memberDao.updateRequestCrowdMember(crowdId, memberId);

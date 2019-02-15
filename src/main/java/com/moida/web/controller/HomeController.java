@@ -15,6 +15,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -24,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +47,7 @@ public class HomeController {
    
    ArrayList postList = new ArrayList<ArrayList<String>>();
 
+
    @Autowired
    private MoidaCategoryService categoryService;
    @Autowired
@@ -54,7 +57,15 @@ public class HomeController {
 
    
    @RequestMapping("/index")
-   public String index() {
+   public String index(HttpSession session) {
+
+	   String preurl = (String)session.getAttribute("preurl");
+	   System.out.println(preurl);
+	   if(preurl!=null)
+	   {
+		session.removeAttribute("preurl");
+		   return "redirect:"+preurl;
+	   }
       return "home.index";
    }   
    
@@ -63,13 +74,18 @@ public class HomeController {
    @ResponseBody
    public String chkLogin()throws Exception
    {   
-      SecurityContext context = SecurityContextHolder.getContext(); 
-      Authentication authentication = context.getAuthentication(); 
-      if(authentication.getPrincipal().equals("anonymousUser")) {
-         return "anonymousUser";
-      }else {         
-         return "loggined";
-      }
+	   SecurityContext context = SecurityContextHolder.getContext(); 
+	      Authentication authentication = context.getAuthentication();
+	      if(authentication.getPrincipal().equals("anonymousUser")) {
+	         return "anonymousUser";
+	      } 
+	      else {       
+	          
+	          final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+	            final String username = userDetails.getUsername();
+	              
+	         return username;
+	         }
    }   
    
    @PostMapping("/get-categorylist")
@@ -160,7 +176,7 @@ public class HomeController {
       Gson gson = new Gson();
       String json = gson.toJson(postList);
       return json;
-   }
+   } 
    
    
    @PostMapping("/file-upload")
@@ -229,6 +245,12 @@ public class HomeController {
       return null;
     }
    
+   @RequestMapping("/set-session")
+   @ResponseBody
+   public String setSession(String href, HttpSession session) {
+	   session.setAttribute("preurl", href);
+ 	  return null;
+   }   
 }
 
 

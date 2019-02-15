@@ -39,7 +39,7 @@ public class HomeController {
 	public String index(Model model, HttpServletRequest request, Principal principal) {
 		String id = principal.getName();
 		Member member = moidamemberService.getMember(id);	
-		
+
 		List<Integer> menuCnt = new ArrayList<Integer>();
 		List<CrowdSimpleDataView> realCrowd = moidaCrowdService.getRealSimpleList(id);
 		menuCnt.add(realCrowd.size());
@@ -55,20 +55,23 @@ public class HomeController {
 				break;
 			}
 		}
-		String[] valArr = values.split("/");
-		for (int i = 0; i < valArr.length; i++) {
-			int index = Integer.parseInt(valArr[i]);
-			CrowdSimpleDataView temp = moidaCrowdService.getCrowdSimpleDataView(index);
-			if(temp!=null){
-			hitCrowd.add(temp);
+		
+		if(!values.equals("")) {
+			String[] valArr = values.split("/");
+			for (int i = 0; i < valArr.length; i++) {
+				int index = Integer.parseInt(valArr[i]);
+				CrowdSimpleDataView temp = moidaCrowdService.getCrowdSimpleDataView(index);
+				if(temp!=null){
+				hitCrowd.add(temp);
+				}
 			}
 		}
 		menuCnt.add(hitCrowd.size());
-		
+
 		model.addAttribute("member", member);
 		model.addAttribute("menuCnt", menuCnt);
 
-		return "member.index";
+	      return "member.index";
 	}	
 	
 	@RequestMapping("edit")

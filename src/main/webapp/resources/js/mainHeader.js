@@ -5,11 +5,9 @@ window.addEventListener("load",function(){
     var hamburger = header.querySelector("#headerMenu input");
     var back = header.querySelector(".back");
     var modal = header.querySelector(".modal");
-   /*
-    inputSearch.onclick = function(){
-    	window.location.href = "crowd/search";
-    };
-*/
+   
+    inputSearch.value="";
+    
     var modalShow = function(){
         modal.classList.add("show")
         back.removeEventListener("transitionend",modalShow);
@@ -60,5 +58,14 @@ window.addEventListener("load",function(){
 	         modal.removeEventListener("transitionend",this);
 	     });
 	};
+	
+/*	var searchText = document.querySelector("input[type=text]");
+	var autoBox = document.querySelector(".autoBox");
+	var autoUl = autoBox.querySelector(".autoUl");
+	searchText.onkeyup = function(e){
+		if(e.keyCode == 13){
+			
+		}
+	}*/
 });
 

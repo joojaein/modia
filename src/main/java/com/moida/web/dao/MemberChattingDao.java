@@ -2,13 +2,20 @@ package com.moida.web.dao;
 
 import java.util.List;
 
-import com.moida.web.entity.MemberChatting;
+import org.apache.ibatis.annotations.Param;
+
+import com.moida.web.entity.MemberChat;
 
 public interface MemberChattingDao 
 {
 
-	List<MemberChatting> getMemberChatting(String friendid,String myid);
+	List<MemberChat> getMemberChatting(String friendid,String myid);
 	
-	int insert(MemberChatting memberChatting);
+	
+	List<MemberChat> getMemberAdminChatting(String myid);
+	
+	int insert(@Param("myId") String myId,
+			@Param("friendId") String friendId,
+			@Param("content") String content);
 	
 }

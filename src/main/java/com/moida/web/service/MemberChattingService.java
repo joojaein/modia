@@ -2,12 +2,15 @@ package com.moida.web.service;
 
 import java.util.List;
 
-import com.moida.web.entity.MemberChatting;
+import com.moida.web.entity.MemberChat;
 
 public interface MemberChattingService 
 {
-	List<MemberChatting> getMemberChattingList(String friendId,String myId);
+	List<MemberChat> getMemberChattingList(String friendId,String myId);
 	
-	int insertMemberChatting(MemberChatting memberChatting);
+	List<MemberChat> getMemberAdminChatting(String myId);
+	
+	
+	int insertMemberChatting(String myId,String friendId,String content);
 	
 }

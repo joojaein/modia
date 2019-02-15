@@ -7,6 +7,10 @@
 		select * from Board where type=1 and crowdId=#{crowdId};
 	</select>
 	
+	<select id="getBoardType0" resultType="com.moida.web.entity.Board">
+		select * from Board where type=0 and crowdId=#{crowdId};
+	</select>
+	
 	<select id="getBoardType2" resultType="com.moida.web.entity.Board">
 		select * from Board where type=2 and crowdId=#{crowdId};
 	</select>
@@ -23,9 +27,5 @@
 	<delete id="deleteBoard" parameterType="java.lang.Integer">
 		delete from Board where id=#{board.Id};
 	</delete>
-		
-	<select id="getBoardList" resultType="com.moida.web.entity.Board">
-		select * from Board where and crowdId = #{param1};
-	</select>
 
 </mapper>

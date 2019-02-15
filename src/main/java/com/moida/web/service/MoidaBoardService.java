@@ -24,10 +24,14 @@ public class MoidaBoardService implements BoardService {
 	}
 	
 	@Override
+	public Board getBoardType0(int crowdId) {		
+		return boardDao.getBoardType0(crowdId);
+	}	
+	
+	@Override
 	public Board getBoardType2(int crowdId) {		
 		return boardDao.getBoardType2(crowdId);
 	}
-	
 
 	@Override
 	public int insertBoardType1(Board board) {

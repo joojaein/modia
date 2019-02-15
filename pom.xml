@@ -221,8 +221,6 @@
  		<version>5.1.3.RELEASE</version>
  	</dependency> -->
 
-
-
 	<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-websocket-api</artifactId>

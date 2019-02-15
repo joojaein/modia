@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.FriendDao;
+import com.moida.web.entity.AdminChatMemberView;
 import com.moida.web.entity.Friend;
 import com.moida.web.entity.FriendDataView;
+import com.moida.web.entity.MemberChat;
+import com.moida.web.entity.MemberChattingViewF;
 
 @Service
 public class MoidaFriendService implements FriendService
@@ -23,7 +26,7 @@ public class MoidaFriendService implements FriendService
 	public List<Friend> getFriendList(String myId) 
 	{
 		// TODO Auto-generated method stub
-		System.out.println("serviceserviceserviceservice");
+//		System.out.println("serviceserviceserviceservice");
 		
 		//return friendDao.getFriendList(myId);
 		return friendDao.getFriendList(myId);
@@ -37,7 +40,7 @@ public class MoidaFriendService implements FriendService
 	{
 		// TODO Auto-generated method stub
 		
-		System.out.println("친구 데이타 가져와라! -모이다프렌드서비스-");
+//		System.out.println("친구 데이타 가져와라! -모이다프렌드서비스-");
 		
 		
 		return friendDao.getFriendData(friendId);
@@ -62,8 +65,58 @@ public class MoidaFriendService implements FriendService
 		return friendDao.delete(myId,friendId);
 	}
 
+	//친구와 마지막으로 대화 나눈 것을 가져오기위한 메소드
+
+	@Override
+	public List<MemberChattingViewF> getLastTalkData(String myId, String friendId) 
+	{
+		// TODO Auto-generated method stub
+//		System.out.println("LIMIT MidaFriendService");
+		
+		return friendDao.getLastTalkData(myId,friendId);
+	}
 
 
+	//Admin과 마지막으로 대화 나눈 것을 가져오기위한 메소드
+	@Override
+	public List<MemberChat> getLastAdminTalkData(String myId) 
+	{
+		// TODO Auto-generated method stub
+//		System.out.println("Admin과 대화한 마지막 내용");
+
+		return friendDao.getLastAdminTalkData(myId);
+	}
+
+
+	@Override
+	public List<FriendDataView> getAdminImg() 
+	{
+		// TODO Auto-generated method stub
+//		System.out.println("Admin 이미지 내놔라");
+		
+		return friendDao.getAdminImg();
+	}
+
+	//내가 Admin 일때 작동하는 회원들과 나눈 마지막 대화 한줄 가져오기 메소드
+	@Override
+	public List<MemberChat> getImAdminLimit() 
+	{
+		// TODO Auto-generated method stub
+//		System.out.println("나는 어디민이다.");
+		
+		return friendDao.getImAdminLimit();
+	}
+
+	//내가 Admin 일 경우 나에게 대화를 한번이라도 보낸 멤버의 아이디를 리턴해주는 메소드
+	@Override
+	public List<AdminChatMemberView> getadMemberList() 
+	{
+		// TODO Auto-generated method stub
+//		System.out.println("나는 어디민이다. 대화멤버 리턴");
+
+		
+		return friendDao.getAdMemberList();
+	}
 	
 	
 }

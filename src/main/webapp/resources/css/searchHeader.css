@@ -11,6 +11,7 @@
     border: none;
 	border-radius: 4px;
     text-indent: 30px;
+    position : relative;
 }
 #headerSearch input::placeholder {
     text-indent: 30px;
@@ -40,6 +41,21 @@
 	text-indent: 5px;
 	font-size: 12px;
 	color: black;
+}
+.autoBox{
+	transform : translateY(-30px);
+	background: yellow;
+    width: auto;
+    height: auto;
+    z-index: 10000;
+    position: relative;
+}
+.autoUl{
+	
+}
+.autoUl li{
+	text-align : left;
+	margin-left : 10px;
 }
 @media ( min-width : 480px){
 	header{

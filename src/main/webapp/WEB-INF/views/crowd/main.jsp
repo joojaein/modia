@@ -4,6 +4,7 @@
 <main>
 <link href="/resources/css/groupMain.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/rprtmodal.js"> </script>
+<script src="/resources/js/groupMain.js"> </script>
 
 <div class="wrapper">
 	<section class="main-head">
@@ -64,7 +65,12 @@
 		</p>
 	</article>
 	<section class="content-comment">
-		<input class="join" type="button" value="가입하기" />
+		<c:if test="${userCrowdAuthType eq -1 || userCrowdAuthType eq 3}">
+			<input class="join" type="button" value="가입하기" />
+		</c:if>
+		<c:if test="${userCrowdAuthType ne -1 && userCrowdAuthType ne 3}">
+			<input class="join d-none" type="button" value="가입하기" />
+		</c:if>
 		<hr />
 		<div class="comment-sum">모임멤버 ${crowd.nowPerson}/ ${crowd.maxPerson}명</div>
 		<hr />

@@ -6,11 +6,11 @@
         <section class="category-list">
            	<c:forEach var="category" items="${list}">
             <div>
-            	<div><a href="main"></a></div>
-                <span><a href="main">${category.name}</a></span>
+            	<div><a href="search?categoryId=${category.id}"></a></div>
+                <span><a href="search?categoryId=${category.id}">${category.name}</a></span>
                 <c:forEach var="cvl" items="${cvl}">
                 <c:if test="${cvl.categoryId==category.id}">
-                <aside><a href="main"><span>${cvl.name}</span></a></aside>
+                <aside class="tag-aside"><a href="search?categoryId=${cvl.categoryId}&tagId=${cvl.id}"><span>${cvl.name}</span></a></aside>
                 </c:if>
                 </c:forEach>
             </div>
