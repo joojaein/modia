@@ -16,6 +16,7 @@ import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
 @Service
@@ -208,6 +209,22 @@ public class MoidaCrowdService implements CrowdService {
 	public int getCrowdGroupRole(int crowdId, String memberId) {
 	      return crowdDao.getCrowdGroupRole(crowdId, memberId); 
 
+	}
+
+	@Override
+	public int insertCrowdHit(int crowdId, String memberId) {
+		if(crowdDao.getIsVisited(crowdId, memberId)==0) {
+			return crowdDao.insertCrowdHit(crowdId, memberId); 
+		}
+		return 1;
+	}
+
+	@Override
+	public int insertRprtCrowd(RprtCrowd rprtCrowd) {
+		if(crowdDao.getIsRprtedCrowd(rprtCrowd)==0) {
+			return crowdDao.insertRprtCrowd(rprtCrowd); 
+		}
+		return 0;
 	}
 
 }

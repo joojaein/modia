@@ -12,6 +12,7 @@ import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
 public interface CrowdService {
@@ -50,5 +51,7 @@ public interface CrowdService {
 	int deleteCalendarList(int id);
 	
 	int getCrowdGroupRole(int crowdId, String memberId);
+	int insertCrowdHit(int crowdId, String memberId);
+	int insertRprtCrowd(RprtCrowd rprtCrowd);
 
 }

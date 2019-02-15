@@ -44,6 +44,7 @@ import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.Schedule;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
@@ -260,7 +261,7 @@ public class CrowdController {
 	@RequestMapping("request-join")
 	@ResponseBody
 	public String requestJoin(@RequestParam(name="crowd") String crowdIdStr,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response){
 		int crowdId = Integer.parseInt(crowdIdStr);
 
 		SecurityContext context = SecurityContextHolder.getContext(); 
@@ -275,6 +276,14 @@ public class CrowdController {
         return crowdService.requestCrowdJoin(crowdId, userId)+"";
 	}
 	
+	@RequestMapping("set-rprt-crowd")
+	@ResponseBody
+	public String setRprtCrowd(String crowdIdStr, String title, String content, Principal principal) {
+		int crowdId = Integer.parseInt(crowdIdStr);
+        String userId = principal.getName();
+		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId, title, content);
+        return crowdService.insertRprtCrowd(rprtCrowd)+"";
+	}
 
 }
 

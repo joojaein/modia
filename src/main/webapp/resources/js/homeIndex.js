@@ -48,6 +48,8 @@ window.addEventListener("load",function(){
             }
          }
          canChange=true;
+
+
          autoCarousel();
        });
 
@@ -108,6 +110,7 @@ window.addEventListener("load",function(){
 
        function autoCarousel(){ 
     	   setTimeout(function(evt){
+    		   console.log("auto");
 	    	   if(!canChange) return;  
 	           canChange=false;     
 	           var nextIdx = (currentIdx+1)%lis.length;
@@ -132,7 +135,7 @@ window.addEventListener("load",function(){
 	                currentLi.style.left="-100%";
 	                nextLi.style.left="0%"
 	           },10);  
-	      },2000);  
+	      },4000);  
        }
     };
     bannerRequest.send();

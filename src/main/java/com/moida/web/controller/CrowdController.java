@@ -58,6 +58,9 @@ public class CrowdController {
 			userCrowdAuthType=3;
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
+			crowdService.insertCrowdHit(crowdId, userId);
+			
+			///쿠키관련///////////////////////////////
 			String values = "";
 			Cookie[] cookies = request.getCookies();
 			for (Cookie c : cookies) {
@@ -81,7 +84,8 @@ public class CrowdController {
 			cookie.setMaxAge(60*60*24*7); 
 			cookie.setPath("/"); 
 			response.addCookie(cookie);
-			
+			//////////////////////////////////////
+
 			for (int i = 0; i < memberList.size(); i++) {
 				if(memberList.get(i).getMemberId().equals(userId)) {
 					userCrowdAuthType = memberList.get(i).getGroupRole();

@@ -1,26 +1,48 @@
 window.addEventListener("load", function () {
-    var siren = document.querySelector(".siren");
-    var clear = document.querySelector(".clear-btn");
-    siren.onclick = function (e) {
-        e.preventDefault();
-        var rprt = document.querySelector(".rprt");
-        rprt.classList.remove("d-none");
-    }
 
-    clear.onclick = function (e) {
-        e.preventDefault();
-        var rprt = document.querySelector(".rprt");
-        rprt.classList.add("d-none");
-    }
-
-    var userCrowdAuthType=-1;
+	var userCrowdAuthType=-1;
 	var crowdId =  getQuerystring('crowd')
     
     var btnsHeader = document.querySelector(".sirenedit");
     var btnSetting = btnsHeader.querySelector(".btn-setting");
-    var btnSiren = btnsHeader.querySelector(".btn-siren");
     var btnReg = btnsHeader.querySelector(".btn-reg");
+    var btnSiren = btnsHeader.querySelector(".btn-siren");
+    var btnClear = document.querySelector(".clear-btn");
+    var btnRprtSubmit = document.querySelector(".rprt-btn input");
+
+    btnClear.onclick = function (e) {
+        e.preventDefault();
+        var rprt = document.querySelector(".rprt");
+        rprt.classList.add("d-none");
+    }
+    btnSiren.onclick = function (e) {
+        e.preventDefault();
+        var rprt = document.querySelector(".rprt");
+        rprt.classList.remove("d-none");
+    }
     
+    btnRprtSubmit.onclick = function(evt){
+    	evt.preventDefault();
+        var rprt = document.querySelector(".rprt");
+        var title = rprt.querySelector("select");
+        var content = rprt.querySelector("textarea");
+        
+        var rprtRequest = new XMLHttpRequest(); 
+        rprtRequest.open("POST", "/crowd/set-rprt-crowd", true); 
+        rprtRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+        rprtRequest.onload = function () {
+            var result = rprtRequest.responseText;
+            if(result=="0"){
+            	alert("이미 신고한 모임입니다.")
+            }else{
+            	alert("해당 모임의 신고가 완료 되었습니다.")
+            }
+            title.value="";
+            content.value="";
+            rprt.classList.add("d-none");
+        }
+        rprtRequest.send("crowdIdStr="+crowdId+"&title="+title.value+"&content="+content.value);
+    }
     
     var authRequest = new XMLHttpRequest(); 
 	authRequest.open("POST", "/crowd/get-crowd-auth", true); 
