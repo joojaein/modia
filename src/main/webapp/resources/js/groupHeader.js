@@ -12,13 +12,33 @@ window.addEventListener("load", function () {
 
     btnClear.onclick = function (e) {
         e.preventDefault();
-        var rprt = document.querySelector(".rprt");
+		var rprt = document.querySelector(".rprt");
         rprt.classList.add("d-none");
     }
     btnSiren.onclick = function (e) {
         e.preventDefault();
-        var rprt = document.querySelector(".rprt");
-        rprt.classList.remove("d-none");
+        var rprtRequest = new XMLHttpRequest(); 
+        rprtRequest.open("POST", "/crowd/get-rprt-crowd", true); 
+        rprtRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+        rprtRequest.onload = function () {
+        	if(rprtRequest.responseText==0){        
+        		var rprt = document.querySelector(".rprt");
+        		rprt.classList.remove("d-none");
+        	}else{
+        		if(confirm("이미 신고한 모임입니다.\n모임신고를 취소 하시겠습니까?")){
+        			var rprtDelRequest = new XMLHttpRequest(); 
+        			rprtDelRequest.open("POST", "/crowd/del-rprt-crowd", true); 
+        			rprtDelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+        			rprtDelRequest.onload = function () {
+        				alert("모임신고가 취소 되었습니다.");
+        			}
+        			rprtDelRequest.send("crowdIdStr="+crowdId);
+        		}
+        	}
+        }
+        rprtRequest.send("crowdIdStr="+crowdId);
+        
+
     }
     
     btnRprtSubmit.onclick = function(evt){
@@ -31,12 +51,7 @@ window.addEventListener("load", function () {
         rprtRequest.open("POST", "/crowd/set-rprt-crowd", true); 
         rprtRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         rprtRequest.onload = function () {
-            var result = rprtRequest.responseText;
-            if(result=="0"){
-            	alert("이미 신고한 모임입니다.")
-            }else{
-            	alert("해당 모임의 신고가 완료 되었습니다.")
-            }
+        	alert("해당 모임의 신고가 완료 되었습니다.")
             title.value="";
             content.value="";
             rprt.classList.add("d-none");

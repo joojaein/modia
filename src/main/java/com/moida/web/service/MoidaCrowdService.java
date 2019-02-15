@@ -221,10 +221,17 @@ public class MoidaCrowdService implements CrowdService {
 
 	@Override
 	public int insertRprtCrowd(RprtCrowd rprtCrowd) {
-		if(crowdDao.getIsRprtedCrowd(rprtCrowd)==0) {
-			return crowdDao.insertRprtCrowd(rprtCrowd); 
-		}
-		return 0;
+		return crowdDao.insertRprtCrowd(rprtCrowd); 
+	}
+
+	@Override
+	public int deleteRprtCrowd(RprtCrowd rprtCrowd) {
+		return crowdDao.deleteRprtCrowd(rprtCrowd); 
+	}
+	
+	@Override
+	public int getRprtCrowdCnt(RprtCrowd rprtCrowd) {
+		return crowdDao.getIsRprtedCrowd(rprtCrowd);
 	}
 
 }

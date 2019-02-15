@@ -63,5 +63,6 @@ public interface CrowdDao {
 
 	public int getIsRprtedCrowd(RprtCrowd rprtCrowd);
 	public int insertRprtCrowd(RprtCrowd rprtCrowd);
+	public int deleteRprtCrowd(RprtCrowd rprtCrowd);
 	
 }

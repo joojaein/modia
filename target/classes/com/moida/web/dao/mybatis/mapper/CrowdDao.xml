@@ -185,5 +185,9 @@
 		insert into RprtCrowd values (${crowdId}, #{writerId}, #{title}, #{content});
 	</insert>
 	
+	<delete id="deleteRprtCrowd">
+		delete from RprtCrowd where crowdId=${crowdId} and writerId=#{writerId};
+	</delete>
+	
 	
 </mapper>
