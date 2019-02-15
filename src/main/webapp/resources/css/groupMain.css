@@ -54,9 +54,6 @@ p {
 
 .content {
     grid-area: content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     font-size: 13px;
 }
 .content span{

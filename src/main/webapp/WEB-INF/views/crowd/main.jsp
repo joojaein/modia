@@ -41,7 +41,7 @@
 			<span>${crowd.name}</span>
 		</div>
 		<div class="info">
-			<span>today 1</span> <span>total 1</span>
+			<span>today ${views.hit}</span> <span>total ${total.hit}</span>
 		</div>
 	</section>
 	

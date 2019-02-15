@@ -7,10 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.moida.web.dao.BannerDao;
 import com.moida.web.dao.BoardDao;
-import com.moida.web.entity.Banner;
 import com.moida.web.entity.Board;
+import com.moida.web.entity.BoardCategory;
+import com.moida.web.entity.PostsView;
 
 @Repository
 public class MybatisBoardDao implements BoardDao {
@@ -52,6 +52,34 @@ public class MybatisBoardDao implements BoardDao {
 	public int deleteBoard(int boardId) {
 		BoardDao boardDao = session.getMapper(BoardDao.class);
 		return boardDao.deleteBoard(boardId);
+	}
+
+	@Override
+	public PostsView getBoardViewList(Integer crowdId) {
+		// TODO Auto-generated method stub
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardViewList(crowdId);
+	}
+
+	@Override
+	public PostsView getBoardViewList(Integer crowdId, Integer categoryId) {
+		// TODO Auto-generated method stub
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardViewList(crowdId, categoryId);
+	}
+
+	@Override
+	public List<BoardCategory> getBoardCategoryList(Integer crowdId) {
+		// TODO Auto-generated method stub
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardCategoryList(crowdId);
+	}
+
+	@Override
+	public List<Board> getBoardList(Integer crowdId) {
+		// TODO Auto-generated method stub
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardList(crowdId);
 	}
 
 }

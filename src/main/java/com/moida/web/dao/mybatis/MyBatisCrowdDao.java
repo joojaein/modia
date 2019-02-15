@@ -14,17 +14,19 @@ import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
+import com.moida.web.entity.PostsView;
 
 @Repository
 public class MyBatisCrowdDao implements CrowdDao{
 
 	@Autowired 
 	private SqlSessionTemplate session;
-	
-	
+
+
 	@Override
 	public List<CrowdMemberRole> getCrowdMemberRole(int id) 
 	{
@@ -43,7 +45,7 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getBoardList(crowdId);
 	}
-	
+
 	@Override
 	public CrowdSimpleDataView getCrowdSimpleDataView(int id) {
 		CrowdDao memberDao = session.getMapper(CrowdDao.class);
@@ -56,7 +58,7 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getSimpleList();
 	}
-	
+
 	@Override
 	public List<CrowdSimpleDataView> getRealSimpleList(String id) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -68,13 +70,13 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getRequestSimpleList(id);
 	}
-	
+
 	@Override
 	public List<CrowdSimpleDataView> getRankSimpleList() {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getRankSimpleList();
 	}
-		
+
 	@Override
 	public int getCrowdCount() {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -95,7 +97,7 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getCrowd(id);
 	}
-	
+
 	@Override
 	public List<AdminMngCrowdView> getAdminMngCrowdList(String query, String updown, Integer min, Integer max) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -107,7 +109,7 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getCrowdTagIdList(crowdId);
 	}
-	
+
 	@Override
 	public int deleteCrowd(int id) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -152,7 +154,7 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.insertMemberCrowd(leaderId, crowdId);
 	}
-	
+
 
 	@Override
 	public Crowd getLastCrowd() {
@@ -202,13 +204,6 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
-	public CrowdBoard getBoards(Integer crowdId) {
-		// TODO Auto-generated method stub
-		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getBoards(crowdId);
-	}
-
-	@Override
 	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -237,17 +232,31 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
+	public CrowdView getCrowdViews(Integer crowdId) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getCrowdViews(crowdId);
+	}
+
+	@Override
+	public CrowdView getCrowdTotalViews(Integer crowdId) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getCrowdTotalViews(crowdId);
+	}
+
 	public int getCrowdGroupRole(int crowdId, String memberId) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getCrowdGroupRole(crowdId, memberId);
 	}
-	
+
+
 	@Override
 	public int getIsVisited(int crowdId, String memberId) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getIsVisited(crowdId, memberId);
 	}
-	
+
 	@Override
 	public int insertCrowdHit(int crowdId, String memberId) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -255,6 +264,7 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
+
 	public int getIsRprtedCrowd(RprtCrowd rprtCrowd) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getIsRprtedCrowd(rprtCrowd);
@@ -273,3 +283,5 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 }
+
+

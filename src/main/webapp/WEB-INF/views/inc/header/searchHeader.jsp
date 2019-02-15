@@ -8,7 +8,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <header>
 	<div class="pre-page">
-		<a href="/crowd/search">
+		<a href="/index">
 			<img src="/resources/images/btnPrePage.png" />
 		</a>
 	</div>

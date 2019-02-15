@@ -6,7 +6,7 @@ $(function () {
         self.click(function () {
             self.addClass("open");
             div.css({
-                width: "100px"
+                width: "90px"
             });
             div.children("input").css({
                 visibility: "visible"

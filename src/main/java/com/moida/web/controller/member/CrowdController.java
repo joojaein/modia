@@ -45,6 +45,7 @@ import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
+import com.moida.web.entity.PostsView;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
@@ -52,11 +53,9 @@ import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaPostsService;
 import com.moida.web.service.MoidaTagService;
 
-
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
-
 
 	@Autowired
 	public MoidaCrowdService crowdService;
@@ -68,28 +67,51 @@ public class CrowdController {
 	@Autowired
 	public MoidaPostsService postsService;
 	
+	
 	@RequestMapping("notice")
 	public String notice(
 			@RequestParam(name="crowd") Integer crowdId,
 			Model model) {		
-		List<CrowdNotice> list = crowdService.getNoticeList(crowdId);
-		CrowdNotice listId = crowdService.getNotice(crowdId);
+		List<PostsView> NoticepostsView = postsService.getNoticePostsView(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		model.addAttribute("listId", listId);
-		model.addAttribute("list", list);
+		model.addAttribute("list", NoticepostsView);
 		model.addAttribute("crowd", crowd);
 		return "crowd.notice";
 	}
 
-	@RequestMapping("board")
+	@GetMapping("board")
 	public String board(
 			@RequestParam(name="crowd") Integer crowdId,
+			Integer boardId,
 			Model model) {
-		List<CrowdBoard> boardlist = crowdService.getBoardList(crowdId);
-		model.addAttribute("blist", boardlist);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<PostsView> postsView = postsService.getPostsView1(crowdId);
+		
+		// 게시판 목록
+		List<Board> boardList = boardService.getBoardListType1(crowdId);
+		//List<Board> boardList = boardService.getBoardList(crowdId);
+		model.addAttribute("plist", postsView);		
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("bList", boardList);
+		
 		return "crowd.board";
+	}
+	
+	@PostMapping("board")
+	@ResponseBody
+	public String boardpost(@RequestParam(name="crowd")Integer crowdId, 
+			Integer boardId,
+			Model model){
+		List<PostsView> postsList =null;
+	 if(boardId != null ) {
+		postsList = postsService.getPostsView2(crowdId, boardId);
+	 }else {
+		 postsList = postsService.getPostsView1(crowdId);
+	 }
+	 
+	 Gson gson = new Gson(); 
+	 String json = gson.toJson(postsList);
+	 return json;
 	}
 
 	@RequestMapping("{id}")
@@ -106,6 +128,7 @@ public class CrowdController {
 			Model model, Principal principal) {
 		List<Board> boardlist = boardService.getBoardListType1(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+
 		Board boardType0 = boardService.getBoardType0(crowdId);
 		Board boardType2 = boardService.getBoardType2(crowdId);
 		
@@ -151,38 +174,55 @@ public class CrowdController {
 	public String calendar(
 			@RequestParam(name="crowd") Integer crowdId,
 			Model model) {
-		CrowdBoard boards = crowdService.getBoards(crowdId);
 		List<Schedule> schedule = crowdService.getScheduleList(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		model.addAttribute("board", boards);
 		model.addAttribute("schedule", schedule);
 		model.addAttribute("crowd", crowd);
 		return "crowd.calendar"; 
 	}
 	
+	/*
+	 * @PostMapping("calendar") public String calendarreg( Integer crowdId, String
+	 * startDate, String endDate, String title, String content, Model model) throws
+	 * Exception { Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+	 * Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+	 * end.setDate(end.getDate()+1); Schedule schedule = new Schedule(crowdId,
+	 * start, end, title, content); return crowdService.insertSchedule(schedule)+"";
+	 * }
+	 */
+	
 	@PostMapping("calendar")
-	public String calendarreg(
+	@ResponseBody
+	public String calendarinsert(
 			Integer crowdId,
 			String startDate,
 			String endDate,
 			String title,
-			String content,
-			Model model) throws Exception {
-		System.out.println(startDate);
+			String content
+			) throws Exception {
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 		end.setDate(end.getDate()+1);
+	
 		Schedule schedule = new Schedule(crowdId, start, end, title, content);
-		return	crowdService.insertSchedule(schedule)+"";
+	
+		System.out.println("아작아작"+schedule);
+		System.out.println("들어옴?");
+		 Gson gson = new Gson(); 
+		 String json = gson.toJson(schedule);
+		
+		return crowdService.insertSchedule(schedule)+"";
 	}
+	
 	
 	@PostMapping("calendarlist-update")
 	public String updateCalendarList(Integer crowdId, String startDate, String endDate, String title, String content, int id) throws ParseException {
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-
 		end.setDate(end.getDate()+1);
 		Schedule schedule = new Schedule(crowdId, start, end, title, content, id);
+		
+		
 		return crowdService.updateCalendarList(schedule)+"";
 	}
 	
@@ -199,7 +239,10 @@ public class CrowdController {
 			@RequestParam(name="crowd") Integer crowdId,
 			Model model) {		
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<PostsView> albumlist = postsService.getAlbumPostsView(crowdId);
+		
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("alist", albumlist);
 		return "crowd.album";
 	}
 
