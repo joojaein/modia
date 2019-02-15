@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.MemberChattingDao;
-import com.moida.web.entity.MemberChatting;
+import com.moida.web.entity.MemberChat;
 
 @Service
 public class MoidaMemberChattingService implements MemberChattingService 
@@ -17,28 +17,42 @@ public class MoidaMemberChattingService implements MemberChattingService
 	
 	
 	@Override
-	public List<MemberChatting> getMemberChattingList(String friendId, String myId) 
+	public List<MemberChat> getMemberChattingList(String friendId, String myId) 
 	{
 		// TODO Auto-generated method stub
 		
-		System.out.println("여기는 memberChattingService 겟멤버채팅List 입니다.");
+	//	System.out.println("여기는 memberChattingService 겟멤버채팅List 입니다.");
 		
 		
 		return memberChattingDao.getMemberChatting(friendId, myId);
 	}
 
+	@Override
+	public List<MemberChat> getMemberAdminChatting(String myId) 
+	{
+		// TODO Auto-generated method stub
+//		System.out.println("관리자와의 대화목록 가져오기");
+
+		
+		
+		return memberChattingDao.getMemberAdminChatting(myId);
+	}
+	
 
 	@Override
-	public int insertMemberChatting(MemberChatting memberChatting) {
+	public int insertMemberChatting(String myId, String friendId, String content) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("여기는 memberChattingService insert멤버채팅 입니다.");
+//		System.out.println("여기는 insertMemberChatting");
 
 		
-		memberChattingDao.insert(memberChatting);
+		memberChattingDao.insert(myId,friendId,content);
 		
 		return 1;
 	}
+
+
+	
 
 
 	

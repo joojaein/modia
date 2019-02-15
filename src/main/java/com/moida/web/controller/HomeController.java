@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,7 @@ import com.moida.web.service.MoidaCrowdService;
 public class HomeController {
    
    ArrayList postList = new ArrayList<ArrayList<String>>();
+
 
    @Autowired
    private MoidaCategoryService categoryService;
@@ -69,13 +71,18 @@ public class HomeController {
    @ResponseBody
    public String chkLogin()throws Exception
    {   
-      SecurityContext context = SecurityContextHolder.getContext(); 
-      Authentication authentication = context.getAuthentication(); 
-      if(authentication.getPrincipal().equals("anonymousUser")) {
-         return "anonymousUser";
-      }else {         
-         return "loggined";
-      }
+	   SecurityContext context = SecurityContextHolder.getContext(); 
+	      Authentication authentication = context.getAuthentication();
+	      if(authentication.getPrincipal().equals("anonymousUser")) {
+	         return "anonymousUser";
+	      } 
+	      else {       
+	          
+	          final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+	            final String username = userDetails.getUsername();
+	              
+	         return username;
+	         }
    }   
    
    @PostMapping("/get-categorylist")
@@ -166,7 +173,7 @@ public class HomeController {
       Gson gson = new Gson();
       String json = gson.toJson(postList);
       return json;
-   }
+   } 
    
    
    @PostMapping("/file-upload")
