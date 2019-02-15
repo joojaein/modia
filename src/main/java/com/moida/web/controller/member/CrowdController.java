@@ -10,6 +10,9 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -233,14 +236,15 @@ public class CrowdController {
 	 
 	@RequestMapping("checkId")
 	@ResponseBody
-	public String checkId(Principal principal) {
+	public String checkId(Principal principal,String url,HttpServletRequest request, HttpSession session) {
 		String answer = "";
 		if(principal == null) {
-			System.out.println("zzzzzzzzzzzzzzz");
+			request.getSession(true).setAttribute("preurl", url);
 			answer = "no";
 		}else {
-			System.out.println(principal.getName());
-			answer = "yes";
+			request.getSession(true).setAttribute("preurl", url);
+			String preurl = (String)session.getAttribute("preurl");
+			answer = preurl;
 		}
 		return answer;
 	}

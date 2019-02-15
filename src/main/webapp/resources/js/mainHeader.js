@@ -60,5 +60,14 @@ window.addEventListener("load",function(){
 	         modal.removeEventListener("transitionend",this);
 	     });
 	};
+	
+/*	var searchText = document.querySelector("input[type=text]");
+	var autoBox = document.querySelector(".autoBox");
+	var autoUl = autoBox.querySelector(".autoUl");
+	searchText.onkeyup = function(e){
+		if(e.keyCode == 13){
+			
+		}
+	}*/
 });
 

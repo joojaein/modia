@@ -6,6 +6,7 @@
 	<link href="/resources/css/groupCreate.css" type="text/css" rel="stylesheet" />
 	<!--<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> -->
     <script src="/resources/js/groupCreate.js"> </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
     <div id="layer"></div>
 	<div class="create">

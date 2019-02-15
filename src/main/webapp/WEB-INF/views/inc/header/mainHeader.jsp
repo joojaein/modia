@@ -9,8 +9,8 @@
 
     <div id="headerSearch">
 	    <form method="POST" action="crowd/search">
-		    <input type="text" placeholder="모임을 검색하세요" name="query" />
-		    <input type="hidden" name="categoryId" value="0" />
+			<input type="text" placeholder="모임을 검색하세요" name="word" />
+			<input type="hidden" name="categoryId" value="0" />
 			 <!-- http://localhost/crowd/search?query=input.value-->
 		</form>
    		<!-- 
