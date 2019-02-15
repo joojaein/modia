@@ -161,9 +161,63 @@ window.addEventListener("load", function () {
                secContent.removeChild(tpls[i]);
             }
          }
-      }       
+      }     
        
-      var title = document.querySelector("#title").value;
+       var title = document.querySelector("#title").value;
+
+       if(title==""){
+    	   swal({
+				  title: "제목을 입력 해주세요",
+				  icon: "warning",
+				  button : "확인",
+				  dangerMode: true,
+			  	});	
+    	   
+    	   if(secContent.querySelectorAll(".tpl-div").length==0){
+    		   var firstTextTpl = document.importNode(textTpl.content, true);
+    		   var tempTextarea = firstTextTpl.querySelector("textarea");
+    		   tempTextarea.onkeyup=function(){
+    		      resize(tempTextarea);
+    		   };
+	    	   secContent.append(firstTextTpl);
+    	   }
+    	   return;
+       }else if(secContent.querySelectorAll(".tpl-div-img").length==0 
+    		   && location == "album"){
+    	   swal({
+				  title: "사진을 등록 해주세요",
+				  icon: "warning",
+				  button : "확인",
+				  dangerMode: true,
+			  	});		
+    	   if(secContent.querySelectorAll(".tpl-div").length==0){
+    		   var firstTextTpl = document.importNode(textTpl.content, true);
+    		   var tempTextarea = firstTextTpl.querySelector("textarea");
+    		   tempTextarea.onkeyup=function(){
+    		      resize(tempTextarea);
+    		   };
+	    	   secContent.append(firstTextTpl);
+	    	   tempTextarea.focus();
+    	   }
+    	   return;
+       }else if(secContent.querySelectorAll(".tpl-div").length==0){
+    	   swal({
+				  title: "내용을 입력 해주세요",
+				  icon: "warning",
+				  button : "확인",
+				  dangerMode: true,
+			  	});		
+
+		   var firstTextTpl = document.importNode(textTpl.content, true);
+		   var tempTextarea = firstTextTpl.querySelector("textarea");
+		   tempTextarea.onkeyup=function(){
+		      resize(tempTextarea);
+		   };
+ 	   secContent.append(firstTextTpl);
+ 	   tempTextarea.focus();
+ 	   return;
+       }
+     
       var mainImg="";
       var mainContent="";
       var tpls = secContent.querySelectorAll(".tpl-div");

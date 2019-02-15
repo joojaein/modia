@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<main> <script type="text/javascript"
-	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-<link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-<script src="/resources/js/groupboardreg.js"></script>
-<link href="/resources/css/groupboardreg.css" type="text/css"
-	rel="stylesheet" />
+<main> 
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
+	<script src="/resources/js/groupboardreg.js"></script>
+	<link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
 
 <form role="form" method="post" action="boardreg">
 
@@ -65,7 +65,7 @@
 					</c:if>
 					</div>
 			</section>
-			<input id="title" name="title" type="text" placeholder="제목" />
+			<input id="title" name="title" type="text" autocomplete="off" placeholder="제목" />
 		</section>
 
 		<section class="text-content" id="sortable">
