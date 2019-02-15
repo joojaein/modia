@@ -1,34 +1,35 @@
 body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 header {
-    border-bottom: 1px solid gray;
+	border-bottom: 1px solid gray;
 }
 
-main{
-    margin: 0px 10px;       
+main {
+    margin: 0px 10px;
 }
+
 .d-none {
-    display: none;
+	display: none;
 }
 
 .sirenedit img {
-    border: 1px solid gray;
-    width: 15px;
-    height: 15px;
-    padding: 5px;
-    border-radius: 5px;
+	border: 1px solid gray;
+	width: 15px;
+	height: 15px;
+	padding: 5px;
+	border-radius: 5px;
 }
 
 .sirenedit {
-    line-height: 3.1;
+	line-height: 3.1;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+	text-decoration: none;
+	color: black;
 }
 
 .main-head {
@@ -40,102 +41,141 @@ a {
     border-bottom: 1px solid gray;
     padding: 0px 10px 0px 10px;
 }
+
 .main-head nav{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+
+}
+.sub-head{
+	grid-area: subheader;
+	font-size: 13px;
+	line-height: 30px;
+  	width: 100%;
+	justify-content: center;
+	text-align: center;
+}
+.sub-head-box{
+    position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+#select{
+	border: none;
 }
 
 .content {
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  
-}
-.content-title{
-    font-weight: bold;
-    margin: 5px 0px 5px 0px;
-    font-size: 13px;
-}
-.profile-box{
-    display: flex;
-}
-.profile-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.photo{
-    position: relative;
-    border: 1px solid black;
-    border-radius: 50px;
-    width: 30px;
-    height: 30px;
-    margin-right: 5px; 
-}
-.photo div{
-    position: absolute;
+	grid-area: content;
+
 }
 
-.content-preview{
-    grid-area: preview;
+.content p {
+	width: 220px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
-.preview{
-    text-align: center;
+
+.content-title {
+	font-weight: bold;
+    margin: 11px 0px 11px 0px;	
+    font-size: 13px;
 }
-.preview img{
+
+.etc-box{
+	width: 60%;
+}
+.img-box{
+    width: 30%;
+    overflow: hidden;
+}
+
+.post-img{
+    position: relative;
+    top: -23%;
+    float: right;
     width: 100%;
+}
+.pi-box{
+	height: 70px;
+    overflow: hidden;
+}
+
+.profile-box {
+	display: flex;
+}
+
+.profile-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.photo {
+	position: relative;
+	border: 1px solid black;
+	border-radius: 50px;
+	width: 30px;
+	height: 30px;
+	margin-right: 5px;
+}
+
+.photo div {
+	position: absolute;
 }
 
 .wrapper {
-    max-width: 1200px;
-    display: grid;
-    grid-gap: 10px;
-    grid-template-areas:
-        "header header"
-        "content preview";
-    margin: auto;
-    }
-
-@media (min-width: 400px) {
-    .wrapper {
-        /* grid-template-columns: 3fr 1fr; */
-        grid-template-areas:
-            "header  header header"
-            "content content preview";
-    }
-
-    nav ul {
-        display: flex;
-        justify-content: space-between;
-    }
+	max-width: 1200px;
+	display: grid;
+	grid-gap: 10px;
+	grid-template-areas: "header" "content";
+	margin: auto;
 }
 
-@media (min-width: 700px) {
-    .wrapper {
-        grid-template-columns: 1fr 3fr 1fr;
-        grid-template-areas:
-            "header header header"
-            "content content preview"
-     }
-     .preview{
-         max-width: 500px;
-     }
+@media ( min-width : 400px) {
+	.wrapper {
+		/* grid-template-columns: 3fr 1fr; */
+	grid-template-areas: "header" "content";
+	}
+	nav ul {
+		display: flex;
+		justify-content: space-between;
+	}
+
 }
 
+@media ( min-width : 700px) {
+	.content {
+	max-width: 1200px;
+	}
+	.wrapper {
+	
+	grid-template-areas: "header" "content";
+	}
+
+		.post-img{
+    float: right;
+    width: 28%;
+
+    
+}
+}
+
+/* 뒤로가기 --------------------------------------------- */
 a#MOVE_BACK_BTN {
-position: fixed;
-background: rgb(255, 104, 104);
-bottom: 0px;
-margin: 0 !important;
-z-index: 999;
-width: 100%;
-height: 50px;
-text-align: center;
-justify-content: center;
-font-weight: 900;
-font-size: 20px;
-color: white;
-line-height: 50px;
+	position: fixed;
+	background: rgb(255, 104, 104);
+	bottom: 0px;
+	margin: 0 !important;
+	z-index: 999;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	justify-content: center;
+	font-weight: 900;
+	font-size: 20px;
+	color: white;
+	line-height: 50px;
 }

@@ -14,8 +14,10 @@ import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.Schedule;
+import com.moida.web.entity.PostsView;
 
 @Repository
 public class MyBatisCrowdDao implements CrowdDao{
@@ -161,13 +163,6 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
-	public CrowdBoard getBoards(Integer crowdId) {
-		// TODO Auto-generated method stub
-		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getBoards(crowdId);
-	}
-
-	@Override
 	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -196,11 +191,24 @@ public class MyBatisCrowdDao implements CrowdDao{
 	}
 
 	@Override
-	public Crowd getCrowdName(Integer crowdId) {
+	public CrowdView getCrowdViews(Integer crowdId) {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
-		return crowdDao.getCrowdName(crowdId);
+		return crowdDao.getCrowdViews(crowdId);
+	}
+	
+	@Override
+	public CrowdView getCrowdTotalViews(Integer crowdId) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getCrowdTotalViews(crowdId);
 	}
 
+	@Override
+	public Board getBoardNameList(Integer crowdId, Integer id) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getBoardNameList(crowdId, id);
+	}
 
 }

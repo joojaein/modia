@@ -13,6 +13,7 @@ import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.Schedule;
 
@@ -139,11 +140,6 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getNotice(crowdId);
 	}
 
-	public CrowdBoard getBoards(Integer crowdId) {
-		// TODO Auto-generated method stub
-		return crowdDao.getBoards(crowdId);
-	}
-
 	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return crowdDao.getScheduleList(crowdId);
@@ -163,6 +159,21 @@ public class MoidaCrowdService implements CrowdService {
 	public int updateCalendarList(Schedule schedule) {
 		// TODO Auto-generated method stub
 		return crowdDao.updateCalendarList(schedule);
+	}
+
+	public CrowdView getCrowdViews(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getCrowdViews(crowdId);
+	}
+
+	public CrowdView getCrowdTotalViews(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getCrowdTotalViews(crowdId);
+	}
+
+	public Board getBoardNameList(Integer crowdId,Integer id) {
+		// TODO Auto-generated method stub
+		return crowdDao.getBoardNameList(crowdId, id);
 	}
 
 }

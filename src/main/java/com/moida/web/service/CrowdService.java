@@ -39,4 +39,5 @@ public interface CrowdService {
 	List<CrowdSimpleDataView> getSimpleCategoryTagList(Integer tagId);
 	int insertSchedule(Schedule schedule);
 	int deleteCalendarList(int id);
+	Board getBoardNameList(Integer crowdId, Integer id);
 }

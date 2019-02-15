@@ -24,6 +24,7 @@ import com.moida.web.entity.CategoryView;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdTag;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.CrowdService;
 import com.moida.web.service.MoidaCategoryService;
@@ -75,11 +76,12 @@ public class CrowdController {
 
 		List<CrowdMemberRole> list = crowdService.getCrowdMemberRole(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		
-		
+		CrowdView views = crowdService.getCrowdViews(crowdId);
+		CrowdView totalviews = crowdService.getCrowdTotalViews(crowdId);
 		model.addAttribute("list", list);
 		model.addAttribute("crowd", crowd);
-		
+		model.addAttribute("views", views);
+		model.addAttribute("total", totalviews);
 		return "crowd.main";
 	}
 

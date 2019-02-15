@@ -10,7 +10,7 @@ header {
 }
 
 main {
-	margin: 0px 10px;
+    margin: 0px 10px;
 }
 
 .d-none {
@@ -68,14 +68,21 @@ a {
 .content-box {
 	display: flex;
 	text-align: center;
+	
 }
 
 .content {
+    display: flex;
+    flex-flow: wrap;
 	grid-area: content;
 	flex-direction: row;
 	justify-content: center;
 	width: 100%;
 	margin: auto;
+}
+
+.content-box:nth-last-child(1){
+	margin-right: 50%;
 }
 
 .content img {

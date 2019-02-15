@@ -21,8 +21,11 @@
 	
 	
 	<delete id="deleteBoard" parameterType="java.lang.Integer">
-		delete from Board where id=#{boardId};
+		delete from Board where id=#{board.Id};
 	</delete>
-	
+		
+	<select id="getBoardList" resultType="com.moida.web.entity.Board">
+		select * from Board where and crowdId = #{param1};
+	</select>
 
 </mapper>

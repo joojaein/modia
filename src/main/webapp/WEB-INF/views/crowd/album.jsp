@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <main>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupalbum.css" type="text/css" rel="stylesheet" />
@@ -45,28 +46,24 @@
 </section>
 	<div>
 		<article class="content">
-			<div class="content-box">
+		<c:forEach var="a" items="${alist}">
+			<div class="content-box" style="width: 50%;">
 				<div>
-					<img src="../../../resources/images/twice.jpg" alt="">
+					<img src="/get-img?folder=crowd-postsImg&file=${a.mainImg}" alt="">
 					<div class="content-box-div">
-						<span class="album-title">어디갔다왔지롱 <span style="color: red">[10]</span></span>
-						<p style="margin: 0">이름</p>
-						<p style="margin: 0">2019-01-09 오후 17:11</p>
-					</div>
-				</div>
-				<div>
-					<img src="../../../resources/images/twice.jpg" alt="">
-					<div class="content-box-div">
-						<span class="album-title">어디갔다왔지롱 <span style="color: red">[10]</span></span>
-						<p style="margin: 0">이름</p>
-						<p style="margin: 0">2019-01-09 오후 17:11</p>
+						<span class="album-title">${a.title}</span>
+						 <span style="color: red">[10]</span>
+						<p style="margin: 0">${a.writerId}</p>
+						<p style="margin: 0">${a.regDate}</p>
 					</div>
 				</div>
 			</div>
+			</c:forEach>
 		</article>
+			<hr />
 	</div>
 </div>
-<hr />
+
 <section class="rprt-box">
 	<div class="rprt d-none">
 		<h1>신고하기</h1>

@@ -10,8 +10,10 @@ import com.moida.web.entity.CrowdHeaderTag;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.Schedule;
+import com.moida.web.entity.PostsView;
 
 public interface CrowdDao {
 
@@ -41,10 +43,13 @@ public interface CrowdDao {
 	public List<LeaderMngChartView> getChartList(int crowdId);
 	public Board getCrowdBoard(Integer type, Integer crowdId);
 	public CrowdNotice getNotice(Integer crowdId);
-	public CrowdBoard getBoards(Integer crowdId);
 	public List<Schedule> getScheduleList(Integer crowdId);
 	public int insertSchedule(Schedule schedule);
 	public int deleteCalendarList(int id);
 	public int updateCalendarList(Schedule schedule);
-	public Crowd getCrowdName(Integer crowdId);
+	public CrowdView getCrowdViews(Integer crowdId);
+	public CrowdView getCrowdTotalViews(Integer crowdId);
+	public Board getBoardNameList(Integer crowdId, Integer id);
+	
+	
 }
