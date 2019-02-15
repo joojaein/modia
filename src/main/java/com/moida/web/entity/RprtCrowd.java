@@ -16,6 +16,12 @@ public class RprtCrowd {
 		this.title = title;
 		this.content = content;
 	}
+	
+	public RprtCrowd(int crowdId, String writerId) {
+		super();
+		this.crowdId = crowdId;
+		this.writerId = writerId;
+	}
 
 	public int getCrowdId() {
 		return crowdId;

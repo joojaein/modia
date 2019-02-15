@@ -284,6 +284,23 @@ public class CrowdController {
 		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId, title, content);
         return crowdService.insertRprtCrowd(rprtCrowd)+"";
 	}
+	
+	@RequestMapping("get-rprt-crowd")
+	@ResponseBody
+	public String getRprtCrowd(String crowdIdStr, Principal principal) {
+		int crowdId = Integer.parseInt(crowdIdStr);
+        String userId = principal.getName();
+		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId);
+        return crowdService.getRprtCrowdCnt(rprtCrowd)+"";
+	}
 
+	@RequestMapping("del-rprt-crowd")
+	@ResponseBody
+	public String deleteRprtCrowd(String crowdIdStr, Principal principal) {
+		int crowdId = Integer.parseInt(crowdIdStr);
+        String userId = principal.getName();
+		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId);
+        return crowdService.deleteRprtCrowd(rprtCrowd)+"";
+	}
 }
 

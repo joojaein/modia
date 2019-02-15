@@ -53,5 +53,7 @@ public interface CrowdService {
 	int getCrowdGroupRole(int crowdId, String memberId);
 	int insertCrowdHit(int crowdId, String memberId);
 	int insertRprtCrowd(RprtCrowd rprtCrowd);
+	int deleteRprtCrowd(RprtCrowd rprtCrowd);
+	int getRprtCrowdCnt(RprtCrowd rprtCrowd);
 
 }

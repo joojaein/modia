@@ -10,7 +10,6 @@
  
 <script>
 	$(function() {
-		alert(${tagId});
 		var calist = $(".calist");
 		var alllist = $(".alllist");
 		var sebu = $(".sebu");
@@ -110,16 +109,13 @@
 			jsContainer.innerHTML = "";
 			var categoryTarget = ${categoryId};
 			var tagTarget = ${tagId};
-			alert(tagTarget+"and"+categoryTarget);
 			var tempThis;
 			var jsUl =document.querySelector(".category-main-ul");
 			var liChildren = jsUl.querySelectorAll(".tag-name");
 			for (var i = 0; i < liChildren.length; i++) {
 				if(liChildren[i].getAttribute("data-tid")==tagTarget){
 					if(liChildren[i].getAttribute("data-cid")==categoryTarget){
-						alert(liChildren[i].getAttribute("data-cid"));
 						tempThis = liChildren[i].parentNode.parentNode.parentNode;
-						console.log(" in : " +liChildren[i].innerText);
 					}
 				}
 			} 
@@ -140,7 +136,6 @@
 				var crowdCategoryList = ${chkCategoryTag};
 	 			for (var i = 0; i < crowdCategoryList.length; i++) {
 					var tBox = document.importNode(temp.content, true);
-					console.log(tBox);
 					var tempH4 = tBox.querySelector("h4");
 					tempH4.innerText = "모임명 : "+crowdCategoryList[i].name;
  					var tempSpan1 = tBox.querySelector("span:nth-child(1)");
@@ -165,7 +160,6 @@
 			event(cUrl,tUrl,cQuery,tQuery);
 		}
 		else if((${categoryId}!=0)){
-			alert("난 된다~");
 		jsContainer.innerHTML = "";
 
 		var target = ${categoryId};
@@ -175,7 +169,6 @@
 		for (var i = 0; i < ulChildren.length; i++) {
 			if(ulChildren[i].getAttribute("data-id")==target){
 				tempThis = ulChildren[i].parentNode;
-				console.log(" in : " +ulChildren[i].innerText);
 			}
 		} 
 			mainul.find("li").find("ul").css({
@@ -236,9 +229,6 @@
 			var cid = $(this).data("cid");
 			var tid = $(this).data("tid");
 			
-/* 			alert(cid);
-			alert(tid); */
-		
 			jsContainer.innerHTML = "";
 
 			if(tid==undefined){
@@ -250,7 +240,6 @@
 					for (var i = 0; i < ulChildren.length; i++) {
 						if(ulChildren[i].innerText == target.innerText){
 							tempThis = ulChildren[i].parentNode;
-							console.log(" in : " +ulChildren[i].innerText)
 						}
 					}
 					
@@ -335,7 +324,6 @@
 				tListRequest.onload = function(){
 					//태그아이디를 받았을 경우
 					var crowdTagList = JSON.parse(tListRequest.responseText);
-					console.log(crowdTagList);
 					for (var i = 0; i < crowdTagList.length; i++) {
 						var tBox = document.importNode(temp.content, true);
 	
@@ -436,7 +424,6 @@
 		});
 		}
 		if(searchText.value!=""){
-			alert("되니");
  	
 			jsContainer.innerHTML = "";
 			
@@ -521,7 +508,6 @@
 				var nameList = JSON.parse(autoRequest.responseText);
 
 				for (var i = 0; i < nameList.length; i++) {
-					console.log(nameList[i].name);
 					var li = document.createElement("LI");
 					li.setAttribute("data-id",nameList[i].id);
 					li.onclick = function(e){
@@ -533,7 +519,6 @@
 
 			}
 
-			console.log(e.target.value);
 			autoRequest.send(); 
 
 		}

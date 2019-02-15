@@ -266,4 +266,10 @@ public class MyBatisCrowdDao implements CrowdDao{
 		return crowdDao.insertRprtCrowd(rprtCrowd);
 	}
 
+	@Override
+	public int deleteRprtCrowd(RprtCrowd rprtCrowd) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.deleteRprtCrowd(rprtCrowd);
+	}
+
 }

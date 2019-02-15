@@ -69,7 +69,15 @@ window.addEventListener("load",function() {
 	postRequest.send();	
 	
 	selSido.onchange= function(e) {
-		if(selSido.selectedIndex==0) return;
+		if(selSido.selectedIndex==0){
+			selSigungu.innerHTML="";
+			var temp = document.createElement('option');
+			temp.value="null";
+			temp.innerHTML = "시군구";
+			temp.classList.add("option");
+			selSigungu.appendChild(temp);
+			return 
+		}
 		var sidoIndex = selSido.selectedIndex-1;
 		selSigungu.innerHTML="";
 		var temp = document.createElement('option');
