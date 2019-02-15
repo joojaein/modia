@@ -15,7 +15,12 @@
 
     <div class="sirenedit">
        	<a class="btn-setting d-none" href="/leader/manage?crowd=${crowd.id}"><img src="/resources/images/settings.png" /></a>
-    	<a class="btn-siren d-none" href="#"><img src="/resources/images/siren.png" /></a>
+    	<c:if test="${rprtCrowdCnt eq '0'}">
+    		<a class="btn-siren d-none" href="#"><img src="/resources/images/siren.png" /></a>
+    	</c:if>
+    	<c:if test="${rprtCrowdCnt ne '0'}">
+   	    	<a class="btn-siren d-none" href="#"><img src="/resources/images/siren.png" style="background: yellow"/></a>
+    	</c:if>
        	<a class="btn-reg d-none" href="boardreg?crowd=${crowd.id}"><img src="/resources/images/edit.png" /></a>     
     </div>
      

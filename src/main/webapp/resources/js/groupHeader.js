@@ -30,6 +30,8 @@ window.addEventListener("load", function () {
         			rprtDelRequest.open("POST", "/crowd/del-rprt-crowd", true); 
         			rprtDelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         			rprtDelRequest.onload = function () {
+        				var img = btnSiren.querySelector("img");
+        				img.style.background="none";
         				alert("모임신고가 취소 되었습니다.");
         			}
         			rprtDelRequest.send("crowdIdStr="+crowdId);
@@ -37,8 +39,6 @@ window.addEventListener("load", function () {
         	}
         }
         rprtRequest.send("crowdIdStr="+crowdId);
-        
-
     }
     
     btnRprtSubmit.onclick = function(evt){
@@ -47,16 +47,24 @@ window.addEventListener("load", function () {
         var title = rprt.querySelector("select");
         var content = rprt.querySelector("textarea");
         
+        if(title.value==""){
+        	alert("신고 사유를 선택해주세요.");
+        	return;
+        }
+        
         var rprtRequest = new XMLHttpRequest(); 
         rprtRequest.open("POST", "/crowd/set-rprt-crowd", true); 
         rprtRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         rprtRequest.onload = function () {
         	alert("해당 모임의 신고가 완료 되었습니다.")
+			var img = btnSiren.querySelector("img");
+			img.style.background="yellow";
             title.value="";
             content.value="";
             rprt.classList.add("d-none");
         }
         rprtRequest.send("crowdIdStr="+crowdId+"&title="+title.value+"&content="+content.value);
+        
     }
     
     var authRequest = new XMLHttpRequest(); 
