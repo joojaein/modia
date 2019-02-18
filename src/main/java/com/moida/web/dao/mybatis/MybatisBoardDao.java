@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.moida.web.dao.BoardDao;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.BoardCategory;
-import com.moida.web.entity.PostsView;
+import com.moida.web.entity.PostsListView;
 
 @Repository
 public class MybatisBoardDao implements BoardDao {
@@ -55,14 +55,14 @@ public class MybatisBoardDao implements BoardDao {
 	}
 
 	@Override
-	public PostsView getBoardViewList(Integer crowdId) {
+	public PostsListView getBoardViewList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		BoardDao boardDao = session.getMapper(BoardDao.class);
 		return boardDao.getBoardViewList(crowdId);
 	}
 
 	@Override
-	public PostsView getBoardViewList(Integer crowdId, Integer categoryId) {
+	public PostsListView getBoardViewList(Integer crowdId, Integer categoryId) {
 		// TODO Auto-generated method stub
 		BoardDao boardDao = session.getMapper(BoardDao.class);
 		return boardDao.getBoardViewList(crowdId, categoryId);

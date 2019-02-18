@@ -23,12 +23,7 @@ where ${field} = #{query}  => where title = 'hello'
 	<insert id="insertRole" parameterType="com.moida.web.entity.MemberRole">
 		insert into MemberRole(memberId, roleId) values(#{memberId},#{roleId})
 	</insert>
-	
-	<select id="getMember" resultType="com.moida.web.entity.Member">
-		select * from Member
-		where id=#{id}
-	</select>
-	
+
 	<select id="getMemberIdList" resultType="java.util.Map">
 		select id from Member
 		where email=#{email}

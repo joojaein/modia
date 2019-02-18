@@ -10,7 +10,7 @@ import com.moida.web.dao.BoardDao;
 import com.moida.web.entity.Banner;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.BoardCategory;
-import com.moida.web.entity.PostsView;
+import com.moida.web.entity.PostsListView;
 
 @Service
 public class MoidaBoardService implements BoardService {
@@ -48,12 +48,12 @@ public class MoidaBoardService implements BoardService {
 		return boardDao.deleteBoard(boardId);
 	}
 
-	public PostsView getBoardViewList(Integer crowdId) {
+	public PostsListView getBoardViewList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return boardDao.getBoardViewList(crowdId);
 	}
 
-	public PostsView getBoardViewList(Integer crowdId, Integer categoryId) {
+	public PostsListView getBoardViewList(Integer crowdId, Integer categoryId) {
 		// TODO Auto-generated method stub
 		return boardDao.getBoardViewList(crowdId, categoryId);
 	}

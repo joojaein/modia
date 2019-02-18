@@ -31,6 +31,6 @@ public interface MemberDao {
 	public int insertCrowdMember(int crowdId, String memberId);
 	public int updateRequestCrowdMember(int crowdId, String memberId);	
 	public int updateRealCrowdMember(int crowdId, String memberId, int groupRole);	
-	public int deleteCrowdMember(int crowdId, String memberId);	
+	public int deleteCrowdMember(int crowdId, String memberId);
 
    }

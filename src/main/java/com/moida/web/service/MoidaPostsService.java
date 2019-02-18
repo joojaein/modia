@@ -11,7 +11,8 @@ import com.moida.web.dao.PostsContentDao;
 import com.moida.web.dao.PostsDao;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
-import com.moida.web.entity.PostsView;
+import com.moida.web.entity.PostsInfoView;
+import com.moida.web.entity.PostsListView;
 
 @Service
 public class MoidaPostsService implements PostsService {
@@ -44,27 +45,46 @@ public class MoidaPostsService implements PostsService {
 	}
 
 	@Override
-	public List<PostsView> getPostsView1(Integer crowdId) {
+	public List<PostsListView> getPostsListView1(Integer crowdId) {
 		// TODO Auto-generated method stub
 		
-		return postsDao.getPostsView1(crowdId);
+		return postsDao.getPostsListView1(crowdId);
 	}
 	
 	@Override
-	public List<PostsView> getPostsView2(Integer crowdId, Integer boardId) {
+	public List<PostsListView> getPostsListView2(Integer crowdId, Integer boardId) {
 		// TODO Auto-generated method stub
 		
-		return postsDao.getPostsView2(crowdId, boardId);
+		return postsDao.getPostsListView2(crowdId, boardId);
 	}
-
-	public List<PostsView> getAlbumPostsView(Integer crowdId) {
+	
+	@Override
+	public List<PostsListView> getAlbumPostsView(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return postsDao.getAlbumPostsView(crowdId);
 	}
-
-	public List<PostsView> getNoticePostsView(Integer crowdId) {
+	
+	@Override
+	public List<PostsListView> getNoticePostsView(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return postsDao.getNoticePostsView(crowdId);
+	}
+	
+	@Override
+	public List<PostsContent> getPostsContent(Integer postsId) {
+		// TODO Auto-generated method stub
+		return postsContentDao.getPostsContent(postsId);
+	}
+
+	@Override
+	public PostsInfoView getPostsinfoView(Integer id) {
+		// TODO Auto-generated method stub
+		return postsDao.getPostsinfoView(id);
+	}
+
+	public int updatehit(Integer id) {
+		// TODO Auto-generated method stub
+		return postsDao.updatehit(id);
 	}
 
 }

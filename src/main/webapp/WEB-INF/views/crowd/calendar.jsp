@@ -3,18 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <main> <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link href="/resources/fullcalendar-3.10.0/fullcalendar.min.css"
-	type="text/css" rel="stylesheet" />
-<!-- <link href="/resources/fullcalendar-3.10.0/fullcalendar.print.min.css" type="text/css" rel="stylesheet" /> -->
+<link href="/resources/fullcalendar-3.10.0/fullcalendar.min.css" type="text/css" rel="stylesheet" />
 <script src="/resources/fullcalendar-3.10.0/lib/moment.min.js"> </script>
 <script src="/resources/fullcalendar-3.10.0/lib/jquery.min.js"> </script>
 <script src="/resources/fullcalendar-3.10.0/fullcalendar.min.js"> </script>
-<script src="/resources/fullcalendar-3.10.0/gcal.js"> </script> <script
-	src="/resources/fullcalendar-3.10.0/locale/ko.js"> </script>
-<link href="/resources/css/groupcalendar.css" type="text/css"
-	rel="stylesheet" />
-<script src="/resources/js/rprtmodal.js"> </script> <script
-	src="/resources/js/calendarmodal.js"> </script> 
+<script src="/resources/fullcalendar-3.10.0/gcal.js"> </script> 
+<script src="/resources/fullcalendar-3.10.0/locale/ko.js"> </script>
+<link href="/resources/css/groupcalendar.css" type="text/css" rel="stylesheet" />
+<script src="/resources/js/rprtmodal.js"> </script> <script src="/resources/js/calendarmodal.js"> </script> 
 <script type="text/javascript">
 var dataset = [
     <c:forEach var="s" items="${schedule}" varStatus="status">
@@ -288,14 +284,4 @@ window.addEventListener("load", function () {
 		</div>
 	</div>
 </section>
-
-<%-- <form id="cform" method="post" action="/crowd/calendar-insert">
- <c:forEach var="s" items="${schedule}">
- 	<input name="id" type="text" value="${s.id}" />
- 	<input name="title" type="text" value="${s.title}" />
- 	<input name="content" type="text" value="${s.content}" />
- 	<input name="startDate" type="text" value="${s.startDate}" />
- 	<input name="endDate" type="text" value="${s.endDate}" />
- 	<input name="crowd" type="text" value="${s.crowdId}" />
- </c:forEach>
- </form> --%>
+<a id="MOVE_BACK_BTN">목록으로</a>
