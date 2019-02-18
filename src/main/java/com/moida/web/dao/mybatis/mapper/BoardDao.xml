@@ -25,10 +25,7 @@
 	
 	
 	<delete id="deleteBoard" parameterType="java.lang.Integer">
-		delete from Board where id=#{boardId};
+		delete from Board where id=#{board.Id};
 	</delete>
-
-
-
 
 </mapper>

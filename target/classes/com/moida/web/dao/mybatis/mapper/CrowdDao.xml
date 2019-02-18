@@ -17,20 +17,22 @@
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select * from CrowdSimpleDataView where id = #{param1}
 	</select>
-	
-	<select id="getBoards"
-		resultType="com.moida.web.entity.CrowdBoard">
-		select * from Board where type=0 and crowdId=#{param1};
+		
+	<select id="getCrowdViews" resultType="com.moida.web.entity.CrowdView">
+		select count(*) hit from CrowdHit where crowdId=#{param1} and date = current_date();
+	</select>
+	<select id="getCrowdTotalViews" resultType="com.moida.web.entity.CrowdView">
+		select count(*) hit from CrowdHit where crowdId = #{param1};
 	</select>
 	
 	<select id="getNotice"
 		resultType="com.moida.web.entity.CrowdNotice">
-		select * from boardListView where type = 0 and crowdId=#{param1};
+		select * from postsView where type = 0 and crowdId=#{param1};
 	</select>
 	
 	<select id="getNoticeList"
 		resultType="com.moida.web.entity.CrowdNotice">
-		select * from boardListView where type = 0 and crowdId=#{param1};
+		select * from postsView where type = 0 and crowdId=#{param1};
 	</select>
 	
 	<select id="getScheduleList"

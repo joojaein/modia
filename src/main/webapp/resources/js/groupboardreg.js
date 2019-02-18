@@ -2,8 +2,7 @@ window.addEventListener("load", function () {
    var select1 = document.querySelector("#select1");
    var select2 = document.querySelector("#select2");
    var hr = document.querySelector(".hr");
-   var boardId = select2.value;
-   var location = "board";
+
    
    select1.onchange = function () {
 	   
@@ -12,25 +11,13 @@ window.addEventListener("load", function () {
       if (selectedOpt.innerText=="게시판") {
          select2.classList.remove("d-none");
          hr.classList.remove("d-none");
-         boardId = select2.value;
-         location = "board";
       } else{
     	  select2.classList.add("d-none");
     	  hr.classList.add("d-none");
-	      boardId = select1.value;
-	      if(selectedOpt.innerText=="공지사항"){
-	    	  location = "notice";
-	      }else if(selectedOpt.innerText=="사진첩"){
-	    	  location = "album";
-		  }
       } 
    }
    
-   select2.onchange = function () {
-      boardId = select2.value;
-      location = "board";
-   }
-   
+
    function getQuerystring(paramName){ 
       var _tempUrl = window.location.search.substring(1); 
       var _tempArray = _tempUrl.split('&');       
@@ -161,9 +148,63 @@ window.addEventListener("load", function () {
                secContent.removeChild(tpls[i]);
             }
          }
-      }       
+      }     
        
-      var title = document.querySelector("#title").value;
+       var title = document.querySelector("#title").value;
+
+       if(title==""){
+    	   swal({
+				  title: "제목을 입력 해주세요",
+				  icon: "warning",
+				  button : "확인",
+				  dangerMode: true,
+			  	});	
+    	   
+    	   if(secContent.querySelectorAll(".tpl-div").length==0){
+    		   var firstTextTpl = document.importNode(textTpl.content, true);
+    		   var tempTextarea = firstTextTpl.querySelector("textarea");
+    		   tempTextarea.onkeyup=function(){
+    		      resize(tempTextarea);
+    		   };
+	    	   secContent.append(firstTextTpl);
+    	   }
+    	   return;
+       }else if(secContent.querySelectorAll(".tpl-div-img").length==0 
+    		   && select1.options[select1.selectedIndex].innerText=="사진첩"){
+    	   swal({
+				  title: "사진을 등록 해주세요",
+				  icon: "warning",
+				  button : "확인",
+				  dangerMode: true,
+			  	});		
+    	   if(secContent.querySelectorAll(".tpl-div").length==0){
+    		   var firstTextTpl = document.importNode(textTpl.content, true);
+    		   var tempTextarea = firstTextTpl.querySelector("textarea");
+    		   tempTextarea.onkeyup=function(){
+    		      resize(tempTextarea);
+    		   };
+	    	   secContent.append(firstTextTpl);
+	    	   tempTextarea.focus();
+    	   }
+    	   return;
+       }else if(secContent.querySelectorAll(".tpl-div").length==0){
+    	   swal({
+				  title: "내용을 입력 해주세요",
+				  icon: "warning",
+				  button : "확인",
+				  dangerMode: true,
+			  	});		
+
+		   var firstTextTpl = document.importNode(textTpl.content, true);
+		   var tempTextarea = firstTextTpl.querySelector("textarea");
+		   tempTextarea.onkeyup=function(){
+		      resize(tempTextarea);
+		   };
+ 	   secContent.append(firstTextTpl);
+ 	   tempTextarea.focus();
+ 	   return;
+       }
+     
       var mainImg="";
       var mainContent="";
       var tpls = secContent.querySelectorAll(".tpl-div");
@@ -173,9 +214,9 @@ window.addEventListener("load", function () {
       for (var i = 0; i < tpls.length; i++) {
          var firstChild = tpls[i].children[0];
          if(firstChild.classList.contains("content-text")){
-            var temp={text:firstChild.value, ord:i}
+            var temp={text:encodeURIComponent(firstChild.value), ord:i}
             if(mainContent==""){
-               mainContent=firstChild.value;
+               mainContent=encodeURIComponent(firstChild.value);
             }
             contentArr.push(temp);
          }else{
@@ -195,6 +236,18 @@ window.addEventListener("load", function () {
          }
       }
       var jsonContent = JSON.stringify(contentArr);
+      
+      var boardId = select2.value;
+      var location = "board";
+      var selectedOpt = select1.options[select1.selectedIndex];
+      if (selectedOpt.innerText!="게시판") {
+   	      boardId = select1.value;
+   	      if(selectedOpt.innerText=="공지사항"){
+   	    	  location = "notice";
+   	      }else if(selectedOpt.innerText=="사진첩"){
+   	    	  location = "album";
+   		  }
+      } 
       
       var postsRequest = new XMLHttpRequest(); 
       postsRequest.open("POST", "/crowd/boardreg", true); 
@@ -235,7 +288,7 @@ window.addEventListener("load", function () {
          
       }
       postsRequest.send("boardId="+boardId+
-            "&title="+title+
+            "&title="+encodeURIComponent(title)+
             "&content="+mainContent+
             "&jsonContent="+jsonContent+
             "&mainImg="+mainImg);   

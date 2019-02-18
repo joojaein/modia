@@ -60,7 +60,6 @@ public class HomeController {
    public String index(HttpSession session) {
 
 	   String preurl = (String)session.getAttribute("preurl");
-	   System.out.println(preurl);
 	   if(preurl!=null)
 	   {
 		session.removeAttribute("preurl");

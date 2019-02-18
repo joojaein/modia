@@ -215,7 +215,7 @@ window.addEventListener("load",function(){
     				+"&email="+txtEmail.value
     				+"&birth="+join.querySelector(".date-etc").value
     				+"&gender="+gen
-    				+"&msg="+join.querySelector("textarea").value
+    				+"&msg="+encodeURIComponent(join.querySelector("textarea").value)
     				+"&img="+fileDnone.value   		
     		);	    		
     	}

@@ -24,36 +24,48 @@ function modalopen() {
 		screen.style.opacity = "0.7";
 	}, 10);
 };
+
+
 function dataadd() {
-	var corwdId = window.location.search.split("=")[1];
-	var startday = document.querySelector(".from-date").value;
-	var endday = document.querySelector(".to-date").value;
-	var sday = moment(startday);
-	var eday = moment(endday);
-	var titletxt = document.querySelector(".title-text");
-	var contenttxt = document.querySelector(".content-text").value;
 	var modal = document.querySelector(".send-modal");
 	var screen = $(".screen");
-		
-	var cListRequest = new XMLHttpRequest();
-    cListRequest.open("POST", "/crowd/calendar", true);
-    cListRequest.setRequestHeader("Content-Type",
-          "application/x-www-form-urlencoded");
-    cListRequest.onload = function() {
-
-    	window.location.href="";
-    	}
+	var cform = $('#cform').serializeArray();
+	alert(cform);
+	var start = $(".from-date").val();
 	
-		if(endday ==""){
-			endday = startday;
-
-        cListRequest.send("crowdId="+corwdId+"&startDate="+startday+"&endDate="+endday+"&title="+titletxt.value+"&content="+contenttxt);
-		}else{
-			cListRequest.send("crowdId="+corwdId+"&startDate="+startday+"&endDate="+endday+"&title="+titletxt.value+"&content="+contenttxt);	
-		}
+			cform = changeSerialize(cform, "endDate", start);
+	
+	$.ajax({
+		url: '/crowd/calendar',
+		type: "post",
+		dataType: "json",
+		data: cform,
+		success : function(json) {
+		console.log("연결");
+		
 		modal.classList.remove("show");
 		modal.classList.remove("hide");
 		screen.remove();
-};
+		}
+		
+	})
+}
+function changeSerialize(values,k,v) {
+	var found = false;
+	for (i = 0; i < values.length && !found; i++) {
+		if (values[i].name == k) { 
+			values[i].name = v;
+			found = true;
+		}
+	}
+	if(!found) {
+		values.push(
+			{
+				name: k,
+				value: v
+			}	
+		);
+	}
+	return values;
 
-
+}

@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +26,10 @@ import com.moida.web.entity.CategoryView;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdTag;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.Member;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
-import com.moida.web.service.CrowdService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaCrowdTagService;
@@ -48,7 +48,6 @@ public class CrowdController {
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userCrowdAuthType = -1;
-
 		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		
@@ -59,7 +58,6 @@ public class CrowdController {
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
 			crowdService.insertCrowdHit(crowdId, userId);
-			
 			///쿠키관련///////////////////////////////
 			String values = "";
 			Cookie[] cookies = request.getCookies();
@@ -93,9 +91,14 @@ public class CrowdController {
 				}
 			}
 		}
+		
+		CrowdView views = crowdService.getCrowdViews(crowdId);
+		CrowdView totalviews = crowdService.getCrowdTotalViews(crowdId);
 		model.addAttribute("userCrowdAuthType", userCrowdAuthType);
 		model.addAttribute("list", memberList);
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("views", views);
+		model.addAttribute("total", totalviews);
 		
 		return "crowd.main";
 	}

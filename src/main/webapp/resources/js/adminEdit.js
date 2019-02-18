@@ -58,7 +58,7 @@ var main = document.querySelector("main");
 		msgRequest.onload = function () {	
 				window.location.href = "/admin/index";
 		}
-		msgRequest.send("msg="+textarea.value);	
+		msgRequest.send("msg="+encodeURIComponent(textarea.value));	
 	};
 	
 	
