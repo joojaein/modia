@@ -30,6 +30,10 @@ window.addEventListener("load",function() {
 		var areaSigungu = selSigungu.value;
 		var name = divEdit.querySelector(".input-name").value;
 		var content = divEdit.querySelector(".textarea-content").value;
+
+		name=encodeURIComponent(name);
+		content = encodeURIComponent(content);
+		
 		var ageMin = selMin.value;
 		var ageMax = selMax.value;
 		var gender = selGen.value;
@@ -113,63 +117,79 @@ window.addEventListener("load",function() {
 			}
 		}
 			
+		var canEditRequest = new XMLHttpRequest(); 
+		canEditRequest.open("POST", "/leader/can-edit-crowd-maxperson", true); 
+		canEditRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		canEditRequest.onload = function () {	
+			var result = canEditRequest.responseText;
+		
+			if(result=="false"){
+				swal({
+					  title: "정원을 수정해주세요",
+					  text: "현재 인원이 입력하신 정원보다 많습니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});
+				return;
+			}else if(result=="true"){
+			
+				var tags = divTag.querySelectorAll(".btn");
+				for (var i = 0; i < tags.length; i++) {
+					if(tags[i].classList.contains("selected-tag")){
+						tagList.push(tags[i].name);
+					}
+				}
+				
+				if(file!=null){
+					img = file.name;
+					var fileDelRequest = new XMLHttpRequest(); 
+					fileDelRequest.open("POST", "/delete-file", true); 
+					fileDelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+					fileDelRequest.onload = function () {	
+						var fd = new FormData();
+				          fd.append("file", file);  
+				          fd.append("id", crowdId);  
+				          fd.append("root", "crowd-banner"); 
+						$.ajax({
+				  			url: '/file-upload',
+							data: fd,
+							dataType: 'text',
+							processData: false,
+							contentType: false,
+							type: 'POST',
+							success : function(data) {				
+							}	
+						});
+					}
+					fileDelRequest.send("fileName="+imgBanner.name+"&root=crowd-banner");			
+				}
+				
+				var updateRequest = new XMLHttpRequest(); 
+				updateRequest.open("POST", "/leader/update-crowd", true); 
+				updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+				updateRequest.onload = function () {	
+					window.location.href="/leader/manage?crowd="+crowdId;
+				}
+				updateRequest.send("id="+crowdId+
+						"&areaSido="+areaSido+
+						"&areaSigungu="+areaSigungu+
+						"&name="+name+
+						"&content="+content+
+						"&ageMin="+ageMin+
+						"&ageMax="+ageMax+
+						"&gender="+gender+
+						"&maxPerson="+maxPerson+
+						"&img="+img+
+						"&tagList="+tagList		
+				);
+				
+			}
+		}
+		canEditRequest.send("crowdId="+crowdId+"&maxPerson="+maxPerson);	
+
 
 		
-		/////////////////////////////////////////////////////////////////////
-		
-		if(areaSido=="null" || areaSigungu=="null" || name=="" ||content==""){
-			alert("미기재 사항이 존재하여 모임 수정이 취소 되었습니다.");
-			return;
-		}
-		var tags = divTag.querySelectorAll(".btn");
-		for (var i = 0; i < tags.length; i++) {
-			if(tags[i].classList.contains("selected-tag")){
-				tagList.push(tags[i].name);
-			}
-		}
-		
-		if(file!=null){
-			img = file.name;
-			var fileDelRequest = new XMLHttpRequest(); 
-			fileDelRequest.open("POST", "/delete-file", true); 
-			fileDelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-			fileDelRequest.onload = function () {	
-				var fd = new FormData();
-		          fd.append("file", file);  
-		          fd.append("id", crowdId);  
-		          fd.append("root", "crowd-banner"); 
-				$.ajax({
-		  			url: '/file-upload',
-					data: fd,
-					dataType: 'text',
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					success : function(data) {				
-					}	
-				});
-			}
-			fileDelRequest.send("fileName="+imgBanner.name+"&root=crowd-banner");			
-		}
-		
-		var updateRequest = new XMLHttpRequest(); 
-		updateRequest.open("POST", "/leader/update-crowd", true); 
-		updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-		updateRequest.onload = function () {	
-			window.location.href="/leader/manage?crowd="+crowdId;
-		}
-		updateRequest.send("id="+crowdId+
-				"&areaSido="+areaSido+
-				"&areaSigungu="+areaSigungu+
-				"&name="+name+
-				"&content="+content+
-				"&ageMin="+ageMin+
-				"&ageMax="+ageMax+
-				"&gender="+gender+
-				"&maxPerson="+maxPerson+
-				"&img="+img+
-				"&tagList="+tagList		
-		);
 	};
 	
 	

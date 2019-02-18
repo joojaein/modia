@@ -21,6 +21,9 @@
 				<hr class="hr-normal m-t-n" />
 			    <ul class="main-icon-list">
 				</ul>
+				
+				<div class="right all-category">
+				</div>
             </article>
             
             <article class="area-group">

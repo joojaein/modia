@@ -2,6 +2,8 @@ package com.moida.web.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moida.web.entity.AdminMngMemberView;
 import com.moida.web.entity.LeaderMngMemberView;
 import com.moida.web.entity.LeaderMngRequestMemberView;
@@ -10,7 +12,7 @@ import com.moida.web.entity.MemberRole;
 
 public interface MemberDao {
 
-	Member getMember(String id);
+	Member getMember(@Param("id") String id);
 	List<String> getMemberIdList(String email);
 	
 	int insert(Member member);	

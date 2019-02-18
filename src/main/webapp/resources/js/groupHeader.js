@@ -10,6 +10,18 @@ window.addEventListener("load", function () {
     var btnClear = document.querySelector(".clear-btn");
     var btnRprtSubmit = document.querySelector(".rprt-btn input");
 
+    var firstRprtRequest = new XMLHttpRequest(); 
+    firstRprtRequest.open("POST", "/crowd/get-rprt-crowd", true); 
+    firstRprtRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    firstRprtRequest.onload = function () {
+    	if(firstRprtRequest.responseText!=0){        
+    		var sirenImg = btnSiren.querySelector("img");
+    		sirenImg.style.background="yellow";
+    	}
+    }
+    firstRprtRequest.send("crowdIdStr="+crowdId);
+    
+    
     btnClear.onclick = function (e) {
         e.preventDefault();
 		var rprt = document.querySelector(".rprt");

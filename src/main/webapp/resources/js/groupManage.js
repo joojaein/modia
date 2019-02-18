@@ -1,6 +1,54 @@
 window.addEventListener("load",function() {
 	var main = document.querySelector("main");
-    var menu = main.querySelector(".menu");
+    
+	var areaName = document.querySelector(".area-name");
+	var categoryImg = areaName.querySelector("img");
+	
+    switch(categoryImg.name){
+       case "1" : categoryImg.src="/resources/images/mainIcon/backpack.png"
+          break;
+       case "2" : categoryImg.src="/resources/images/mainIcon/balls.png"
+          break;
+       case "3" : categoryImg.src="/resources/images/mainIcon/books.png"
+          break;
+       case "4" : categoryImg.src="/resources/images/mainIcon/cubes.png"
+          break;
+       case "5" : categoryImg.src="/resources/images/mainIcon/tickets.png"
+          break;
+       case "6" : categoryImg.src="/resources/images/mainIcon/piano.png"
+          break;
+       case "7" : categoryImg.src="/resources/images/mainIcon/yarn.png"
+          break;
+       case "8" : categoryImg.src="/resources/images/mainIcon/ballerina.png"
+          break;
+       case "9" : categoryImg.src="/resources/images/mainIcon/heart.png"
+          break;
+       case "11" : categoryImg.src="/resources/images/mainIcon/car.png"
+          break;
+       case "12" : categoryImg.src="/resources/images/mainIcon/photo-camera.png"
+          break;
+       case "13" : categoryImg.src="/resources/images/mainIcon/baseball-field.png"
+          break;
+       case "14" : categoryImg.src="/resources/images/mainIcon/game-controller.png"
+          break;
+       case "15" : categoryImg.src="/resources/images/mainIcon/cooking.png"
+          break;
+       case "16" : categoryImg.src="/resources/images/mainIcon/dog.png"
+          break;
+       case "17" : categoryImg.src="/resources/images/mainIcon/family.png"
+          break;
+       case "10" : categoryImg.src="/resources/images/mainIcon/small-talk.png"
+          break;
+       case "18" : categoryImg.src="/resources/images/mainIcon/puzzle.png"
+          break;
+    }
+	
+	var areaContent = document.querySelector(".area-content");
+	var textareaContent = areaContent.querySelector("textarea");
+	textareaContent.style.height = "1px";
+	textareaContent.style.height = (1+textareaContent.scrollHeight)+"px";
+ 
+	var menu = main.querySelector(".menu");
     
     var divEtc = main.querySelector(".div-etc");
     var divBorder = divEtc.querySelector(".board");
@@ -537,8 +585,10 @@ window.addEventListener("load",function() {
     	var trs = tbody.querySelectorAll("tr");
     	var chkboxs = tbody.querySelectorAll("input[type='checkbox']");
     	var ids ="";
+    	var cnt = 0;
     	for (var i = 0; i < chkboxs.length; i++) {
     		if(chkboxs[i].checked){
+    			cnt++;
     			if(ids!=""){
         			ids+=", ";
         		}
@@ -547,19 +597,37 @@ window.addEventListener("load",function() {
     		}
 		}
     	
-    	var confirmApproval = confirm("["+ids+"]의 가입을 승인 하시겠습니까?");
-		if(confirmApproval){
-			var updateRequest = new XMLHttpRequest(); 
-			updateRequest.open("POST", "/leader/update-request-member", true); 
-			updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-			updateRequest.onload = function () {	
-				setApproval();
+    	if(cnt==0){
+    		alert("가입을 승인할 회원이 선택되지 않았습니다.");
+    		return;
+    	}
+    	
+    	var canAddRequest = new XMLHttpRequest(); 
+    	canAddRequest.open("POST", "/leader/can-add-crowd-member", true); 
+    	canAddRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    	canAddRequest.onload = function () {	
+			var result = canAddRequest.responseText;
+			if(result == "false"){
+	    		alert("정원 초과로 가입을 승인할 수 없습니다.\n정원을 변경 후 가입을 승인하십시오.");
+	    		return;
+			}else{
+				var confirmApproval = confirm("["+ids+"]의 가입을 승인 하시겠습니까?");
+				if(confirmApproval){
+					var updateRequest = new XMLHttpRequest(); 
+					updateRequest.open("POST", "/leader/update-request-member", true); 
+					updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+					updateRequest.onload = function () {	
+						setApproval();
+					}
+					updateRequest.send("crowdId="+crowdId+"&memberIds="+ids);	
+					setApproval();
+				}else{
+					setApproval();
+				}
 			}
-			updateRequest.send("crowdId="+crowdId+"&memberIds="+ids);	
-			setApproval();
-		}else{
-			setApproval();
 		}
+    	canAddRequest.send("crowdId="+crowdId+"&addCnt="+cnt);	
+
 	};
 	
 	

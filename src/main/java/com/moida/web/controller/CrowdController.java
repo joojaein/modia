@@ -48,7 +48,6 @@ public class CrowdController {
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userCrowdAuthType = -1;
-		int rprtCrowdCnt = 0;
 		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		
@@ -59,8 +58,6 @@ public class CrowdController {
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
 			crowdService.insertCrowdHit(crowdId, userId);
-			RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId);
-			rprtCrowdCnt =  crowdService.getRprtCrowdCnt(rprtCrowd);
 			///쿠키관련///////////////////////////////
 			String values = "";
 			Cookie[] cookies = request.getCookies();
@@ -100,7 +97,6 @@ public class CrowdController {
 		model.addAttribute("userCrowdAuthType", userCrowdAuthType);
 		model.addAttribute("list", memberList);
 		model.addAttribute("crowd", crowd);
-		model.addAttribute("rprtCrowdCnt", rprtCrowdCnt);
 		model.addAttribute("views", views);
 		model.addAttribute("total", totalviews);
 		

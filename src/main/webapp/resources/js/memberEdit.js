@@ -21,22 +21,27 @@ window.addEventListener("load",function(){
 	fileDnone.addEventListener('change', function(evt){
 		  var curFiles = fileDnone.files;
 		  var profileFile = curFiles[0];
-		  
-		  var fd = new FormData();
-          fd.append("file", profileFile);  
-          fd.append("id", divProfile.querySelector(".id").innerText);  
-          fd.append("root", "member-profile");  
-          $.ajax({
-  			url: '/file-upload',
-  			data: fd,
-  			dataType: 'text',
-  			processData: false,
-  			contentType: false,
-  			type: 'POST',
-  			success : function(data) {
-  				window.location.href = "/member/index";
-  			}	
-          });
+		  var imgRequest = new XMLHttpRequest(); 
+		  imgRequest.open("POST", "/member/update-img", true); 
+		  imgRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		  imgRequest.onload = function () {	
+			  var fd = new FormData();
+	          fd.append("file", profileFile);  
+	          fd.append("id", divProfile.querySelector(".id").innerText);  
+	          fd.append("root", "member-profile");  
+	          $.ajax({
+	  			url: '/file-upload',
+	  			data: fd,
+	  			dataType: 'text',
+	  			processData: false,
+	  			contentType: false,
+	  			type: 'POST',
+	  			success : function(data) {
+	  				window.location.href = "/member/index";
+	  			}	
+	          });
+          }
+		  imgRequest.send("img="+profileFile.name);			 
 	});
 	
 	
@@ -58,7 +63,8 @@ window.addEventListener("load",function(){
 		msgRequest.onload = function () {	
 				window.location.href = "/member/index";
 		}
-		msgRequest.send("msg="+textarea.value);	
+		
+		msgRequest.send("msg="+encodeURIComponent(textarea.value));	
 	};
 	
 	

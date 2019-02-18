@@ -111,6 +111,10 @@ p{
     margin-left: 5px;
 }
 
+.group-list-flex-content p{
+    height: 15px;
+}
+
 .group-list-flex-content div:last-child{
     position: absolute;
     bottom: 0px;

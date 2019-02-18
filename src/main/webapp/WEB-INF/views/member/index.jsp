@@ -30,7 +30,7 @@
 			    		<img src="/resources/images/test.jpg">
 						<div class="group-list-flex-content ellipsis">
 							<div class="fs-m fwb left tpl-name">캠핑캠핑</div>
-							<div class="ellipsis tpl-content">다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~</div>
+							<p class="ellipsis tpl-content">다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~</p>
 							<br />
 							<div class="left fwb">가입조건</div>
 							<div class="left">- 나이 : <span class="tpl-minage">20대</span> ~ <span class="tpl-maxage">40대</span></div>
@@ -46,7 +46,7 @@
 			    		<img src="/resources/images/test.jpg">
 						<div class="group-list-flex-content ellipsis schedule-flex-content">
 							<div class="fs14 fwb left tpl-name">캠핑캠핑</div>
-							<div class="ellipsis tpl-content">다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~</div>
+							<p class="ellipsis tpl-content">다 같이 모여서 캠핑가는 즐거운 모임입니다. 남녀노소 모두모두 모여요~</p>
 							<br />
 							<div class="fs14 fwb left">다가오는 모임 일정</div>
 							<div class="left tpl-sch">d-day</div>

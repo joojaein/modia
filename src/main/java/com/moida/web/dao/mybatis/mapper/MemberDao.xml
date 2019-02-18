@@ -12,7 +12,7 @@ where ${field} = #{query}  => where title = 'hello'
 
 <mapper namespace="com.moida.web.dao.MemberDao">
 	<update id="update" parameterType="com.moida.web.entity.Member">
-		update Member set pwd=#{pwd}, areaSido=#{areaSido}, email=#{email}, msg=#{msg} where id=#{id}
+		update Member set pwd=#{pwd}, areaSido=#{areaSido}, email=#{email}, msg=#{msg}, img=#{img} where id=#{id}
 	</update>
 	
 	<insert id="insert" parameterType="com.moida.web.entity.Member">

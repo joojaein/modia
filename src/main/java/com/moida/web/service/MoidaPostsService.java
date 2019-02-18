@@ -27,8 +27,10 @@ public class MoidaPostsService implements PostsService {
 	public int regPosts(Posts posts, List<PostsContent> postsContentList) {
 		postsDao.insert(posts);
 		Posts lastPosts = postsDao.getLastPosts();
-		lastPosts.setMainImg(lastPosts.getId()+lastPosts.getMainImg());
-		postsDao.update(lastPosts);
+		if(!lastPosts.getMainImg().equals("")) {
+			lastPosts.setMainImg(lastPosts.getId()+lastPosts.getMainImg());
+			postsDao.update(lastPosts);			
+		}
 
 		for (int i = 0; i < postsContentList.size(); i++) {
 			
