@@ -29,10 +29,10 @@ function changepostsList(){
 				var name = temple.querySelector(".name");
 				var title = temple.querySelector(".content-title a");
 				var lconten = temple.querySelector(".content-content a");
-				var hit = temple.querySelector(".hit a");
+				var hit = temple.querySelector(".hit");
 				var regdate = temple.querySelector(".reg-write a");
-				var commentcnt = temple.querySelector(".comment-cnt a");
-				var postimg = temple.querySelector(".post-img a");
+				var commentcnt = temple.querySelector(".comment-cnt");
+				var postimg = temple.querySelector(".post-img");
 				name.innerText = cbdId[i].writerId;
 				title.innerText = cbdId[i].title;
 				lconten.innerText = cbdId[i].content;

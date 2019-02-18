@@ -87,10 +87,12 @@
 				</div>
 			</div>
 			<div class="timeview">
-				<span class="reg-write"><a href="${url}"></a></span> <a
-					href="${url}"><span>조회수 <span class="hit"
-						style="color: red;"></span></span></a> <a href="${url}"><span>댓글수<span
-						class="comment-cnt" style="color: red;"></span></span></a>
+				<span class="reg-write"><a href="${url}"></a></span> 
+				<a href="${url}">
+				<span>조회수  <span class="hit" style="color: red;">
+				</span></span></a>
+				<a href="${url}"><span>댓글수
+				<span class="comment-cnt" style="color: red;"></span></span></a>
 			</div>
 			<hr />
 			<input class="pid" type="hidden" value="p.id" />
