@@ -15,7 +15,7 @@
 
     <div class="sirenedit">
        	<a class="btn-setting d-none" href="/leader/manage?crowd=${crowd.id}"><img src="/resources/images/settings.png" /></a>
-    	<a class="btn-siren d-none" href="#"><img src="/resources/images/siren.png" /></a>
+  		<a class="btn-siren d-none" href="#"><img src="/resources/images/siren.png" /></a>
        	<a class="btn-reg d-none" href="boardreg?crowd=${crowd.id}"><img src="/resources/images/edit.png" /></a>     
     </div>
      

@@ -146,9 +146,9 @@ public class MoidaCrowdService implements CrowdService {
 		 crowdDao.insertBoard("공지사항",0,crowd.getId());
 		 crowdDao.insertBoard("자유게시판",1,crowd.getId());
 		 crowdDao.insertBoard("사진첩",2,crowd.getId());
-
+		 crowdDao.updateImg(crowd.getId());
 		
-		return 1;
+		return crowd.getId();
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdTag;
 import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.Member;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
@@ -47,7 +48,6 @@ public class CrowdController {
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userCrowdAuthType = -1;
-
 		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		
@@ -58,7 +58,6 @@ public class CrowdController {
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
 			crowdService.insertCrowdHit(crowdId, userId);
-			
 			///쿠키관련///////////////////////////////
 			String values = "";
 			Cookie[] cookies = request.getCookies();
@@ -100,6 +99,7 @@ public class CrowdController {
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("views", views);
 		model.addAttribute("total", totalviews);
+		
 		return "crowd.main";
 	}
 
@@ -285,7 +285,7 @@ public class CrowdController {
 
 			if (word.length()< 1) {
 				Gson gson = new Gson();
-				String json = gson.toJson(simpleNameList);
+				String json = gson.toJson(tempList);
 				return json;
 			} else {
 				Gson gson = new Gson();
@@ -294,19 +294,11 @@ public class CrowdController {
 			}
 
 		} else {
-
-			if (word.length()< 1) {
-				Gson gson = new Gson();
-				String json = gson.toJson(tempList);
-				return json;
-			} else {
-
+			System.out.println("나는 검색결과"+tempList.get(0).getImg());
 				Gson gson = new Gson();
 				String json = gson.toJson(tempList);
 
 				return json;
-			}
-
 		}
 	}
 	

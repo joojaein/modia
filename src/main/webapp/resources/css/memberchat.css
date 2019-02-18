@@ -425,7 +425,6 @@ aside{
 }
 .chat-window-main{
     overflow:scroll;
-    scroll-behavior: smooth;
     overflow-x: hidden;
     grid-area: main;
     height: 100%;

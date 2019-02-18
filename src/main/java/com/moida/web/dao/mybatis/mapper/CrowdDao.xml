@@ -191,5 +191,10 @@
 		delete from RprtCrowd where crowdId=${crowdId} and writerId=#{writerId};
 	</delete>
 	
+	<update id="updateImg">
+		update Crowd set img =concat(
+		#{param},(select img from (select img from Crowd order by regDate desc limit 1)as temp))
+		where id = (select * from (select id from Crowd order by regDate desc limit 1)as temp)
+	</update>
 	
 </mapper>

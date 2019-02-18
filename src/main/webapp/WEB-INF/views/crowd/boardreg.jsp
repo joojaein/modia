@@ -8,7 +8,8 @@
 <script src="/resources/js/groupboardreg.js"></script>
 <link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/backpage.js"></script>
-<script src="/resources/js/backpage.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <form role="form" method="post" action="boardreg">
 
 	<div class="wrapper">
@@ -65,7 +66,7 @@
 					</c:if>
 					</div>
 			</section>
-			<input id="title" name="title" type="text" placeholder="제목" />
+			<input id="title" name="title" type="text" autocomplete="off" placeholder="제목" />
 		</section>
 
 		<section class="text-content" id="sortable">

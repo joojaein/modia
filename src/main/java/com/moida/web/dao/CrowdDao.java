@@ -66,4 +66,6 @@ public interface CrowdDao {
 	public int insertRprtCrowd(RprtCrowd rprtCrowd);
 	public int deleteRprtCrowd(RprtCrowd rprtCrowd);
 	
+	public int updateImg(Integer id);
+	
 }

@@ -55,6 +55,11 @@ main{
 	text-align: left;
 }
 
+.area-content textarea{
+    width: 100%;
+    resize: none;
+    border: none;
+}
 .area-etc {
 	width: 90%;
     margin: auto;	

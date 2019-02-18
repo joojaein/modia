@@ -84,6 +84,21 @@ public class HomeController {
 		return "member.edit";
 	}
 	
+	@RequestMapping("update-img")
+	@ResponseBody
+	public String updateImg(String img, Principal principal) {
+		String id = principal.getName();
+		Member member = moidamemberService.getMember(id);
+		String extName = img.substring(img.lastIndexOf("."), img.length());
+		img = id+extName;
+		
+		member.setImg(img);
+		System.out.println("member.getImg() : "+member.getImg());
+		moidamemberService.update(member);
+		
+		return null;
+	}
+	
 	@RequestMapping("update-msg")
 	@ResponseBody
 	public String updateMsg(String msg, Principal principal) {
