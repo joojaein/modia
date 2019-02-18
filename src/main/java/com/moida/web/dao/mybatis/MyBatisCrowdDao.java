@@ -272,4 +272,10 @@ public class MyBatisCrowdDao implements CrowdDao{
 		return crowdDao.deleteRprtCrowd(rprtCrowd);
 	}
 
+	@Override
+	public int updateImg(Integer id) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.updateImg(id);
+	}
+
 }

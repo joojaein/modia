@@ -282,7 +282,7 @@ public class CrowdController {
 
 			if (word.length()< 1) {
 				Gson gson = new Gson();
-				String json = gson.toJson(simpleNameList);
+				String json = gson.toJson(tempList);
 				return json;
 			} else {
 				Gson gson = new Gson();
@@ -291,19 +291,11 @@ public class CrowdController {
 			}
 
 		} else {
-
-			if (word.length()< 1) {
-				Gson gson = new Gson();
-				String json = gson.toJson(tempList);
-				return json;
-			} else {
-
+			System.out.println("나는 검색결과"+tempList.get(0).getImg());
 				Gson gson = new Gson();
 				String json = gson.toJson(tempList);
 
 				return json;
-			}
-
 		}
 	}
 	

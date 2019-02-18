@@ -75,11 +75,11 @@
 				<div class="left">
 					<span>대표사진</span>
 				</div>
-	 			<input style="display:none" type="file" />				
+	 			<input style="display:none" type="file"/>				
 				<input class="btn" type="button">
 			</div>
 			<div class="div-img">
-				<img style="max-height: 413px" />
+				<img src="" style="max-height: 413px" />
 			</div>
 		</div>
 		<input class="btn-create btn fs14 fwb" type="button" value="모임개설">

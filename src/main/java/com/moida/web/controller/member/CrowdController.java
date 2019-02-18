@@ -237,9 +237,10 @@ public class CrowdController {
 	@PostMapping("Reg")
 	@ResponseBody
 	public String Reg(String json, String tagId, Principal principal) {
-		Gson gson = new Gson();
+		Gson gson = new Gson(); 
 		Crowd crowd = gson.fromJson(json, Crowd.class);
 		crowd.setLeaderId(principal.getName());
+		
 		return crowdService.createCrowd(crowd, tagId)+"";
 	}
 	 
