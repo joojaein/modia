@@ -8,7 +8,6 @@ import com.moida.web.entity.AdminMngCrowdView;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdBoard;
-import com.moida.web.entity.CrowdHeaderTag;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
@@ -16,7 +15,6 @@ import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
-import com.moida.web.entity.PostsView;
 
 public interface CrowdDao {
 
@@ -67,5 +65,7 @@ public interface CrowdDao {
 	public int getIsRprtedCrowd(RprtCrowd rprtCrowd);
 	public int insertRprtCrowd(RprtCrowd rprtCrowd);
 	public int deleteRprtCrowd(RprtCrowd rprtCrowd);
+	
+	public int updateImg(Integer id);
 	
 }

@@ -4,9 +4,11 @@
 <main>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupalbum.css" type="text/css" rel="stylesheet" />
-<script src="/resources/js/groupalbum.js"></script> 
+<script src="/resources/js/groupalbum.js"></script>
 <link href="/resources/css/groupsearch.css" type="text/css" rel="stylesheet" />
-<script src="/resources/js/groupsearch.js"></script>
+<script src="/resources/js/groupsearch.js"></script> 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/js/backpage.js"></script>
 <div class="wrapper">
 	<section class="main-head">
 		<nav>
@@ -31,9 +33,8 @@
 		</nav>
 	</section>
 	<section class="sub-head">
-	<div class="sub-head-box">
-	<nav class="search-box">
-		</nav>
+		<div class="sub-head-box">
+			<nav class="search-box"></nav>
 			<div class="search">
 				<div class="icon">
 					<img src="../../../resources/images/Magnifying.png" />
@@ -42,25 +43,32 @@
 					<input type="search" placeholder="검색" />
 				</div>
 			</div>
-			</div>
-</section>
+		</div>
+	</section>
 	<div>
 		<article class="content">
-		<c:forEach var="a" items="${alist}">
-			<div class="content-box" style="width: 50%;">
-				<div>
-					<img src="/get-img?folder=crowd-postsImg&file=${a.mainImg}" alt="">
-					<div class="content-box-div">
-						<span class="album-title">${a.title}</span>
-						 <span style="color: red">[10]</span>
-						<p style="margin: 0">${a.writerId}</p>
-						<p style="margin: 0">${a.regDate}</p>
+			<c:forEach var="a" items="${alist}">
+				<div class="content-box" style="width: 45%;">
+					<div style="width: 100%;">
+						<div class="img-of">
+							<img class="upload-img"
+								src="/get-img?folder=crowd-postsImg&file=${a.mainImg}" alt="">
+						</div>
+						<div class="content-box-div">
+							<div>
+								<span class="album-title">${a.title}</span> 
+								<span style="color: red">[10]</span>
+							</div>
+							<div class="wr">
+							<p style="margin: 0">${a.writerId}</p>
+							<p style="margin: 0">${a.regDate}</p>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
 			</c:forEach>
 		</article>
-			<hr />
+		<hr />
 	</div>
 </div>
 
@@ -91,4 +99,4 @@
 	</div>
 </section>
 </main>
-<a id="MOVE_BACK_BTN" href="#">목록으로</a>
+<a id="MOVE_BACK_BTN">목록으로</a>

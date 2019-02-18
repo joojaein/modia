@@ -10,7 +10,7 @@ header {
 }
 
 main {
-    margin: 0px 10px;
+	margin: 0px 10px;
 }
 
 .d-none {
@@ -35,45 +35,50 @@ a {
 }
 
 .main-head {
-    margin: 0 !important;
-    grid-area: header;
-    font-size: 13px;
-    line-height: 30px;
-    border-bottom: 1px solid gray;
-    padding: 0px 10px 0px 10px;
+	margin: 0 !important;
+	grid-area: header;
+	font-size: 13px;
+	line-height: 30px;
+	border-bottom: 1px solid gray;
+	padding: 0px 10px 0px 10px;
 }
 
 .main-head nav:nth-child(1) {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-
 }
-.sub-head{
+
+.sub-head {
 	grid-area: subheader;
 	font-size: 13px;
 	line-height: 30px;
 	border-bottom: 1px solid gray;
-  	width: 100%;
+	width: 100%;
 	justify-content: center;
 	display: flex;
 	text-align: center;
 }
-.sub-head-box{
+
+.sub-head-box {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 }
 
 .content-box {
+	height: 150px;
 	display: flex;
 	text-align: center;
-	
+}
+
+.img-of {
+	height: 75%;
 }
 
 .content {
-    display: flex;
-    flex-flow: wrap;
+	display: flex;
+	flex-flow: wrap;
 	grid-area: content;
 	flex-direction: row;
 	justify-content: center;
@@ -81,17 +86,22 @@ a {
 	margin: auto;
 }
 
-.content-box:nth-last-child(1){
-	margin-right: 50%;
-}
-
 .content img {
 	width: 90%;
+	height: 70%;
 }
 
 .content-box-div {
 	padding-left: 10px;
 	text-align: left;
+	height: 1px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.content-bodx-div div{
+	margin-bottom: 2px;
 }
 
 .album-title {
@@ -113,7 +123,7 @@ a {
 @media ( min-width : 400px) {
 	.wrapper {
 		/* grid-template-columns: 3fr 1fr; */
-		grid-template-areas: "header header" "subheader subheader" "content content";
+		grid-template-areas: "header" "subheader" "content";
 	}
 	nav ul {
 		display: flex;
@@ -123,11 +133,42 @@ a {
 
 @media ( min-width : 700px) {
 	.wrapper {
-		
-		grid-template-areas: "header header" "subheader subheader" "content content";
+		grid-template-areas: "header" "subheader" "content";
 	}
-	.preview {
-		max-width: 500px;
+	.content-box-div {
+		padding-left: 25px;
+		text-align: left;
+		height: 20%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		font-size: initial;
+	}
+	.content img {
+		width: 90%;
+		height: 100%;
+	}
+	.content-box {
+		height: 400px;
+		display: flex;
+		text-align: center;
+	}
+	
+	.content-bodx-div div{
+	margin-bottom: 10px;
+}
+	.album-title {
+		font-size: 25px;
+		font-weight: bold;
+		/* margin-bottom: 10px; */
+		vertical-align: sub;
+		vertical-align: sub;
+	}
+	.img-of {
+		height: 70%;
+	}
+	.wr {
+		font-size: 15px
 	}
 }
 

@@ -44,11 +44,13 @@
 }
 .autoBox{
 	transform : translateY(-30px);
-	background: yellow;
+	background: white;
     width: auto;
     height: auto;
     z-index: 10000;
     position: relative;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 .autoUl{
 	
@@ -56,6 +58,7 @@
 .autoUl li{
 	text-align : left;
 	margin-left : 10px;
+	border : 0 0 0 1px solid;
 }
 @media ( min-width : 480px){
 	header{

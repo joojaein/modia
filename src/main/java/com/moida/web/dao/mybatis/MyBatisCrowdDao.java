@@ -18,7 +18,6 @@ import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
-import com.moida.web.entity.PostsView;
 
 @Repository
 public class MyBatisCrowdDao implements CrowdDao{
@@ -280,6 +279,12 @@ public class MyBatisCrowdDao implements CrowdDao{
 	public int deleteRprtCrowd(RprtCrowd rprtCrowd) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.deleteRprtCrowd(rprtCrowd);
+	}
+
+	@Override
+	public int updateImg(Integer id) {
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.updateImg(id);
 	}
 
 }

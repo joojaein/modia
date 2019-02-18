@@ -2,12 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <main> 
-	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-	<script src="/resources/js/groupboardreg.js"></script>
-	<link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
+<script src="/resources/js/groupboardreg.js"></script>
+<link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
+<script src="/resources/js/backpage.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <form role="form" method="post" action="boardreg">
 
@@ -137,3 +138,4 @@
 	</section>
 </form>
 </main>
+<a id="MOVE_BACK_BTN">목록으로</a>

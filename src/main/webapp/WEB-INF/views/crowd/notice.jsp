@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <main>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-<link href="/resources/css/groupnotice.css" type="text/css"
-	rel="stylesheet" />
-<script src=""></script>
+<link href="/resources/css/groupnotice.css" type="text/css" rel="stylesheet" />
+<script src="/resources/js/groupnotice.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <div class="wrapper">
 	<section class="main-head">
 		<nav>
@@ -32,26 +33,27 @@
 	<input id="cid" type="hidden" value="${crowd.id}" />
 	<article class="content">
 		<c:forEach var="p" items="${list}">
-			<div style="margin: 2px 0px 10px 0px; display: flex; justify-content: space-between;">
+			<div class="content-box">
 				<div class="etc-box">
 					<div class="profile-box">
-						<div class="photo"></div>
+						<div class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${p.writerId}.png') no-repeat center; background-size: cover;"></div>
 						<div class="profile-info">
-							<span class="name">${p.writerId}</span> <span class="reg-write">${p.regDate}</span>
+							<span class="name"><a href="${p.id}">${p.writerId}</a></span>
 						</div>
 					</div>
 					<div class="content-title">${p.title}</div>
 					<p style="margin: 0;">${p.content}</p>
 				</div>
-					
 				<div class="img-box">
-					<div style="display: flex; justify-content: space-between;">
-						<span>조회수  ${p.hit}</span> <span>댓글수 0</span>
-					</div>
 					<div class="pi-box">
-					<img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}"/>
+						<img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" />
 					</div>
 				</div>
+			</div>
+			<div class="timeview">
+				<span><fmt:formatDate value="${p.regDate}" pattern="yyyy-MM-dd a HH:mm" /></span>
+				<span>조회수<span class="hit" style="color: red;">[${p.hit}]</span></span> 
+				<span>댓글수<span class="comment-cnt" style="color: red;">[0]</span></span>
 			</div>
 			<hr />
 		</c:forEach>

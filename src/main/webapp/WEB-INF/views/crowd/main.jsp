@@ -31,7 +31,7 @@
 	</section>
 	<article class="content-img">
 		<div>
-			<img src="../../../resources/images/twice.jpg">
+			<img src="/get-img?folder=crowd-postsImg&file=${crowd.img}">
 		</div>
 	</article>
 	
