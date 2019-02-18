@@ -156,7 +156,7 @@ window.addEventListener("load",function() {
     		insertRequest.onload = function () {
 				setBoard();
 			};
-			insertRequest.send("crowdId="+crowdId+"&name="+tempInput.value);
+			insertRequest.send("crowdId="+crowdId+"&name="+encodeURIComponent(tempInput.value));
     	};
     	aCancel.onclick = function(){
     		setBoard();
@@ -225,7 +225,7 @@ window.addEventListener("load",function() {
 	            			updateRequest.onload = function () {
 	            				setBoard();
 	            			};
-	            			updateRequest.send("boardId="+tr.value +"&name="+tempInput.value);
+	            			updateRequest.send("boardId="+tr.value +"&name="+encodeURIComponent(tempInput.value));
             			}else{
 	            			setBoard();
 	            		}

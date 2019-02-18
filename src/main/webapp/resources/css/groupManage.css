@@ -121,6 +121,7 @@ main{
 
 .temp-input{
 	border: none;
+	width: 100%;
 }
 .temp-input::placeholder{
 	color: grey;	
