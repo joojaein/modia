@@ -3,18 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <main> <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link href="/resources/fullcalendar-3.10.0/fullcalendar.min.css"
-	type="text/css" rel="stylesheet" />
-<!-- <link href="/resources/fullcalendar-3.10.0/fullcalendar.print.min.css" type="text/css" rel="stylesheet" /> -->
+<link href="/resources/fullcalendar-3.10.0/fullcalendar.min.css" type="text/css" rel="stylesheet" />
 <script src="/resources/fullcalendar-3.10.0/lib/moment.min.js"> </script>
 <script src="/resources/fullcalendar-3.10.0/lib/jquery.min.js"> </script>
 <script src="/resources/fullcalendar-3.10.0/fullcalendar.min.js"> </script>
-<script src="/resources/fullcalendar-3.10.0/gcal.js"> </script> <script
-	src="/resources/fullcalendar-3.10.0/locale/ko.js"> </script>
-<link href="/resources/css/groupcalendar.css" type="text/css"
-	rel="stylesheet" />
-<script src="/resources/js/rprtmodal.js"> </script> <script
-	src="/resources/js/calendarmodal.js"> </script> 
+<script src="/resources/fullcalendar-3.10.0/gcal.js"> </script> 
+<script src="/resources/fullcalendar-3.10.0/locale/ko.js"> </script>
+<link href="/resources/css/groupcalendar.css" type="text/css" rel="stylesheet" />
+<script src="/resources/js/rprtmodal.js"> </script> <script src="/resources/js/calendarmodal.js"> </script> 
 <script type="text/javascript">
 var dataset = [
     <c:forEach var="s" items="${schedule}" varStatus="status">
@@ -63,13 +59,6 @@ $(document).ready(function() {
 			var title = $(".fc-title").text();
 			
 			var temp=eventObj.end.format();
-			/*
-			if(eventObj.end.format() == null){
-				temp = eventObj.start.format();
-			}else{
-				temp = eventObj.end.format();
-			}*/
-			//alert("temp : "+temp.setDate(temp.getDate()-1));
 			var tempdate = new Date(temp);
 			tempdate.setDate(tempdate.getDate()-1);
 			
@@ -84,13 +73,15 @@ $(document).ready(function() {
 				p.empty();
 				eh.text(eventObj.start.format()+" - "+temEnd);
 				tp.text(eventObj.title);
-				p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+				//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+				p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
 				return false;
 			}else if(eventObj.url && eventObj.start.format() == temEnd){
 				p.empty();
 				eh.text(eventObj.start.format());
 				tp.text(eventObj.title);
-				p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+				//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+				p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
 				return false;
 			}
 		
@@ -98,12 +89,12 @@ $(document).ready(function() {
 			p.empty();
 			eh.text(eventObj.start.format()+" - "+ temEnd);
 			tp.text(eventObj.title);
-			p.text(eventObj.data).append("<p class='d-none calendar-id'>"+eventObj.id+"</p>");
+			p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
 			}else if(temEnd == eventObj.start.format()){
 				p.empty();
 				eh.text(eventObj.start.format());
 				tp.text(eventObj.title);
-				p.text(eventObj.data).append("<p class='d-none calendar-id'>"+eventObj.id+"</p>");
+				p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
 			}
 			$(deleteBox()).appendTo(".eh");
 		}
@@ -121,7 +112,7 @@ function editbtn(){
 	$(".add-btn").removeAttr("onclick");
 	$(".add-btn").attr("onclick", "dataedit();");
 	$(".add-btn").text("수정");
-	
+	$(".modal-title").text("일정 수정");
 	tt.val(tp);
 	ct.text(p);
 	fdate.val(eh.substring(0,10));
@@ -210,7 +201,7 @@ window.addEventListener("load", function () {
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="album">단체채팅</a>
+				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
 	</section>
@@ -238,24 +229,24 @@ window.addEventListener("load", function () {
 
 
 				<div class="modal-body">
-					<form>
+					<form id="cform" method="post">
+					<input class="crowdId" name="crowdId" type="hidden" value="${crowd.id}" />
 						<div class="form-group form-date">
 							<label class="control-label">기간</label>
-
+							
 							<div>
-								<label>from</label> <input type="date"
-									class="form-control mb-10 from-date" pattern="yyyy-mm-dd" /> <label>to</label>
-								<input type="date" class="form-control mb-10 to-date"
-									pattern="yyyy-mm-dd" />
+								<label>from</label> 
+								<input name="startDate" type="date" class="form-control mb-10 from-date" pattern="yyyy-mm-dd" /> <label>to</label>
+								<input name="endDate" type="date" class="form-control mb-10 to-date" pattern="yyyy-mm-dd" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label">제목</label> <input type="text"
-								class="form-control title-text" />
+							<label class="control-label">제목</label> 
+							<input name="title" type="text" class="form-control title-text" />
 						</div>
 						<div class="form-group">
 							<label class="control-label">내용</label>
-							<textarea class="form-control content-text"></textarea>
+							<textarea name="content" class="form-control content-text"></textarea>
 						</div>
 					</form>
 				</div>
@@ -293,3 +284,4 @@ window.addEventListener("load", function () {
 		</div>
 	</div>
 </section>
+<a id="MOVE_BACK_BTN">목록으로</a>

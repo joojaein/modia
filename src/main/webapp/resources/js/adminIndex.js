@@ -32,11 +32,34 @@ window.addEventListener("load",function(){
     btnSubmit.onclick = function(){
     	var checkBoxs = tbody.querySelectorAll("input[type='checkbox']")
     	var chkedArr = [];
+    	var cnt=0;
     	for (var i = 0; i < checkBoxs.length; i++) {
 			if(checkBoxs[i].checked){
 				chkedArr.push(checkBoxs[i].value);
+				cnt++;
 			}
 		}	
+    	
+    	if(cnt==0){
+        	if(divPaging.name=="crowd"){
+        		swal({
+          		  title: "모임이 선택되지 않았습니다.",
+          		  icon: "warning",
+          		  button : "확인",
+          		  dangerMode: true,
+          		});
+        	}else if(divPaging.name=="member"){
+        		swal({
+          		  title: "회원이 선택되지 않았습니다.",
+          		  icon: "warning",
+          		  button : "확인",
+          		  dangerMode: true,
+          		});	
+        	}
+    		
+    		return;
+    	}
+    	
     	var ment = "선택된 ";
     	ment +=(chkedArr.length)
     	if(divPaging.name=="crowd"){
@@ -44,36 +67,59 @@ window.addEventListener("load",function(){
     	}else if(divPaging.name=="member"){
         	ment +="명의 회원을 정말 추방 하시겠습니까?";    		
     	}
-    	
-    	if(confirm(ment)){
-    		
-    		//var chkedJson = JSON.stringify(chkedArr);
-    		console.log("chkedArr : "+chkedArr);
-    		//console.log("chkedJson : "+chkedJson);
-    		var delRequest = new XMLHttpRequest(); 
-    		delRequest.open("POST", "/admin/del-mng", true); 
-    		delRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-    		delRequest.onload = function () {	
-    			if(divPaging.name=="crowd"){
-            		alert(chkedArr.length + "개의 모임이 삭제 되었습니다.");  		
-            	}else if(divPaging.name=="member"){
-            		alert(chkedArr.length + "명의 회원이 추방 되었습니다.");
-            	}
-                indexNowPage = 1;
-                setPaging();
-                setTable();  
-    		}
-    		delRequest.send("type="+divPaging.name+"&array="+chkedArr);	
-        	
-        	
-        	    
-    	}else{
-        	if(divPaging.name=="crowd"){
-        		alert("삭제가 취소 되었습니다.");
-        	}else if(divPaging.name=="member"){
-        		alert("추방이 취소 되었습니다.");
-        	}
-    	}
+
+    	  swal({
+    	      text: ment,
+    	      icon: "warning",
+    	      buttons: [
+    	    	  '취소',
+    	    	  '확인'
+    	      ],
+    	      dangerMode: true,
+    	    }).then(function(isConfirm) {
+    	      if (isConfirm) {
+    	    		var delRequest = new XMLHttpRequest(); 
+    	    		delRequest.open("POST", "/admin/del-mng", true); 
+    	    		delRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    	    		delRequest.onload = function () {	
+    	    			if(divPaging.name=="crowd"){
+    	    				swal({
+    	  					  title: chkedArr.length + "개의 모임이 삭제 되었습니다.",
+    	  					  icon: "warning",
+    	  					  button : "확인",
+    	  					  dangerMode: true,
+    	  					});
+    	            	}else if(divPaging.name=="member"){
+    	    				swal({
+    	  					  title: chkedArr.length + "명의 회원이 추방 되었습니다.",
+    	  					  icon: "warning",
+    	  					  button : "확인",
+    	  					  dangerMode: true,
+    	  					});
+    	            	}
+    	                indexNowPage = 1;
+    	                setPaging();
+    	                setTable();  
+    	    		}
+    	    		delRequest.send("type="+divPaging.name+"&array="+chkedArr);	
+    	      } else {
+    	        	if(divPaging.name=="crowd"){
+    	        		swal({
+    	        			title: "삭제가 취소 되었습니다.",
+    						icon: "warning",
+    						button : "확인",
+    						dangerMode: true,
+    						});
+    	        	}else if(divPaging.name=="member"){
+    	        		swal({
+    	        			title: "추방이 취소 되었습니다.",
+    						icon: "warning",
+    						button : "확인",
+    						dangerMode: true,
+    						});
+    	        	}
+    	      }
+    	    })  
     };
     
     

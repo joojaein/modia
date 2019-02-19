@@ -1,31 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <main>
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/boarddetail.js"></script>
 <script src="/resources/js/backpage.js"></script>
 <script src="/resources/js/comment_add.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <div class="wrapper">
 	<section class="main-head">
 		<nav>
 			<div>
-				<a href="#">정보</a>
+				<a href="main?crowd=${crowd.id}">정보</a>
 			</div>
 			<div>
-				<a href="#">공지사항</a>
+				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
 			</div>
 			<div>
-				<a href="#">일정</a>
+				<a href="calendar?crowd=${crowd.id}">일정</a>
 			</div>
 			<div>
-				<a href="#">게시판</a>
+				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
 			</div>
 			<div>
-				<a href="#">사진첩</a>
+				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
+			</div>
+			<div>
+				<a href="album">단체채팅</a>
 			</div>
 		</nav>
 	</section>

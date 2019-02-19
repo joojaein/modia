@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +26,10 @@ import com.moida.web.entity.CategoryView;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdTag;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.Member;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
-import com.moida.web.service.CrowdService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaCrowdTagService;
@@ -48,7 +48,6 @@ public class CrowdController {
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userCrowdAuthType = -1;
-
 		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		
@@ -58,6 +57,8 @@ public class CrowdController {
 			userCrowdAuthType=3;
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
+			crowdService.insertCrowdHit(crowdId, userId);
+			///쿠키관련///////////////////////////////
 			String values = "";
 			Cookie[] cookies = request.getCookies();
 			for (Cookie c : cookies) {
@@ -81,7 +82,8 @@ public class CrowdController {
 			cookie.setMaxAge(60*60*24*7); 
 			cookie.setPath("/"); 
 			response.addCookie(cookie);
-			
+			//////////////////////////////////////
+
 			for (int i = 0; i < memberList.size(); i++) {
 				if(memberList.get(i).getMemberId().equals(userId)) {
 					userCrowdAuthType = memberList.get(i).getGroupRole();
@@ -89,9 +91,14 @@ public class CrowdController {
 				}
 			}
 		}
+		
+		CrowdView views = crowdService.getCrowdViews(crowdId);
+		CrowdView totalviews = crowdService.getCrowdTotalViews(crowdId);
 		model.addAttribute("userCrowdAuthType", userCrowdAuthType);
 		model.addAttribute("list", memberList);
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("views", views);
+		model.addAttribute("total", totalviews);
 		
 		return "crowd.main";
 	}
@@ -101,10 +108,8 @@ public class CrowdController {
 
 	@RequestMapping("categorySearch")
 	public String categorySearch(Model model) {
-
 		List<Category> list = moidaCategoryService.getCategoryList();
 		List<CategoryView> categoryViewList = moidaCategoryService.getCategoryViewList();
-
 		model.addAttribute("list", list);
 		model.addAttribute("cvl", categoryViewList);
 
@@ -127,13 +132,10 @@ public class CrowdController {
 	public String search(
 			@RequestParam(name="categoryId",defaultValue="0") Integer categoryId,
 			/* String query, */
+			@RequestParam(name="tagId",defaultValue="0") Integer tagId,
 			@RequestParam(name="word",defaultValue="") String word,
 			Model model) {
-		System.out.println("search 들가지냐");		
 
-		/*public String search(Model model, String query, String categoryId) {
-		System.out.println("query :"+query);
-		System.out.println("categoryId :"+categoryId);*/
 		List<Category> list = moidaCategoryService.getCategoryList();
 		List<Tag> tlist = moidaTagService.getTagList();
 		List<CrowdSimpleDataView> tempList = moidaCrowdService.getSimpleList();
@@ -142,16 +144,12 @@ public class CrowdController {
 		if(word==null) {
 			word = "";
 		}
-		System.out.println("word : "+word + categoryId);
 		List<CrowdSimpleDataView> simpleCategoryList = moidaCrowdService.getSimpleCategoryList(categoryId, word);
-		System.out.println("simpleCategoryList : "+simpleCategoryList);
-
-		//System.out.println(simpleCategoryList.get(0).getName()+"please");
-		System.out.println("나온당");
+		List<CrowdSimpleDataView> simpleCategoryTagList = moidaCrowdService.getSimpleCategoryTagList(tagId, word);
+		
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		if (!authentication.getPrincipal().equals("anonymousUser")) {
-			/*System.out.println("if ");*/
 
 			User user = (User) authentication.getPrincipal();
 			String userId = user.getUsername();
@@ -159,33 +157,37 @@ public class CrowdController {
 
 			Member member = memberService.getMember(userId);
 			List<CrowdSimpleDataView> simpleDataList = new ArrayList<CrowdSimpleDataView>();
-			
-			/*System.out.println("simpleDataList : "+simpleDataList.size());*/
 
 			for (int i = 0; i < tempList.size(); i++) {
-				
-				System.out.println("member.getAreaSido() : "+member.getAreaSido());
-				System.out.println("tempList.get(i).getAreaSido() : "+tempList.get(i).getAreaSido());
+
 				if (member.getAreaSido().equals(tempList.get(i).getAreaSido())) {
 					simpleDataList.add(tempList.get(i));
-					System.out.println("시도야 나와라!"+tempList.get(i).getAreaSido());
 				}
 			}
 			model.addAttribute("simpleDataList", simpleDataList);
 		} else {
-			System.out.println("else ");
 
 			model.addAttribute("simpleDataList", tempList);
 		}
+		List<CrowdSimpleDataView> searchTempList = moidaCrowdService.getSearchResultList(word);
+		System.out.println(searchTempList);
 
 		Gson gson = new Gson();
 		String json = gson.toJson(simpleCategoryList);
+		Gson gson2 = new Gson();
+		String json2 = gson2.toJson(simpleCategoryTagList);
+		Gson gson3 = new Gson();
+		String json3 = gson3.toJson(searchTempList);
 		model.addAttribute("chkCategory", json);
+		model.addAttribute("chkCategoryTag", json2);
+		model.addAttribute("searchResult", json3);
 		model.addAttribute("list", list);
 		model.addAttribute("tlist", tlist);
 		model.addAttribute("crowdTagList", crowdTagList);
 		/* model.addAttribute("query",query); */
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("tagId", tagId);
+		model.addAttribute("indexWord",word);
 		
 		
 		
@@ -283,7 +285,7 @@ public class CrowdController {
 
 			if (word.length()< 1) {
 				Gson gson = new Gson();
-				String json = gson.toJson(simpleNameList);
+				String json = gson.toJson(tempList);
 				return json;
 			} else {
 				Gson gson = new Gson();
@@ -292,19 +294,11 @@ public class CrowdController {
 			}
 
 		} else {
-
-			if (word.length()< 1) {
-				Gson gson = new Gson();
-				String json = gson.toJson(tempList);
-				return json;
-			} else {
-
+			System.out.println("나는 검색결과"+tempList.get(0).getImg());
 				Gson gson = new Gson();
 				String json = gson.toJson(tempList);
 
 				return json;
-			}
-
 		}
 	}
 	

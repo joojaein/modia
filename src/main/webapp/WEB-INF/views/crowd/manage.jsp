@@ -15,13 +15,13 @@
 		</article>
 		
 		<article class="area-name">
-		    <img class="group-logo" src="/resources/images/mainIcon/backpack.png" />
+		    <img class="group-logo" name="${crowd.categoryId}" src="/resources/images/img404.png" />
 		    <span class="fwb">${crowd.name}</span>
 	    	<a href="edit?crowd=${crowd.id}">기본정보수정</a>
 		</article>
 		
 		<article class="area-content">
-			<p>${crowd.content}</p>
+			<textarea>${crowd.content}</textarea>
 			<br/>
 			<span>가입조건:</span> 
 			나이: ${crowd.ageMin} ~ ${crowd.ageMax}  / 성별: 
@@ -40,8 +40,8 @@
 		<article class="area-etc">
 			<div class="menu">
 	    		<input name="board" class="btn selected-tab" type="button" value="게시판 관리">
-	    		<input name="member" class="btn" type="button" value="회원 관리">
-	    		<input name="approval" class="btn" type="button" value="가입 승인">
+	    		<input name="member" class="btn" type="button" value="회원 관리(${realCnt})">
+	    		<input name="approval" class="btn" type="button" value="가입 승인(${requestCnt})">
 	    		<input name="statistic" class="btn" type="button" value="통계">
 	    	</div>
 	    	<div class="div-etc">
@@ -102,10 +102,10 @@
 		    			</tbody>
 		    		</table>
 	    			<div class="paging">
-		    			<input class="btn" type="button" value="&#9664;">
+	    				<input class="btn prev" type="button" value="&#9664;">
 		    			<ul>
 		    			</ul> 
-		    			<input class="btn" type="button" value="&#9654;">	 
+	    				<input class="btn next" type="button" value="&#9654;">
 		    		</div>
 	    		</div>
 	    		<div class="approval d-none">
@@ -162,10 +162,10 @@
 		    			</tbody>
 		    		</table>
 	    			<div class="paging">
-		    			<input class="btn" type="button" value="&#9664;">
+	    				<input class="btn prev" type="button" value="&#9664;">
 		    			<ul>
 		    			</ul> 
-		    			<input class="btn" type="button" value="&#9654;">	 
+	    				<input class="btn next" type="button" value="&#9654;">
 		    		</div>
 	    		</div>
 	    		<div class="statistic stat-grid d-none">

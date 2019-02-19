@@ -48,6 +48,8 @@ window.addEventListener("load",function(){
             }
          }
          canChange=true;
+
+
          autoCarousel();
        });
 
@@ -108,6 +110,7 @@ window.addEventListener("load",function(){
 
        function autoCarousel(){ 
     	   setTimeout(function(evt){
+    		   console.log("auto");
 	    	   if(!canChange) return;  
 	           canChange=false;     
 	           var nextIdx = (currentIdx+1)%lis.length;
@@ -132,7 +135,7 @@ window.addEventListener("load",function(){
 	                currentLi.style.left="-100%";
 	                nextLi.style.left="0%"
 	           },10);  
-	      },2000);  
+	      },4000);  
        }
     };
     bannerRequest.send();
@@ -196,6 +199,14 @@ window.addEventListener("load",function(){
                li.appendChild(div);
                ulIcon.appendChild(li);
           }
+
+        var divAllCategory = main.querySelector(".all-category");
+        var tempA = document.createElement('a');
+        tempA.href = "crowd/categorySearch";
+        tempA.innerText = "카테고리 상세 검색";
+        tempA.classList.add("d-none");
+        divAllCategory.appendChild(tempA);
+
     }
     categoryRequest.send();   
     
@@ -243,7 +254,7 @@ window.addEventListener("load",function(){
            divTitle.classList.add("fwb");
            divTitle.classList.add("left");
            divTitle.innerText=crowdList[i].name; 
-           var divContent = document.createElement('div');
+           var divContent = document.createElement('p');
            divContent.classList.add("ellipsis");
            divContent.innerText=crowdList[i].content; 
            var divFilter = document.createElement('div');
@@ -300,10 +311,14 @@ window.addEventListener("load",function(){
        if(btnMore.value=="more"){
           ulIcon.style.height="auto";
             btnMore.value="less";
+            var tempA = main.querySelector(".all-category A");
+            tempA.classList.remove("d-none");
         }
         else{
           ulIcon.style.height="80px";
             btnMore.value="more";
+            var tempA = main.querySelector(".all-category A");
+            tempA.classList.add("d-none");
         }   
     };    
     

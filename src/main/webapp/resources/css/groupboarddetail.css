@@ -64,6 +64,10 @@ p {
 
 }
 
+.content img{
+	max-width: 80%;
+}
+
 .profile-box {
     display: flex;
     margin-top: 5px;
@@ -90,14 +94,6 @@ p {
 
 .content-preview {
     grid-area: preview;
-}
-
-.content-img {
-    grid-area: img;
-}
-
-.content-img img {
-    width: 100%;
 }
 
 .content-comment {
@@ -169,7 +165,6 @@ footer{
         "header"
         "title"
         "content"
-        "img"
         "comment"
         "footer";
     margin: auto;
@@ -182,7 +177,6 @@ footer{
         "header"
         "title"
         "content"
-        "img"
         "comment"
     }
 
@@ -198,7 +192,6 @@ footer{
         "header"
         "title"
         "content"
-        "img"
         "comment"
     }
 

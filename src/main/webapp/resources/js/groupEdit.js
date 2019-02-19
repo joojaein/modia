@@ -30,67 +30,169 @@ window.addEventListener("load",function() {
 		var areaSigungu = selSigungu.value;
 		var name = divEdit.querySelector(".input-name").value;
 		var content = divEdit.querySelector(".textarea-content").value;
+
+		name=encodeURIComponent(name);
+		content = encodeURIComponent(content);
+		
 		var ageMin = selMin.value;
 		var ageMax = selMax.value;
 		var gender = selGen.value;
 		var maxPerson = inputMaxPerson.value;
 		var img = imgBanner.name;
 		var tagList=[];
-		
-		if(areaSido=="null" || areaSigungu=="null" || name=="" ||content==""){
-			alert("미기재 사항이 존재하여 모임 수정이 취소 되었습니다.");
+		var cnt = 0;
+		var divTag = document.querySelector(".div-tag");
+		var children = divTag.children;
+		if(warn()==1){
 			return;
 		}
-		var tags = divTag.querySelectorAll(".btn");
-		for (var i = 0; i < tags.length; i++) {
-			if(tags[i].classList.contains("selected-tag")){
-				tagList.push(tags[i].name);
+		function warn(){
+			var patt = new RegExp('^([0-9]|[1-9][0-9]|[1-9][0-9][0-9])$');
+			var tags = divTag.querySelectorAll("input");
+			for (var i = 0; i < tags.length; i++) {
+				if (tags[i].classList.contains("selected-tag"))
+					cnt++;
+			}
+			
+			if (cnt==0) {
+				swal({
+					  title: "태그를 선택해주세요",
+					  text: "최소 1개의 태그가 필요합니다",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});		
+				return 1;
+			}
+			else if((selSigungu.value=="null")||(selSigungu.value=="시군구")){
+				swal({
+					  title: "지역을 입력해주세요",
+					  text: "정확한 시도,시군구의 지역이 필요합니다",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});		
+				return 1;
+			}
+			else if(name==""){
+				swal({
+					  title: "모임이름을 입력해주세요",
+					  text: "적어도 한글자 이상의 이름이 필요합니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});	
+				return 1;
+			}
+			else if(content==""){
+				swal({
+					  title: "소개란을 입력해주세요",
+					  text: "적어도 100자 이상의 소개가 필요합니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});			
+				return 1;
+
+			}
+			else if(ageMin > ageMax && ageMin!="무관" && ageMax!="무관"){
+				swal({
+					  title: "나이을 선택해주세요",
+					  text: "최소 나이가 최대 나이보다 클 수 없습니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});
+				return 1;
+			}
+			else if(!patt.test(maxPerson)){
+				swal({
+					  title: "정원을 제대로 입력해주세요",
+					  text: "정원수는 1~999까지의 숫자들만 가능합니다",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});
+				return 1;
 			}
 		}
+			
+		var canEditRequest = new XMLHttpRequest(); 
+		canEditRequest.open("POST", "/leader/can-edit-crowd-maxperson", true); 
+		canEditRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		canEditRequest.onload = function () {	
+			var result = canEditRequest.responseText;
 		
-		if(file!=null){
-			img = file.name;
-			var fileDelRequest = new XMLHttpRequest(); 
-			fileDelRequest.open("POST", "/delete-file", true); 
-			fileDelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-			fileDelRequest.onload = function () {	
-				var fd = new FormData();
-		          fd.append("file", file);  
-		          fd.append("id", crowdId);  
-		          fd.append("root", "crowd-banner"); 
-				$.ajax({
-		  			url: '/file-upload',
-					data: fd,
-					dataType: 'text',
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					success : function(data) {				
-					}	
-				});
+			if(result=="false"){
+				swal({
+					  title: "정원을 수정해주세요",
+					  text: "현재 인원이 입력하신 정원보다 많습니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+				  	});
+				return;
+			}else if(result=="true"){
+			
+				var tags = divTag.querySelectorAll(".btn");
+				for (var i = 0; i < tags.length; i++) {
+					if(tags[i].classList.contains("selected-tag")){
+						tagList.push(tags[i].name);
+					}
+				}
+				
+				if(file!=null){
+					img = file.name;
+					var fileDelRequest = new XMLHttpRequest(); 
+					fileDelRequest.open("POST", "/delete-file", true); 
+					fileDelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+					fileDelRequest.onload = function () {	
+						var fd = new FormData();
+				          fd.append("file", file);  
+				          fd.append("id", crowdId);  
+				          fd.append("root", "crowd-banner"); 
+						$.ajax({
+				  			url: '/file-upload',
+							data: fd,
+							dataType: 'text',
+							processData: false,
+							contentType: false,
+							type: 'POST',
+							success : function(data) {				
+							}	
+						});
+					}
+					fileDelRequest.send("fileName="+imgBanner.name+"&root=crowd-banner");			
+				}
+				
+				var updateRequest = new XMLHttpRequest(); 
+				updateRequest.open("POST", "/leader/update-crowd", true); 
+				updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+				updateRequest.onload = function () {	
+					window.location.href="/leader/manage?crowd="+crowdId;
+				}
+				updateRequest.send("id="+crowdId+
+						"&areaSido="+areaSido+
+						"&areaSigungu="+areaSigungu+
+						"&name="+name+
+						"&content="+content+
+						"&ageMin="+ageMin+
+						"&ageMax="+ageMax+
+						"&gender="+gender+
+						"&maxPerson="+maxPerson+
+						"&img="+img+
+						"&tagList="+tagList		
+				);
+				
 			}
-			fileDelRequest.send("fileName="+imgBanner.name+"&root=crowd-banner");			
 		}
+		canEditRequest.send("crowdId="+crowdId+"&maxPerson="+maxPerson);	
+
+
 		
-		var updateRequest = new XMLHttpRequest(); 
-		updateRequest.open("POST", "/leader/update-crowd", true); 
-		updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-		updateRequest.onload = function () {	
-			window.location.href="/leader/manage?crowd="+crowdId;
-		}
-		updateRequest.send("id="+crowdId+
-				"&areaSido="+areaSido+
-				"&areaSigungu="+areaSigungu+
-				"&name="+name+
-				"&content="+content+
-				"&ageMin="+ageMin+
-				"&ageMax="+ageMax+
-				"&gender="+gender+
-				"&maxPerson="+maxPerson+
-				"&img="+img+
-				"&tagList="+tagList		
-		);
 	};
+	
+	
 	
 	btnImg.onclick = function() {
 		var evt = new MouseEvent("click", {
@@ -122,7 +224,12 @@ window.addEventListener("load",function() {
 			if (cnt < 3) {
 				evt.target.classList.add("selected-tag");
 			} else {
-				alert("태그는 최대 3개까지 선택 가능합니다.");
+				swal({
+					  title: "태그는 최대 3개까지 선택 가능합니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+					});
 			}
 		}
 	});
@@ -188,7 +295,15 @@ window.addEventListener("load",function() {
 		postRequest.send();	
 		
 		selSido.onchange= function() {
-			if(selSido.selectedIndex==0) return;
+			if(selSido.selectedIndex==0){
+				selSigungu.innerHTML="";
+				var temp = document.createElement('option');
+				temp.value="null";
+				temp.innerHTML = "시군구";
+				temp.classList.add("option");
+				selSigungu.appendChild(temp);
+				return 
+			}
 			var sidoIndex = selSido.selectedIndex-1;
 			selSigungu.innerHTML="";
 			var temp = document.createElement('option');

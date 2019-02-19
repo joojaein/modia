@@ -539,7 +539,10 @@ aside{
 }
 .chat-window-main{
     overflow:scroll;
+<<<<<<< HEAD
     /* scroll-behavior: smooth; */
+=======
+>>>>>>> refs/remotes/origin/master
     overflow-x: hidden;
     grid-area: main;
     height: 100%;

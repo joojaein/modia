@@ -1,4 +1,4 @@
-window.addEventListener("load", function () {
+/*window.addEventListener("load", function () {
     var siren = document.querySelector(".siren");
     var clear = document.querySelector(".clear-btn");
     siren.onclick = function (e) {
@@ -31,4 +31,4 @@ $(function () {
         }, 400);
         return false;
     });
-});
+});*/

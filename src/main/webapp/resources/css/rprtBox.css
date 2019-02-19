@@ -7,7 +7,7 @@
 .rprt {
     width: 70%;
     max-width: 500px;
-    height: 60%;
+    height: 400px;
     max-height: 600px;
     background: white;
     border: 1px solid gray;
@@ -21,39 +21,40 @@
 }
 
 .rprt h1 {
-    margin-top: 4%;
+    margin-top: 15px;
     font-size: 20px;
 }
 
 .rprt-title {
     width: 80%;
     margin: auto;
-    margin-top: 5%;
+    margin-top: 20px;
     text-align: left;
     margin-bottom: 5px;
 }
 
 .rprt select {
     width: 80%;
-    height: 7%;
+    height: 30px;
     line-height: 7%;
 }
 
 .rprt textarea {
     width: 80%;
-    height: 50%;
+    height: 180px;
+    resize: none;
+    box-sizing: border-box;   
 }
 
 .rprt-btn {
-    margin: 3%;
-    height: 16%;
+    margin-top: 10px;
 }
 
 .rprt input {
     width: 45%;
     background: #494949;
     color: white;
-    height: 50%;
+    height: 35px;
     border-radius: 8px;
     border: none;
 }

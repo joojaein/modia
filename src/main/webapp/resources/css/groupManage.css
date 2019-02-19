@@ -55,6 +55,11 @@ main{
 	text-align: left;
 }
 
+.area-content textarea{
+    width: 100%;
+    resize: none;
+    border: none;
+}
 .area-etc {
 	width: 90%;
     margin: auto;	
@@ -116,6 +121,7 @@ main{
 
 .temp-input{
 	border: none;
+	width: 100%;
 }
 .temp-input::placeholder{
 	color: grey;	

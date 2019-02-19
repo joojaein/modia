@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moida.web.dao.CmtDao">
+	
+	<select id="getCmtList" resultType="com.moida.web.entity.CmtListView">
+		select * from CmtListView where postsId = #{param1}
+	</select>
+	
+	<select id="getCmtLastregDate" resultType="com.moida.web.entity.Cmt">
+		select * from Cmt where postsId = #{param1} order by regDate desc limit 0, 1;
+	</select>
+	
+	<select id="getCmthit" resultType="com.moida.web.entity.Cmtcnt">
+		select count(content) hit from Cmt where postsId = #{param1};
+	</select>
+	
+	<insert id="insertCmt" parameterType="com.moida.web.entity.Cmt">
+		insert into Cmt(postsId, content, writerId) values(#{postsId},#{content},#{writerId});
+	</insert>
+	
+</mapper>

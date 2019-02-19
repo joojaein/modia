@@ -251,6 +251,29 @@ public class CrowdController {
 		String json = gson.toJson(chartList);
 		return json;				
 	}
+	
+	@PostMapping("can-add-crowd-member")
+	@ResponseBody
+	public String canAddCrowdMember(int crowdId, int addCnt) throws Exception{
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		if(crowd.getNowPerson()+addCnt > crowd.getMaxPerson()) {
+			return "false";
+		}else {
+			return "true";
+		}
+	}
+	
+	@PostMapping("can-edit-crowd-maxperson")
+	@ResponseBody
+	public String canEditCrowdMaxperson(int crowdId, int maxPerson) throws Exception{	
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		if(crowd.getNowPerson() > maxPerson) {
+			return "false";
+		}else {
+			return "true";
+		}				
+	}
+	
 }
 
 

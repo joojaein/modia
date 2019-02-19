@@ -14,8 +14,36 @@
 		mainImg=#{mainImg} where id=#{id}
 	</update>
 	
-		
 	<select id="getLastPosts" resultType="com.moida.web.entity.Posts">
 		SELECT * FROM Posts order by regDate desc limit 1
 	</select>
+		
+	<select id="getPostList" resultType="com.moida.web.entity.BoardCategory">
+		select * from Posts where boardId=2;
+	</select>
+
+	<select id="getPostsinfoView" resultType="com.moida.web.entity.PostsInfoView">
+		select * from postsinfoView where id = #{param1};
+	</select>	
+	
+	<select id="getNoticePostsView" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 0 and crowdId = #{param1} order by regDate desc
+	</select>
+	
+	<select id="getPostsListView1" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 1 and crowdId = #{param1} order by regDate desc
+	</select>
+	
+	<select id="getPostsListView2" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 1 and crowdId = #{param1} and boardId = #{param2} order by regDate desc
+	</select>
+	
+	<select id="getAlbumPostsView" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 2 and crowdId = #{param1} order by regDate desc
+	</select>
+	
+
+	<update id="updatehit" parameterType="com.moida.web.entity.Posts">
+		update Posts set hit= hit+1 where id = #{param1}
+	</update>
 </mapper>

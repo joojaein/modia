@@ -1,4 +1,60 @@
-
+.bg-img{
+    background: url("/resources/images/sakura.png") no-repeat contain;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    opacity: 0.7;
+    filter: blur(3px);
+    overflow: hidden;
+}
+.sakura1{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("/resources/images/sakuras.png") no-repeat center;
+    animation: moving 100s cubic-bezier(.34,.52,.65,.49) infinite reverse; 
+    background-size: 300px;
+}
+.sakura2{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("/resources/images/sakuras.png") center;
+    background-size: 400px;
+    animation: moving1 60s cubic-bezier(.34,.52,.65,.49) infinite; 
+}
+.sakura3{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("/resources/images/sakuras.png") center;
+    background-size: 500px;
+    animation: moving1 40s cubic-bezier(.34,.52,.65,.49) infinite reverse; 
+}
+@keyframes moving {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 40% -100%;
+    }
+}
+@keyframes moving1 {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: -50% -150%;
+    }
+}
+@keyframes moving1 {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 100% -260%;
+    }
+}
 main{
     position: relative;
 }
@@ -23,6 +79,10 @@ main section:nth-child(1){
 .height{
     transition: .3s linear;
     height: 150px;
+}
+.selectca{
+	background : red;
+	transition : .1s;
 }
 .category-list > ul{
     width: 100%;
@@ -64,14 +124,14 @@ top: 0;
 }
 .category-list ul li a.calist{
     transform: scale(1);
-    transition: .5s;
+    transition: .3s;
     display: block;
     overflow: hidden;
 }
 .category-list ul li a.calist.hide-calist{
     transform: scale(0);
 }
-.category-list ul li:nth-child(1) a.calist.hide-calist{
+/* .category-list ul li:nth-child(1) a.calist.hide-calist{
     transition-delay: .1s;
 }
 .category-list ul li:nth-child(2) a.calist.hide-calist{
@@ -154,7 +214,7 @@ top: 0;
 }
 .category-list ul li:nth-child(18) a.calist{
     transition-delay: .9s;
-}
+} */
 .category-list ul li{
     display: flex;
     flex-direction: column;
@@ -171,8 +231,8 @@ top: 0;
 
 .calist:hover::before, .calist:visited::before{
     transform: translate(0);
-    transition: .3s linear;
-}
+    transition : .1s;
+} 
 .category-main-ul li ul{
     visibility: hidden;
 }
@@ -233,7 +293,6 @@ top: 0;
 .sebu.active{
     opacity: 1;
     visibility: visible;
-    transition-delay: 1s;
     left: 0;
 }
 .sebu span{
@@ -315,8 +374,23 @@ top: 0;
 }
 /* -------------------------*/
 .category-content-container{
+	
     margin-left: 10px;
     margin-right: 10px;
+}
+.content-box{
+	animation : aaa .3s linear ;
+}
+@keyframes aaa{
+	0%{
+		opacity : 0;
+		transform : scale(0.8);
+	}
+	100%{
+		opacity : 1;
+		transform : scale(1);
+	}
+	
 }
 .content-box a{
 	position : absolute;
@@ -336,6 +410,7 @@ top: 0;
 }
 .content-detail h4{
     margin: 0;
+    font-size : 18px;
 }
 .content-detail div{
     height: 100%;
@@ -346,6 +421,9 @@ top: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
+}
+.content-detail div span:nth-child(1){
+	    height: 36px
 }
 .content-detail .member-cnt{
     margin-top: 5px;
@@ -371,10 +449,13 @@ top: 0;
         display: flex;
         justify-content: space-around;
         flex-flow: wrap;
+        min-height : 800px;
     }
     .content-box{
         width: 500px;
         margin: auto;
-        margin-left : 0;
+        margin-left : 20px;
+        margin-top : 20px;
+        margin-bottom : 20px;
     }
 }

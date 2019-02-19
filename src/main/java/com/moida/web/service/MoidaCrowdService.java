@@ -15,7 +15,9 @@ import com.moida.web.entity.CrowdBoard;
 import com.moida.web.entity.CrowdMemberRole;
 import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
 @Service
@@ -144,9 +146,9 @@ public class MoidaCrowdService implements CrowdService {
 		 crowdDao.insertBoard("공지사항",0,crowd.getId());
 		 crowdDao.insertBoard("자유게시판",1,crowd.getId());
 		 crowdDao.insertBoard("사진첩",2,crowd.getId());
-
+		 crowdDao.updateImg(crowd.getId());
 		
-		return 1;
+		return crowd.getId();
 	}
 
 	@Override
@@ -168,35 +170,47 @@ public class MoidaCrowdService implements CrowdService {
 		// TODO Auto-generated method stub
 		return crowdDao.getCrowdBoard(type, crowdId);
 	}
-
+	
+	@Override
 	public CrowdNotice getNotice(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return crowdDao.getNotice(crowdId);
 	}
-
-	public CrowdBoard getBoards(Integer crowdId) {
-		// TODO Auto-generated method stub
-		return crowdDao.getBoards(crowdId);
-	}
-
+	
+	@Override
 	public List<Schedule> getScheduleList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return crowdDao.getScheduleList(crowdId);
 	}
-
+	
+	@Override
 	public int insertSchedule(Schedule schedule) {
 		// TODO Auto-generated method stub
 		return crowdDao.insertSchedule(schedule);
 	}
-
+	
+	@Override
 	public int deleteCalendarList(int id) {
 		// TODO Auto-generated method stub
 		return crowdDao.deleteCalendarList(id);
 	}
 
+	@Override
 	public int updateCalendarList(Schedule schedule) {
 		// TODO Auto-generated method stub
 		return crowdDao.updateCalendarList(schedule);
+	}
+	
+	@Override
+	public CrowdView getCrowdViews(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getCrowdViews(crowdId);
+	}
+	
+	@Override
+	public CrowdView getCrowdTotalViews(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getCrowdTotalViews(crowdId);
 	}
 
 	@Override
@@ -208,6 +222,31 @@ public class MoidaCrowdService implements CrowdService {
 	public int getCrowdGroupRole(int crowdId, String memberId) {
 	      return crowdDao.getCrowdGroupRole(crowdId, memberId); 
 
+	}
+
+	@Override
+	public int insertCrowdHit(int crowdId, String memberId) {
+		if(crowdDao.getIsVisited(crowdId, memberId)==0) {
+			return crowdDao.insertCrowdHit(crowdId, memberId); 
+		}
+		return 1;
+	}
+
+	
+	@Override
+	public int insertRprtCrowd(RprtCrowd rprtCrowd) {
+		return crowdDao.insertRprtCrowd(rprtCrowd); 
+	}
+	
+
+	@Override
+	public int deleteRprtCrowd(RprtCrowd rprtCrowd) {
+		return crowdDao.deleteRprtCrowd(rprtCrowd); 
+	}
+	
+	@Override
+	public int getRprtCrowdCnt(RprtCrowd rprtCrowd) {
+		return crowdDao.getIsRprtedCrowd(rprtCrowd);
 	}
 
 }

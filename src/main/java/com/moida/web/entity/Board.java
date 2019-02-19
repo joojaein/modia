@@ -8,7 +8,19 @@ public class Board {
 	
 	public Board() {
 	}
-
+	
+	public Board(int crowdId, int id) {
+		super();
+		this.crowdId = crowdId;
+		this.id = id;
+	}
+	
+	public Board(String name, int crowdId) {
+		super();
+		this.name = name;
+		this.crowdId = crowdId;
+	}
+	
 	public Board(int id, String name, int type, int crowdId) {
 		super();
 		this.id = id;
@@ -16,13 +28,6 @@ public class Board {
 		this.type = type;
 		this.crowdId = crowdId;
 	}
-
-	public Board(String name, int crowdId) {
-		super();
-		this.name = name;
-		this.crowdId = crowdId;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -60,6 +65,11 @@ public class Board {
 
 	public void setCrowdId(int crowdId) {
 		this.crowdId = crowdId;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [id=" + id + ", name=" + name + ", type=" + type + ", crowdId=" + crowdId + "]";
 	}
 
 	

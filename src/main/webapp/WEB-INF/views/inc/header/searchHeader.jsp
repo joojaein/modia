@@ -8,13 +8,13 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <header>
 	<div class="pre-page">
-		<a href="/crowd/search">
+		<a href="/index">
 			<img src="/resources/images/btnPrePage.png" />
 		</a>
 	</div>
 
 	<div id="headerSearch">
-		<input type="text" value="" placeholder="모임을 검색하세요" />
+		<input type="text" value="${indexWord}" placeholder="모임을 검색하세요" />
 		<div class="autoBox">
 			<ul class="autoUl">
 			</ul>
@@ -37,9 +37,8 @@
 			abtn.onclick = function(e) {
 				e.preventDefault();
 				var chkRequest = new XMLHttpRequest();
-				chkRequest.open("GET", "/crowd/checkId", true);
+				chkRequest.open("GET", "/crowd/checkId?url="+document.location.pathname, true);
 				chkRequest.onload = function() {
-
 					var chkturn = chkRequest.responseText;
 					if (chkturn == "no") {
 						swal({

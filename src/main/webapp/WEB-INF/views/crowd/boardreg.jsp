@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<main> <script type="text/javascript"
-	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<main> 
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/groupboardreg.js"></script>
-<link href="/resources/css/groupboardreg.css" type="text/css"
-	rel="stylesheet" />
+<link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
+<script src="/resources/js/backpage.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <form role="form" method="post" action="boardreg">
 
@@ -30,7 +31,7 @@
 					<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 				</div>
 				<div>
-					<a href="album">단체채팅</a>
+				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
 				</div>
 			</nav>
 		</section>
@@ -65,7 +66,7 @@
 					</c:if>
 					</div>
 			</section>
-			<input id="title" name="title" type="text" placeholder="제목" />
+			<input id="title" name="title" type="text" autocomplete="off" placeholder="제목" />
 		</section>
 
 		<section class="text-content" id="sortable">
@@ -137,3 +138,4 @@
 	</section>
 </form>
 </main>
+<a id="MOVE_BACK_BTN">목록으로</a>

@@ -17,20 +17,22 @@
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select * from CrowdSimpleDataView where id = #{param1}
 	</select>
-	
-	<select id="getBoards"
-		resultType="com.moida.web.entity.CrowdBoard">
-		select * from Board where type=0 and crowdId=#{param1};
+		
+	<select id="getCrowdViews" resultType="com.moida.web.entity.CrowdView">
+		select count(*) hit from CrowdHit where crowdId=#{param1} and date = current_date();
+	</select>
+	<select id="getCrowdTotalViews" resultType="com.moida.web.entity.CrowdView">
+		select count(*) hit from CrowdHit where crowdId = #{param1};
 	</select>
 	
 	<select id="getNotice"
 		resultType="com.moida.web.entity.CrowdNotice">
-		select * from boardListView where type = 0 and crowdId=#{param1};
+		select * from postsView where type = 0 and crowdId=#{param1};
 	</select>
 	
 	<select id="getNoticeList"
 		resultType="com.moida.web.entity.CrowdNotice">
-		select * from boardListView where type = 0 and crowdId=#{param1};
+		select * from postsView where type = 0 and crowdId=#{param1};
 	</select>
 	
 	<select id="getScheduleList"
@@ -166,7 +168,33 @@
 	</select>
 	
 	<select id="getCrowdGroupRole" resultType="java.lang.Integer">
-		select groupRole from MemberCrowd where memberid=#{memberId} and crowdId=${crowdId};
+		select groupRole from MemberCrowd where memberid=#{memberId} and crowdId=${crowdId}
 	</select>
+	
+	<select id="getIsVisited" resultType="java.lang.Integer">
+		select count(*) from CrowdHit where crowdId=${crowdId} and memberId=#{memberId} and date=current_date()
+	</select>
+	
+	<insert id="insertCrowdHit">
+		insert into CrowdHit(crowdId,date,memberId) values(${crowdId},current_date(),#{memberId})
+	</insert>
+		
+	<select id="getIsRprtedCrowd" resultType="java.lang.Integer">
+		select count(*) from RprtCrowd where crowdId=${crowdId} and writerId=#{writerId};
+	</select>
+	
+	<insert id="insertRprtCrowd">
+		insert into RprtCrowd values (${crowdId}, #{writerId}, #{title}, #{content});
+	</insert>
+	
+	<delete id="deleteRprtCrowd">
+		delete from RprtCrowd where crowdId=${crowdId} and writerId=#{writerId};
+	</delete>
+	
+	<update id="updateImg">
+		update Crowd set img =concat(
+		#{param},(select img from (select img from Crowd order by regDate desc limit 1)as temp))
+		where id = (select * from (select id from Crowd order by regDate desc limit 1)as temp)
+	</update>
 	
 </mapper>

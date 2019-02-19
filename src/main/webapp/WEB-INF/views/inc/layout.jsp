@@ -10,11 +10,9 @@
 	<link href="/resources/css/memberchat.css"type="text/css" rel="stylesheet" />
 	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>    
     <script src="/resources/js/friend.js"></script>
-     <script src="/resources/js/memberchat.js"></script>
-    
-
-
+    <script src="/resources/js/memberchat.js"></script>
 </head>
 
 <body>

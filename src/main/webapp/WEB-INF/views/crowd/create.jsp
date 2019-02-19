@@ -6,6 +6,7 @@
 	<link href="/resources/css/groupCreate.css" type="text/css" rel="stylesheet" />
 	<!--<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> -->
     <script src="/resources/js/groupCreate.js"> </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
     <div id="layer"></div>
 	<div class="create">
@@ -74,11 +75,11 @@
 				<div class="left">
 					<span>대표사진</span>
 				</div>
-	 			<input style="display:none" type="file" />				
+	 			<input style="display:none" type="file"/>				
 				<input class="btn" type="button">
 			</div>
 			<div class="div-img">
-				<img style="max-height: 413px" />
+				<img src="" style="max-height: 413px" />
 			</div>
 		</div>
 		<input class="btn-create btn fs14 fwb" type="button" value="모임개설">

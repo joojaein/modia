@@ -2473,7 +2473,7 @@ function adminMemberChat()
 		});
 		
 		
-		$(function()
+		$(function() 
 		{
 			$(".chat-friend-del").click(function()
 			{

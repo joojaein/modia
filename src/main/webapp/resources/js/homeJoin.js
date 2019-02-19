@@ -26,10 +26,20 @@ window.addEventListener("load",function(){
 		overlapRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 		overlapRequest.onload = function () {	
 			if(overlapRequest.responseText=="0"){
-				alert("사용 가능한 아이디 입니다.");
+        		swal({
+        			title: "사용 가능한 아이디 입니다.",
+					icon: "warning",
+					button : "확인",
+					dangerMode: true,
+					});
 				overlap=false;
 			}else{
-				alert("이미 사용중인 아이디 입니다.");
+        		swal({
+        			title: "이미 사용중인 아이디 입니다.",
+					icon: "warning",
+					button : "확인",
+					dangerMode: true,
+					});
 				overlap=true;
 			}
 		}
@@ -139,11 +149,21 @@ window.addEventListener("load",function(){
 	    		
 	    		btnEmailAuth.onclick = function(){	
 	            	if(btnEmailAuth.name==txtAuthNum.value){
-	                	alert("이메일 인증이 완료되었습니다.");
+	            		swal({
+	            			title: "이메일 인증이 완료되었습니다.",
+	    					icon: "warning",
+	    					button : "확인",
+	    					dangerMode: true,
+	    					});
 	                    clearInterval(timer);
 	                    btnEmailAuth.value = "인증완료";
 	            	}else{
-	                	alert("이메일 인증이 실패했습니다.");
+	            		swal({
+	            			title: "이메일 인증이 실패했습니다.",
+	    					icon: "warning",
+	    					button : "확인",
+	    					dangerMode: true,
+	    					});
 	                    clearInterval(timer);
 	        	    	btnEmailSend.classList.remove("timer");
 	        	    	btnEmailSend.value = "인증번호 발송"; 
@@ -170,15 +190,40 @@ window.addEventListener("load",function(){
     btnJoin.onclick = function(){	
     	var isNull = chkNull();
     	if(isNull){
-    		alert("프로필 이미지를 포함한 모든 정보를 입력하세요.");
+    		swal({
+    			title: "프로필 이미지를 포함한 모든 정보를 입력하세요.",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
     	}else if(join.querySelector(".txt-pw").value != join.querySelector(".txt-rpw").value){
-    		alert("동일한 비밀번호를 입력하세요.");
+    		swal({
+    			title: "동일한 비밀번호를 입력하세요.",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
     	}else if(btnEmailAuth.value!="인증완료"){
-    		alert("이메일을 인증하세요.");
+    		swal({
+    			title: "이메일을 인증하세요.",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
     	}else if(join.querySelector(".radio-male").checked == join.querySelector(".radio-female").checked){
-    		alert("성별을 선택하세요.");
+    		swal({
+    			title: "성별을 선택하세요.",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
     	}else if(overlap){
-    		alert("아이디 중복을 확인하세요.");
+    		swal({
+    			title: "아이디 중복을 확인하세요.",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
     	}else{
     		
     		var gen = 0;
@@ -215,7 +260,7 @@ window.addEventListener("load",function(){
     				+"&email="+txtEmail.value
     				+"&birth="+join.querySelector(".date-etc").value
     				+"&gender="+gen
-    				+"&msg="+join.querySelector("textarea").value
+    				+"&msg="+encodeURIComponent(join.querySelector("textarea").value)
     				+"&img="+fileDnone.value   		
     		);	    		
     	}

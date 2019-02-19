@@ -19,7 +19,13 @@ $(function () {
 				sesssionRequest.send();
 			}
 			else{
-				alert("가입요청이 완료 되었습니다.\n모임장이 승인하면 가입이 완료됩니다.");
+				swal({
+					  title: "가입요청이 완료 되었습니다.",
+					  text: "모임장이 승인하면 가입이 완료됩니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+					});
 			}
 		};
 		joinRequest.send("crowd="+crowdId);		
