@@ -10,6 +10,7 @@ import com.moida.web.dao.FriendDao;
 import com.moida.web.entity.AdminChatMemberView;
 import com.moida.web.entity.Friend;
 import com.moida.web.entity.FriendDataView;
+import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberChat;
 import com.moida.web.entity.MemberChattingViewF;
 
@@ -35,25 +36,25 @@ public class MybatisFriendDao implements FriendDao
 	}
 
 	@Override
-	public int insert(Friend friend) 
+	public int insert(String myId,String friendId) 
 	{
 		// TODO Auto-generated method stub
 		
 		FriendDao friendDao = session.getMapper(FriendDao.class);
 
 		
-		return friendDao.insert(friend);
+		return friendDao.insert(myId,friendId);
 	}
 
 	@Override
-	public int delete(String myId,String friendId) {
+	public int delete(String myId,String friendId) 
+	{
 		// TODO Auto-generated method stub
 		
 		FriendDao friendDao = session.getMapper(FriendDao.class);
 
 		
 		return friendDao.delete(myId,friendId);
-		
 	}
 	
 	@Override
@@ -120,6 +121,36 @@ public class MybatisFriendDao implements FriendDao
 		FriendDao friendDao =session.getMapper(FriendDao.class);
 //		System.out.println("너의 이름은 admin일때 멤버아이디를 반환해라");
 		return friendDao.getAdMemberList();
+	}
+
+	@Override
+	public List<Friend> chkFriend(String myId, String memberId) 
+	{
+		// TODO Auto-generated method stub
+		
+		FriendDao friendDao =session.getMapper(FriendDao.class);
+		
+		return friendDao.chkFriend(myId, memberId);
+	}
+
+	@Override
+	public Member getNoFriendData(String memberId) 
+	{
+		// TODO Auto-generated method stub
+		
+		FriendDao friendDao =session.getMapper(FriendDao.class);
+		
+		return friendDao.getNoFriendData(memberId);
+	}
+
+	@Override
+	public FriendDataView getMyFriendData(String friendId) 
+	{
+		// TODO Auto-generated method stub
+		
+		FriendDao friendDao =session.getMapper(FriendDao.class);
+		
+		return friendDao.getMyFriendData(friendId);
 	}
 	
 	

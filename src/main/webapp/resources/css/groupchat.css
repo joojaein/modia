@@ -1,0 +1,729 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    border-bottom: 1px solid gray;
+}
+
+main {
+    margin: 0px 10px;
+}
+
+.d-none {
+    display: none;
+}
+
+.sirenedit img {
+    border: 1px solid gray;
+    width: 15px;
+    height: 15px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sirenedit {
+    line-height: 3.1;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+p {
+    margin: 0;
+}
+
+.main-head {
+    margin: 0 !important;
+    grid-area: header;
+    font-size: 13px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid gray;
+    padding: 0px 10px 0px 10px;
+}
+
+.main-head nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+}
+.content span{
+    font-weight: bold;
+}
+
+.profile-box {
+    display: flex;
+    margin-top: 5px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%
+    
+}
+.grade {
+   line-height: 52px;
+   flex-grow: 1;
+   text-align: right;
+  
+}
+.profile-info span{
+    padding: 3px;
+}
+
+.photo {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.photo div {
+    position: absolute;
+}
+
+.content-img {
+    grid-area: img;
+    height: 744px;
+    overflow: hidden;
+}
+
+.content-img img {
+    width: 100%;
+   
+}
+.group-info {
+    grid-area: groupinfo;
+    font-size: 15px;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    line-height: 40px;
+}
+.group-info .info{
+    width: 100%;
+    text-align: right;
+}
+.group-logo {
+    width: 10%;
+    
+   vertical-align: middle;
+
+}
+.info-box span{
+    font-weight: bold;
+}
+
+.content-comment {
+    grid-area: comment;
+
+}
+
+.comment-sum {
+    font-size: 13px;
+    font-weight: bold;
+    color: #494949;
+}
+
+.comment-photo {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}
+
+
+.join{
+    width: 100%;
+    background: #494949;
+    color: white;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+}
+
+.wrapper {
+    max-width: 1200px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+        "header"
+        "img";
+        /* "groupinfo"
+        "content"
+        "comment" */
+    margin: auto;
+}
+
+/* @media (min-width: 400px) {
+    .wrapper {
+        grid-template-columns: 3fr 1fr;
+        grid-template-areas:
+        "header"
+        "img";
+        "groupinfo"
+        "content"
+        "comment"
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 700px) {
+    .wrapper {
+        grid-template-areas:
+        "header"
+        "img";
+        "groupinfo"
+        "content"
+        "comment"
+    }
+} */
+
+a#MOVE_BACK_BTN {
+    position: fixed;
+    background: rgb(255, 104, 104);
+    bottom: 0px;
+    margin: 0 !important;
+    z-index: 999;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 20px;
+    color: white;
+    line-height: 50px;
+}
+
+/* footer */
+/* footer */
+/* footer */
+footer{
+	margin-top:20px;
+    height: 25px;
+	background: black;
+}
+/* footer */
+/* footer */
+/* footer */
+
+
+/* 채팅을 위한 css */
+/* html,body
+{
+    width: 100%;
+    height: 100%;
+    
+}
+
+main
+{
+    width: 100%;
+    height: 100%;
+    
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+} */
+
+.group-chat-window{
+    box-sizing: border-box;
+    border: 1px solid;
+    z-index: 1;
+/*     left: 0%; */
+    width: 100%;
+    height: 744px;
+    position: relative;
+    top: 0;
+    display: grid;
+    
+    
+    grid-template-rows: 905px 30px;
+    grid-template-areas: 
+    /* "header" */
+    "main"
+    "footer";
+    background:rgb(231, 205, 211);
+    /* background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%); */
+}
+.group-chat-window-header{
+    z-index: 10;
+    grid-area: header;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+.group-chat-window-header span{
+    position: relative;
+    flex-grow: 0;
+    left: 10%;
+}
+.group-chat-window-header span::before{
+    content: "";
+    position: absolute;
+    border-top: 2px solid black;
+    height: 10px;
+    width: 11px;
+    border-left: 2px solid black;
+    height: 11px;
+    transform: rotate(-45deg);
+    top: 15%;
+    left: -40%;
+}
+.group-chat-window-main{
+    overflow:scroll;
+   /*  scroll-behavior: smooth; */
+    overflow-x: hidden;
+    grid-area: main;
+    height: 682px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.group-chat-you{
+    margin: 10px;
+    display: grid;
+   
+    grid-template-columns: 50px 2fr;
+    grid-template-rows: 40px auto;
+     grid-template-areas: 
+    "img name"
+    "chatting datetime"; 
+
+}
+
+.group-you-img{
+    grid-area: img;
+    background: url("image/autumn.jpg") no-repeat center center;
+    background-size: cover;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    left: 10px;
+    top: -4px;
+    border-radius: 200px 200px 200px 200px;
+}
+.group-chat-you-date
+{
+	padding-left:229px;
+}
+.group-chat-you > span{
+    grid-area: name;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left:15px;
+}
+.group-you-chatting{
+    grid-area: chatting;
+    display: inline-block;
+    position: relative;
+}
+.group-you-chatting div{
+    padding:5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    background: white;
+    width: 350px;
+    height: auto;
+    grid-area: text;
+    word-break: break-all;
+    /* resize: none; */
+    grid-area: footer;
+    display: block;
+    margin-top: 5px;
+    /* margin-left: 12px; */
+    border-radius: 0px 10px 10px 10px;
+    border: none;
+}
+.group-you-chatting span{
+    position: relative;
+    right:-306px;
+    bottom:0px;
+}
+
+.group-date-time-set{
+    
+    position: relative;
+    grid-area: datetime;
+    grid-row-start:3;
+    
+}
+.group-date-time-set span{
+    text-align: center;
+    font-size: 12px;
+} 
+
+/* ---------------------------- */
+ .group-chat-me{
+     position: relative;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 60% 2fr ;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "me-name me-img"
+    "me-datetime me-chatting";
+}
+
+.group-me-img{
+    grid-area: me-img;
+    background: url("image/autumn.jpg") no-repeat center center;
+    background-size: cover;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    top: -4px;
+    border-radius: 200px 200px 200px 200px;
+}
+/* .group-you-set
+{
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+} */
+
+.group-chat-me > span{
+    grid-area: me-name;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+}
+.group-me-chatting div{
+    padding:5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    word-break: break-all;
+    /* position: relative;  */
+    left: -320px;
+    width: 350px;
+    height: auto;
+    grid-area: me-chatting;
+    margin-top: 5px;
+    /* margin-left: 6px; */
+    border-radius: 10px 0px 10px 10px;
+    border: none;
+    background: powderblue;
+}
+@media (max-width: 361px) 
+{
+	.group-text-area input{
+    position: absolute;
+    top: 18px;
+    right: 21px !important;
+    box-sizing: border-box;
+    height: 25px;
+    vertical-align: middle;
+}
+	.group-text-base textarea{
+    resize: none;
+    width: 70%;
+    height: 50px;
+    margin: 0;
+    margin-right: 5px;
+    margin-left:12px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid;
+    font-size: 18px;
+    vertical-align: middle;
+}
+.group-text-area
+{
+    display: grid;
+    position: absolute;
+    background: white;
+    text-align: start !important;
+    left:0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    z-index: 100;
+
+
+    grid-template-rows: 100%;
+    grid-template-areas:
+    "text-base"
+    "btns-round";
+    line-height: 25px;
+}
+	.group-chat-you-date
+	{
+		padding-left:59px;
+	}
+	.content-img {
+    grid-area: img;
+    height: 503px;
+    overflow: hidden;
+}
+	.group-chat-window{
+    box-sizing: border-box;
+    border: 1px solid;
+    z-index: 1;
+/*     left: 0%; */
+    width: 100%;
+    height: 503px;
+    position: relative;
+    top: 0;
+    display: grid;
+    
+    
+    grid-template-rows: 905px 30px;
+    grid-template-areas: 
+    /* "header" */
+    "main"
+    "footer";
+    background:rgb(231, 205, 211);
+    /* background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%); */
+}
+	.group-chat-window-main
+	{
+    overflow:scroll;
+    /* scroll-behavior: smooth; */
+    overflow-x: hidden;
+    grid-area: main;
+    height: 441px;
+    padding-left: 0px;
+    padding-right: 0px;
+	}
+	    .wrapper 
+	    {
+	        /* grid-template-columns: 3fr 1fr; */
+	        grid-template-areas:
+	        "header"
+	        "img";
+	        /* "groupinfo"
+	        "content"
+	        "comment" */
+	    }
+	    .group-chat-you
+	{
+	    margin: 10px;
+	    margin-left:3px;
+	    display: grid;
+	   
+	    grid-template-columns: 40px 270px;
+	    grid-template-rows: 40px auto 10px;
+	     grid-template-areas: 
+	    "img name"
+	    "chatting "
+	    "datetime" !important; 
+	
+	}
+	.group-you-chatting{
+    grid-area: chatting;
+    display: inline-block;
+    position: relative;
+}
+.group-you-chatting div{
+    padding:5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    background: white;
+    width: 170px;
+    height: auto;
+    grid-area: text;
+    word-break: break-all;
+    /* resize: none; */
+    grid-area: footer;
+    display: block;
+    margin-top: 5px;
+    margin-left: 0px;
+    border-radius: 0px 10px 10px 10px;
+    border: none;
+}
+.group-you-chatting span
+{
+	position:unset;
+    right:-306px;
+    bottom:0px;
+    padding-left:138px;
+}
+	    .group-chat-me
+	    {
+		    margin: 10px;
+		    display: grid;
+		    grid-template-columns: 57px 90px;
+		    grid-template-rows: auto auto;
+		    grid-template-areas: 
+		    "me-name me-img"
+		    "me-datetime me-chatting";
+		}
+		.group-me-chatting div
+		{
+		    padding:3px;
+		    padding-top: 5px;
+		    padding-left: 5px;
+		    padding-bottom: 10px;
+		    word-break: break-all;
+		    /* position: relative;  */
+		    left: -155px;
+		    width: 170px;
+		    height: auto;
+		    grid-area: me-chatting;
+		    margin-top: 5px;
+		    /* margin-left: 6px; */
+		    border-radius: 10px 0px 10px 10px;
+		    border: none;
+		    background: powderblue;
+		}
+		.group-me-chatting span
+		{
+		    /* position: absolute; */
+		    font-size: 11px !important;
+		    left:-270px;
+		    padding-left:0px;
+		    bottom:0px;
+		}
+		
+		
+}
+.group-me-chatting span{
+    position: relative;
+    left:0px;
+    bottom:0px;
+}
+.group-me-date{
+    text-align: left;
+    grid-area : me-datetime;
+
+}
+.group-me-chatting
+{
+    position: relative;
+}
+.group-me-chatting .group-image
+{
+    position: absolute;
+    
+    top: 0px;
+    right: 0px;
+}
+.group-me-chatting .group-image img
+{   
+    width: 200px;
+    height: 200px;
+} 
+/* --------------------- */
+ .group-text-area
+{
+    display: grid;
+    position: absolute;
+    background: white;
+    text-align: center;
+    left:0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    z-index: 100;
+
+
+    grid-template-rows: 100%;
+    grid-template-areas:
+    "text-base"
+    "btns-round";
+    line-height: 25px;
+}
+.grid-hide
+{
+    grid-template-rows: 100%;
+    height: 30px;
+}
+
+
+.group-text-base
+{
+    
+    grid-area: text-base;
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    width: 100%;
+    padding: 3px;
+
+    
+}
+.group-text-base textarea{
+    resize: none;
+    width: 70%;
+    height: 50px;
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid;
+    font-size: 18px;
+    vertical-align: middle;
+}
+.group-text-area-btns-div
+{
+    box-sizing: border-box;
+    margin: 0px !important;
+}
+.group-text-area-btns
+{
+    position: absolute;
+    vertical-align: middle;
+    top: 2.5px;
+    left: 50px;
+    padding: 0px !important;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.group-text-area input{
+    position: absolute;
+    top: 18px;
+    right: 60px;
+    box-sizing: border-box;
+    height: 25px;
+    vertical-align: middle;
+}
+.group-btns-round
+{
+    
+    grid-area: btns-round;
+    width: 100%;
+    height: 0%;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 25% 25% 25% 25%;
+    text-align: center;
+}
+.group-btns-round div
+{
+    margin-top: auto  !important;
+    margin-bottom: auto !important;
+
+} 

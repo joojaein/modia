@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.moida.web.dao.GroupChattingDao">
+
+	<!-- 친구와의 채팅을 모두 가져오기 위한 Select -->
+	<select id="getGroupChattingList" resultType="com.moida.web.entity.GroupChattingListDataView">
+	
+		select * from GroupChattingListDataView
+		where ( receiverGroupId=#{groupId})
+		order by regDate
+	
+	</select>
+	
+	<select id="getGroupImgsData" resultType="com.moida.web.entity.GroupImgsDataView">
+	
+		select * from GroupImgsDataView
+		where ( crowdId=#{groupId})
+	
+	</select>
+	
+	
+	<!-- 
+	<select id="getMemberAdminChatting" resultType="com.moida.web.entity.MemberChattingView">
+	
+		select * from MemberChattingView
+		where ( 
+		(receiverId='admin' and  id=#{param1}) 
+		or
+		(receiverId=#{param1} and  id='admin') )
+		order by regDate
+	
+	</select> -->
+	
+	
+	<insert id="insert" parameterType="com.moida.web.entity.GroupChat">
+		
+		insert into GroupChat (content,receiverGroupId,senderId) 
+		value (#{content},#{groupId},#{myId})
+	
+	</insert>
+
+	
+
+
+</mapper> 

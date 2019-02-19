@@ -275,6 +275,23 @@ public class CrowdController {
         return crowdService.requestCrowdJoin(crowdId, userId)+"";
 	}
 	
+	@GetMapping("groupchat")
+	public String groupChatting(@RequestParam(name="crowd") Integer crowdId) 
+	{
+		return "crowd.groupchat";
+	}
+	
+	@PostMapping("get-groupMyId")
+	@ResponseBody
+	public String getGroupMyId(Principal principal) 
+	{
+		String getGroupMyId = principal.getName();
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(getGroupMyId);
+		
+		return json;
+	}
 
 }
 
