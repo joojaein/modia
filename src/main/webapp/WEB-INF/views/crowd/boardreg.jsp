@@ -8,7 +8,6 @@
 <script src="/resources/js/groupboardreg.js"></script>
 <link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/backpage.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <form role="form" method="post" action="boardreg">
 

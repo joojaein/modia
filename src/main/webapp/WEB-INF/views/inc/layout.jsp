@@ -16,17 +16,21 @@
 </head>
 
 <body>
-	<!--헤더 -->
-	<tiles:insertAttribute name="header" />
+	<div class="wrap-in-body">
 	
-	<!--메인 -->
-	<tiles:insertAttribute name="main" />
-	
-	<!--어사이드(메세지) -->
-	<tiles:insertAttribute name="aside" />
-	
-	<!--푸터 -->
-	<tiles:insertAttribute name="footer" />
+		<!--헤더 -->
+		<tiles:insertAttribute name="header" />
+		
+		<!--메인 -->
+		<tiles:insertAttribute name="main" />
+		
+		<!--어사이드(메세지) -->
+		<tiles:insertAttribute name="aside" />
+			
+		
+		<!--푸터 -->
+		<tiles:insertAttribute name="footer" />
+		</div>
 </body>
 </html>
 
