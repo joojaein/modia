@@ -5,7 +5,6 @@
 <main>
 	<link href="/resources/css/groupCreate.css" type="text/css" rel="stylesheet" />
     <script src="/resources/js/groupEdit.js"> </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
     <div id="layer"></div>
 	<div class="create">

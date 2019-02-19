@@ -102,10 +102,10 @@
 		    			</tbody>
 		    		</table>
 	    			<div class="paging">
-		    			<input class="btn" type="button" value="&#9664;">
+	    				<input class="btn prev" type="button" value="&#9664;">
 		    			<ul>
 		    			</ul> 
-		    			<input class="btn" type="button" value="&#9654;">	 
+	    				<input class="btn next" type="button" value="&#9654;">
 		    		</div>
 	    		</div>
 	    		<div class="approval d-none">
@@ -162,10 +162,10 @@
 		    			</tbody>
 		    		</table>
 	    			<div class="paging">
-		    			<input class="btn" type="button" value="&#9664;">
+	    				<input class="btn prev" type="button" value="&#9664;">
 		    			<ul>
 		    			</ul> 
-		    			<input class="btn" type="button" value="&#9654;">	 
+	    				<input class="btn next" type="button" value="&#9654;">
 		    		</div>
 	    		</div>
 	    		<div class="statistic stat-grid d-none">

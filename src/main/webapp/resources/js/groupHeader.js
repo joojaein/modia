@@ -37,17 +37,33 @@ window.addEventListener("load", function () {
         		var rprt = document.querySelector(".rprt");
         		rprt.classList.remove("d-none");
         	}else{
-        		if(confirm("이미 신고한 모임입니다.\n모임신고를 취소 하시겠습니까?")){
+        		swal({
+        		  title : "이미 신고한 모임입니다.",
+  	    	      text: "모임신고를 취소 하시겠습니까?",
+  	    	      icon: "warning",
+  	    	      buttons: [
+  	    	    	  '취소',
+  	    	    	  '확인'
+  	    	      ],
+  	    	      dangerMode: true,
+  	    	    }).then(function(isConfirm) {
+  	    	      if (isConfirm) {
         			var rprtDelRequest = new XMLHttpRequest(); 
         			rprtDelRequest.open("POST", "/crowd/del-rprt-crowd", true); 
         			rprtDelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         			rprtDelRequest.onload = function () {
         				var img = btnSiren.querySelector("img");
         				img.style.background="none";
-        				alert("모임신고가 취소 되었습니다.");
+                		swal({
+                			title: "모임 신고가 취소 되었습니다.",
+        					icon: "warning",
+        					button : "확인",
+        					dangerMode: true,
+        					});
         			}
         			rprtDelRequest.send("crowdIdStr="+crowdId);
-        		}
+  	    	      } 
+  	    	    })  
         	}
         }
         rprtRequest.send("crowdIdStr="+crowdId);
@@ -60,7 +76,12 @@ window.addEventListener("load", function () {
         var content = rprt.querySelector("textarea");
         
         if(title.value==""){
-        	alert("신고 사유를 선택해주세요.");
+    		swal({
+    			title: "신고 사유를 선택해주세요",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
         	return;
         }
         
@@ -68,7 +89,12 @@ window.addEventListener("load", function () {
         rprtRequest.open("POST", "/crowd/set-rprt-crowd", true); 
         rprtRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         rprtRequest.onload = function () {
-        	alert("해당 모임의 신고가 완료 되었습니다.")
+    		swal({
+    			title: "해당 모임의 신고가 완료되었습니다.",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
 			var img = btnSiren.querySelector("img");
 			img.style.background="yellow";
             title.value="";
@@ -103,26 +129,45 @@ window.addEventListener("load", function () {
 			window.location.href = href;
     	}else{
     		if(userCrowdAuthType=="3"){
-				if(confirm("모임 가입자만 이용 가능한 서비스 입니다.\n가입 요청을 하시겠습니까?")){
-					var joinRequest = new XMLHttpRequest(); 
-					joinRequest.open("POST", "/crowd/request-join", true); 
-					joinRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-					joinRequest.onload = function () {	
-			    		var joinResult = joinRequest.responseText;
-						if(joinResult=="anonymousUser"){
-							var sesssionRequest = new XMLHttpRequest(); 
-							sesssionRequest.open("GET", "/set-session?href="+href, true); 
-							sesssionRequest.onload = function () {
-								window.location.href = "/login";
-							}
-							sesssionRequest.send();
-						}
-						else{
-							alert("가입요청이 완료 되었습니다.\n모임장이 승인하면 가입이 완료됩니다.");
-						}
-					};
-					joinRequest.send("crowd="+crowdId);		
-				}
+
+    			swal({
+    				  title:"가입자만 이용 가능한 서비스 입니다.",
+    	    	      text: "모임에 가입요청을 하시겠습니까?",
+    	    	      icon: "warning",
+    	    	      buttons: [
+    	    	    	  '취소',
+    	    	    	  '확인'
+    	    	      ],
+    	    	      dangerMode: true,
+    	    	    }).then(function(isConfirm) {
+    	    	      if (isConfirm) {
+    						var joinRequest = new XMLHttpRequest(); 
+    						joinRequest.open("POST", "/crowd/request-join", true); 
+    						joinRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    						joinRequest.onload = function () {	
+    				    		var joinResult = joinRequest.responseText;
+    							if(joinResult=="anonymousUser"){
+    								var sesssionRequest = new XMLHttpRequest(); 
+    								sesssionRequest.open("GET", "/set-session?href="+href, true); 
+    								sesssionRequest.onload = function () {
+    									window.location.href = "/login";
+    								}
+    								sesssionRequest.send();
+    							}
+    							else{
+    				        		swal({
+    				        			title: "가입요청이 완료되었습니다.",
+    				        			text: "모임장이 승인하면 가입이 완료됩니다.",
+    									icon: "warning",
+    									button : "확인",
+    									dangerMode: true,
+    									});
+    							}
+    						};
+    						joinRequest.send("crowd="+crowdId);		
+    	    	      } 
+    	    	    })  
+				
 			}else if(userCrowdAuthType=="-1"){
 				var sesssionRequest = new XMLHttpRequest(); 
 				href = "/crowd/main?crowd="+crowdId;

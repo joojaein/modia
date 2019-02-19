@@ -224,7 +224,12 @@ window.addEventListener("load",function() {
 			if (cnt < 3) {
 				evt.target.classList.add("selected-tag");
 			} else {
-				alert("태그는 최대 3개까지 선택 가능합니다.");
+				swal({
+					  title: "태그는 최대 3개까지 선택 가능합니다.",
+					  icon: "warning",
+					  button : "확인",
+					  dangerMode: true,
+					});
 			}
 		}
 	});
