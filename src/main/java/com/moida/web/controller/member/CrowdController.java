@@ -40,7 +40,6 @@ import com.moida.web.entity.CmtListView;
 import com.moida.web.entity.Cmtcnt;
 import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdSimpleDataView;
-import com.moida.web.entity.Member;
 import com.moida.web.entity.Schedule;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
@@ -55,7 +54,6 @@ import com.moida.web.service.MoidaCrowdService;
 import com.moida.web.service.MoidaMemberService;
 import com.moida.web.service.MoidaPostsService;
 import com.moida.web.service.MoidaTagService;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
@@ -76,33 +74,50 @@ public class CrowdController {
 	public MoidaCmtService cmtService; 
 
 
-	@RequestMapping("notice")
+	
+	@GetMapping("notice")
 	public String notice(
 			@RequestParam(name="crowd") Integer crowdId,
-			Model model) {		
-		List<PostsListView> NoticepostsView = postsService.getNoticePostsView(crowdId);
+			Integer boardId,
+			Model model) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		model.addAttribute("list", NoticepostsView);
+		List<PostsListView> postsView = postsService.getNoticePostsView(crowdId);
+		List<Board> boardList = boardService.getBoardListType0(crowdId);
+		System.out.println(postsView);
+		model.addAttribute("plist", postsView);		
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("bList", boardList);
+
 		return "crowd.notice";
 	}
+	
 
-	@GetMapping("notice/detail")
+	@GetMapping("notice/ndetail")
 	public String noticedetail(
 			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="id") Integer postsId,
+			Integer id,
+			Principal principal,
 			Model model
-			) {	
-		System.out.println("오냐야야야");
+			) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
+		PostsInfoView posts = postsService.getPostsinfoView(id);
+		List<CmtListView> cmt = cmtService.getCmtList(postsId);
+		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
+		int affected = postsService.updatehit(id);
+		model.addAttribute("cmtcnt", cmtcnt);
 		model.addAttribute("crowd", crowd);
-		return "crowd.notice.detail";
+		model.addAttribute("cmt",cmt);
+		model.addAttribute("pc", postscontent);
+		model.addAttribute("posts", posts);
+		return "crowd.notice.ndetail";
 	}
 
 	@GetMapping("board")
 	public String board(
 			@RequestParam(name="crowd") Integer crowdId,
 			Integer boardId,
-			Date regDate,
 			Model model) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsListView> postsView = postsService.getPostsListView1(crowdId);
@@ -149,6 +164,7 @@ public class CrowdController {
 		model.addAttribute("cmt",cmt);
 		model.addAttribute("pc", postscontent);
 		model.addAttribute("posts", posts);
+		model.addAttribute("uid",principal.getName());
 		return "crowd.board.bdetail";
 	}
 
@@ -166,6 +182,17 @@ public class CrowdController {
 			System.out.println("cmt"+cmt);
 			System.out.println("json"+json);
 		return json;
+	}
+	
+	@PostMapping("boarddelete")
+	public String deletePosts( Integer id, Integer crowdId, Integer type, String board) {
+		System.out.println("id"+id+"crowdId"+crowdId+"type"+type+"board"+board);
+		int affected = postsService.deletePosts(id);
+		
+		/*
+		 * if(board == null) { return "redirect:"+board+"?t="+type+"&crowd="+crowdId; }
+		 */
+		return "redirect:"+board+"?t="+type+"&crowd="+crowdId;
 	}
 
 	@GetMapping("boardreg")
@@ -215,6 +242,32 @@ public class CrowdController {
 
 		return postsService.regPosts(posts, postsContentList)+"";
 	}
+	
+	@PostMapping("boardedit")
+	@ResponseBody
+	public String boardedit (
+			int boardId,
+			String title,
+			String content,
+			String jsonContent,
+			String mainImg,
+			Model model, Principal principal) {
+
+		Posts posts = new Posts(boardId, title, content, mainImg, principal.getName());
+
+		Gson gson = new Gson();      
+		JsonParser parser = new JsonParser();
+		JsonElement elem = parser.parse(jsonContent);
+		JsonArray elemArr = elem.getAsJsonArray();
+		List<PostsContent> postsContentList = new ArrayList<PostsContent>();
+
+		for (int i = 0; i < elemArr.size(); i++) {
+			PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
+			postsContentList.add(postcontent);
+		}
+
+		return postsService.updatePosts(posts, postsContentList)+"";
+	}
 
 
 	@GetMapping("calendar")
@@ -228,16 +281,6 @@ public class CrowdController {
 		return "crowd.calendar"; 
 	}
 
-	/*
-	 * @PostMapping("calendar") public String calendarreg( Integer crowdId, String
-	 * startDate, String endDate, String title, String content, Model model) throws
-	 * Exception { Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-	 * Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-	 * end.setDate(end.getDate()+1); Schedule schedule = new Schedule(crowdId,
-	 * start, end, title, content); return crowdService.insertSchedule(schedule)+"";
-	 * }
-	 */
-
 	@PostMapping("calendar")
 	@ResponseBody
 	public String calendarinsert(
@@ -247,6 +290,9 @@ public class CrowdController {
 			String title,
 			String content
 			) throws Exception {
+		System.out.println(startDate);
+		System.out.println(endDate);
+	
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 		end.setDate(end.getDate()+1);
@@ -257,8 +303,8 @@ public class CrowdController {
 		System.out.println("들어옴?");
 		Gson gson = new Gson(); 
 		String json = gson.toJson(schedule);
-
-		return crowdService.insertSchedule(schedule)+"";
+		int affected = crowdService.insertSchedule(schedule);
+		return json;
 	}
 
 
@@ -292,6 +338,29 @@ public class CrowdController {
 		model.addAttribute("alist", albumlist);
 		return "crowd.album";
 	}
+
+	@GetMapping("adetail")
+	public String albumdetail(
+			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="id") Integer postsId,
+			Integer id,
+			Principal principal,
+			Model model
+			) {
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
+		PostsInfoView posts = postsService.getPostsinfoView(id);
+		List<CmtListView> cmt = cmtService.getCmtList(postsId);
+		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
+		int affected = postsService.updatehit(id);
+		model.addAttribute("cmtcnt", cmtcnt);
+		model.addAttribute("crowd", crowd);
+		model.addAttribute("cmt",cmt);
+		model.addAttribute("pc", postscontent);
+		model.addAttribute("posts", posts);
+		return "crowd.adetail";
+	}
+
 
 	@RequestMapping("createCategory")
 	public String createCategory(Model model) {		
@@ -367,6 +436,27 @@ public class CrowdController {
 		return crowdService.requestCrowdJoin(crowdId, userId)+"";
 	}
 
+	
+	@GetMapping("groupchat")
+	public String groupChatting(@RequestParam(name="crowd") Integer crowdId) 
+	{
+		return "crowd.groupchat";
+	}
+	
+	@PostMapping("get-groupMyId") 
+	@ResponseBody
+	public String getGroupMyId(Principal principal)  
+	{
+		String getGroupMyId = principal.getName();
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(getGroupMyId);
+		
+		return json;
+	}
+
+
+
 	@RequestMapping("set-rprt-crowd")
 	@ResponseBody
 	public String setRprtCrowd(String crowdIdStr, String title, String content, Principal principal) {
@@ -393,5 +483,6 @@ public class CrowdController {
 		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId);
 		return crowdService.deleteRprtCrowd(rprtCrowd)+"";
 	}
+
 }
 

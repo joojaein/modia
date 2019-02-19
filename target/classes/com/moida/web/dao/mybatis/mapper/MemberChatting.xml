@@ -60,7 +60,12 @@
 	
 	</insert>
 
+	<insert id="insertRprtId" parameterType="com.moida.web.entity.RprtMember">
+		
+		insert into RprtMember (rprtId,writerId,title,content) 
+		value (#{rprtId},#{myId},#{rprtTitle},#{rprtDetailContent})
 	
+	</insert>
 
 
 </mapper> 

@@ -229,7 +229,6 @@ window.addEventListener("load", function () {
 
 
 				<div class="modal-body">
-					<form id="cform" method="post">
 					<input class="crowdId" name="crowdId" type="hidden" value="${crowd.id}" />
 						<div class="form-group form-date">
 							<label class="control-label">기간</label>
@@ -248,7 +247,6 @@ window.addEventListener("load", function () {
 							<label class="control-label">내용</label>
 							<textarea name="content" class="form-control content-text"></textarea>
 						</div>
-					</form>
 				</div>
 				<div class="modal-footer">
 					<!-- <button type="button" class="btn-default btn closebtn">닫기</button> -->

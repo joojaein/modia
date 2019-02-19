@@ -3,6 +3,7 @@ package com.moida.web.dao;
 
 import java.util.List;
 
+
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsInfoView;
 import com.moida.web.entity.PostsListView;
@@ -17,6 +18,7 @@ public interface PostsDao {
 	public List<PostsListView> getNoticePostsView(Integer crowdId);
 	public PostsInfoView getPostsinfoView(Integer id);
 	public int updatehit(Integer id);
+	public int deletePosts(Integer id);
 
 	
 }

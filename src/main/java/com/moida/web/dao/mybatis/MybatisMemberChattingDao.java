@@ -49,6 +49,16 @@ public class MybatisMemberChattingDao implements MemberChattingDao
 		return memberChattingDao.getMemberAdminChatting(myid);
 	}
 
+	@Override
+	public int insertRprtId(String rprtId, String myId, String rprtTitle, String rprtDetailContent) 
+	{
+		// TODO Auto-generated method stub
+		
+		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
+		
+		return memberChattingDao.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
+	}
+
 	
 	
 	

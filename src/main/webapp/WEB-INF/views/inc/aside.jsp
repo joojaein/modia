@@ -1,7 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
+<section class="click-profile-container">
+        <div class="click-friend-profile">
+            <div class="click-chat-profile-img">
+            </div>
+            <div class="click-chat-profile-detail">
+                <label class="click-chat-profile-id"></label>
+                <h5 class="click-chat-profile-msg"></h5>
+                <div class="click-detail-box">
+                    <div class="click-box-list click-box-F-noF"></div>
+                    <div class="click-box-list nonodino">차단</div>
+                    <div class="click-box-list click-chat-rprt-button">신고</div>
+                </div>
+                <div class="click-exit-button"></div>
+            </div>
+        </div>
+</section>
+<section class="click-rprt-container">
+            <div class="click-chat-rprt">
+                <div class="click-chat-rprt-exit">
+                    <img src="/resources/images/chat/KakaoTalk_20190118_090828190.png" alt="">
+                </div>
+                <h1>신고하기</h1>
+                <h3 class="click-chat-rprt-title">신고사유</h3>
+                <select id="click-chat-rprt-select">
+                    <option value="">사유 선택</option>
+                    <option value="욕설/반말/부적절한 언어">욕설/반말/부적절한 언어</option>
+                    <option value="회원 분란 유도">회원 분란 유도</option>
+                    <option value="음란성 게시물">음란성 게시물</option>
+                    <option value="광고성 게시물">광고성 게시물</option>
+                    <option value="회원 비방">회원 비방</option>
+                    <option value="지나친 정치/종교 논쟁">지나친 정치/종교 논쟁</option>
+                    <option value="명예훼손/저작권 침해">명예훼손/저작권 침해</option>
+                    <option value="초상권 침해/도촬">초상권 침해/도촬</option>
+                    <option value="도배성 게시물">도배성 게시물</option>
+                </select>
+                <h3 class="click-chat-rprt-title">상세내용</h3>
+                <textarea class="click-chat-rprt-detailContent"></textarea>
+                <div class="click-chat-rprt-btn">
+                    <input class="click-chat-rprt-input" type="submit" value="신고하기" />
+                </div>
+            </div>
+        </section>
 <aside>
 
 <div id="open-chat">
@@ -24,8 +65,7 @@
                 </fieldset>
             </form>
             <div class="friend-list-container">
-                <div class="friend-list">
-                <template id="friend-cp">
+            <template id="friend-cp">
                     <div class="friend">
                     
                         <div class="friend-img">
@@ -40,6 +80,8 @@
                         </div>
                     </div>
                     </template>
+                <div class="friend-list">
+                
                 </div>
 				<template id="message-list-tpl">
                     <div class="friend message-list-fff">
@@ -83,22 +125,22 @@
                     <label class="chat-profile-id">지각대장</label>
                     <h5 class="chat-profile-msg">나는 나는 캠핌캠핑</h5>
                     <div class="detail-box">
-                        <div class="box-list">친구삭제</div>
-                        <div class="box-list">차단</div>
-                        <div class="box-list rprt-button">신고</div>
+                        <div class="box-list chat-friend-del">친구삭제</div>
+                        <div class="box-list nonodino">차단</div>
+                        <div class="box-list chat-rprt-button">신고</div>
                     </div>
                     <div class="exit-button"></div>
                 </div>
             </div>
         </section>
         <section class="rprt-container">
-            <div class="chat-rprt d-none">
-                <div class="rprt-exit">
+            <div class="chat-rprt">
+                <div class="chat-rprt-exit">
                     <img src="/resources/images/chat/KakaoTalk_20190118_090828190.png" alt="">
                 </div>
                 <h1>신고하기</h1>
-                <h3 class="rprt-title">신고사유</h3>
-                <select>
+                <h3 class="chat-rprt-title">신고사유</h3>
+                <select id="chat-rprt-select">
                     <option value="">사유 선택</option>
                     <option value="욕설/반말/부적절한 언어">욕설/반말/부적절한 언어</option>
                     <option value="회원 분란 유도">회원 분란 유도</option>
@@ -110,10 +152,10 @@
                     <option value="초상권 침해/도촬">초상권 침해/도촬</option>
                     <option value="도배성 게시물">도배성 게시물</option>
                 </select>
-                <h3 class="rprt-title">신고사유</h3>
-                <textarea></textarea>
-                <div class="rprt-btn">
-                    <input type="submit" value="신고하기" />
+                <h3 class="chat-rprt-title">상세내용</h3>
+                <textarea class="chat-rprt-detailContent"></textarea>
+                <div class="chat-rprt-btn">
+                    <input class="chat-rprt-input" type="submit" value="신고하기" />
                 </div>
             </div>
         </section>
@@ -128,11 +170,11 @@
                     <div class="you-img friend-chat-img"></div>
                     <span class="friend-chat-id"></span>
                     <div class="you-chatting">
-                        <textarea class="friend-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
-                                
-                            </textarea>
+                        <div class="friend-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
+                        </div>
+                        <span class="friend-chat-date"></span>
                     </div>
-                    <div class="date-time-set"><span class="friend-chat-date"></span></div>
+                    <div class="date-time-set"><span class=""></span></div>
                 </div>
              </template>
              <template id="my-chat-txt">
@@ -140,11 +182,12 @@
                     <div class="me-img my-chat-img"></div>
                     <span class="my-chat-id"></span>
                     <div class="me-chatting">
-                        <textarea class="my-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
+                        <div class="my-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
                                     
-                                </textarea>
+                        </div>
+                        <span class="my-chat-date"></span>
                     </div>
-                    <div class="date-time-set me-date"><span class="my-chat-date"></span></div>
+                    <div class="date-time-set me-date"><span class=""></span></div>
                 </div>
                </template>
             <div class="chat-window-main">
@@ -154,7 +197,7 @@
             <div class="text-area">
                 <div class="text-base">
                     <div class="text-area-btns-div">
-                        <img class="text-area-btns" src="/resources/images/chat/plus-circle.png" alt="">
+                       <!-- <img class="text-area-btns" src="/resources/images/chat/plus-circle.png" alt=""> -->
                         <textarea class="chat-textarea" rows="" cols="" name="msg" ></textarea>
                          <input class="chat-send-button" type="button" name="send-button" value="전송" />
                     </div>
@@ -237,7 +280,7 @@
     </section>
 <div class="admin-chat-window">
             <div class="admin-chat-window-header">
-                <span class="admin-friend-chatting-roomname"></span>
+                <span class="admin-chatting-roomname"></span>
                 <input class="admin-chat-fr-img" type="hidden" value="">
             </div>
             <template id="admin-friend-chat-txt">
@@ -245,24 +288,26 @@
                     <div class="admin-you-img admin-friend-chat-img"></div>
                     <span class="admin-friend-chat-id"></span>
                     <div class="admin-you-chatting">
-                        <textarea class="admin-friend-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
-                                
-                            </textarea>
+                        <div class="admin-friend-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
+                     
+                        </div>
+                        <span class="admin-friend-chat-date"></span>
                     </div>
-                    <div class="admin-date-time-set"><span class="admin-friend-chat-date"></span></div>
+                     <div class="admin-date-time-set"><span class="admin-friend-chat-date"></span></div>
                 </div>
              </template>
              <template id="admin-my-chat-txt">
                 <div class="admin-chat-me">
-                    <div class="admin-me-img my-chat-img"></div>
-                    <span class="admin-my-chat-id"></span>
-                    <div class="admin-me-chatting">
-                        <textarea class="admin-my-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
-                                    
-                                </textarea>
-                    </div>
-                    <div class="admin-date-time-set admin-me-date"><span class="admin-my-chat-date"></span></div>
-                </div>
+	                   <div class="admin-me-img my-chat-img"></div>
+	                   <span class="admin-my-chat-id"></span>
+	                   <div class="admin-me-chatting">
+	                       <div class="admin-my-chat-txta" name="" id="" cols="35" rows="3" readonly="readonly">
+	                                   
+	                       </div>
+	                       <span class="admin-my-chat-date"></span>
+	                   </div>
+	                    <div class="admin-date-time-set admin-me-date"><span class="admin-my-chat-date"></span></div> 
+	               </div>
                </template>
             <div class="admin-chat-window-main">
             
@@ -271,7 +316,7 @@
             <div class="admin-text-area">
                 <div class="admin-text-base">
                     <div class="admin-text-area-btns-div">
-                        <img class="admin-text-area-btns" src="/resources/images/chat/plus-circle.png" alt="">
+                        <!-- <img class="admin-text-area-btns" src="/resources/images/chat/plus-circle.png" alt=""> -->
                         <textarea class="admin-chat-textarea" rows="" cols="" name="msg" ></textarea>
                          <input class="admin-chat-send-button" type="button" name="send-button" value="전송" />
                     </div>

@@ -25,7 +25,9 @@
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
+
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
+
 			</div>
 		</nav>
 	</section>

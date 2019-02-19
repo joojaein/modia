@@ -51,6 +51,15 @@ public class MoidaMemberChattingService implements MemberChattingService
 		return 1;
 	}
 
+	@Override
+	public int insertRprtId(String rprtId, String myId, String rprtTitle, String rprtDetailContent) 
+	{
+		// TODO Auto-generated method stub
+		memberChattingDao.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
+		
+		return 1;
+	}
+
 
 	
 

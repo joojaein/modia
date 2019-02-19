@@ -75,7 +75,7 @@ $(function()
     function chattingOn()
     {
        
-       
+    	$(".friend-list").empty();
        var getFriendDatas = new XMLHttpRequest();
        
      //  alert("open전");   
@@ -119,6 +119,56 @@ $(function()
        
         
     };
+    
+//    function reChattingOn()
+//    {
+//       
+//    	$(".friend-list").empty();
+//       var getReFriendDatas = new XMLHttpRequest();
+//       
+//     //  alert("open전");   
+//       
+//       getReFriendDatas.open("POST","/member/get-friendList",true);
+//       getReFriendDatas.setRequestHeader("Content-Type",
+//                               "application/x-www-form-urlencoded");
+//             
+//             //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+//       getReFriendDatas.onload = function()
+//          {
+//       //      alert("여기까진 오나??");
+//             
+//             var getReFriendDataList = JSON.parse(getReFriendDatas.responseText); 
+//        //     alert("json 파세"+getFriendDataList);
+//             var friendCp = document.querySelector("#friend-cp");
+//             var friendList2 = document.querySelector(".friend-list");
+//       //      alert(friendCp);
+//       //      alert(getFriendDataList.length);
+//        //     alert("id : "+getFriendDataList[0][0].id);
+//             
+//             for (var i = 0; i < getReFriendDataList.length; i++) 
+//             {
+//                var tpl=document.importNode(friendCp.content, true);
+//                var tmpLabel=tpl.querySelector("label");
+//                   tmpLabel.innerText=getReFriendDataList[i][0].id;
+//                   
+//                var tmph6 =tpl.querySelector("h6");
+//                   tmph6.innerText=getReFriendDataList[i][0].msg;
+//                   
+//                var tmlImg =tpl.querySelector(".friend-img");
+//                   tmlImg.style.backgroundImage = 
+//                      "url(/get-img?folder=member-profile&file="+getReFriendDataList[i][0].img+")";
+//                   
+//                   friendList2.append(tpl);
+//             }
+//             
+//             
+//          }
+//          
+//       getReFriendDatas.send();
+//       
+//       
+//        
+//    };
     
     function messageList()
     {
@@ -493,10 +543,11 @@ $(function()
     	 getadminMemberLimit.onload = function()
               {
 //                 alert("여기까진 오나??");
-                 
+                 $(".adminadmin-list").empty();
                var adLimittplC = document.querySelector("#admin-Limit-Tpl");
            	   var admessagelist = document.querySelector(".adminadmin-list");
       	   
+           	
 //           	   alert(""+$(".adminchat-list").className);
 //           	   alert("nvgnjh"+adLimittplC);
            	   
@@ -672,6 +723,8 @@ $(function()
     	 getadminMemberLimit.send();
          
     }
+    
+    
     
     //------------------- 내가 ADMIN 일 경우 나와 대화한 멤버의 아이디를 가져오는 FUNCTION End --------------
 
