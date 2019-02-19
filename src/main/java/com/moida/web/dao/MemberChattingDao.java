@@ -18,4 +18,10 @@ public interface MemberChattingDao
 			@Param("friendId") String friendId,
 			@Param("content") String content);
 	
+	int insertRprtId(
+					@Param("rprtId") String rprtId,
+					@Param("myId") String myId,
+					@Param("rprtTitle") String rprtTitle,
+					@Param("rprtDetailContent") String rprtDetailContent);
+	
 }

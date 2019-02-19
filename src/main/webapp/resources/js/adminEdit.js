@@ -70,7 +70,12 @@ var main = document.querySelector("main");
 	
 	btnSubmitPwd.onclick = function(){
 		if(npw.value!=rpw.value) {
-			alert("새로운 비밀번호와 재확인용 비밀번호가 일치하지 않습니다.");
+    		swal({
+    			  title: "새로운 비밀번호와 재확인용 비밀번호가 일치하지 않습니다.",
+    			  icon: "warning",
+    			  button : "확인",
+    			  dangerMode: true,
+    			});	
 			return;
 		}		
 		var pwdRequest = new XMLHttpRequest(); 
@@ -78,13 +83,21 @@ var main = document.querySelector("main");
 		pwdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 		pwdRequest.onload = function () {	
 			if(pwdRequest.responseText=="0"){
-				alert("기존 비밀번호가 일치하지 않습니다.");
+	    		swal({
+	    			  title: "기존 비밀번호가 일치하지 않습니다.",
+	    			  icon: "warning",
+	    			  button : "확인",
+	    			  dangerMode: true,
+	    			});	
 			}else{
 				window.location.href = "/admin/index";
 			}
 		};
 		pwdRequest.send("pw="+pw.value+"&npw="+npw.value);	
 	};
+	
+
+
 	
 	
 	var divEmail = main.querySelector(".div-email");
@@ -136,12 +149,22 @@ var main = document.querySelector("main");
 	    		btnEmailAuth.name=emailRequest.responseText;	  		
 	    		btnEmailAuth.onclick = function(){	
 	            	if(btnEmailAuth.name==txtAuthNum.value){
-	                	alert("이메일 인증이 완료되었습니다.");
+	            		swal({
+	            			  title: "이메일 인증이 완료되었습니다.",
+	            			  icon: "warning",
+	            			  button : "확인",
+	            			  dangerMode: true,
+	            			});	
 	                    clearInterval(timer);
 	                    btnEmailAuth.value = "인증완료";
 	                    btnSubmitEmail.classList.remove("d-none");                  
 	            	}else{
-	                	alert("이메일 인증이 실패했습니다.");
+	            		swal({
+	            			  title: "이메일 인증이 실패했습니다.",
+	            			  icon: "warning",
+	            			  button : "확인",
+	            			  dangerMode: true,
+	            			});	
 	                    clearInterval(timer);
 	        	    	btnEmailSend.classList.remove("timer");
 	        	    	btnEmailSend.value = "인증번호 발송"; 

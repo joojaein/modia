@@ -73,7 +73,12 @@ window.addEventListener("load",function(){
 		                }
 		                idRequest.send("email="+txtEmailId.value);
 	            	}else{
-	                	alert("이메일 인증이 실패했습니다.");
+	            		swal({
+	            			title: "이메일 인증이 실패했습니다.",
+	        				icon: "warning",
+	        				button : "확인",
+	        				dangerMode: true,
+	        				});
 	                    clearInterval(timer);
 	        	    	btnEmailSendId.classList.remove("timer");
 	        	    	btnEmailSendId.value = "인증번호 발송"; 
@@ -128,7 +133,12 @@ window.addEventListener("load",function(){
 	                    rpw.classList.remove("d-none");
 	                    btnSubmicPw.classList.remove("d-none");
 	            	}else{
-	                	alert("이메일 인증이 실패했습니다.");
+	            		swal({
+	            			title: "이메일 인증이 실패했습니다.",
+	        				icon: "warning",
+	        				button : "확인",
+	        				dangerMode: true,
+	        				});
 	                    clearInterval(timer);
 	        	    	btnEmailSendPw.classList.remove("timer");
 	        	    	btnEmailSendPw.value = "인증번호 발송"; 
@@ -142,7 +152,12 @@ window.addEventListener("load",function(){
     
     btnSubmicPw.onclick = function(){
     	if(pw.value!=rpw.value){
-			alert("새로운 비밀번호와 재확인용 비밀번호가 일치하지 않습니다.");
+    		swal({
+    			title: "새로운 비밀번호와 재확인용 비밀번호가 일치하지 않습니다.",
+				icon: "warning",
+				button : "확인",
+				dangerMode: true,
+				});
 			return;
     	}
     	
@@ -159,14 +174,28 @@ window.addEventListener("load",function(){
         		}
         	}
         	if(id==""){
-        		alert("회원정보가 존재하지 않습니다.");
+        		swal({
+        			title: "회원정보가 존재하지 않습니다.",
+    				icon: "warning",
+    				button : "확인",
+    				dangerMode: true,
+    				});
         	}else{
         		var pwdRequest = new XMLHttpRequest(); 
         		pwdRequest.open("POST", "/update-pw", true); 
         		pwdRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
         		pwdRequest.onload = function () {	
-            		alert("비밀번호 변경이 완료되었습니다.");
-    				window.location.href = "/login";
+            		swal({
+            			title: "비밀번호 변경이 완료되었습니다.",
+        				icon: "warning",
+        				button : "확인",
+        				dangerMode: true,
+        				})
+        				.then((willDelete) => {
+							if (willDelete) {
+								window.location.href = "/login";
+							}
+    					});
         		};
         		pwdRequest.send("id="+id.value+"&pw="+rpw.value);	
         	}

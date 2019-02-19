@@ -9,6 +9,7 @@ import com.moida.web.dao.FriendDao;
 import com.moida.web.entity.AdminChatMemberView;
 import com.moida.web.entity.Friend;
 import com.moida.web.entity.FriendDataView;
+import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberChat;
 import com.moida.web.entity.MemberChattingViewF;
 
@@ -49,11 +50,11 @@ public class MoidaFriendService implements FriendService
 	
 	
 	@Override
-	public int insert(Friend friend) 
+	public int insert(String myId,String friendId) 
 	{
 		// TODO Auto-generated method stub
 		
-		return friendDao.insert(friend);
+		return friendDao.insert(myId,friendId);
 	}
 
 	@Override
@@ -116,6 +117,31 @@ public class MoidaFriendService implements FriendService
 
 		
 		return friendDao.getAdMemberList();
+	}
+
+
+	@Override
+	public List<Friend> chkFriend(String myId, String memberId) 
+	{
+		// TODO Auto-generated method stub
+		
+		return friendDao.chkFriend(myId, memberId);
+	}
+
+
+	@Override
+	public Member getNoFriendData(String memberId) 
+	{
+		// TODO Auto-generated method stub
+		return friendDao.getNoFriendData(memberId);
+	}
+
+
+	@Override
+	public FriendDataView getMyFriendData(String friendId) 
+	{
+		// TODO Auto-generated method stub
+		return friendDao.getMyFriendData(friendId);
 	}
 	
 	
