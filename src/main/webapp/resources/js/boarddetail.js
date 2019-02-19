@@ -75,3 +75,22 @@ function commentadd(){
 
 	})
 }
+
+/*$(function(){
+
+$(".delete").click(function(){
+	swal({
+		  title: "정말 삭제하시겠습니까?",
+		  text: "삭제시 복구 불가.",
+		  icon: "warning",
+		  buttons: ["cancel","ok"],
+		  dangerMode: false,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			
+		  }
+		});
+});
+})
+*/

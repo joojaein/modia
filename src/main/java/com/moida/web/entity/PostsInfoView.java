@@ -12,12 +12,13 @@ public class PostsInfoView {
 	private Date regDate;
 	private int hit;
 	private String img;
+	private int cnt;
 	
 	public PostsInfoView() {
 	}
 
 	public PostsInfoView(int id, int boardId, String title, String content, String mainImg, String writerId,
-			Date regDate, int hit, String img) {
+			Date regDate, int hit, String img, int cnt) {
 		super();
 		this.id = id;
 		this.boardId = boardId;
@@ -28,6 +29,7 @@ public class PostsInfoView {
 		this.regDate = regDate;
 		this.hit = hit;
 		this.img = img;
+		this.cnt = cnt;
 	}
 
 	public int getId() {
@@ -102,12 +104,19 @@ public class PostsInfoView {
 		this.img = img;
 	}
 
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	@Override
 	public String toString() {
 		return "PostsInfoView [id=" + id + ", boardId=" + boardId + ", title=" + title + ", content=" + content
 				+ ", mainImg=" + mainImg + ", writerId=" + writerId + ", regDate=" + regDate + ", hit=" + hit + ", img="
-				+ img + "]";
+				+ img + ", cnt=" + cnt + "]";
 	}
-	
 
 }

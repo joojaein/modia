@@ -82,4 +82,11 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDao.getBoardList(crowdId);
 	}
 
+	@Override
+	public List<Board> getBoardListType0(Integer crowdId) {
+		// TODO Auto-generated method stub
+		BoardDao boardDao = session.getMapper(BoardDao.class);
+		return boardDao.getBoardListType0(crowdId);
+	}
+
 }

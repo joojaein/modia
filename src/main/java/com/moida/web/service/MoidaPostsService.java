@@ -45,6 +45,27 @@ public class MoidaPostsService implements PostsService {
 		
 		return lastPosts.getId();
 	}
+	
+	@Transactional
+	@Override
+	public String updatePosts(Posts posts, List<PostsContent> postsContentList) {
+		// TODO Auto-generated method stub
+		
+		postsDao.update(posts);
+	
+		
+		for (int i = 0; i < postsContentList.size(); i++) {
+			
+			if(postsContentList.get(i).getSrc()!="" && postsContentList.get(i).getSrc()!=null) {
+				postsContentList.get(i).setSrc(postsContentList.get(i).getPostsId()+postsContentList.get(i).getSrc()); 
+			}
+
+			postsContentDao.insert(postsContentList.get(i));
+		}
+		
+		return 1+"";
+	}
+
 
 	@Override
 	public List<PostsListView> getPostsListView1(Integer crowdId) {
@@ -87,6 +108,11 @@ public class MoidaPostsService implements PostsService {
 	public int updatehit(Integer id) {
 		// TODO Auto-generated method stub
 		return postsDao.updatehit(id);
+	}
+
+	public int deletePosts(Integer id) {
+		// TODO Auto-generated method stub
+		return postsDao.deletePosts(id);
 	}
 
 }

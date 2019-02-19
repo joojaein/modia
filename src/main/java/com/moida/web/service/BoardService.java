@@ -8,6 +8,7 @@ import com.moida.web.entity.PostsListView;
 
 public interface BoardService {
 	
+	List<Board> getBoardListType0(Integer crowdId);
 	List<Board> getBoardListType1(int crowdId);
 	Board getBoardType0(int crowdId);
 	Board getBoardType2(int crowdId);

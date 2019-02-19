@@ -5,10 +5,9 @@
 <main>
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-<link href="/resources/css/groupboarddetail.css" type="text/css"
-	rel="stylesheet" />
+<link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/boarddetail.js"></script> 
-<script src="/resources/js/backpage.js"></script>
+<script src="/resources/js/backpage.js"></script> 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <div class="wrapper">
 	<section class="main-head">
@@ -33,18 +32,17 @@
 			</div>
 		</nav>
 	</section>
-	<input id="cid" type="hidden" value="${crowd.id}" /> 
-	<input class="pi" type="hidden" value="${posts.id}" />
-	<form method="post" action="boardedit">
+	<input id="cid" type="hidden" value="${crowd.id}" /> <input class="pi"
+		type="hidden" value="${posts.id}" />
 	<section class="content-title">
-		<h3 name="title">${posts.title}</h3>
+		<h3>${posts.title}</h3>
 		<div class="profile-box">
-			<div class="photo"
-				style="background: url('/get-img?folder=crowd-postsImg&file=${posts.img}') no-repeat center; background-size: cover;"></div>
+			<div class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${posts.img}') no-repeat center; background-size: cover;"></div>
 			<div class="profile-info">
 				<span class="name">${posts.writerId}</span> <span class="reg-write">
 					<fmt:formatDate value="${posts.regDate}" pattern="yyyy-MM-dd a HH:mm" />
-				</span> <span>조회수<span class="hit" style="color: red;">[${posts.hit}]</span>
+				</span> 
+				<span>조회수<span class="hit" style="color: red;">[${posts.hit}]</span>
 				</span>
 			</div>
 		</div>
@@ -62,14 +60,13 @@
 			</c:choose>
 		</c:forEach>
 	</article>
-	</form>
 	<section class="content-comment">
 	<div class=writer-btn>
-		<input class="modifi" type="button" value="수정" />
-	<form method="post" action="/crowd/boarddelete" style=" width: 10%; text-align: center;">
+		<input class="modifi" type="submit" value="수정" />
+	<form method="post" action="/crowd/boarddelete" style="width: 10%; text-align: center;">
 		<input type="hidden" name="id" value="${posts.id}" />
-		<input type="hidden" name="board" value="board" /> 
-		<input type="hidden" name="type" value="1" />
+		<input type="hidden" name="board" value="album" /> 
+		<input type="hidden" name="type" value="2" />
 		<input type="hidden" name="crowdId" value="${crowd.id}" />
 		<input class="delete" type="submit" value="삭제" style="margin-left: 5px" />
 	</form>
@@ -126,7 +123,8 @@
 					<div class="comment-content">
 						<p>${cmt.content}</p>
 						<div>
-							<fmt:formatDate value="${cmt.regDate}" pattern="yyyy-MM-dd a HH:mm" />
+							<fmt:formatDate value="${cmt.regDate}"
+								pattern="yyyy-MM-dd a HH:mm" />
 						</div>
 					</div>
 				</div>

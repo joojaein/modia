@@ -31,31 +31,43 @@
 		</nav>
 	</section>
 	<input id="cid" type="hidden" value="${crowd.id}" />
-	<article class="content">
-		<c:forEach var="p" items="${list}">
+		<article class="content">
+		<c:forEach var="p" items="${plist}">
+			<c:url value="notice/ndetail" var="url">
+				<c:param name="crowd" value="${p.crowdId}" />
+				<c:param name="id" value="${p.id}" />
+			</c:url>
 			<div class="content-box">
 				<div class="etc-box">
 					<div class="profile-box">
-						<div class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${p.writerId}.png') no-repeat center; background-size: cover;"></div>
+						<div class="photo" style="background: url('/get-img?folder=member-profile&file=${p.img}') no-repeat center; background-size: cover;"></div>
 						<div class="profile-info">
-							<span class="name"><a href="${p.id}">${p.writerId}</a></span>
+							<span class="name">${p.writerId}</span>
 						</div>
 					</div>
-					<div class="content-title">${p.title}</div>
-					<p style="margin: 0;">${p.content}</p>
+					<div class="content-title">
+						<a href="${url}">${p.title}</a>
+					</div>
+					<p class="content-content" style="margin: 0;">
+						<a href="${url}">${p.content}</a>
+					</p>
 				</div>
 				<div class="img-box">
 					<div class="pi-box">
-						<img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" />
+						<a href="${url}"><img class="post-img"
+							src="/get-img?folder=crowd-postsImg&file=${p.mainImg}.png" /></a>
 					</div>
 				</div>
 			</div>
 			<div class="timeview">
-				<span><fmt:formatDate value="${p.regDate}" pattern="yyyy-MM-dd a HH:mm" /></span>
-				<span>조회수<span class="hit" style="color: red;">[${p.hit}]</span></span> 
-				<span>댓글수<span class="comment-cnt" style="color: red;">[0]</span></span>
+				<span class="reg-write"><a href="${url}"> <fmt:formatDate
+							value="${p.regDate}" pattern="yyyy-MM-dd a HH:mm" /></a></span> <a
+					href="${url}"><span>조회수 <span class="hit"
+						style="color: red;">[${p.hit}]</span></span></a> <a href="${url}"><span>댓글수<span
+						class="comment-cnt" style="color: red;">[${p.cmtCnt}]</span></span></a>
 			</div>
 			<hr />
+			<input class="pid" type="hidden" value="p.id" />
 		</c:forEach>
 	</article>
 </div>
@@ -86,5 +98,4 @@
 	</div>
 </section>
 </main>
-
-<a id="MOVE_BACK_BTN" href="#">목록으로</a>
+<a id="MOVE_BACK_BTN">목록으로</a>
