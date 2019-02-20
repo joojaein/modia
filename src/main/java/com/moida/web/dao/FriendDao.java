@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.moida.web.entity.AdminChatMemberView;
 import com.moida.web.entity.Friend;
 import com.moida.web.entity.FriendDataView;
+import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberChat;
 import com.moida.web.entity.MemberChattingViewF;
 
@@ -16,12 +17,22 @@ public interface FriendDao
 	//List<Friend> getFriendList(String myId);
 	List<Friend> getFriendList(String myId);
 	
-	int insert(Friend friend);
+	List<Friend> chkFriend(@Param("myId") String myId, @Param("memberId") String memberId);
 	
-	int delete(String myId,String friendId);
+	int insert(@Param("memberId") String myId,@Param("friendId") String friendId);
+	
+	int delete(@Param("memberId") String myId,@Param("friendId") String friendId);
 	
 	// friend를 위해
-		List<FriendDataView> getFriendData(@Param("id") String friendId);
+	List<FriendDataView> getFriendData(@Param("id") String friendId);
+	
+	
+	//친구 임
+	FriendDataView getMyFriendData(@Param("id") String friendId);
+	//친구 아님
+	Member getNoFriendData(@Param("id") String memberId);
+	
+	
 		
 	// 친구와 마지막으로 나눈 대화를 가져오기 위해 
 	List<MemberChattingViewF> getLastTalkData(@Param("myId")String myId, @Param("friendId")String friendId);

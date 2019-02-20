@@ -2,6 +2,7 @@ package com.moida.web.service;
 
 import java.util.List;
 
+
 import com.moida.web.entity.MemberChat;
 
 public interface MemberChattingService 
@@ -12,5 +13,9 @@ public interface MemberChattingService
 	
 	
 	int insertMemberChatting(String myId,String friendId,String content);
+	
+	
+	int insertRprtId(String rprtId,String myId, String rprtTitle, String rprtDetailContent);
+	
 	
 }

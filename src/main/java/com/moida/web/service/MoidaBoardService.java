@@ -5,12 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.moida.web.dao.BannerDao;
 import com.moida.web.dao.BoardDao;
-import com.moida.web.entity.Banner;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.BoardCategory;
-import com.moida.web.entity.PostsView;
+import com.moida.web.entity.PostsListView;
 
 @Service
 public class MoidaBoardService implements BoardService {
@@ -48,12 +46,12 @@ public class MoidaBoardService implements BoardService {
 		return boardDao.deleteBoard(boardId);
 	}
 
-	public PostsView getBoardViewList(Integer crowdId) {
+	public PostsListView getBoardViewList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return boardDao.getBoardViewList(crowdId);
 	}
 
-	public PostsView getBoardViewList(Integer crowdId, Integer categoryId) {
+	public PostsListView getBoardViewList(Integer crowdId, Integer categoryId) {
 		// TODO Auto-generated method stub
 		return boardDao.getBoardViewList(crowdId, categoryId);
 	}
@@ -66,6 +64,11 @@ public class MoidaBoardService implements BoardService {
 	public List<Board> getBoardList(Integer crowdId) {
 		// TODO Auto-generated method stub
 		return boardDao.getBoardList(crowdId);
+	}
+
+	public List<Board> getBoardListType0(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return boardDao.getBoardListType0(crowdId);
 	}
 
 

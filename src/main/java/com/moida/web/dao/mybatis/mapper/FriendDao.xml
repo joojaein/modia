@@ -10,20 +10,38 @@
 	
 	</select>
 	
+	<select id="chkFriend" resultType="com.moida.web.entity.Friend">
+	
+		select * from Friend where (  memberId=#{myId} and friendId=#{memberId} )
+	
+	</select>
+	
 	<insert id="insert" parameterType="com.moida.web.entity.Friend">
 		
-		insert into Friend (friendId,memberId) value ('#{friendId}','#{memberId}')
+		insert into Friend (friendId,memberId) value (#{friendId},#{memberId})
 	
 	</insert>
 
 	<delete id="delete" parameterType="com.moida.web.entity.Friend">
 	
-		delete from Friend where (friendId='#{friendId}' and memberId='#{memberId}')
+		delete from Friend where (friendId=#{friendId} and memberId=#{memberId})
 	
 	</delete>
 	
 	<select id="getFriendData" resultType="com.moida.web.entity.FriendDataView">
+		select * from FriendDataView
+		where id=#{id}
+		
+	</select>
+	
+	<select id="getNoFriendData" resultType="com.moida.web.entity.Member">
 		select * from Member
+		where id=#{id}
+		
+	</select>
+	
+	<select id="getMyFriendData" resultType="com.moida.web.entity.FriendDataView">
+		select * from FriendDataView
 		where id=#{id}
 		
 	</select>

@@ -1,7 +1,7 @@
 $(function () {
     $(window).scroll(function () {
 
-        if ($(this).scrollTop() > 200) {
+        if ($(this).scrollTop() > 100) {
             $('#MOVE_BACK_BTN').fadeOut();
         } else {
             $('#MOVE_BACK_BTN').fadeIn();
@@ -9,10 +9,7 @@ $(function () {
     });
 
     $("#MOVE_BACK_BTN").click(function () {
-        $('html, body').animate({
-            scrollTop: 0
-        }, 400);
-        return false;
+    	window.history.back();
     });
 });
 window.addEventListener("load", function () {

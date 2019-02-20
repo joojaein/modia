@@ -9,4 +9,12 @@
 		values(#{postsId},#{src},#{text},#{ord})	
 	</insert>
 
+	<select id="getPostsContent" resultType="com.moida.web.entity.PostsContent">
+		select * from PostsContent where postsId = #{param1} order by ord asc
+	</select>
+	
+	<delete id="delete">
+		delete from PostsContent where postsId = #{param1}
+	</delete>
+
 </mapper>

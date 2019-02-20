@@ -136,4 +136,23 @@ public class MemberChattingController
 		return "채팅 insert 완료";
 	}
 	
+	@PostMapping("insert-rprtId")
+	@ResponseBody
+	public String insertRprtId(String rprtId,String rprtTitle,String rprtDetailContent,Principal principal ) 
+	{
+		
+//		System.out.println("send : "+rprtId);
+//		System.out.println("send : "+rprtTitle);
+//		System.out.println("send : "+rprtDetailContent);
+		String myId = principal.getName();
+		
+	//	System.out.println("여기는 insert 전");
+		
+		int affected = memberChattingService.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
+		
+//		System.out.println("여기는 신고 후");
+		
+		return "신고 insert 완료";
+	}
+	
 }

@@ -1,18 +1,13 @@
 package com.moida.web.dao.mybatis;
 
 import java.util.List;
-
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.moida.web.dao.BannerDao;
-import com.moida.web.dao.CrowdDao;
 import com.moida.web.dao.PostsDao;
-import com.moida.web.entity.Banner;
 import com.moida.web.entity.Posts;
-import com.moida.web.entity.PostsView;
+import com.moida.web.entity.PostsInfoView;
+import com.moida.web.entity.PostsListView;
 
 @Repository
 public class MybatisPostsDao implements PostsDao {
@@ -40,21 +35,21 @@ public class MybatisPostsDao implements PostsDao {
 	}
 
 	@Override
-	public List<PostsView> getPostsView1(Integer crowdId) {
+	public List<PostsListView> getPostsListView1(Integer crowdId) {
 		// TODO Auto-generated method stub
 		PostsDao postsDao = session.getMapper(PostsDao.class);
-		return postsDao.getPostsView1(crowdId);
+		return postsDao.getPostsListView1(crowdId);
 	}
 
 	@Override
-	public List<PostsView> getPostsView2(Integer crowdId, Integer boardId) {
+	public List<PostsListView> getPostsListView2(Integer crowdId, Integer boardId) {
 		// TODO Auto-generated method stub
 		PostsDao postsDao = session.getMapper(PostsDao.class);
-		return postsDao.getPostsView2(crowdId, boardId);
+		return postsDao.getPostsListView2(crowdId, boardId);
 	}
 
 	@Override
-	public List<PostsView> getAlbumPostsView(Integer crowdId) {
+	public List<PostsListView> getAlbumPostsView(Integer crowdId) {
 		// TODO Auto-generated method stub
 		PostsDao postsDao = session.getMapper(PostsDao.class);
 		
@@ -62,10 +57,37 @@ public class MybatisPostsDao implements PostsDao {
 	}
 
 	@Override
-	public List<PostsView> getNoticePostsView(Integer crowdId) {
+	public List<PostsListView> getNoticePostsView(Integer crowdId) {
 		// TODO Auto-generated method stub
 		PostsDao postsDao = session.getMapper(PostsDao.class);
 		return postsDao.getNoticePostsView(crowdId);
+	}
+
+	@Override
+	public PostsInfoView getPostsinfoView(Integer id) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getPostsinfoView(id);
+	}
+
+	@Override
+	public int updatehit(Integer id) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.updatehit(id);
+	}
+
+	@Override
+	public int deletePosts(Integer id) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.deletePosts(id);
+	}
+
+	@Override
+	public Posts getPosts(int postsId) {
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getPosts(postsId);
 	}
 
 }

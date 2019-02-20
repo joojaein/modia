@@ -35,6 +35,17 @@ public class Posts {
 		this.mainImg = mainImg;
 		this.writerId = writerId;
 	}
+	
+	public Posts(int id, int boardId, String title, String content, String mainImg, String writerId) {
+		super();
+		this.id = id;
+		this.boardId = boardId;
+		this.title = title;
+		this.content = content;
+		this.mainImg = mainImg;
+		this.writerId = writerId;
+	}
+	
 
 	public int getId() {
 		return id;

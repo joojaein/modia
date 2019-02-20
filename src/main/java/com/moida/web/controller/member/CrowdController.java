@@ -1,6 +1,7 @@
 package com.moida.web.controller.member;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import java.text.ParseException;
@@ -21,9 +22,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,47 +36,84 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.moida.web.entity.Board;
 import com.moida.web.entity.Category;
+import com.moida.web.entity.Cmt;
+import com.moida.web.entity.CmtListView;
+import com.moida.web.entity.Cmtcnt;
 import com.moida.web.entity.Crowd;
-import com.moida.web.entity.CrowdBoard;
-import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.Schedule;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
+import com.moida.web.entity.PostsInfoView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
-import com.moida.web.entity.PostsView;
+import com.moida.web.entity.PostsListView;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
+import com.moida.web.service.MoidaCmtService;
 import com.moida.web.service.MoidaCrowdService;
-
+import com.moida.web.service.MoidaMemberService;
 import com.moida.web.service.MoidaPostsService;
 import com.moida.web.service.MoidaTagService;
 
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
-
+	
+	@Autowired
+	public MoidaMemberService memberservice;
 	@Autowired
 	public MoidaCrowdService crowdService;
 
-
 	@Autowired
 	public MoidaBoardService boardService;
-	
+
 	@Autowired
 	public MoidaPostsService postsService;
 	
 	
-	@RequestMapping("notice")
+	@Autowired
+	public MoidaCmtService cmtService; 
+
+
+	
+	@GetMapping("notice")
 	public String notice(
 			@RequestParam(name="crowd") Integer crowdId,
-			Model model) {		
-		List<PostsView> NoticepostsView = postsService.getNoticePostsView(crowdId);
+			Integer boardId,
+			Model model) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		model.addAttribute("list", NoticepostsView);
+		List<PostsListView> postsView = postsService.getNoticePostsView(crowdId);
+		List<Board> boardList = boardService.getBoardListType0(crowdId);
+		System.out.println(postsView);
+		model.addAttribute("plist", postsView);		
 		model.addAttribute("crowd", crowd);
+		model.addAttribute("bList", boardList);
+
 		return "crowd.notice";
+	}
+	
+
+	@GetMapping("notice/ndetail")
+	public String noticedetail(
+			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="id") Integer postsId,
+			Integer id,
+			Principal principal,
+			Model model
+			) {
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
+		PostsInfoView posts = postsService.getPostsinfoView(id);
+		List<CmtListView> cmt = cmtService.getCmtList(postsId);
+		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
+		int affected = postsService.updatehit(id);
+		model.addAttribute("cmtcnt", cmtcnt);
+		model.addAttribute("crowd", crowd);
+		model.addAttribute("cmt",cmt);
+		model.addAttribute("pc", postscontent);
+		model.addAttribute("posts", posts);
+		return "crowd.notice.ndetail";
 	}
 
 	@GetMapping("board")
@@ -85,41 +122,79 @@ public class CrowdController {
 			Integer boardId,
 			Model model) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		List<PostsView> postsView = postsService.getPostsView1(crowdId);
-		
-		// 게시판 목록
+		List<PostsListView> postsView = postsService.getPostsListView1(crowdId);
 		List<Board> boardList = boardService.getBoardListType1(crowdId);
-		//List<Board> boardList = boardService.getBoardList(crowdId);
+		System.out.println(postsView);
 		model.addAttribute("plist", postsView);		
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("bList", boardList);
-		
+
 		return "crowd.board";
 	}
-	
+
 	@PostMapping("board")
 	@ResponseBody
 	public String boardpost(@RequestParam(name="crowd")Integer crowdId, 
 			Integer boardId,
 			Model model){
-		List<PostsView> postsList =null;
-	 if(boardId != null ) {
-		postsList = postsService.getPostsView2(crowdId, boardId);
-	 }else {
-		 postsList = postsService.getPostsView1(crowdId);
-	 }
-	 
-	 Gson gson = new Gson(); 
-	 String json = gson.toJson(postsList);
-	 return json;
+		List<PostsListView> postsList =null;
+		if(boardId != null ) {
+			postsList = postsService.getPostsListView2(crowdId, boardId);
+		}else {
+			postsList = postsService.getPostsListView1(crowdId);
+		}
+
+		Gson gson = new Gson(); 
+		String json = gson.toJson(postsList);
+		return json;
+	}
+	
+	@GetMapping("board/bdetail")
+	public String boarddetail(
+			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="id") Integer postsId,
+			Integer id,
+			Principal principal,
+			Model model
+			) {
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
+		PostsInfoView posts = postsService.getPostsinfoView(id);
+		List<CmtListView> cmt = cmtService.getCmtList(postsId);
+		int affected = postsService.updatehit(id);
+		model.addAttribute("crowd", crowd);
+		model.addAttribute("cmt",cmt);
+		model.addAttribute("pc", postscontent);
+		model.addAttribute("posts", posts);
+		model.addAttribute("uid",principal.getName());
+		return "crowd.board.bdetail";
 	}
 
-	@RequestMapping("{id}")
-	public String detail(
-			@PathVariable("id") Integer id
-			,Model model) {
-
-		return "crowd.board.detail";
+	@PostMapping("board/detail-comment")
+	@ResponseBody
+	public String boarddetailcomment(
+			Integer postsId,
+			String content,
+			Principal principal
+			) {	
+			Cmt cmt = new Cmt(postsId, content, principal.getName());
+			Gson gson = new Gson(); 
+			
+			String json = gson.toJson(cmtService.insertCmt(cmt));
+			System.out.println("cmt"+cmt);
+			System.out.println("json"+json);
+		return json;
+	}
+	
+	@PostMapping("boarddelete")
+	public String deletePosts( Integer id, Integer crowdId, Integer type, String board) {
+		System.out.println("id"+id+"crowdId"+crowdId+"type"+type+"board"+board);
+		int affected = postsService.deletePosts(id);
+		
+		/*
+		 * if(board == null) { return "redirect:"+board+"?t="+type+"&crowd="+crowdId; }
+		 */
+		return "redirect:"+board+"?t="+type+"&crowd="+crowdId;
 	}
 
 	@GetMapping("boardreg")
@@ -131,8 +206,8 @@ public class CrowdController {
 
 		Board boardType0 = boardService.getBoardType0(crowdId);
 		Board boardType2 = boardService.getBoardType2(crowdId);
-		
-        String userId = principal.getName();
+
+		String userId = principal.getName();
 		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
 
 		model.addAttribute("blist", boardlist);
@@ -140,10 +215,10 @@ public class CrowdController {
 		model.addAttribute("boardType0", boardType0);
 		model.addAttribute("boardType2", boardType2);
 		model.addAttribute("groupRole", groupRole);
-		
+
 		return "crowd.boardreg";
 	}
-	
+
 	@PostMapping("boardreg")
 	@ResponseBody
 	public String boardreg (
@@ -153,22 +228,107 @@ public class CrowdController {
 			String jsonContent,
 			String mainImg,
 			Model model, Principal principal) {
-		
+
 		Posts posts = new Posts(boardId, title, content, mainImg, principal.getName());
 
-        Gson gson = new Gson();      
-        JsonParser parser = new JsonParser();
-        JsonElement elem = parser.parse(jsonContent);
-        JsonArray elemArr = elem.getAsJsonArray();
-        List<PostsContent> postsContentList = new ArrayList<PostsContent>();
- 
-        for (int i = 0; i < elemArr.size(); i++) {
-            PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
-            postsContentList.add(postcontent);
+		Gson gson = new Gson();      
+		JsonParser parser = new JsonParser();
+		JsonElement elem = parser.parse(jsonContent);
+		JsonArray elemArr = elem.getAsJsonArray();
+		List<PostsContent> postsContentList = new ArrayList<PostsContent>();
+
+		for (int i = 0; i < elemArr.size(); i++) {
+			PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
+			postsContentList.add(postcontent);
 		}
-             
+
 		return postsService.regPosts(posts, postsContentList)+"";
-}
+	}
+	
+	@GetMapping("boardedit")
+	public String boardEdit(
+			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="posts") Integer postsId,
+			Model model, Principal principal) {
+		
+		
+		Posts posts = postsService.getPosts(postsId);
+		List<Board> boardlist = boardService.getBoardListType1(crowdId);
+		List<PostsContent> contentList = postsService.getPostsContent(postsId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+
+		Board boardType0 = boardService.getBoardType0(crowdId);
+		Board boardType2 = boardService.getBoardType2(crowdId);
+
+		String userId = principal.getName();
+		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
+
+		model.addAttribute("crowd", crowd);
+		model.addAttribute("blist", boardlist);
+		model.addAttribute("boardType0", boardType0);
+		model.addAttribute("boardType2", boardType2);
+		model.addAttribute("groupRole", groupRole);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("contentList", contentList);
+
+		 /*
+		List<File> testFile = new ArrayList<File>();
+
+		for (int i = 0; i < contentList.size(); i++) {	
+			if(!ObjectUtils.isEmpty(contentList.get(i).getSrc())) {
+				String realPath = req.getServletContext().getRealPath("/crowd-postsImg/"+contentList.get(i).getSrc());
+			     if(!new File(realPath).exists()) {
+			        realPath = "http://localhost/resources/images/img404.png";       
+			     }	     
+			     testFile.add(new File(realPath));
+			}
+		}
+		model.addAttribute("testFileList",testFile);*/
+		return "crowd.boardedit";
+	}
+	
+	
+	
+	@PostMapping("boardedit")
+	@ResponseBody
+	public String boardedit (
+			int postsId,
+			int boardId,
+			String title,
+			String content,
+			String jsonContent,
+			String mainImg,
+			Model model, Principal principal, HttpServletRequest req) {
+
+		Posts posts = new Posts(postsId, boardId, title, content, mainImg, principal.getName());
+		
+		List<PostsContent> contentList = postsService.getPostsContent(postsId);
+
+		for (int i = 0; i < contentList.size(); i++) {
+			if(!ObjectUtils.isEmpty(contentList.get(i).getSrc())) {
+				String path = req.getServletContext().getRealPath("/crowd-postsImg/"+contentList.get(i).getSrc());
+			      File file = new File(path);      
+			      if(file.exists()){ 
+			         file.delete(); 
+			      }
+			}
+		}
+
+		Gson gson = new Gson();      
+		JsonParser parser = new JsonParser();
+		JsonElement elem = parser.parse(jsonContent);
+		JsonArray elemArr = elem.getAsJsonArray();
+		List<PostsContent> postsContentList = new ArrayList<PostsContent>();     
+		      
+		for (int i = 0; i < elemArr.size(); i++) {
+			PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
+			postsContentList.add(postcontent);
+		}
+
+		return postsService.updatePosts(posts, postsContentList)+"";
+	}
+
 
 	@GetMapping("calendar")
 	public String calendar(
@@ -180,17 +340,7 @@ public class CrowdController {
 		model.addAttribute("crowd", crowd);
 		return "crowd.calendar"; 
 	}
-	
-	/*
-	 * @PostMapping("calendar") public String calendarreg( Integer crowdId, String
-	 * startDate, String endDate, String title, String content, Model model) throws
-	 * Exception { Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-	 * Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-	 * end.setDate(end.getDate()+1); Schedule schedule = new Schedule(crowdId,
-	 * start, end, title, content); return crowdService.insertSchedule(schedule)+"";
-	 * }
-	 */
-	
+
 	@PostMapping("calendar")
 	@ResponseBody
 	public String calendarinsert(
@@ -200,51 +350,77 @@ public class CrowdController {
 			String title,
 			String content
 			) throws Exception {
+		System.out.println(startDate);
+		System.out.println(endDate);
+	
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 		end.setDate(end.getDate()+1);
-	
+
 		Schedule schedule = new Schedule(crowdId, start, end, title, content);
-	
+
 		System.out.println("아작아작"+schedule);
 		System.out.println("들어옴?");
-		 Gson gson = new Gson(); 
-		 String json = gson.toJson(schedule);
-		
-		return crowdService.insertSchedule(schedule)+"";
+		Gson gson = new Gson(); 
+		String json = gson.toJson(schedule);
+		int affected = crowdService.insertSchedule(schedule);
+		return json;
 	}
-	
-	
+
+
 	@PostMapping("calendarlist-update")
 	public String updateCalendarList(Integer crowdId, String startDate, String endDate, String title, String content, int id) throws ParseException {
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 		end.setDate(end.getDate()+1);
 		Schedule schedule = new Schedule(crowdId, start, end, title, content, id);
-		
-		
+
+
 		return crowdService.updateCalendarList(schedule)+"";
 	}
-	
+
 	@PostMapping("calendarlist-delete")
 	public String deleteCalendar(int id) {
 		int affected = crowdService.deleteCalendarList(id);
 		return affected+"";
-		
+
 	}
-	
-	
+
+
 	@RequestMapping("album")
 	public String album(
 			@RequestParam(name="crowd") Integer crowdId,
 			Model model) {		
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		List<PostsView> albumlist = postsService.getAlbumPostsView(crowdId);
-		
+		List<PostsListView> albumlist = postsService.getAlbumPostsView(crowdId);
+
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("alist", albumlist);
 		return "crowd.album";
 	}
+
+	@GetMapping("adetail")
+	public String albumdetail(
+			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="id") Integer postsId,
+			Integer id,
+			Principal principal,
+			Model model
+			) {
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
+		PostsInfoView posts = postsService.getPostsinfoView(id);
+		List<CmtListView> cmt = cmtService.getCmtList(postsId);
+		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
+		int affected = postsService.updatehit(id);
+		model.addAttribute("cmtcnt", cmtcnt);
+		model.addAttribute("crowd", crowd);
+		model.addAttribute("cmt",cmt);
+		model.addAttribute("pc", postscontent);
+		model.addAttribute("posts", posts);
+		return "crowd.adetail";
+	}
+
 
 	@RequestMapping("createCategory")
 	public String createCategory(Model model) {		
@@ -273,7 +449,7 @@ public class CrowdController {
 		model.addAttribute("title",categoryName.getName());
 		model.addAttribute("categoryId",categoryName.getId());
 		model.addAttribute("tagName", categoryTagName);
-		
+
 		return "crowd.create";
 	}
 
@@ -286,7 +462,7 @@ public class CrowdController {
 		
 		return crowdService.createCrowd(crowd, tagId)+"";
 	}
-	 
+
 	@RequestMapping("checkId")
 	@ResponseBody
 	public String checkId(Principal principal,String url,HttpServletRequest request, HttpSession session) {
@@ -309,42 +485,64 @@ public class CrowdController {
 		int crowdId = Integer.parseInt(crowdIdStr);
 
 		SecurityContext context = SecurityContextHolder.getContext(); 
-	    Authentication authentication = context.getAuthentication(); 
-	    if(authentication.getPrincipal().equals("anonymousUser")) {
+		Authentication authentication = context.getAuthentication(); 
+		if(authentication.getPrincipal().equals("anonymousUser")) {
 			return "anonymousUser";
-	    }
-	    
-	    User user = (User) authentication.getPrincipal();
-        String userId = user.getUsername();
-		
-        return crowdService.requestCrowdJoin(crowdId, userId)+"";
+		}
+
+		User user = (User) authentication.getPrincipal();
+		String userId = user.getUsername();
+
+		return crowdService.requestCrowdJoin(crowdId, userId)+"";
+	}
+
+	
+	@GetMapping("groupchat")
+	public String groupChatting(@RequestParam(name="crowd") Integer crowdId) 
+	{
+		return "crowd.groupchat";
 	}
 	
+	@PostMapping("get-groupMyId") 
+	@ResponseBody
+	public String getGroupMyId(Principal principal)  
+	{
+		String getGroupMyId = principal.getName();
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(getGroupMyId);
+		
+		return json;
+	}
+
+
+
 	@RequestMapping("set-rprt-crowd")
 	@ResponseBody
 	public String setRprtCrowd(String crowdIdStr, String title, String content, Principal principal) {
 		int crowdId = Integer.parseInt(crowdIdStr);
-        String userId = principal.getName();
+		String userId = principal.getName();
 		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId, title, content);
-        return crowdService.insertRprtCrowd(rprtCrowd)+"";
+		return crowdService.insertRprtCrowd(rprtCrowd)+"";
 	}
-	
+
 	@RequestMapping("get-rprt-crowd")
 	@ResponseBody
 	public String getRprtCrowd(String crowdIdStr, Principal principal) {
 		int crowdId = Integer.parseInt(crowdIdStr);
-        String userId = principal.getName();
+		String userId = principal.getName();
 		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId);
-        return crowdService.getRprtCrowdCnt(rprtCrowd)+"";
+		return crowdService.getRprtCrowdCnt(rprtCrowd)+"";
 	}
 
 	@RequestMapping("del-rprt-crowd")
 	@ResponseBody
 	public String deleteRprtCrowd(String crowdIdStr, Principal principal) {
 		int crowdId = Integer.parseInt(crowdIdStr);
-        String userId = principal.getName();
+		String userId = principal.getName();
 		RprtCrowd rprtCrowd = new RprtCrowd(crowdId, userId);
-        return crowdService.deleteRprtCrowd(rprtCrowd)+"";
+		return crowdService.deleteRprtCrowd(rprtCrowd)+"";
 	}
+
 }
 

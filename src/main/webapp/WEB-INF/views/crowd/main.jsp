@@ -25,13 +25,15 @@
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="album">단체채팅</a>
+
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
+
 			</div>
 		</nav>
 	</section>
 	<article class="content-img">
 		<div>
-			<img src="../../../resources/images/twice.jpg">
+			<img src="/get-img?folder=crowd-postsImg&file=${crowd.img}">
 		</div>
 	</article>
 	

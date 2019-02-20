@@ -10,32 +10,44 @@
 	</insert>
 	
 	<update id="update" parameterType="com.moida.web.entity.Posts">
-		update Posts set boardId=#{boardId}, title=#{title}, 
-		mainImg=#{mainImg} where id=#{id}
+		update Posts set boardId=#{boardId}, title=#{title}, content=#{content}, mainImg=#{mainImg} where id=#{id}
 	</update>
-	
+
 	<select id="getLastPosts" resultType="com.moida.web.entity.Posts">
 		SELECT * FROM Posts order by regDate desc limit 1
 	</select>
-		
-	<select id="getPostList" resultType="com.moida.web.entity.BoardCategory">
-		select * from Posts where boardId=2;
+
+	<select id="getPostsinfoView" resultType="com.moida.web.entity.PostsInfoView">
+		select * from postsinfoView where id = #{param1};
+	</select>	
+	
+	<select id="getNoticePostsView" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 0 and crowdId = #{param1} order by regDate desc
 	</select>
 	
-	<select id="getNoticePostsView" resultType="com.moida.web.entity.PostsView">
-		select * from postsView where type = 0 and crowdId = #{param1} order by regDate desc
+	<select id="getPostsListView1" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 1 and crowdId = #{param1} order by regDate desc
 	</select>
 	
-	<select id="getPostsView1" resultType="com.moida.web.entity.PostsView">
-		select * from postsView where type = 1 and crowdId = #{param1} order by regDate desc
+	<select id="getPostsListView2" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 1 and crowdId = #{param1} and boardId = #{param2} order by regDate desc
 	</select>
 	
-	<select id="getPostsView2" resultType="com.moida.web.entity.PostsView">
-		select * from postsView where type = 1 and crowdId = #{param1} and boardId = #{param2} order by regDate desc
+	<select id="getAlbumPostsView" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 2 and crowdId = #{param1} order by regDate desc
 	</select>
 	
-	<select id="getAlbumPostsView" resultType="com.moida.web.entity.PostsView">
-		select * from postsView where type = 2 and crowdId = #{param1} order by regDate desc
+
+	<update id="updatehit" parameterType="com.moida.web.entity.Posts">
+		update Posts set hit= hit+1 where id = #{param1}
+	</update>
+	
+	<delete id="deletePosts">
+		delete from Posts where id = #{id};
+	</delete>
+	
+	<select id="getPosts" resultType="com.moida.web.entity.Posts">
+		SELECT * FROM Posts where id=#{param1}
 	</select>
 	
 </mapper>

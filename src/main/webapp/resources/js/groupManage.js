@@ -74,7 +74,6 @@ window.addEventListener("load",function() {
 	var crowdId =  getQuerystring('crowd')
     var trMax = 10;
     var indexNowPage = 1;
-    var listCnt=0;
 
 	function getQuerystring(paramName){ 
 		var _tempUrl = window.location.search.substring(1); 
@@ -156,7 +155,7 @@ window.addEventListener("load",function() {
     		insertRequest.onload = function () {
 				setBoard();
 			};
-			insertRequest.send("crowdId="+crowdId+"&name="+tempInput.value);
+			insertRequest.send("crowdId="+crowdId+"&name="+encodeURIComponent(tempInput.value));
     	};
     	aCancel.onclick = function(){
     		setBoard();
@@ -217,18 +216,27 @@ window.addEventListener("load",function() {
 	            	tdTitle.appendChild(tempInput);
 	            	tempInput.focus();
 	            	aEdit.onclick = function(){
-	            		var confirmEdit = confirm("["+tempInput.placeholder+"] 게시판을 수정 하시겠습니까?");
-	            		if(confirmEdit){
-	            			var updateRequest = new XMLHttpRequest(); 
-	            			updateRequest.open("POST", "/leader/update-board", true); 
-	            			updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-	            			updateRequest.onload = function () {
-	            				setBoard();
-	            			};
-	            			updateRequest.send("boardId="+tr.value +"&name="+tempInput.value);
-            			}else{
-	            			setBoard();
-	            		}
+	            		swal({
+	      	    	      text: "["+tempInput.placeholder+"] 게시판을 수정 하시겠습니까?",
+	      	    	      icon: "warning",
+	      	    	      buttons: [
+	      	    	    	  '취소',
+	      	    	    	  '확인'
+	      	    	      ],
+	      	    	      dangerMode: true,
+	      	    	    }).then(function(isConfirm) {
+	      	    	      if (isConfirm) {
+		            			var updateRequest = new XMLHttpRequest(); 
+		            			updateRequest.open("POST", "/leader/update-board", true); 
+		            			updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		            			updateRequest.onload = function () {
+		            				setBoard();
+		            			};
+		            			updateRequest.send("boardId="+tr.value +"&name="+encodeURIComponent(tempInput.value));
+	            			} else {
+		            			setBoard();
+			            		}
+	      	    	    })  
 	            	};
 	            	aDel.innerText="취소";
 	            	aDel.onclick = function() {
@@ -241,19 +249,28 @@ window.addEventListener("load",function() {
 	        		var tr = td.parentNode;
 	        		var trChildren = tr.childNodes;
 	        		var title = trChildren[0];
-	        		var confirmDel = confirm("["+title.innerText+"] 게시판을 삭제 하시겠습니까?");
-	        		if(confirmDel){
-	        			var deleteRequest = new XMLHttpRequest(); 
-	        			deleteRequest.open("POST", "/leader/delete-board", true); 
-	        			deleteRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-	        			deleteRequest.onload = function () {
-            				setBoard();
-            			};
-            			deleteRequest.send("boardId="+tr.value);
-	        			setBoard();
-	        		}else{
-	        			setBoard();
-	        		}
+	        		swal({
+	    	    	      text: "["+title.innerText+"] 게시판을 삭제 하시겠습니까?",
+	    	    	      icon: "warning",
+	    	    	      buttons: [
+	    	    	    	  '취소',
+	    	    	    	  '확인'
+	    	    	      ],
+	    	    	      dangerMode: true,
+	    	    	    }).then(function(isConfirm) {
+	    	    	      if (isConfirm) {
+	  	        			var deleteRequest = new XMLHttpRequest(); 
+		        			deleteRequest.open("POST", "/leader/delete-board", true); 
+		        			deleteRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		        			deleteRequest.onload = function () {
+	            				setBoard();
+	            			};
+	            			deleteRequest.send("boardId="+tr.value);
+		        			setBoard();
+		        		} else {
+		        			setBoard();
+			        		}
+	    	    	    })  
 	        	};
 			}
 		}
@@ -343,24 +360,33 @@ window.addEventListener("load",function() {
 	    			role="운영진"
 	    		}
 	    		select.value=role;
-	    		select.onchange = function(){
+	    		select.onchange = function(evt){
 	        		var tdLevel = this.parentNode;
 	        		var tr = tdLevel.parentNode;
 	        		var tdChildren = tr.children;
-	        		var confirmDel = confirm("["+tdChildren[1].innerText+"]회원의 등급을 ["+ this.value + "]로 변경하시겠습니까?");
-	        		if(confirmDel){
-	        			var roleNum=2;
-	        			if(this.value=="운영진") roleNum=1;
-	        			var updateRequest = new XMLHttpRequest(); 
-	        			updateRequest.open("POST", "/leader/update-real-member", true); 
-	        			updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-	        			updateRequest.onload = function () {	
+	        		swal({
+	    	    	      text: "["+tdChildren[1].innerText+"]회원의 등급을 ["+ this.value + "]로 변경하시겠습니까?",
+	    	    	      icon: "warning",
+	    	    	      buttons: [
+	    	    	    	  '취소',
+	    	    	    	  '확인'
+	    	    	      ],
+	    	    	      dangerMode: true,
+	    	    	    }).then(function(isConfirm) {
+	    	    	      if (isConfirm) {
+	  	        			var roleNum=2;
+		        			if(evt.target.value=="운영진") roleNum=1;
+		        			var updateRequest = new XMLHttpRequest(); 
+		        			updateRequest.open("POST", "/leader/update-real-member", true); 
+		        			updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		        			updateRequest.onload = function () {	
+			        			setMember();
+		        			}
+		        			updateRequest.send("crowdId="+crowdId+"&memberId="+tdChildren[1].innerText+"&groupRole="+roleNum);	
+		        		} else {
 		        			setMember();
-	        			}
-	        			updateRequest.send("crowdId="+crowdId+"&memberId="+tdChildren[1].innerText+"&groupRole="+roleNum);	
-	        		}else{
-	        			setMember();
-	        		}
+			        		}
+	    	    	    })  
 	        	};
 	    		tdLevel.appendChild(select);
 	    		}else{
@@ -390,14 +416,27 @@ window.addEventListener("load",function() {
     });
     
     function setMemberPaging(){	
-    	var cntRequest = new XMLHttpRequest(); 
-    	cntRequest.open("POST", "/leader/get-real-member-cnt", true); 
-    	cntRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-    	cntRequest.onload = function () {	
-    		listCnt = parseInt(cntRequest.responseText);
+    	var inputs = menu.querySelectorAll("input");
+    	var inputMember;
+    	var inputApproval;
+    	for (var i = 0; i < inputs.length; i++) {
+			if(inputs[i].name=="member"){
+				inputMember=inputs[i];
+			}else if(inputs[i].name=="approval"){
+				inputApproval=inputs[i];
+			}
+		}
+    	var realCnt = 0;
+    	var requestCnt = 0;
+
+    	var cntReal = new XMLHttpRequest(); 
+    	cntReal.open("POST", "/leader/get-real-member-cnt", true); 
+    	cntReal.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    	cntReal.onload = function () {	
+    		realCnt = parseInt(cntReal.responseText);
     		memberUlPaging.innerHTML="";
     		for (var i = parseInt((indexNowPage-1)/5)*5+1; i < parseInt((indexNowPage-1)/5)*5+6; i++) {
-    			if(listCnt/trMax+1<=i){
+    			if(realCnt/trMax+1<=i){
     				break;
     			}	
     			var tempLi = document.createElement('li');
@@ -411,8 +450,36 @@ window.addEventListener("load",function() {
     			tempLi.appendChild(tempInput);
     			memberUlPaging.appendChild(tempLi);
 			}
+    		
+    	    var btnPrev = memberPaging.querySelector(".prev");
+    	    var btnNext = memberPaging.querySelector(".next");
+    	    btnPrev.onclick = function(){
+    	    	if(indexNowPage!=1){
+    	    		indexNowPage--;
+    	    	}
+    	    	setMemberPaging();
+    	    	setMemberTable();
+    	    };
+    	    
+    	    btnNext.onclick = function(){
+    	    	if(indexNowPage!=parseInt(realCnt/trMax+1)){
+    	    		indexNowPage++;
+    	    	}
+    	    	setMemberPaging();
+    	    	setMemberTable();
+    	    };
+    	    
+    		var cntRequest = new XMLHttpRequest(); 
+        	cntRequest.open("POST", "/leader/get-request-member-cnt", true); 
+        	cntRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+        	cntRequest.onload = function () {	
+        		requestCnt = parseInt(cntRequest.responseText);
+            	inputMember.value="회원 관리("+realCnt+")";
+        		inputApproval.value="가입 승인("+requestCnt+")";	
+    		}
+        	cntRequest.send("crowdId="+crowdId);	
 		}
-    	cntRequest.send("crowdId="+crowdId);	
+    	cntReal.send("crowdId="+crowdId);
     }
     
     
@@ -421,6 +488,7 @@ window.addEventListener("load",function() {
     	var trs = tbody.querySelectorAll("tr");
     	var chkboxs = tbody.querySelectorAll("input[type='checkbox']");
     	var ids ="";
+    	var cnt=0;
     	for (var i = 0; i < chkboxs.length; i++) {
     		if(chkboxs[i].checked){
     			if(ids!=""){
@@ -430,10 +498,30 @@ window.addEventListener("load",function() {
     			var parentTr = parentTd.parentNode;
     			var childrenTd = parentTr.children;
         		ids+=childrenTd[1].innerText;
+        		cnt++;
     		}
 		}
-    	var confirmCut = confirm("["+ids+"]회원을 추방하시겠습니까?");
-		if(confirmCut){
+    	
+    	if(cnt==0){
+    		swal({
+    		  title: "회원이 선택되지 않았습니다.",
+    		  icon: "warning",
+    		  button : "확인",
+    		  dangerMode: true,
+    		});
+    		return;
+    	}
+    	
+    	swal({
+  	      text: "["+ids+"]회원을 추방하시겠습니까?",
+  	      icon: "warning",
+  	      buttons: [
+  	    	  '취소',
+  	    	  '확인'
+  	      ],
+  	      dangerMode: true,
+  	    }).then(function(isConfirm) {
+  	      if (isConfirm) {
 			var delRequest = new XMLHttpRequest(); 
 			delRequest.open("POST", "/leader/del-real-member", true); 
 			delRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
@@ -441,9 +529,10 @@ window.addEventListener("load",function() {
 				setMember();
 			}
 			delRequest.send("crowdId="+crowdId+"&memberIds="+ids);	
-		}else{
+		} else {
 			setMember();
-		}
+			}
+  	    })  
 	};
 	
     function setApproval() {
@@ -554,29 +643,71 @@ window.addEventListener("load",function() {
 	
 	
     function setApprovalPaging(){	
-    	var cntRequest = new XMLHttpRequest(); 
-    	cntRequest.open("POST", "/leader/get-request-member-cnt", true); 
-    	cntRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
-    	cntRequest.onload = function () {	
-    		listCnt = parseInt(cntRequest.responseText);
-    		approvalUlPaging.innerHTML="";
-    		for (var i = parseInt((indexNowPage-1)/5)*5+1; i < parseInt((indexNowPage-1)/5)*5+6; i++) {
-    			if(listCnt/trMax+1<=i){
-    				break;
-    			}	
-    			var tempLi = document.createElement('li');
-    			var tempInput = document.createElement('input');
-    			tempInput.classList.add("btn");
-    			if(indexNowPage==i){
-        			tempInput.classList.add("now-page");
-    			}
-    			tempInput.type="button";
-    			tempInput.value=i;
-    			tempLi.appendChild(tempInput);
-    			approvalUlPaging.appendChild(tempLi);
+    	var inputs = menu.querySelectorAll("input");
+		var inputMember;
+		var inputApproval;
+		for (var i = 0; i < inputs.length; i++) {
+			if(inputs[i].name=="member"){
+				inputMember=inputs[i];
+			}else if(inputs[i].name=="approval"){
+				inputApproval=inputs[i];
 			}
 		}
-    	cntRequest.send("crowdId="+crowdId);	
+		var realCnt = 0;
+		var requestCnt = 0;
+	
+		var cntRequest = new XMLHttpRequest(); 
+		cntRequest.open("POST", "/leader/get-request-member-cnt", true); 
+		cntRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+		cntRequest.onload = function () {	
+			requestCnt = parseInt(cntRequest.responseText);
+			approvalUlPaging.innerHTML="";
+			for (var i = parseInt((indexNowPage-1)/5)*5+1; i < parseInt((indexNowPage-1)/5)*5+6; i++) {
+				if(requestCnt/trMax+1<=i){
+					break;
+				}	
+				var tempLi = document.createElement('li');
+				var tempInput = document.createElement('input');
+				tempInput.classList.add("btn");
+				if(indexNowPage==i){
+	    			tempInput.classList.add("now-page");
+				}
+				tempInput.type="button";
+				tempInput.value=i;
+				tempLi.appendChild(tempInput);
+				approvalUlPaging.appendChild(tempLi);
+			}
+			
+    	    var btnPrev = approvalPaging.querySelector(".prev");
+    	    var btnNext = approvalPaging.querySelector(".next");
+    	    btnPrev.onclick = function(){
+    	    	if(indexNowPage!=1){
+    	    		indexNowPage--;
+    	    	}
+    	    	setApprovalPaging();
+    	    	setApprovalTable();
+    	    };
+    	    
+    	    btnNext.onclick = function(){
+    	    	if(indexNowPage!=parseInt(requestCnt/trMax+1)){
+    	    		indexNowPage++;
+    	    	}
+    	    	setApprovalPaging();
+    	    	setApprovalTable();
+    	    };
+    	    
+    	    
+			var cntReal = new XMLHttpRequest(); 
+			cntReal.open("POST", "/leader/get-real-member-cnt", true); 
+	    	cntReal.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	    	cntReal.onload = function () {	
+	    		realCnt = parseInt(cntReal.responseText);
+	        	inputMember.value="회원 관리("+realCnt+")";
+	    		inputApproval.value="가입 승인("+requestCnt+")";	
+			}
+	    	cntReal.send("crowdId="+crowdId);	
+			}
+		cntRequest.send("crowdId="+crowdId);
     }
     
     
@@ -598,7 +729,12 @@ window.addEventListener("load",function() {
 		}
     	
     	if(cnt==0){
-    		alert("가입을 승인할 회원이 선택되지 않았습니다.");
+    		swal({
+    		  title: "회원이 선택되지 않았습니다.",
+    		  icon: "warning",
+    		  button : "확인",
+    		  dangerMode: true,
+    		});
     		return;
     	}
     	
@@ -608,11 +744,25 @@ window.addEventListener("load",function() {
     	canAddRequest.onload = function () {	
 			var result = canAddRequest.responseText;
 			if(result == "false"){
-	    		alert("정원 초과로 가입을 승인할 수 없습니다.\n정원을 변경 후 가입을 승인하십시오.");
+				swal({
+				  title: "정원 초과로 가입을 승인할 수 없습니다.",
+				  text: "정원을 변경 후 가입을 승인하십시오.",
+				  icon: "warning",
+				  button : "확인",
+				  dangerMode: true,
+				});
 	    		return;
 			}else{
-				var confirmApproval = confirm("["+ids+"]의 가입을 승인 하시겠습니까?");
-				if(confirmApproval){
+				swal({
+  	    	      text: "["+ids+"]의 가입을 승인 하시겠습니까?",
+  	    	      icon: "warning",
+  	    	      buttons: [
+  	    	    	  '취소',
+  	    	    	  '확인'
+  	    	      ],
+  	    	      dangerMode: true,
+  	    	    }).then(function(isConfirm) {
+  	    	      if (isConfirm) {
 					var updateRequest = new XMLHttpRequest(); 
 					updateRequest.open("POST", "/leader/update-request-member", true); 
 					updateRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
@@ -621,9 +771,10 @@ window.addEventListener("load",function() {
 					}
 					updateRequest.send("crowdId="+crowdId+"&memberIds="+ids);	
 					setApproval();
-				}else{
+				} else {
 					setApproval();
-				}
+					}
+  	    	    })  
 			}
 		}
     	canAddRequest.send("crowdId="+crowdId+"&addCnt="+cnt);	

@@ -18,7 +18,6 @@ import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
-import com.moida.web.entity.PostsView;
 
 @Repository
 public class MyBatisCrowdDao implements CrowdDao{

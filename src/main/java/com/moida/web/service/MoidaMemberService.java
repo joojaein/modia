@@ -104,4 +104,5 @@ public class MoidaMemberService implements MemberService{
 		return memberDao.deleteCrowdMember(crowdId, memberId);
 
 	}
+
 }

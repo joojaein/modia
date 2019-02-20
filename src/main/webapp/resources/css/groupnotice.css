@@ -8,7 +8,7 @@ header {
 }
 
 main {
-    margin: 0px 10px;
+	margin: 0px 10px;
 }
 
 .d-none {
@@ -33,42 +33,43 @@ a {
 }
 
 .main-head {
-    margin: 0 !important;
-    grid-area: header;
-    font-size: 13px;
-    height: 30px;
-    line-height: 30px;
-    border-bottom: 1px solid gray;
-    padding: 0px 10px 0px 10px;
+	margin: 0 !important;
+	grid-area: header;
+	font-size: 13px;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid gray;
+	padding: 0px 10px 0px 10px;
 }
 
-.main-head nav{
+.main-head nav {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-
 }
-.sub-head{
+
+.sub-head {
 	grid-area: subheader;
 	font-size: 13px;
 	line-height: 30px;
-  	width: 100%;
+	width: 100%;
 	justify-content: center;
 	text-align: center;
 }
-.sub-head-box{
-    position: relative;
+
+.sub-head-box {
+	position: relative;
 	width: 100%;
 	display: flex;
 	justify-content: center;
 }
-#select{
+
+#select {
 	border: none;
 }
 
 .content {
 	grid-area: content;
-
 }
 
 .content p {
@@ -79,28 +80,33 @@ a {
 }
 
 .content-title {
-	font-weight: bold;
-    margin: 11px 0px 11px 0px;	
-    font-size: 13px;
+    font-weight: bold;
+    margin: 7px 0px 9px 0px;
+    font-size: 15px;
 }
 
-.etc-box{
-	width: 60%;
-}
-.img-box{
-    width: 30%;
-    overflow: hidden;
+.content-box {
+	margin: 15px 0px -2px 0px;
+	display: flex;
+	justify-content: space-between;
 }
 
-.post-img{
-    position: relative;
-    top: -23%;
-    float: right;
-    width: 100%;
+.img-box {
+	width: 30%;
+	overflow: hidden;
+	height: 100px;
 }
-.pi-box{
-	height: 70px;
-    overflow: hidden;
+
+.post-img {
+	position: relative;
+	top: -23%;
+	float: right;
+	width: 100%;
+}
+
+.pi-box {
+	height: auto;
+	overflow: hidden;
 }
 
 .profile-box {
@@ -130,37 +136,97 @@ a {
 	max-width: 1200px;
 	display: grid;
 	grid-gap: 10px;
-	grid-template-areas: "header" "content";
+	grid-template-areas: "header" "subheader" "content";
 	margin: auto;
+}
+
+.timeview {
+	display: flex;
+	font-size: 10px;
+	position: relative;
+	top: -10px;
+}
+.name{
+	    font-size: 15px;
+        margin-left: 10px;
+	}
+.timeview span {
+	margin-right: 10px;
 }
 
 @media ( min-width : 400px) {
 	.wrapper {
 		/* grid-template-columns: 3fr 1fr; */
-	grid-template-areas: "header" "content";
+		grid-template-areas: "header" "subheader" "content";
 	}
 	nav ul {
 		display: flex;
 		justify-content: space-between;
 	}
-
+	
+	.img-box {
+	width: 30%;
+	overflow: hidden;
+	height: 150px;
+}
 }
 
 @media ( min-width : 700px) {
 	.content {
-	max-width: 1200px;
+		max-width: 1200px;
+	}
+	.content p {
+		font-size: 20px;
+		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 	.wrapper {
-	
-	grid-template-areas: "header" "content";
+		grid-template-areas: "header" "subheader" "content";
 	}
-
-		.post-img{
-    float: right;
-    width: 28%;
-
-    
-}
+	.img-box {
+		width: 30%;
+		overflow: hidden;
+		height: 180px;
+	}
+	
+	.post-img {
+		position: relative;
+		top: -23%;
+		float: right;
+		width: 50%;
+	}
+	.photo {
+		position: relative;
+		border: 1px solid black;
+		border-radius: 50px;
+		width: 50px;
+		height: 50px;
+		margin-right: 5px;
+	}
+	.content-box {
+		margin: 15px 0px -10px 0px;
+		display: flex;
+		justify-content: space-between;
+	}
+	.content-title {
+		font-weight: bold;
+		margin: 11px 0px 11px 0px;
+		font-size: 30px;
+	}
+	.etc-box {
+		width: 70%;
+	}
+	.timeview {
+		display: flex;
+		font-size: 15px;
+		position: relative;
+		top: -18px;
+	}
+	.timeview span {
+		margin-right: 20px;
+	}
 }
 
 /* 뒤로가기 --------------------------------------------- */
