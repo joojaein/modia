@@ -4,6 +4,7 @@
 <main>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupalbum.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/groupalbum.js"></script>
 <link href="/resources/css/groupsearch.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/groupsearch.js"></script> 
@@ -11,6 +12,7 @@
 <script src="/resources/js/backpage.js"></script>
 <div class="wrapper">
 	<section class="main-head">
+		<div>
 		<nav>
 			<div>
 				<a href="main?crowd=${crowd.id}">정보</a>
@@ -28,13 +30,13 @@
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
+	</div>
 	</section>
 	<section class="sub-head">
 		<div class="sub-head-box">
-			<nav class="search-box"></nav>
 			<div class="search">
 				<div class="icon">
 					<img src="../../../resources/images/Magnifying.png" />

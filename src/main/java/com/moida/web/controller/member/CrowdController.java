@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,6 +41,7 @@ import com.moida.web.entity.CmtListView;
 import com.moida.web.entity.Cmtcnt;
 import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.MemberInfoListView;
 import com.moida.web.entity.Schedule;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
@@ -83,7 +85,8 @@ public class CrowdController {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsListView> postsView = postsService.getNoticePostsView(crowdId);
 		List<Board> boardList = boardService.getBoardListType0(crowdId);
-		System.out.println(postsView);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		model.addAttribute("milv", milv);		
 		model.addAttribute("plist", postsView);		
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("bList", boardList);
@@ -105,12 +108,15 @@ public class CrowdController {
 		PostsInfoView posts = postsService.getPostsinfoView(id);
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
 		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
-		int affected = postsService.updatehit(id);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		model.addAttribute("milv", milv);		
 		model.addAttribute("cmtcnt", cmtcnt);
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("cmt",cmt);
 		model.addAttribute("pc", postscontent);
 		model.addAttribute("posts", posts);
+		model.addAttribute("uid",principal.getName());
+		int affected = postsService.updatehit(id);
 		return "crowd.notice.ndetail";
 	}
 
@@ -122,7 +128,8 @@ public class CrowdController {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsListView> postsView = postsService.getPostsListView1(crowdId);
 		List<Board> boardList = boardService.getBoardListType1(crowdId);
-		System.out.println(postsView);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		model.addAttribute("milv", milv);		
 		model.addAttribute("plist", postsView);		
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("bList", boardList);
@@ -148,6 +155,7 @@ public class CrowdController {
 	}
 	
 	@GetMapping("board/bdetail")
+	@PreAuthorize("isAuthenticated()")
 	public String boarddetail(
 			@RequestParam(name="crowd") Integer crowdId,
 			@RequestParam(name="id") Integer postsId,
@@ -159,12 +167,17 @@ public class CrowdController {
 		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
 		PostsInfoView posts = postsService.getPostsinfoView(id);
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		String userId = principal.getName();
+		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
 		int affected = postsService.updatehit(id);
+		model.addAttribute("milv", milv);		
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("cmt",cmt);
 		model.addAttribute("pc", postscontent);
 		model.addAttribute("posts", posts);
-		model.addAttribute("uid",principal.getName());
+		model.addAttribute("uid",userId);
+		model.addAttribute("groupRole", groupRole);
 		return "crowd.board.bdetail";
 	}
 
@@ -201,13 +214,14 @@ public class CrowdController {
 			Model model, Principal principal) {
 		List<Board> boardlist = boardService.getBoardListType1(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
 
 		Board boardType0 = boardService.getBoardType0(crowdId);
 		Board boardType2 = boardService.getBoardType2(crowdId);
 
 		String userId = principal.getName();
 		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
-
+		model.addAttribute("milv", milv);		
 		model.addAttribute("blist", boardlist);
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("boardType0", boardType0);
@@ -276,10 +290,15 @@ public class CrowdController {
 			Model model) {
 		List<Schedule> schedule = crowdService.getScheduleList(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		model.addAttribute("milv", milv);		
 		model.addAttribute("schedule", schedule);
 		model.addAttribute("crowd", crowd);
+		Gson gson = new Gson(); 
+		String json = gson.toJson(schedule);
 		return "crowd.calendar"; 
 	}
+	
 
 	@PostMapping("calendar")
 	@ResponseBody
@@ -290,8 +309,6 @@ public class CrowdController {
 			String title,
 			String content
 			) throws Exception {
-		System.out.println(startDate);
-		System.out.println(endDate);
 	
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
@@ -299,8 +316,6 @@ public class CrowdController {
 
 		Schedule schedule = new Schedule(crowdId, start, end, title, content);
 
-		System.out.println("아작아작"+schedule);
-		System.out.println("들어옴?");
 		Gson gson = new Gson(); 
 		String json = gson.toJson(schedule);
 		int affected = crowdService.insertSchedule(schedule);
@@ -333,7 +348,8 @@ public class CrowdController {
 			Model model) {		
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsListView> albumlist = postsService.getAlbumPostsView(crowdId);
-
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		model.addAttribute("milv", milv);		
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("alist", albumlist);
 		return "crowd.album";
@@ -352,12 +368,15 @@ public class CrowdController {
 		PostsInfoView posts = postsService.getPostsinfoView(id);
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
 		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		model.addAttribute("milv", milv);		
 		int affected = postsService.updatehit(id);
 		model.addAttribute("cmtcnt", cmtcnt);
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("cmt",cmt);
 		model.addAttribute("pc", postscontent);
 		model.addAttribute("posts", posts);
+		model.addAttribute("uid",principal.getName());
 		return "crowd.adetail";
 	}
 

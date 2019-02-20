@@ -228,8 +228,8 @@ public class HomeController {
       String realPath = req.getServletContext().getRealPath("/"+folder+"/"+file);
       InputStream fis=null;
       if(!new File(realPath).exists()) {
-         realPath = "http://localhost/resources/images/img404.png";   
-         URL url = new URL("http://localhost/resources/images/img404.png");
+         realPath = "http://localhost/resources/images/img404.gif";   
+         URL url = new URL("http://localhost/resources/images/img404.gif");
            HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();;
            fis = urlConnection.getInputStream();      
       }else {

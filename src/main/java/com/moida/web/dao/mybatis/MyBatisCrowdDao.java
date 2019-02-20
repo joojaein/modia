@@ -16,6 +16,7 @@ import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.MemberInfoListView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
@@ -285,6 +286,13 @@ public class MyBatisCrowdDao implements CrowdDao{
 	public int updateImg(Integer id) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.updateImg(id);
+	}
+
+	@Override
+	public List<MemberInfoListView> getMemberInfoListView(Integer crowdId) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getMemberInfoListView(crowdId);
 	}
 
 }

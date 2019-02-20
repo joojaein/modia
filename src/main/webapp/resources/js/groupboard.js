@@ -80,16 +80,3 @@ function changepostsList(){
 
 	})
 }
-
-/*function detailView(param1, param2){
-	
-	var cid = $(".cid").val();
-	var id = $(".pid").val();
-	
-	
-	window.location.href="<c:url value='board/detail.jsp' />?crowd="+cid+"&id="+id;
-
-	}*/
-
-
-

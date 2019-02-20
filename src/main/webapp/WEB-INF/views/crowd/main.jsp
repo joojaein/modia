@@ -5,9 +5,11 @@
 <link href="/resources/css/groupMain.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/rprtmodal.js"> </script>
 <script src="/resources/js/groupMain.js"> </script>
-
+<script src="/resources/js/backpage.js"></script>
+<link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <div class="wrapper">
 	<section class="main-head">
+	<div>
 		<nav>
 			<div>
 				<a href="main?crowd=${crowd.id}">정보</a>
@@ -25,11 +27,10 @@
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-
 				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
-
 			</div>
 		</nav>
+	</div>
 	</section>
 	<article class="content-img">
 		<div>
@@ -38,6 +39,7 @@
 	</article>
 	
 	<section class="group-info">
+		<div class="ginfo">
 		<div class="info-box">
 			<img class="group-logo" src="../../../resources/images/mountains.png" />
 			<span>${crowd.name}</span>
@@ -45,42 +47,48 @@
 		<div class="info">
 			<span>today ${views.hit}</span> <span>total ${total.hit}</span>
 		</div>
+		</div>
 	</section>
 	
 	<article class="content">
-		<p>
-			${crowd.content}<br> <br>
-			<span>가입조건:</span> 
-			나이: ${crowd.ageMin} ~ ${crowd.ageMax}
-			<c:choose>
-			 <c:when test="${crowd.gender == 0}">
+		<div>
+			<textarea disabled>
+			${crowd.content}
+			</textarea>
+			<div class="join-condition">
+				<span>가입조건:</span> 나이: ${crowd.ageMin} ~ ${crowd.ageMax}
+				<c:choose>
+					<c:when test="${crowd.gender == 0}">
 			성별: 남성
 			</c:when>
-			<c:when test="${crowd.gender == 1}">
+					<c:when test="${crowd.gender == 1}">
 			성별: 남성
 			</c:when>
-			<c:otherwise>
+					<c:otherwise>
 			성별: 모두
 			</c:otherwise>
-			</c:choose> 
-			지역: ${crowd.areaSido}
-		</p>
+				</c:choose>
+				지역: ${crowd.areaSido}
+			</div>
+		</div>
 	</article>
 	<section class="content-comment">
+	<div class="comment-box">
 		<c:if test="${userCrowdAuthType eq -1 || userCrowdAuthType eq 3}">
 			<input class="join" type="button" value="가입하기" />
 		</c:if>
 		<c:if test="${userCrowdAuthType ne -1 && userCrowdAuthType ne 3}">
 			<input class="join d-none" type="button" value="가입하기" />
 		</c:if>
-		<hr />
 		<div class="comment-sum">모임멤버 ${crowd.nowPerson}/ ${crowd.maxPerson}명</div>
 		<hr />
-		<c:forEach var="n" items="${list}">
+		<c:forEach var="n" items="${milv}">
 		<div class="profile-box">
-			<div class="comment-photo"></div>
+			<div class="comment-photo" onclick="imgClick('${n.id}');" 
+			style="background: url('/get-img?folder=crowd-postsImg&file=${n.img}') no-repeat center;
+				background-size: cover;"></div>
 			<div class="profile-info">
-				<span class="name">${n.memberId}</span> <span class="name">${n.msg}</span>
+				<span class="name">${n.id}</span> <span>${n.msg}</span>
 			</div>
 			<c:choose>
 			<c:when test="${n.groupRole == 0}">
@@ -93,7 +101,9 @@
 		</div>
 		<hr />
 	</c:forEach>
+	</div>
 	</section>
+	</div>
 	</main>
 	<a id="MOVE_BACK_BTN" href="#">목록으로</a>
 	<section class="rprt-box">

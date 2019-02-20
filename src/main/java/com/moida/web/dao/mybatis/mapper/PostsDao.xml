@@ -16,11 +16,7 @@
 	<select id="getLastPosts" resultType="com.moida.web.entity.Posts">
 		SELECT * FROM Posts order by regDate desc limit 1
 	</select>
-		
-	<select id="getPostList" resultType="com.moida.web.entity.BoardCategory">
-		select * from Posts where boardId=2;
-	</select>
-
+	
 	<select id="getPostsinfoView" resultType="com.moida.web.entity.PostsInfoView">
 		select * from postsinfoView where id = #{param1};
 	</select>	

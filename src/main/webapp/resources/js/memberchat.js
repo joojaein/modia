@@ -2135,9 +2135,12 @@ function adminMemberChat()
         };
         
         
-        function imgClick()
+        function imgClick(memberId)
    		{
-   		//	alert("hi");
+        	//	alert("hi");
+        	
+        	
+        	
    			$(".click-profile-container").css({"display":"block"});
    			
    			var chkFriend = new XMLHttpRequest();
@@ -2209,7 +2212,7 @@ function adminMemberChat()
    	                
    	             }
    	             
-   			chkFriend.send("memberId="+"dbfk");
+   			chkFriend.send("memberId="+memberId);
    			
    			
    			
