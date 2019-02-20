@@ -50,12 +50,12 @@ public class MoidaPostsService implements PostsService {
 	@Override
 	public String updatePosts(Posts posts, List<PostsContent> postsContentList) {
 		// TODO Auto-generated method stub
-		
 		postsDao.update(posts);
 	
+		postsContentDao.delete(posts.getId());
 		
 		for (int i = 0; i < postsContentList.size(); i++) {
-			
+			postsContentList.get(i).setPostsId(posts.getId());
 			if(postsContentList.get(i).getSrc()!="" && postsContentList.get(i).getSrc()!=null) {
 				postsContentList.get(i).setSrc(postsContentList.get(i).getPostsId()+postsContentList.get(i).getSrc()); 
 			}
@@ -113,6 +113,11 @@ public class MoidaPostsService implements PostsService {
 	public int deletePosts(Integer id) {
 		// TODO Auto-generated method stub
 		return postsDao.deletePosts(id);
+	}
+
+	@Override
+	public Posts getPosts(int postsId) {
+		return postsDao.getPosts(postsId);
 	}
 
 }

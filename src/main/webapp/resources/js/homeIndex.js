@@ -48,8 +48,6 @@ window.addEventListener("load",function(){
             }
          }
          canChange=true;
-
-
          autoCarousel();
        });
 
@@ -110,7 +108,6 @@ window.addEventListener("load",function(){
 
        function autoCarousel(){ 
     	   setTimeout(function(evt){
-    		   console.log("auto");
 	    	   if(!canChange) return;  
 	           canChange=false;     
 	           var nextIdx = (currentIdx+1)%lis.length;
@@ -139,6 +136,8 @@ window.addEventListener("load",function(){
        }
     };
     bannerRequest.send();
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    
     
     var categoryRequest = new XMLHttpRequest(); 
     categoryRequest.open("POST", "/get-categorylist", true); 

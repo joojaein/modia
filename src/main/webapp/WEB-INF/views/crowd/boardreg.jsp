@@ -8,9 +8,7 @@
 <script src="/resources/js/groupboardreg.js"></script>
 <link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/backpage.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<form role="form" method="post" action="boardreg">
 
 	<div class="wrapper">
 		<section class="main-head">
@@ -136,6 +134,6 @@
 			</div>
 		</div>
 	</section>
-</form>
+
 </main>
 <a id="MOVE_BACK_BTN">목록으로</a>
