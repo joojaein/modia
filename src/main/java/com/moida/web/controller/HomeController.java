@@ -230,8 +230,8 @@ public class HomeController {
       if(!new File(realPath).exists()) {
          realPath = "http://localhost/resources/images/img404.png";   
          URL url = new URL("http://localhost/resources/images/img404.png");
-           HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();;
-           fis = urlConnection.getInputStream();      
+         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();;
+         fis = urlConnection.getInputStream();      
       }else {
          fis = new FileInputStream(realPath);  
       }

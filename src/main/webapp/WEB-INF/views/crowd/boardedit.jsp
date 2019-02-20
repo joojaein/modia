@@ -5,12 +5,9 @@
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-<script src="/resources/js/groupboardreg.js"></script>
+<script src="/resources/js/groupBoardEdit.js"></script>
 <link href="/resources/css/groupboardreg.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/backpage.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<form role="form" method="post" action="boardreg">
 
 	<div class="wrapper">
 		<section class="main-head">
@@ -31,17 +28,19 @@
 					<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 				</div>
 				<div>
-					<a href="album">단체채팅</a>
+				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
 				</div>
 			</nav>
 		</section>
 		<section class="reg-head">	
 			<section class="select-box">
 				<div class="board-list" style="width: 100%;">
+				<input value="${posts.id}" id="hd-postsid" type="hidden"/>				
+				<input value="${posts.boardId}" id="hd-boardid" type="hidden"/>				
 					<c:if test="${groupRole lt 2}">
 						<select id="select1">
 							<option value="${boardType0.id}">공지사항</option>	
-							<option>게시판</option>
+							<option id="basic-option">게시판</option>
 							<option value="${boardType2.id}">사진첩</option>
 						</select>
 						<hr class="hr" style="margin: 0;" />
@@ -54,7 +53,7 @@
 					
 					<c:if test="${groupRole eq 2}">
 						<select id="select1">
-							<option>게시판</option>
+							<option id="basic-option">게시판</option>
 							<option value="${boardType2.id}">사진첩</option>
 						</select>
 						<hr class="hr" style="margin: 0;" />
@@ -66,7 +65,7 @@
 					</c:if>
 					</div>
 			</section>
-			<input id="title" name="title" type="text" autocomplete="off" placeholder="제목" />
+			<input id="title" name="title" type="text" autocomplete="off" placeholder="제목" value="${posts.title}"/>
 		</section>
 
 		<section class="text-content" id="sortable">
@@ -90,6 +89,36 @@
 				</div>
 			</div>
 			</template>
+			<c:set var = "mainImg" value = "${posts.mainImg}"/>
+
+			
+			<c:forEach var="ct" items="${contentList}">
+				<c:if test="${empty ct.src}">
+					<div class="tpl-div tpl-div-text ui-state-default">
+						<textarea class="content-text" placeholder="내용">${ct.text}</textarea>
+						<div class="hamburger-div">
+							<img class="hamburger" src="/resources/images/bighamburger.png" />
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${!empty ct.src}">
+					<div class="tpl-div tpl-div-img ui-state-default">
+						<c:if test="${mainImg eq ct.src}">
+							<div class="img-div main-img">
+								<img class="content-img " name="${ct.src}" src="/get-img?folder=crowd-postsImg&file=${ct.src}" />
+							</div>
+						</c:if>
+						<c:if test="${mainImg ne ct.src}">
+							<div class="img-div">
+								<img class="content-img " name="${ct.src}" src="/get-img?folder=crowd-postsImg&file=${ct.src}" />
+							</div>							
+						</c:if>
+						<div class="hamburger-div">
+							<img class="hamburger" src="/resources/images/bighamburger.png" />
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
 		</section>
 
 		<div class="reg-btn">
@@ -136,6 +165,6 @@
 			</div>
 		</div>
 	</section>
-</form>
+
 </main>
 <a id="MOVE_BACK_BTN">목록으로</a>

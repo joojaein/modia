@@ -1,6 +1,7 @@
 package com.moida.web.controller.member;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import java.text.ParseException;
@@ -21,7 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +70,7 @@ public class CrowdController {
 
 	@Autowired
 	public MoidaPostsService postsService;
+	
 	
 	@Autowired
 	public MoidaCmtService cmtService; 
@@ -243,24 +245,82 @@ public class CrowdController {
 		return postsService.regPosts(posts, postsContentList)+"";
 	}
 	
+	@GetMapping("boardedit")
+	public String boardEdit(
+			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="posts") Integer postsId,
+			Model model, Principal principal) {
+		
+		
+		Posts posts = postsService.getPosts(postsId);
+		List<Board> boardlist = boardService.getBoardListType1(crowdId);
+		List<PostsContent> contentList = postsService.getPostsContent(postsId);
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+
+		Board boardType0 = boardService.getBoardType0(crowdId);
+		Board boardType2 = boardService.getBoardType2(crowdId);
+
+		String userId = principal.getName();
+		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
+
+		model.addAttribute("crowd", crowd);
+		model.addAttribute("blist", boardlist);
+		model.addAttribute("boardType0", boardType0);
+		model.addAttribute("boardType2", boardType2);
+		model.addAttribute("groupRole", groupRole);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("contentList", contentList);
+
+		 /*
+		List<File> testFile = new ArrayList<File>();
+
+		for (int i = 0; i < contentList.size(); i++) {	
+			if(!ObjectUtils.isEmpty(contentList.get(i).getSrc())) {
+				String realPath = req.getServletContext().getRealPath("/crowd-postsImg/"+contentList.get(i).getSrc());
+			     if(!new File(realPath).exists()) {
+			        realPath = "http://localhost/resources/images/img404.png";       
+			     }	     
+			     testFile.add(new File(realPath));
+			}
+		}
+		model.addAttribute("testFileList",testFile);*/
+		return "crowd.boardedit";
+	}
+	
+	
+	
 	@PostMapping("boardedit")
 	@ResponseBody
 	public String boardedit (
+			int postsId,
 			int boardId,
 			String title,
 			String content,
 			String jsonContent,
 			String mainImg,
-			Model model, Principal principal) {
+			Model model, Principal principal, HttpServletRequest req) {
 
-		Posts posts = new Posts(boardId, title, content, mainImg, principal.getName());
+		Posts posts = new Posts(postsId, boardId, title, content, mainImg, principal.getName());
+		
+		List<PostsContent> contentList = postsService.getPostsContent(postsId);
+
+		for (int i = 0; i < contentList.size(); i++) {
+			if(!ObjectUtils.isEmpty(contentList.get(i).getSrc())) {
+				String path = req.getServletContext().getRealPath("/crowd-postsImg/"+contentList.get(i).getSrc());
+			      File file = new File(path);      
+			      if(file.exists()){ 
+			         file.delete(); 
+			      }
+			}
+		}
 
 		Gson gson = new Gson();      
 		JsonParser parser = new JsonParser();
 		JsonElement elem = parser.parse(jsonContent);
 		JsonArray elemArr = elem.getAsJsonArray();
-		List<PostsContent> postsContentList = new ArrayList<PostsContent>();
-
+		List<PostsContent> postsContentList = new ArrayList<PostsContent>();     
+		      
 		for (int i = 0; i < elemArr.size(); i++) {
 			PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
 			postsContentList.add(postcontent);

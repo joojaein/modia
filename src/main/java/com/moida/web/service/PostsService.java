@@ -17,5 +17,6 @@ public interface PostsService {
 	PostsInfoView getPostsinfoView(Integer id);
 	int updatehit(Integer id);
 	int deletePosts(Integer id);
+	Posts getPosts(int postsId);
 	String updatePosts(Posts posts, List<PostsContent> postsContentList);
 }

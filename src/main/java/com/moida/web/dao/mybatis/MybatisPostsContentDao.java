@@ -29,5 +29,13 @@ public class MybatisPostsContentDao implements PostsContentDao {
 		return postsContentDao.getPostsContent(postsId);
 	}
 
+	@Override
+	public int delete(int postsId) {
+		PostsContentDao postsContentDao = session.getMapper(PostsContentDao.class);
+		return postsContentDao.delete(postsId);
+	}
+
+
+
 
 }

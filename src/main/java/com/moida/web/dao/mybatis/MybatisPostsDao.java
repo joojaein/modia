@@ -84,4 +84,10 @@ public class MybatisPostsDao implements PostsDao {
 		return postsDao.deletePosts(id);
 	}
 
+	@Override
+	public Posts getPosts(int postsId) {
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getPosts(postsId);
+	}
+
 }

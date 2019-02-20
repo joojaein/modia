@@ -3,6 +3,7 @@ package com.moida.web.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsInfoView;
@@ -19,6 +20,7 @@ public interface PostsDao {
 	public PostsInfoView getPostsinfoView(Integer id);
 	public int updatehit(Integer id);
 	public int deletePosts(Integer id);
+	public Posts getPosts(int postsId);
 
 	
 }
