@@ -283,15 +283,9 @@ public class CrowdController {
 				}
 			} // for문 끝
 
-			if (word.length()< 1) {
-				Gson gson = new Gson();
-				String json = gson.toJson(tempList);
-				return json;
-			} else {
 				Gson gson = new Gson();
 				String json = gson.toJson(simpleNameList);
 				return json;
-			}
 
 		} else {
 			System.out.println("나는 검색결과"+tempList.get(0).getImg());
