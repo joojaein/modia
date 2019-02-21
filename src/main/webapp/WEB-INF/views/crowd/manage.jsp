@@ -21,23 +21,25 @@
 		</article>
 		
 		<article class="area-content">
-			<textarea>${crowd.content}</textarea>
-			<br/>
-			<span>가입조건:</span> 
-			나이: ${crowd.ageMin} ~ ${crowd.ageMax}  / 성별: 
-			<c:if test="${crowd.gender eq 0}">
-				남자
-			</c:if>
-			<c:if test="${crowd.gender eq 1}">
-				여자
-			</c:if>
-			<c:if test="${crowd.gender eq 2}">
-				모두
-			</c:if>
-			  / 지역: ${crowd.areaSido} ${crowd.areaSigungu}
-			<hr class="hr-bold"/>
+			<textarea disabled>${crowd.content}</textarea>
+			<div class="join-condition">
+				<span class="fwb">&nbsp;가입조건:</span> 
+				나이: ${crowd.ageMin} ~ ${crowd.ageMax}  / 성별: 
+				<c:if test="${crowd.gender eq 0}">
+					남자
+				</c:if>
+				<c:if test="${crowd.gender eq 1}">
+					여자
+				</c:if>
+				<c:if test="${crowd.gender eq 2}">
+					모두
+				</c:if>
+				  / 지역: ${crowd.areaSido} ${crowd.areaSigungu}
+			</div>
+			
 		</article>
 		<article class="area-etc">
+		<div class="div-area-etc">
 			<div class="menu">
 	    		<input name="board" class="btn selected-tab" type="button" value="게시판 관리">
 	    		<input name="member" class="btn" type="button" value="회원 관리(${realCnt})">
@@ -212,6 +214,7 @@
 	    				</table>
 	    			</div>
 	    		</div>
+	    	</div>
 	    	</div>
 		</article>
 	    

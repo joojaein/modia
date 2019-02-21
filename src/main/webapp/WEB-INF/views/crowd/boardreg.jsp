@@ -99,16 +99,18 @@
 				value="등록하기"></input>
 		</div>
 	</div>
-
-	<div class="content-img-alert content-alert d-none">
-		<h1>옵션 선택</h1>
-		<hr />
-		<span class="btn btn-main">대표 이미지로 지정</span>
-		<hr />
-		<span class="btn btn-del">삭제하기</span>
-		<hr />
-		<input class="btn btn-cancel" type="button" value="취소">
+	<div class="alert-hidden-back d-none">
+		<div class="content-img-alert content-alert d-none">
+			<h1>옵션 선택</h1>
+			<hr />
+			<span class="btn btn-main">대표 이미지로 지정</span>
+			<hr />
+			<span class="btn btn-del">삭제하기</span>
+			<hr />
+			<input class="btn btn-cancel" type="button" value="취소">
+		</div>
 	</div>
+
 
 	<section class="rprt-box">
 		<div class="rprt d-none">

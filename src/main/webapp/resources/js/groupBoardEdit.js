@@ -171,10 +171,12 @@ window.addEventListener("load", function () {
       var contentImg = evt.target;
       var tplDiv = evt.target.parentNode.parentNode;
       var divAlert = document.querySelector(".content-img-alert");
-      
+      var back = document.querySelector(".alert-hidden-back");
+
       var clientWidth = document.body.clientWidth;
       divAlert.style.left = (clientWidth/2 - 160)+"px";
       divAlert.classList.remove("d-none");
+      back.classList.remove("d-none");
       
       var btnMain = divAlert.querySelector(".btn-main");
       var btnDel = divAlert.querySelector(".btn-del");
@@ -182,6 +184,7 @@ window.addEventListener("load", function () {
       
       btnMain.onclick=function(){
          divAlert.classList.add("d-none");
+         back.classList.add("d-none");
          var imgDivs = secContent.querySelectorAll(".img-div");
          for (var i = 0; i < imgDivs.length; i++) {
             imgDivs[i].classList.remove("main-img");
@@ -191,6 +194,7 @@ window.addEventListener("load", function () {
       
       btnDel.onclick=function(){
          divAlert.classList.add("d-none");
+         back.classList.add("d-none");
          
          fileMap.delete(contentImg.name);
          
@@ -208,7 +212,13 @@ window.addEventListener("load", function () {
       
       btnCancel.onclick=function(){
          divAlert.classList.add("d-none");
+         back.classList.add("d-none");
       };
+      
+      back.onclick=function(){
+          divAlert.classList.add("d-none");
+          back.classList.add("d-none");
+       };
    });
 
    btnSubmit.onclick = function(){
