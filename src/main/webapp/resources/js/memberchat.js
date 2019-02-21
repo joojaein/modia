@@ -21,6 +21,9 @@
             $(function()
     		{
             	
+            	
+            	
+            	
             	var testDiv = document.querySelector(".friend-list-container");
             	testDiv.addEventListener("click", function(evt){
             		if(!evt.target.classList.contains("friend-img")) return;
@@ -80,47 +83,50 @@
 
                 	
             	});
+            	//alert("111");
     		})
 
-            
-            
+    		
+    
 
-            $(function () {
-                $(".close-chat").click(function () {
-                    $("#aside-div").animate({
-                        left: "-100%"
-                    }, false)
-                })
-            })
-            $(function () {
-                $(".adminclose-chat").click(function () {
-                    $("#adminchat").animate({
-                        left: "-100%"
-                    }, false)
-                })
-            })
-           
             $(function () 
+            {
+         //   	alert("뭐라고 뜨니 ? : "+ $(".thisMyId").val() );
+            	
+            	if( $(".thisMyId").val() != "anonymousUser" )
             	{
-	                $("#open-chat").click(function () {
+            	
+	                $(".close-chat").click(function () {
+	                	$("#open-chat").css({"animation":"none"});
 	                    $("#aside-div").animate({
+	                        left: "-100%"
+	                    }, false)
+	                })
+	                $("#open-chat").click(function () {
+	                	$("#open-chat").css({"animation":"none"});
+		                    $("#aside-div").animate({
+		                        left: "0%"
+		                    }, false)
+		                });
+	                
+	                $(".adminclose-chat").click(function () {
+	                	$("#open-chat").css({"animation":"none"});
+	                    $("#adminchat").animate({
+	                        left: "-100%"
+	                    }, false)
+	                })
+	                $("#open-chat").click(function () {
+	                	$("#open-chat").css({"animation":"none"});
+	                    $("#adminchat").animate({
 	                        left: "0%"
 	                    }, false)
+	               
 	                });
+	                
+            	}
             	
-            	
-            	})
-            	
-        	$(function () 
-        	{
-                $("#open-chat").click(function () {
-                    $("#adminchat").animate({
-                        left: "0%"
-                    }, false)
-                });
-        	
-        	
-        	})
+            })
+            
  
 
             // alert($(".friend-profile").css("bottom"));
@@ -1171,7 +1177,7 @@ function adminMemberChat()
    					}
    					
    					// 시간 PM , AM 으로 나누기위한 if 문
-   					if(hour <=12 && hour >=1)
+   					if(hour <12 && hour >=1)
    					{
    						
    						if(hour<10)
@@ -1472,7 +1478,7 @@ function adminMemberChat()
 //	   			console.log(e.data);
 	   			
 	   			
-	   			
+	//   			alert("onmessage 출입구:"+$(".thisMyId").val())
 	   			
 	   			var spliteChat = e.data;
 	   			
@@ -1551,7 +1557,7 @@ function adminMemberChat()
    					
    					
 					
-					var ajxtodayDay = ajxthour+" : "+ajxtminutes;
+					var ajxtodayDay = "오늘 "+ ajxthour+" : "+ajxtminutes;
 	//				alert("채팅을 입력하자 마자 들어갈 append용 시간: : "+ajxtodayDay);
 					
 					
@@ -1564,6 +1570,8 @@ function adminMemberChat()
 						var ajxfrtpl = document.querySelector("#friend-chat-txt");
 						var ajxchatarea = document.querySelector(".chat-window-main");
 				   			
+						alert("여기는 어드민이 아닐때"+$(".thisMyId").val());
+						
 				 //  			alert("내가 선택한 친구의 이미지 경로 : "+$(".chat-fr-img").val());
 				   		// template 들과 채팅을 append 할 textarea
 				   			
@@ -1646,9 +1654,9 @@ function adminMemberChat()
 								
 								
 					}
-					if($(".thisMyId").val()=='admin')
+					else if($(".thisMyId").val()=='admin')
 					{
-						
+						alert("어드민인 경우 들어옴 : "+$(".thisMyId").val());
 						
 			   			
 						 //  			alert("내가 선택한 친구의 이미지 경로 : "+$(".chat-fr-img").val());
@@ -1666,7 +1674,7 @@ function adminMemberChat()
 						   			//우선 보낸사람이 친구 인 경우 쓰는 템플릿
 						  // 			alert($(".thisMyId").val());
 						  // 			alert($(".friend-chatting-roomname").text());
-						   			if( ( senderId==$(".admin-friend-chatting-roomname").text() ) && ( receiverId==$(".thisMyId").val() ) )
+						   			if( ( senderId==$(".admin-chatting-roomname").text() ) && ( receiverId==$(".thisMyId").val() ) )
 						   			{
 							   			var adajxftpl = document.importNode(ajxfrtpl.content,true);
 										var adajxfrId = adajxftpl.querySelector(".admin-friend-chat-id");
@@ -1684,7 +1692,7 @@ function adminMemberChat()
 										
 							   			
 							   		}
-						   			else if( ( senderId==$(".thisMyId").val() ) && ( receiverId== $(".admin-friend-chatting-roomname").text() ) )
+						   			else if( ( senderId==$(".thisMyId").val() ) && ( receiverId== $(".admin-chatting-roomname").text() ) )
 						   			{
 	//					   				alert("이걸????");
 							   			//보낸 사람이 나 인 경우 쓰는 템플릿
@@ -1973,14 +1981,18 @@ function adminMemberChat()
 					$(".admin-chat-send-button").click(function()
 		   			   		{
 						
-		//				alert("여기를 많이 들어오니?");
+						alert("여기를 많이 들어오니?");
 		   			   			//var friendId ="nolec";
 		   			   			//alert($(".friend-chatting-roomname").text());
 		//   			   			console.log( $(".admin-chat-textarea").val() );
-		   			   			socket.send($(".thisMyId").val()+"."+$(".admin-friend-chatting-roomname").text()+"."+ $(".admin-chat-textarea").val());
+		   			   			socket.send($(".thisMyId").val()+"!^@%SPSP%@^!"+$(".admin-chatting-roomname").text()+"!^@%SPSP%@^!"+ $(".admin-chat-textarea").val());
 		   			   			var myId = $(".thisMyId").val();
-		   			   			var friendId =$(".admin-friend-chatting-roomname").text();
+		   			   			var friendId =$(".admin-chatting-roomname").text();
 		   			   			var content = $(".admin-chat-textarea").val();
+		   			   			
+		   			   			alert("myId : "+myId);
+		   			   			alert("friendId : "+friendId);
+		   			   			alert("content : "+content);
 		   			   			
 		   			   			var insertChattingList2 = new XMLHttpRequest();
 		   			   			
@@ -2138,8 +2150,38 @@ function adminMemberChat()
         function imgClick()
    		{
    		//	alert("hi");
+        	
+        	
    			$(".click-profile-container").css({"display":"block"});
    			
+   			//////////////신고 했는지 안했는지//////////////////////////////////////////////
+   			
+   			var clickChkRprt = new XMLHttpRequest();
+	        
+	        //  alert("open전");   
+	          
+   			clickChkRprt.open("POST","/member/chk-rprtId",true);
+   			clickChkRprt.setRequestHeader("Content-Type",
+	                                  "application/x-www-form-urlencoded");
+	                
+	                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+   			clickChkRprt.onload = function()
+             {
+             
+      //          alert("너의 아이디가 들려");
+                
+  //              var comeonmyid = JSON.parse(gomyid.responseText); 
+          
+  //             $(".thisMyId").val(comeonmyid);
+               $(".click-chat-rprt-button").text(clickChkRprt.responseText);
+                
+                
+             }
+	             
+   			clickChkRprt.send("rprtId="+"dbfk");
+   			
+   			
+   			///////////////친구 인지 아닌지/////////////////////////////////////////
    			var chkFriend = new XMLHttpRequest();
    	        
    	        //  alert("open전");   
@@ -2150,7 +2192,7 @@ function adminMemberChat()
    			chkFriend.setRequestHeader("Content-Type",
    	                                  "application/x-www-form-urlencoded");
    	                
-   	                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+   	        //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
    			chkFriend.onload = function()
    	             {
    	             
@@ -2212,264 +2254,288 @@ function adminMemberChat()
    			chkFriend.send("memberId="+"dbfk");
    			
    			
-   			
-//   			$(".click-box-F-noF").click(function()
-//			{
-//		
-////   				if($(".click-box-F-noF").text() == '친구추가')
-////   				{
-////   					alert("이거 되면 끄팅다");
-////   				}
-//   				
-//   				alert("내가 선택한 아이디 :"+selectMemberId)
-//   				alert("뭐지 : "+$(".click-box-F-noF").text());
-//   				
-//   				if( $(".click-box-F-noF").val() == '친구추가' )
-//   				{
-//            		var addMyFriend = new XMLHttpRequest();
-//                 
-//                 
-//            		addMyFriend.open("POST","/member/add-myFriend",true);
-//            		addMyFriend.setRequestHeader("Content-Type",
-//                                           "application/x-www-form-urlencoded");
-//                         
-//                         //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-//            		addMyFriend.onload = function()
-//                      {
-//                      
-//               //          alert("너의 아이디가 들려");
-//                         
-//                     //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
-//            				
-//                        
-//                      }
-//                      
-//            		addMyFriend.send("memberId="+selectMemberId);
-//   				}
-//   				else if( $(".click-box-F-noF").val() == '친구삭제' )
-//   				{
-//   					
-//   					var delMyFriend = new XMLHttpRequest();
-//                    
-//                    
-//   					delMyFriend.open("POST","/member/del-myFriend",true);
-//   					delMyFriend.setRequestHeader("Content-Type",
-//                                           "application/x-www-form-urlencoded");
-//                         
-//                         //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-//   					delMyFriend.onload = function()
-//                      {
-//                      
-//               //          alert("너의 아이디가 들려");
-//                         
-//                     //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
-//            				
-//                        
-//                      }
-//                      
-//   					delMyFriend.send("memberId="+selectMemberId);
-//   					
-//   				}
-//			})
-   			
-   			
-   			
+   		
    		}
+        
+        
         $(function()
 		{
         	$(".click-box-F-noF").click(function()
-        			{
-        		
+			{
+		
 //           				if($(".click-box-F-noF").text() == '친구추가')
 //           				{
 //           					alert("이거 되면 끄팅다");
 //           				}
-        				var selectMemberId = $(".click-chat-profile-id").text();
-        		
-           	//			alert("내가 선택한 아이디 :"+selectMemberId)
-           	//			alert("뭐지 : "+$(".click-box-F-noF").text());
-           				
-           				if( $(".click-box-F-noF").text() == '친구추가' )
-           				{
-           					var aselectMemberId = $(".click-chat-profile-id").text();
-           					
-                    		var addMyFriend = new XMLHttpRequest();
+				var selectMemberId = $(".click-chat-profile-id").text();
+		
+   	//			alert("내가 선택한 아이디 :"+selectMemberId)
+   	//			alert("뭐지 : "+$(".click-box-F-noF").text());
+   				
+   				if( $(".click-box-F-noF").text() == '친구추가' )
+   				{
+   					var aselectMemberId = $(".click-chat-profile-id").text();
+   					
+            		var addMyFriend = new XMLHttpRequest();
+                 
+                 
+            		addMyFriend.open("POST","/member/add-myFriend",true);
+            		addMyFriend.setRequestHeader("Content-Type",
+                                           "application/x-www-form-urlencoded");
                          
+                         //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+            		addMyFriend.onload = function()
+                      {
+                      
+               //          alert("너의 아이디가 들려");
                          
-                    		addMyFriend.open("POST","/member/add-myFriend",true);
-                    		addMyFriend.setRequestHeader("Content-Type",
-                                                   "application/x-www-form-urlencoded");
-                                 
-                                 //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-                    		addMyFriend.onload = function()
-                              {
-                              
-                       //          alert("너의 아이디가 들려");
-                                 
-                             //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
-                    			$(".click-box-F-noF").text('친구삭제');
-                    			return;
-                              }
-                              
-                    		addMyFriend.send("selectMemberId="+selectMemberId);
-                    		
-                    		reChattingOn();
-           				}
-           				else if( $(".click-box-F-noF").text() == '친구삭제' )
-           				{
-           					
-            				var dselectMemberId = $(".click-chat-profile-id").text();
+                     //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
+            			$(".click-box-F-noF").text('친구삭제');
+            			return;
+                      }
+                      
+            		addMyFriend.send("selectMemberId="+selectMemberId);
+            		
+            		reChattingOn();
+   				}
+   				else if( $(".click-box-F-noF").text() == '친구삭제' )
+   				{
+   					
+    				var dselectMemberId = $(".click-chat-profile-id").text();
 
-           					
-           					var delMyFriend = new XMLHttpRequest();
-                            
-                            
-           					delMyFriend.open("POST","/member/del-myFriend",true);
-           					delMyFriend.setRequestHeader("Content-Type",
-                                                   "application/x-www-form-urlencoded");
-                                 
-                                 //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-           					delMyFriend.onload = function()
-                              {
-                              
-                       //          alert("너의 아이디가 들려");
-                                 
-                             //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
-           						$(".click-box-F-noF").text('친구추가');
-           						return;
-                                
-                              }
-                              
-           					delMyFriend.send("selectMemberId="+selectMemberId);
-           					
-           					reChattingOn();
-           				}
-        			})
+   					
+   					var delMyFriend = new XMLHttpRequest();
+                    
+                    
+   					delMyFriend.open("POST","/member/del-myFriend",true);
+   					delMyFriend.setRequestHeader("Content-Type",
+                                           "application/x-www-form-urlencoded");
+                         
+                         //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+   					delMyFriend.onload = function()
+                      {
+                      
+               //          alert("너의 아이디가 들려");
+                         
+                     //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
+   						$(".click-box-F-noF").text('친구추가');
+   						return;
+                        
+                      }
+                      
+   					delMyFriend.send("selectMemberId="+selectMemberId);
+   					
+   					reChattingOn();
+   				}
+			})
 		})
+		
 		// 친구 채팅 창에서 신고 function
         $(function()
 		{
         	
         	$(".chat-rprt-button").click(function()
-			{
-        		
-       // 		alert("신고 버튼을 눌렀다 : "+$(".chat-profile-id").text());
-        		var rprtId = $(".chat-profile-id").text();
-        		var chatSelects = document.querySelector("#chat-rprt-select");
-        		
-        		var rprtTitle = null;
-        		
-        		$("#chat-rprt-select").on('change',function()
 				{
-        //			alert(chatSelects.options[chatSelects.selectedIndex].value);
-        			rprtTitle = chatSelects.options[chatSelects.selectedIndex].value;
+	        		
+	       // 		alert("신고 버튼을 눌렀다 : "+$(".chat-profile-id").text());
+	        		var rprtId = $(".chat-profile-id").text();
+	        		var rprtText = $(".chat-rprt-button").text();
+	        		
+	        		if(rprtText=='신고 추가')
+	        		{
+		        		var chatSelects = document.querySelector("#chat-rprt-select");
+		        		var rprtTitle = null;
+		        		
+		        		$("#chat-rprt-select").on('change',function()
+						{
+		        //			alert(chatSelects.options[chatSelects.selectedIndex].value);
+		        			rprtTitle = chatSelects.options[chatSelects.selectedIndex].value;
+						})
+						
+						$(".chat-rprt-input").click(function()
+						{
+				//			alert("상세내용 : "+$(".chat-rprt-detailContent").val());
+							var rprtDetailContent = $(".chat-rprt-detailContent").val();
+							
+							var rprtInsert = new XMLHttpRequest();
+					        
+					        //  alert("open전");   
+					          
+							rprtInsert.open("POST","/member/insert-rprtId",true);
+							rprtInsert.setRequestHeader("Content-Type",
+					                                  "application/x-www-form-urlencoded");
+					                
+					                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+							rprtInsert.onload = function()
+					             {
+					             
+								 $(".chat-rprt").css({ "top": "-120%" });
+						         $(".screen").remove();
+						         $(".chat-rprt-button").text('신고 해제')
+						         
+					      //          alert("너의 아이디가 들려");
+					                
+					       //         var rprtSuccess = JSON.parse(rprtInsert.responseText); 
+					          
+					          //     $(".thisMyId").val(comeonmyid);
+					               
+					                
+					                
+					             }
+					             
+							rprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
+							
+							
+							
+						})
+	
+	        		}
+	        		else if(rprtText=='신고 해제')
+	        		{
+	        			$(".chat-rprt").css({ "top": "-120%" });
+				         
+	        			var rprtDelete = new XMLHttpRequest();
+				        
+				        //  alert("open전");   
+				          
+	        			rprtDelete.open("POST","/member/delete-rprtId",true);
+	        			rprtDelete.setRequestHeader("Content-Type",
+				                                  "application/x-www-form-urlencoded");
+				                
+				                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+	        			rprtDelete.onload = function()
+				             {
+				             
+	        				
+					         $(".chat-rprt-button").text('신고 추가')
+					         $(".chat-rprt").css({ "top": "-120%" });
+					         $(".screen").remove();
+				      //          alert("너의 아이디가 들려");
+				                
+				       //         var rprtSuccess = JSON.parse(rprtInsert.responseText); 
+				          
+				          //     $(".thisMyId").val(comeonmyid);
+				               
+				                
+				                
+				             }
+				             
+	        			rprtDelete.send("rprtId="+rprtId);
+	        			
+	        			
+	        		}
+	        		
 				})
-				
-				$(".chat-rprt-input").click(function()
-				{
-		//			alert("상세내용 : "+$(".chat-rprt-detailContent").val());
-					var rprtDetailContent = $(".chat-rprt-detailContent").val();
-					
-					var rprtInsert = new XMLHttpRequest();
-			        
-			        //  alert("open전");   
-			          
-					rprtInsert.open("POST","/member/insert-rprtId",true);
-					rprtInsert.setRequestHeader("Content-Type",
-			                                  "application/x-www-form-urlencoded");
-			                
-			                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-					rprtInsert.onload = function()
-			             {
-			             
-						 $(".chat-rprt").css({ "top": "-120%" });
-				         screenrprt.remove();
-			      //          alert("너의 아이디가 들려");
-			                
-			       //         var rprtSuccess = JSON.parse(rprtInsert.responseText); 
-			          
-			          //     $(".thisMyId").val(comeonmyid);
-			               
-			                
-			                
-			             }
-			             
-					rprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
-					
-					
-					
-				})
-
-				
-        		
-			})
         	
 			
 			
 			
 			
 		})
+		
 		//그냥 사이트 상에서 이미지를 눌렀을 때 신고
 		$(function()
 		{
-			$(".click-chat-rprt-button").click(function()
-			{
-		//		alert("click 신고");
+			
+		//	var rprtId = $(".click-chat-profile-id").text();
+    		
+    		
+    		
 				
-				var rprtId = $(".click-chat-profile-id").text();
-        		var chatSelects = document.querySelector("#click-chat-rprt-select");
-        		
-        		var rprtTitle = null;
-        		
-        		$("#click-chat-rprt-select").on('change',function()
+				$(".click-chat-rprt-button").click(function()
 				{
-        //			alert(chatSelects.options[chatSelects.selectedIndex].value);
-        			rprtTitle = chatSelects.options[chatSelects.selectedIndex].value;
+					
+					if($(".click-chat-rprt-button").text()=='신고 추가')
+		    		{
+						
+					//	alert($(".click-chat-rprt-button").text());
+						
+				//		alert("click 신고");
+						
+					//	var rprtId = $(".click-chat-profile-id").text();
+		        		var chatSelects = document.querySelector("#click-chat-rprt-select");
+		        		
+		        		var rprtTitle = null;
+		        		
+		        		$("#click-chat-rprt-select").on('change',function()
+						{
+		        //			alert(chatSelects.options[chatSelects.selectedIndex].value);
+		        			rprtTitle = chatSelects.options[chatSelects.selectedIndex].value;
+						})
+						
+						$(".click-chat-rprt-input").click(function()
+						{
+				//			alert("상세내용 : "+$(".click-chat-rprt-detailContent").val());
+							var rprtDetailContent = $(".click-chat-rprt-detailContent").val();
+							
+							var clickRprtInsert = new XMLHttpRequest();
+					        
+					        //  alert("open전");   
+					          
+							clickRprtInsert.open("POST","/member/insert-rprtId",true);
+							clickRprtInsert.setRequestHeader("Content-Type",
+					                                  "application/x-www-form-urlencoded");
+					                
+					                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+							clickRprtInsert.onload = function()
+					             {
+									$(".click-chat-rprt-button").text('신고 해제');
+							         $(".click-chat-rprt").css({ "top": "-120%" });
+							         screenrprt.remove();
+							         
+							         
+					      //          alert("너의 아이디가 들려");
+					                
+					    //            var rprtSuccess = JSON.parse(clickRprtInsert.responseText); 
+					          
+					          //     $(".thisMyId").val(comeonmyid);
+					               
+					                
+					                
+					             }
+					             
+							clickRprtInsert.send("rprtId="+"dbfk"+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
+							
+							
+						
+						})
+		    		}
+					else if($(".click-chat-rprt-button").text()=='신고 해제')
+		    		{
+					//	alert($(".click-chat-rprt-button").text());
+		    			
+		    			var clickRprtDelete = new XMLHttpRequest();
+				        
+				        //  alert("open전");   
+				          
+		    			clickRprtDelete.open("POST","/member/delete-rprtId",true);
+		    			clickRprtDelete.setRequestHeader("Content-Type",
+				                                  "application/x-www-form-urlencoded");
+				                
+				                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+		    			clickRprtDelete.onload = function()
+				             {
+					             
+						         $(".click-chat-rprt-button").text('신고 추가')
+						         $(".click-chat-rprt").css({ "top": "-120%" });
+						         $(".screen").remove();
+					      //          alert("너의 아이디가 들려");
+					                
+					       //         var rprtSuccess = JSON.parse(rprtInsert.responseText); 
+					          
+					          //     $(".thisMyId").val(comeonmyid);
+					               
+				             }
+				             
+		    			clickRprtDelete.send("rprtId="+"dbfk");
+		    			
+		    		}
 				})
-				
-				$(".click-chat-rprt-input").click(function()
-				{
-		//			alert("상세내용 : "+$(".click-chat-rprt-detailContent").val());
-					var rprtDetailContent = $(".click-chat-rprt-detailContent").val();
-					
-					var clickRprtInsert = new XMLHttpRequest();
-			        
-			        //  alert("open전");   
-			          
-					clickRprtInsert.open("POST","/member/insert-rprtId",true);
-					clickRprtInsert.setRequestHeader("Content-Type",
-			                                  "application/x-www-form-urlencoded");
-			                
-			                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-					clickRprtInsert.onload = function()
-			             {
-			             
-					         $(".click-chat-rprt").css({ "top": "-120%" });
-					         screenrprt.remove();
-					     
-			      //          alert("너의 아이디가 들려");
-			                
-			    //            var rprtSuccess = JSON.parse(clickRprtInsert.responseText); 
-			          
-			          //     $(".thisMyId").val(comeonmyid);
-			               
-			                
-			                
-			             }
-			             
-					clickRprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
-					
-					
-					
-				})
-				
-				
-				
-				
-				
-				
-				
-			})
+    		
+    		
+    		
+    		
+    		
 		});
 		
 		
@@ -2514,6 +2580,51 @@ function adminMemberChat()
 			})
 		})
 
+		//채팅에서 친구 이미지를 눌렀을때 내가 신고를 했는지 안했는지를 가져오는 function
+            $(function()
+    		{
+            	
+            	var testDiv = document.querySelector(".friend-list-container");
+            	testDiv.addEventListener("click", function(evt){
+            		if(!evt.target.classList.contains("friend-img")) return;
+            	
+            		
+            		var chatimg = evt.target;
+            		
+            		alert("눌렀다.")
+            		alert(chatimg.parentNode.className); //friend
+            		alert(chatimg.parentNode.querySelector('.friend-id').innerText);
+    		    	
+            		var rprtId=chatimg.parentNode.querySelector('.friend-id').innerText;
+            		
+            		var chkRprt = new XMLHttpRequest();
+    		        
+    		        //  alert("open전");   
+    		          
+            		chkRprt.open("POST","/member/chk-rprtId",true);
+            		chkRprt.setRequestHeader("Content-Type",
+    		                                  "application/x-www-form-urlencoded");
+    		                
+    		                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+            		chkRprt.onload = function()
+		             {
+		             
+		      //          alert("너의 아이디가 들려");
+		                
+		  //              var comeonmyid = JSON.parse(gomyid.responseText); 
+		          
+		  //             $(".thisMyId").val(comeonmyid);
+		               $(".chat-rprt-button").text(chkRprt.responseText);
+		                
+		                
+		             }
+    		             
+            		chkRprt.send("rprtId="+rprtId);
+            		
+    			})
+    		})
+		
+		
 		
 
 		
@@ -2528,4 +2639,36 @@ function adminMemberChat()
    			})
 		})
 
+		//승래꺼
+		window.addEventListener("load", function() {
+			
+			
+			var abtn = document.querySelector('#open-chat');
+			abtn.onclick = function(e) {
+				e.preventDefault();
+				var chkRequest = new XMLHttpRequest();
+				chkRequest.open("GET", "/crowd/checkId?url="+document.location.pathname, true);
+				chkRequest.onload = function() {
+					var chkturn = chkRequest.responseText;
+					if (chkturn == "no") {
+						swal({
+							  title: "로그인 하시겠습니까?",
+							  text: "채팅을 사용하기 위해선 로그인이 필요합니다.",
+							  icon: "warning",
+							  buttons: ["싫어","가자"],
+							  dangerMode: true,
+							})
+							.then((willDelete) => {
+							  if (willDelete) {
+								 window.location.href = '/login';
+							  }
+							});
+					} /*else {
+						window.location.href = '/crowd/createCategory';
+					}*/
+
+				}
+				chkRequest.send();
+			}
+		})
         

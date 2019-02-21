@@ -21,9 +21,10 @@ aside{
     position: fixed;
     bottom: 14%;
     left: -360px;
-    background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
-    height: 640px;
+/*     background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
+ */    height: 640px;
     width: 360px;
+    background: rgb(190, 255, 244);
     margin: auto;
     overflow: hidden;
 }
@@ -32,6 +33,21 @@ aside{
 	#aside-div
 	{
 	z-index:100;
+    position: fixed;
+    bottom: 0px !important;
+    left:-360px;
+/*     background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
+ */    
+ 	background: rgb(190, 255, 244);
+ 	height : 640px;
+    width: 360px;
+    margin: auto;
+    overflow: hidden;
+	}
+	#adminchat
+	{
+	
+    z-index:100;
     position: fixed;
     bottom: 0px !important;
     left:-360px;
@@ -50,11 +66,24 @@ aside{
 #open-chat
 {
 	position: absolute;
-	background: red;
+	background: rgb(0, 199, 110);
 	width:20px;
-	height:50px;
+	height:125px;
 	top:250px;
-	right:-20px;
+	right:-15px;
+	border-radius:0px 20px 20px 0px;
+}
+
+@keyframes shiny
+{
+    0%
+    {
+        background:peru; 
+    }
+    100%
+    {
+        background: black;
+    }
 }
 
 .circle{
@@ -168,7 +197,7 @@ aside{
     justify-content: space-around;
 }
 .chat-visited{
-    background: green !important;
+    background: #3a6356 !important;
     color: white;
     transition: .5s cubic-bezier(.5,.06,.55,.96) forwards;
 }
@@ -243,10 +272,10 @@ aside{
 .friend-balloon{
 	
     position: absolute;
-    width: 40px;
-    height: 40px;
-    right: 10px;
-    top: -3px;
+    width: 64px;
+    height: 64px;
+    right: 3px;
+    top: -12px;
 
 }
 .friend-balloon img{
@@ -507,8 +536,9 @@ aside{
     "header"
     "main"
     "footer";
-    background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
-}
+/*     background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
+ */	background: rgb(190, 255, 244);
+ }
 .chat-window-header{
     z-index: 10;
     grid-area: header;
@@ -537,12 +567,10 @@ aside{
     top: 15%;
     left: -40%;
 }
+
 .chat-window-main{
     overflow:scroll;
-<<<<<<< HEAD
     /* scroll-behavior: smooth; */
-=======
->>>>>>> refs/remotes/origin/master
     overflow-x: hidden;
     grid-area: main;
     height: 100%;
@@ -823,7 +851,7 @@ aside{
 }
 .close-chat{
     position: absolute;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100px;
     height: 30px;
     bottom: 0;
@@ -832,6 +860,9 @@ aside{
     font-size: 15px;
     line-height: 30px;
     margin: 10px;
+    background: rgb(39, 72, 48);
+    color:white;
+    font-weight:600;
 }
 
 
@@ -841,10 +872,12 @@ aside{
 	
     z-index:100;
     position: fixed;
-    bottom: 0px;
+    bottom: 14%;
     left:-360px;
-    background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
-    height : 640px;
+/*     background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
+ */  
+ 	background: rgb(190, 255, 244);
+ 	height : 640px;
     width: 360px;
     margin: auto;
     overflow: hidden;
@@ -865,7 +898,8 @@ aside{
 
 .adminchat-list {
     cursor: pointer;
-    background: white;
+    background: rgb(39, 72, 48);
+    color: white;
     width: 100px;
     line-height: 30px;
     text-align: center;
@@ -970,7 +1004,7 @@ aside{
 }
  .adminclose-chat{
     position: absolute;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100px;
     height: 30px;
     bottom: 0;
@@ -979,6 +1013,9 @@ aside{
     font-size: 15px;
     line-height: 30px;
     margin: 10px;
+     background: rgb(39, 72, 48);
+    color: white;
+    font-weight: 600;
 } 
 /*----------------------------------------------------------*/
 .admin-chat-window-container{
@@ -999,7 +1036,8 @@ aside{
     "header"
     "main"
     "footer";
-    background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%);
+    /* background: linear-gradient(to bottom, rgba(241,231,103,1) 0%, rgba(241,231,103,1) 43%, rgba(254,182,69,1) 100%); */
+	background: rgb(190, 255, 244);
 }
 .admin-chat-window-header{
     z-index: 10;
@@ -1512,4 +1550,49 @@ aside{
 {
 	margin-right:20px;
 }
+/* 마지막에 추가한 css 들*/
+
+.friend-id
+{
+	font-size:15px; 
+	font-weight:bold;
+}
+.friend-msg
+{
+	font-size:12px !important; 
+	font-weight:normal !important; 
+}
+.chat-profile-id
+{
+	font-size:15px; 
+	font-weight:bold;
+	margin-left:40px;
+}
+.chat-profile-msg
+{
+	margin-left:40px;
+}
+.message-list-id
+{
+	font-size:15px; 
+	font-weight:bold;
+}
+.admin-list-id
+{
+	font-size:15px; 
+	font-weight:bold;
+}
+
+/*어드민*/
+.adminfriend-id
+{
+	font-size:15px; 
+	font-weight:bold;
+}
+.adminfriend-msg
+{
+	font-size:12px !important; 
+	font-weight:normal !important; 
+}
+
 

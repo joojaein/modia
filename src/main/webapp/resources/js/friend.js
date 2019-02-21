@@ -13,7 +13,7 @@ $(function()
     	//alert("변수지정 ㄴㄴ :"+idRequest.responseText);
     	$(".thisMyId").val(idRequest.responseText);
     	
-    	//alert("변수지정 ㅇㅇ :"+$(".thisMyId").val());
+    //	alert("변수지정 ㅇㅇ :"+$(".thisMyId").val());
     	
        if(idRequest.responseText != "anonymousUser")
        {
@@ -49,6 +49,7 @@ $(function()
  	         adminMemberLimit();
  	         soketchatting();
  	         adminMemberChat(); 
+ 	         
  	        
  	          $("#aside-div").css({"display":"none"});
  	         var memberdiv = document.querySelector("#aside-div");
@@ -676,7 +677,7 @@ $(function()
                			  +getAdminLimitDatas[i][0].receiverImg+")";
                		  
        					adLimitTplContent.innerText = getAdminLimitDatas[i][0].content;
-               		adLimitTplDate.innerText=adtodayDay;
+               		adLimitTplDate.innerText=adchatDate;
                		  
                		admessagelist.append(adLimitTplV);
              		  
@@ -690,7 +691,7 @@ $(function()
                			  +getAdminLimitDatas[i][0].img+")";
                		  
        					adLimitTplContent.innerText = getAdminLimitDatas[i][0].content;
-               		adLimitTplDate.innerText=adtodayDay;
+               		adLimitTplDate.innerText=adchatDate;
                		  
                		admessagelist.append(adLimitTplV);
              	  }
@@ -781,11 +782,12 @@ $(function()
 
 function reboot()
 {
-	
+    $("#open-chat").css({"animation":"1s shiny infinite"});
+
 			if($(".thisMyId").val()=="admin")
 			{
 				readminMemberLimit();
-				
+				readmintalk();
 			}
 			else if($(".thisMyId").val()!="admin")
 			{
@@ -815,7 +817,8 @@ function remessageList()
     var getreLastTalkData = new XMLHttpRequest();
     
     //  alert("open전");   
-      
+    
+
     getreLastTalkData.open("POST","/member/get-lastTalkData",true);
     getreLastTalkData.setRequestHeader("Content-Type",
                               "application/x-www-form-urlencoded");
