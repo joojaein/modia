@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.moida.web.dao.MemberChattingDao;
 import com.moida.web.entity.MemberChat;
+import com.moida.web.entity.RprtMember;
 
 @Service
 public class MoidaMemberChattingService implements MemberChattingService 
@@ -46,18 +47,31 @@ public class MoidaMemberChattingService implements MemberChattingService
 //		System.out.println("여기는 insertMemberChatting");
 
 		
-		memberChattingDao.insert(myId,friendId,content);
-		
-		return 1;
+		return memberChattingDao.insert(myId,friendId,content);
 	}
 
 	@Override
 	public int insertRprtId(String rprtId, String myId, String rprtTitle, String rprtDetailContent) 
 	{
-		// TODO Auto-generated method stub
-		memberChattingDao.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
+		// TODO Auto-generated method stub;
 		
-		return 1;
+		return memberChattingDao.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
+	}
+
+	@Override
+	public List<RprtMember> chkRprtId(String rprtId, String myId) 
+	{
+		// TODO Auto-generated method stub
+		
+		return memberChattingDao.chkRprtId(rprtId, myId);
+	}
+
+	@Override
+	public int deleteRprtId(String rprtId, String myId) 
+	{
+		// TODO Auto-generated method stub
+		
+		return memberChattingDao.deleteRprtId(rprtId, myId);
 	}
 
 

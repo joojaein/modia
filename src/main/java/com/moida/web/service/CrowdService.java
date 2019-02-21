@@ -11,6 +11,7 @@ import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.MemberInfoListView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
@@ -59,5 +60,5 @@ public interface CrowdService {
 	int updateCalendarList(Schedule schedule);
 	CrowdView getCrowdViews(Integer crowdId);
 	CrowdView getCrowdTotalViews(Integer crowdId);
-
+	List<MemberInfoListView> getMemberInfoListView(Integer crowdId);
 }

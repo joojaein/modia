@@ -46,7 +46,7 @@ window.addEventListener("load",function() {
 	var areaContent = document.querySelector(".area-content");
 	var textareaContent = areaContent.querySelector("textarea");
 	textareaContent.style.height = "1px";
-	textareaContent.style.height = (1+textareaContent.scrollHeight)+"px";
+	textareaContent.style.height = (textareaContent.scrollHeight)-20+"px";
  
 	var menu = main.querySelector(".menu");
     

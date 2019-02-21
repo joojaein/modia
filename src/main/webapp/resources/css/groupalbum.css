@@ -1,32 +1,11 @@
-@import url("../css/rprt.css");
-
 body {
 	margin: 0;
 	padding: 0;
-}
-
-header {
-	border-bottom: 1px solid gray;
-}
-
-main {
-	margin: 0px 10px;
+	background: #f2f4f7;
 }
 
 .d-none {
 	display: none;
-}
-
-.sirenedit img {
-	border: 1px solid gray;
-	width: 15px;
-	height: 15px;
-	padding: 5px;
-	border-radius: 5px;
-}
-
-.sirenedit {
-	line-height: 3.1;
 }
 
 a {
@@ -38,13 +17,20 @@ a {
 	margin: 0 !important;
 	grid-area: header;
 	font-size: 13px;
+	height: 30px;
 	line-height: 30px;
-	border-bottom: 1px solid gray;
 	padding: 0px 10px 0px 10px;
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #d1d8e4;
+	background: white;
 }
 
-.main-head nav:nth-child(1) {
-	width: 100%;
+.main-head div {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.main-head nav {
 	display: flex;
 	justify-content: space-between;
 }
@@ -52,18 +38,19 @@ a {
 .sub-head {
 	grid-area: subheader;
 	font-size: 13px;
-	line-height: 30px;
-	border-bottom: 1px solid gray;
-	width: 100%;
 	justify-content: center;
-	display: flex;
 	text-align: center;
+
 }
 
 .sub-head-box {
-	width: 100%;
-	display: flex;
-	justify-content: center;
+	position: relative;
+	max-width: 1200px;
+	margin: auto;
+	height: 30px;
+	line-height: 30px;
+	background: white;
+    border: 1px solid #dee3eb;
 }
 
 .content-box {
@@ -82,8 +69,11 @@ a {
 	grid-area: content;
 	flex-direction: row;
 	justify-content: center;
-	width: 100%;
 	margin: auto;
+	background: white;
+	border: 1px solid #dee3eb;
+    max-width: 1200px;
+    padding-top: 22px;
 }
 
 .content img {
@@ -100,7 +90,7 @@ a {
 	justify-content: center;
 }
 
-.content-bodx-div div{
+.content-bodx-div div {
 	margin-bottom: 2px;
 }
 
@@ -109,15 +99,24 @@ a {
 }
 
 .wrapper {
-	max-width: 1200px;
+	width: 100%;
 	display: grid;
 	grid-gap: 10px;
 	grid-template-areas: "header" "subheader" "content";
 	margin: auto;
+	display: grid;
+}
+
+.search {
+	top: 3px !important;
 }
 
 .search-box {
 	height: 30px;
+}
+
+.search .field {
+	top: -3px !important;
 }
 
 @media ( min-width : 400px) {
@@ -153,10 +152,9 @@ a {
 		display: flex;
 		text-align: center;
 	}
-	
-	.content-bodx-div div{
-	margin-bottom: 10px;
-}
+	.content-bodx-div div {
+		margin-bottom: 10px;
+	}
 	.album-title {
 		font-size: 25px;
 		font-weight: bold;
@@ -170,23 +168,26 @@ a {
 	.wr {
 		font-size: 15px
 	}
-}
+	.main-head {
+		height: 40px;
+		line-height: 40px;
+	}
+	.main-head a {
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.sub-head-box {
+		height: 40px;
+		line-height: 40px;
+	}
+	.search {
+		top: 9px !important;
+	}
+	.search .field {
+		top: -8px !important;
+	}
+	.content-box {
 
-/* 뒤로가기 --------------------------------------------- */
-a#MOVE_BACK_BTN {
-	position: fixed;
-	background: rgb(255, 104, 104);
-	bottom: 0px;
-	margin: 0 !important;
-	z-index: 999;
-	width: 100%;
-	height: 50px;
-	text-align: center;
-	justify-content: center;
-	font-weight: 900;
-	font-size: 20px;
-	color: white;
-	line-height: 50px;
+    margin: 30px;
 }
-
-/* 신고 ---------------------------------------------- */
+}

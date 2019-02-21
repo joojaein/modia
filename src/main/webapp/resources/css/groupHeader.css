@@ -1,15 +1,40 @@
-header{
-    border-bottom: gray solid 1px;
+header {
+	background: white;
+	margin: 0 !important;
+    padding: 0px 10px;
 }
 
-.sirenedit img {
-    border: 1px solid gray;
-    width: 15px;
-    height: 15px;
-    padding: 5px;
-    border-radius: 5px;
+.crowdName {
+	font-size: 25px;
+	font-weight: bold;
 }
 
 .sirenedit {
-    line-height: 3.1;
+	display: flex;
+	align-items: center;
+	line-height: initial;
+}
+
+.sirenedit a {
+	margin-left: 10px;
+}
+
+.sirenedit img {
+	border: 1px solid gray;
+	width: 15px;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+@media ( min-width : 400px) {
+}
+
+@media ( min-width : 700px) {
+	.crowdName {
+		font-size: 35px;
+		font-weight: bold;
+	}
+	.sirenedit img {
+		width: 30px;
+	}
 }

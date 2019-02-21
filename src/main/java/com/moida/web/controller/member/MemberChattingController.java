@@ -3,6 +3,8 @@ package com.moida.web.controller.member;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.moida.web.entity.FriendDataView;
+import com.moida.web.entity.Member;
 import com.moida.web.entity.MemberChat;
+import com.moida.web.entity.RprtMember;
 import com.moida.web.service.MemberChattingService;
 
 @Controller("memberChatting")
@@ -136,6 +141,41 @@ public class MemberChattingController
 		return "채팅 insert 완료";
 	}
 	
+	
+	@PostMapping("chk-rprtId")
+	@ResponseBody
+	public String chkRprtId(String rprtId,Principal principal) 
+	{
+		
+		String myId = principal.getName();
+		
+		//String rprtId = "jaein";
+		
+		String chk ="";
+		
+		List<RprtMember>  chkRprt =  memberChattingService.chkRprtId(rprtId, myId);
+		
+		
+		System.out.println("DB에서 나오는 없는 신고 데이터 : "+chkRprt);
+		
+//		chkFriend.isEmpty() 비어있으면 true // 안비어있으면 false
+//			Gson gson = new Gson();
+//			String json = null;
+			
+			if( chkRprt.isEmpty() ) 
+			{
+				chk = "신고 추가";
+			}
+			else 
+			{
+				chk = "신고 해제";
+			}
+		
+		
+		
+		return chk;
+	}
+	
 	@PostMapping("insert-rprtId")
 	@ResponseBody
 	public String insertRprtId(String rprtId,String rprtTitle,String rprtDetailContent,Principal principal ) 
@@ -148,6 +188,7 @@ public class MemberChattingController
 		
 	//	System.out.println("여기는 insert 전");
 		
+		
 		int affected = memberChattingService.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
 		
 //		System.out.println("여기는 신고 후");
@@ -155,4 +196,38 @@ public class MemberChattingController
 		return "신고 insert 완료";
 	}
 	
+	@PostMapping("delete-rprtId")
+	@ResponseBody
+	public String deleteRprtId(String rprtId,Principal principal ) 
+	{
+		
+
+		String myId = principal.getName();
+		
+	//	System.out.println("여기는 insert 전");
+		
+		
+		int affected = memberChattingService.deleteRprtId(rprtId, myId);
+		
+//		System.out.println("여기는 신고 후");
+		
+		return "신고 delete 완료";
+	}
+	
+	
+	//승래꺼
+//	@RequestMapping("checkId")
+//	@ResponseBody
+//	public String checkId(Principal principal,String url,HttpServletRequest request, HttpSession session) {
+//		String answer = "";
+//		if(principal == null) {
+//			request.getSession(true).setAttribute("preurl", url);
+//			answer = "no";
+//		}else {
+//			request.getSession(true).setAttribute("preurl", url);
+//			String preurl = (String)session.getAttribute("preurl");
+//			answer = preurl;
+//		}
+//		return answer;
+//	}
 }

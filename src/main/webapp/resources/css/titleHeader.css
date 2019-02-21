@@ -1,6 +1,9 @@
 @import url("/resources/css/component.css");
 
 header {
-	border-bottom: gray solid 1px;
+	background: white;
+	margin: 0px !important;
+	border-bottom: 1px solid #d1d8e4;
+	
 }
 

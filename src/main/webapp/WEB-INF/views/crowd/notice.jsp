@@ -5,10 +5,13 @@
 <main>
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupnotice.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/groupnotice.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/js/backpage.js"></script>
 <div class="wrapper">
 	<section class="main-head">
+	<div>
 		<nav>
 			<div>
 				<a href="main?crowd=${crowd.id}">정보</a>
@@ -26,12 +29,14 @@
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
+	</div>
 	</section>
 	<input id="cid" type="hidden" value="${crowd.id}" />
 		<article class="content">
+		<div class="content-width">
 		<c:forEach var="p" items="${plist}">
 			<c:url value="notice/ndetail" var="url">
 				<c:param name="crowd" value="${p.crowdId}" />
@@ -55,7 +60,7 @@
 				<div class="img-box">
 					<div class="pi-box">
 						<a href="${url}"><img class="post-img"
-							src="/get-img?folder=crowd-postsImg&file=${p.mainImg}.png" /></a>
+							src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
 					</div>
 				</div>
 			</div>
@@ -69,6 +74,7 @@
 			<hr />
 			<input class="pid" type="hidden" value="p.id" />
 		</c:forEach>
+		</div>
 	</article>
 </div>
 <section class="rprt-box">

@@ -1,30 +1,11 @@
 body {
 	margin: 0;
 	padding: 0;
-}
-
-header {
-	border-bottom: 1px solid gray;
-}
-
-main {
-	margin: 0px 10px;
+	background: #f2f4f7;
 }
 
 .d-none {
 	display: none;
-}
-
-.sirenedit img {
-	border: 1px solid gray;
-	width: 15px;
-	height: 15px;
-	padding: 5px;
-	border-radius: 5px;
-}
-
-.sirenedit {
-	line-height: 3.1;
 }
 
 a {
@@ -38,12 +19,18 @@ a {
 	font-size: 13px;
 	height: 30px;
 	line-height: 30px;
-	border-bottom: 1px solid gray;
 	padding: 0px 10px 0px 10px;
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #d1d8e4;
+	background: white;
+}
+
+.main-head div {
+	max-width: 1200px;
+	margin: auto;
 }
 
 .main-head nav {
-	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
@@ -51,17 +38,22 @@ a {
 .sub-head {
 	grid-area: subheader;
 	font-size: 13px;
-	line-height: 30px;
 	width: 100%;
 	justify-content: center;
 	text-align: center;
+	background: white;
+    border-top: 1px solid #e0dfdf;
+    border-bottom: 1px solid #d1d8e4;
 }
 
 .sub-head-box {
 	position: relative;
-	width: 100%;
+	max-width: 1200px;
 	display: flex;
 	justify-content: center;
+	margin: auto;
+    height: 40px;
+    line-height: 40px;
 }
 
 #select {
@@ -70,6 +62,14 @@ a {
 
 .content {
 	grid-area: content;
+}
+
+.content-width {
+	max-width: 1180px;
+	margin: auto;
+	background: white;
+	padding: 10px;
+	border: 1px solid #dee3eb;
 }
 
 .content p {
@@ -121,11 +121,11 @@ a {
 
 .photo {
 	position: relative;
-	border: 1px solid black;
 	border-radius: 50px;
 	width: 30px;
 	height: 30px;
 	margin-right: 5px;
+    border: none;
 }
 
 .photo div {
@@ -133,7 +133,7 @@ a {
 }
 
 .wrapper {
-	max-width: 1200px;
+	width: 100%;
 	display: grid;
 	grid-gap: 10px;
 	grid-template-areas: "header" "subheader" "content";
@@ -173,9 +173,6 @@ a {
 }
 
 @media ( min-width : 700px) {
-	.content {
-		max-width: 1200px;
-	}
 	.content p {
 		font-size: 20px;
 		width: 100%;
@@ -199,7 +196,6 @@ a {
 	}
 	.photo {
 		position: relative;
-		border: 1px solid black;
 		border-radius: 50px;
 		width: 50px;
 		height: 50px;
@@ -227,21 +223,13 @@ a {
 	.timeview span {
 		margin-right: 20px;
 	}
-}
+	.main-head {
+		height: 40px;
+		line-height: 40px;
+	}
+	.main-head a {
+		font-size: 20px;
+		font-weight: bold;
+	}
 
-/* 뒤로가기 --------------------------------------------- */
-a#MOVE_BACK_BTN {
-	position: fixed;
-	background: rgb(255, 104, 104);
-	bottom: 0px;
-	margin: 0 !important;
-	z-index: 999;
-	width: 100%;
-	height: 50px;
-	text-align: center;
-	justify-content: center;
-	font-weight: 900;
-	font-size: 20px;
-	color: white;
-	line-height: 50px;
 }

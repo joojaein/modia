@@ -6,6 +6,7 @@
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/boarddetail.js"></script> 
 <script src="/resources/js/backpage.js"></script> 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -37,7 +38,7 @@
 	<section class="content-title">
 		<h3>${posts.title}</h3>
 		<div class="profile-box">
-			<div class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${posts.img}') no-repeat center; background-size: cover;"></div>
+			<div onclick="imgClick('${posts.writerId}');" class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${posts.img}') no-repeat center; background-size: cover;"></div>
 			<div class="profile-info">
 				<span class="name">${posts.writerId}</span> <span class="reg-write">
 					<fmt:formatDate value="${posts.regDate}" pattern="yyyy-MM-dd a HH:mm" />

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 <section class="click-profile-container">
         <div class="click-friend-profile">
@@ -44,9 +45,7 @@
             </div>
         </section>
 <aside>
-
-<div id="open-chat">
-</div>
+<div id="open-chat"></div>
 <div id="aside-div">
 <input class="thisMyId" type="hidden" value="">
 <input class="thisMyGroup" type="hidden" value="">
@@ -76,7 +75,7 @@
                             <h6 class="friend-msg"></h6>
                         </div>
                         <div class="friend-balloon">
-                            <img class="friend-balloon-img" src="/resources/images/chat/말풍선.png" alt="">
+                            <img class="friend-balloon-img" src="/resources/images/chat/testtalk64.png" alt="">
                         </div>
                     </div>
                     </template>

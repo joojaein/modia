@@ -17,6 +17,7 @@ import com.moida.web.entity.CrowdNotice;
 import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.LeaderMngChartView;
+import com.moida.web.entity.MemberInfoListView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Schedule;
 
@@ -247,6 +248,11 @@ public class MoidaCrowdService implements CrowdService {
 	@Override
 	public int getRprtCrowdCnt(RprtCrowd rprtCrowd) {
 		return crowdDao.getIsRprtedCrowd(rprtCrowd);
+	}
+
+	public List<MemberInfoListView> getMemberInfoListView(Integer crowdId) {
+		// TODO Auto-generated method stub
+		return crowdDao.getMemberInfoListView(crowdId);
 	}
 
 }

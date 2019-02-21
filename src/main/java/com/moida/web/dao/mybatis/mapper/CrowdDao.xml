@@ -10,9 +10,9 @@
 		uid , msg from
 		Member) m on cmr.id where m.uid = cmr.memberId and
 		cmr.crowdId = #{param1} and
-		2 >= cmr.groupRole
+		2 >= cmr.groupRole 
 	</select>
- 
+
 	<select id="getCrowdSimpleDataView"
 		resultType="com.moida.web.entity.CrowdSimpleDataView">
 		select * from CrowdSimpleDataView where id = #{param1}
@@ -168,7 +168,7 @@
 	</select>
 	
 	<select id="getCrowdGroupRole" resultType="java.lang.Integer">
-		select groupRole from MemberCrowd where memberid=#{memberId} and crowdId=${crowdId}
+		select groupRole from MemberCrowd where memberId=#{memberId} and crowdId=${crowdId}
 	</select>
 	
 	<select id="getIsVisited" resultType="java.lang.Integer">
@@ -197,4 +197,9 @@
 		where id = (select * from (select id from Crowd order by regDate desc limit 1)as temp)
 	</update>
 	
+	 	
+	<select id="getMemberInfoListView" resultType="com.moida.web.entity.MemberInfoListView">
+ 		select * from MemberInfoListView where crowdId = #{param1} and 2 >= groupRole order by groupRole, joinDate
+ 	</select>
+ 	
 </mapper>
