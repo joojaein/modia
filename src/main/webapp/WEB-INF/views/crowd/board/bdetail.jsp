@@ -16,22 +16,22 @@
 		<div>
 		<nav>
 			<div>
-				<a href="main?crowd=${crowd.id}">정보</a>
+				<a href="/crowd/main?crowd=${crowd.id}">정보</a>
 			</div>
 			<div>
-				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
+				<a href="/crowd/notice?t=0&crowd=${crowd.id}">공지사항</a>
 			</div>
 			<div>
-				<a href="calendar?crowd=${crowd.id}">일정</a>
+				<a href="/crowd/calendar?crowd=${crowd.id}">일정</a>
 			</div>
 			<div>
-				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
+				<a href="/crowd/board?t=1&crowd=${crowd.id}">게시판</a>
 			</div>
 			<div>
-				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
+				<a href="/crowd/album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a href="/crowd/groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
 	</div>

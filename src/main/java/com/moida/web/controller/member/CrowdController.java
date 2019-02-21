@@ -517,8 +517,10 @@ public class CrowdController {
 
 	
 	@GetMapping("groupchat")
-	public String groupChatting(@RequestParam(name="crowd") Integer crowdId) 
+	public String groupChatting(@RequestParam(name="crowd") Integer crowdId, Model model) 
 	{
+		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+		model.addAttribute("crowd", crowd);
 		return "crowd.groupchat";
 	}
 	

@@ -1,9 +1,8 @@
 window.addEventListener("load", function () {
    var select1 = document.querySelector("#select1");
    var select2 = document.querySelector("#select2");
-   var hr = document.querySelector(".hr");
+   var hr = document.querySelector("hr");
 
-   
    select1.onchange = function () {
 	   
 	   var selectedOpt = select1.options[select1.selectedIndex];
@@ -314,6 +313,7 @@ window.addEventListener("load", function () {
             var prevText = prevTextarea.value;
             var nowText = nowTextarea.value;
             prevText+="\r"+nowText;
+            prevText = prevText.trim();
             prevTextarea.value =prevText;
             resize(prevTextarea);
             secContent.removeChild(tpls[i]);
