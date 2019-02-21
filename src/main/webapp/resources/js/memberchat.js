@@ -2147,9 +2147,9 @@ function adminMemberChat()
         };
         
         
-        function imgClick()
+        function imgClick(memberId)
    		{
-   		//	alert("hi");
+
         	
         	
    			$(".click-profile-container").css({"display":"block"});
@@ -2251,7 +2251,7 @@ function adminMemberChat()
    	                
    	             }
    	             
-   			chkFriend.send("memberId="+"dbfk");
+   			chkFriend.send("memberId="+memberId);
    			
    			
    		

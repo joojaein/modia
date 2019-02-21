@@ -9,7 +9,7 @@
     <script src="/resources/js/rprtmodal.js"> </script>
 	
 	<h1 class="logo"><a href="/index">MOIDA</a></h1>
-    <div>
+    <div class="crowdName">
       	  ${crowd.name}
     </div>
 

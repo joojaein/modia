@@ -4,10 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <main>
-<link href="/resources/css/groupboard.css" type="text/css"
-	rel="stylesheet" />
-<link href="/resources/css/groupsearch.css" type="text/css"
-	rel="stylesheet" />
+<link href="/resources/css/groupboard.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/groupsearch.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/rprtmodal.js"></script> 
 <script src="/resources/js/groupboard.js"></script>
 <script src="/resources/js/groupsearch.js"></script>
@@ -16,7 +15,8 @@
 
 <div class="wrapper">
 	<section class="main-head">
-	<nav>
+	<div>
+		<nav>
 			<div>
 				<a href="main?crowd=${crowd.id}">정보</a>
 			</div>
@@ -33,9 +33,10 @@
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
+	</div>
 	</section>
 	<input id="cid" type="hidden" value="${crowd.id}" />
 	<section class="sub-head">
@@ -55,49 +56,9 @@
 				</div>
 			</div>
 		</div>
-		<hr />
 	</section>
 	<template id="tem"> 
-		<c:forEach var="p" items="${plist}">
-	<c:url value="board/bdetail" var="url">
-				<c:param name="crowd" value="${p.crowdId}" />
-				<c:param name="id" value="${p.id}" />
-			</c:url>
-			</c:forEach>
-			<div class="content-box">
-				<div class="etc-box">
-					<div class="profile-box">
-						<div class="photo"></div>
-						<div class="profile-info">
-							<span class="name"></span>
-						</div>
-					</div>
-					<div class="content-title">
-						<a href="${url}"></a>
-					</div>
-					<p class="content-content" style="margin: 0;">
-						<a href="${url}"></a>
-					</p>
-				</div>
-				<div class="img-box">
-					<div class="pi-box">
-						<a href="${url}">
-						<img class="post-img" /></a>
-					</div>
-				</div>
-			</div>
-			<div class="timeview">
-				<span class="reg-write"><a href="${url}"></a></span> 
-				<a href="${url}">
-				<span>조회수  <span class="hit" style="color: red;">
-				</span></span></a>
-				<a href="${url}"><span>댓글수
-				<span class="comment-cnt" style="color: red;"></span></span></a>
-			</div>
-			<hr />
-			<input class="pid" type="hidden" value="p.id" />
-	</template>
-	<article class="content">
+		<div class="content-width">
 		<c:forEach var="p" items="${plist}">
 			<c:url value="board/bdetail" var="url">
 				<c:param name="crowd" value="${p.crowdId}" />
@@ -106,7 +67,48 @@
 			<div class="content-box">
 				<div class="etc-box">
 					<div class="profile-box">
-						<div class="photo" style="background: url('/get-img?folder=member-profile&file=${p.img}') no-repeat center; background-size: cover;"></div>
+						<div onclick="imgClick('${p.writerId}');" class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${p.img}') no-repeat center; background-size: cover;"></div>
+						<div class="profile-info">
+							<span class="name">${p.writerId}</span>
+						</div>
+					</div>
+					<div class="content-title">
+						<a href="${url}">${p.title}</a>
+					</div>
+					<p class="content-content" style="margin: 0;">
+						<a href="${url}">${p.content}</a>
+					</p>
+				</div>
+				<div class="img-box">
+					<div class="pi-box">
+						<a href="${url}"><img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
+					</div>
+				</div>
+			</div>
+			<div class="timeview">
+				<span class="reg-write"><a href="${url}"></a></span> 
+				<a href="${url}"><span>조회수 
+				<span class="hit" style="color: red;">
+				</span></span></a> 
+				<a href="${url}"><span>댓글수
+				<span class="comment-cnt" style="color: red;"></span></span></a>
+			</div>
+			<hr />
+			<input class="pid" type="hidden" value="p.id" />
+		</c:forEach>
+		</div>
+	</template>
+	<article class="content">
+	<div class="content-width">
+		<c:forEach var="p" items="${plist}">
+			<c:url value="board/bdetail" var="url">
+				<c:param name="crowd" value="${p.crowdId}" />
+				<c:param name="id" value="${p.id}" />
+			</c:url>
+			<div class="content-box">
+				<div class="etc-box">
+					<div class="profile-box">
+						<div onclick="imgClick('${p.writerId}');" class="photo" style="background: url('/get-img?folder=member-profile&file=${p.img}') no-repeat center; background-size: cover;"></div>
 						<div class="profile-info">
 							<span class="name">${p.writerId}</span>
 						</div>
@@ -121,7 +123,7 @@
 				<div class="img-box">
 					<div class="pi-box">
 						<a href="${url}"><img class="post-img"
-							src="/get-img?folder=crowd-postsImg&file=${p.mainImg}.png" /></a>
+							src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
 					</div>
 				</div>
 			</div>
@@ -135,6 +137,7 @@
 			<hr />
 			<input class="pid" type="hidden" value="p.id" />
 		</c:forEach>
+		</div>
 	</article>
 </div>
 <section class="rprt-box">

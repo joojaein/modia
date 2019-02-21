@@ -1,3 +1,12 @@
+window.addEventListener("load",function() {
+	$( window ).resize( function() {
+	var areaContent = document.querySelector(".content div");
+	var textareaContent = areaContent.querySelector("textarea");
+	textareaContent.style.height = "1px";
+	textareaContent.style.height = (1+textareaContent.scrollHeight)+"px";
+	});
+	
+})
 $(function () {
 	
 	var joinBtn = document.querySelector(".join");

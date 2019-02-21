@@ -1,17 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <main>
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-<link href="/resources/css/groupboarddetail.css" type="text/css"
-	rel="stylesheet" />
-<script src="/resources/js/boarddetail.js"></script> <script
-	src="/resources/js/backpage.js"></script> <script
-	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
+<script src="/resources/js/boarddetail.js"></script> 
+<script src="/resources/js/backpage.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <div class="wrapper">
 	<section class="main-head">
+		<div>
 		<nav>
 			<div>
 				<a href="/crowd/main?crowd=${crowd.id}">정보</a>
@@ -32,24 +34,28 @@
 				<a href="/crowd/groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
+	</div>
 	</section>
-	<input id="cid" type="hidden" value="${crowd.id}" /> <input class="pi"
-		type="hidden" value="${posts.id}" />
+	<input id="cid" type="hidden" value="${crowd.id}" /> 
+	<input class="pi" type="hidden" value="${posts.id}" />
 	<section class="content-title">
-		<h3>${posts.title}</h3>
-		<div class="profile-box">
-			<div class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${posts.img}') no-repeat center; background-size: cover;"></div>
-			<div class="profile-info">
-				<span class="name">${posts.writerId}</span> <span class="reg-write">
-					<fmt:formatDate value="${posts.regDate}"
-						pattern="yyyy-MM-dd a HH:mm" />
-				</span> <span>조회수<span class="hit" style="color: red;">[${posts.hit}]</span>
-				</span>
+			<div class="ct-box">
+				<h3 name="title">${posts.title}</h3>
+				<div class="profile-box">
+					<div onclick="imgClick('${posts.writerId}');" class="photo"
+						style="background: url('/get-img?folder=crowd-postsImg&file=${posts.img}') no-repeat center; background-size: cover;"></div>
+					<div class="profile-info">
+						<span class="name">${posts.writerId}</span>
+						<span class="reg-write"> 
+						<fmt:formatDate value="${posts.regDate}" pattern="yyyy-MM-dd a HH:mm" />
+						</span> <span>조회수<span class="hit" style="color: red;">[${posts.hit}]</span>
+						</span>
+					</div>
+				</div>
 			</div>
-		</div>
-		<hr />
-	</section>
+		</section>
 	<article class="content">
+	<div>
 		<c:forEach var="pc" items="${pc}">
 			<c:choose>
 				<c:when test="${empty pc.text}">
@@ -60,61 +66,110 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
+		</div>
 	</article>
 	<section class="content-comment">
-		<hr />
-
+	<div class="comment-body">
+	<sec:authentication property="principal" var="pinfo"/>
+	<sec:authorize access="isAuthenticated()">
+	<c:choose>
+	<c:when test="${pinfo.username eq posts.writerId}">
+	<div class="writer-btn">
+	<input class="modifi" type="button" value="수정" />
+	<form method="post" action="/crowd/boarddelete" style=" width: 10%; text-align: center;">
+		<input type="hidden" name="id" value="${posts.id}" />
+		<input type="hidden" name="board" value="board" /> 
+		<input type="hidden" name="type" value="1" />
+		<input type="hidden" name="crowdId" value="${crowd.id}" />
+		<input class="delete" type="submit" value="삭제" style="margin-left: 5px" />
+	</form>
+	</div>
+	</c:when>
+	<c:when test="${groupRole <= 1}">
+	<div class="writer-btn">
+	<form method="post" action="/crowd/boarddelete" style=" width: 10%; text-align: center;">
+		<input type="hidden" name="id" value="${posts.id}" />
+		<input type="hidden" name="board" value="board" /> 
+		<input type="hidden" name="type" value="1" />
+		<input type="hidden" name="crowdId" value="${crowd.id}" />
+		<input class="delete" type="submit" value="삭제" style="margin-left: 5px" />
+	</form>
+	</div>
+	</c:when>
+	</c:choose>
+	</sec:authorize>
 		<div class="comentlike">
-			<div class="comment-sum">댓글 14</div>
-			<div class="comment-sum like">
-				좋아요<span>♡</span> 10
-			</div>
+			<div class="comment-sum">댓글 ${posts.cnt}</div>
+			<c:choose>
+				<c:when test="${uid}">
+					<div class="comment-sum like">
+						좋아요<span>♡</span> 10
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="comment-sum like">
+						좋아요<span>♥</span> 10
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="comment-reg">
-			<input class="comment-input" type="text" placeholder="댓글" /> <input
-				type="button" value="등록" onclick="commentadd();" />
-		</div>
-		<hr />
-		<template id="tem2">
-		<div>
-			<div class="profile-box">
-				<div class="comment-photo">
-						</div>
-				<div class="profile-info">
-					<span class="name"></span>
-				</div>
-			</div>
-			<div class="comment-content">
-				<p></p>
-				<div></div>
+			<div class="comment-box">
+				<input class="comment-input" type="text" placeholder="댓글" /> 
+				<input type="button" value="등록" onclick="commentadd();" />
 			</div>
 		</div>
-		<hr />
-		</template>
-		<div class="temp-cmt">
-			<c:forEach var="cmt" items="${cmt}">
-				<div>
-					<div class="profile-box">
-						<div class="comment-photo"
-							style="background: url('/get-img?folder=crowd-postsImg&file=${cmt.img}') no-repeat center; background-size: cover;">
-						</div>
+			<template id="tem2">
+			<div>
+				<div class="comment-content">
+					<div class="profile-photo">
+						<div class="comment-photo"></div>
 						<div class="profile-info">
-							<span class="name">${cmt.writerId}</span>
+							<span class="name"></span>
+						</div>
+						<div class="edit-btn">
+							<input class="comment-edit" type="button" value="수정" />
+							<input class="comment-del" type="button" value="삭제" />
 						</div>
 					</div>
+					<div class="cc-box">
+						<p></p>
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			</template>
+			<div class="temp-cmt">
+			<c:forEach var="cmt" items="${cmt}">
+				<div>
 					<div class="comment-content">
+							<div class="profile-photo">
+								<div class="comment-photo"
+									style="background: url('/get-img?folder=crowd-postsImg&file=${cmt.img}') no-repeat center; background-size: cover;">
+								</div>
+								<div class="profile-info">
+									<span class="name">${cmt.writerId}</span>
+								</div>
+								<div class="edit-btn">
+									<input class="comment-edit" type="button" value="수정" /> 
+									<input class="comment-del" type="button" value="삭제" />
+								</div>
+							</div>
+							<div class="cc-box">
 						<p>${cmt.content}</p>
 						<div>
-							<fmt:formatDate value="${cmt.regDate}"
-								pattern="yyyy-MM-dd a HH:mm" />
+						<fmt:formatDate value="${cmt.regDate}" pattern="yyyy-MM-dd a HH:mm" />
+						</div>
 						</div>
 					</div>
 				</div>
 				<hr />
 			</c:forEach>
 		</div>
+		</div>
 	</section>
-</div>
+	</div>
 </main>
 <a id="MOVE_BACK_BTN">목록으로</a>
 <section class="rprt-box">

@@ -151,10 +151,6 @@ p{
 }
 
 @media (min-width:721px){
-    main{
-	    min-height: 600px;
-	}
-	
     .group-list-flex{
         display: flex;
         

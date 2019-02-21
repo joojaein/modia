@@ -31,8 +31,8 @@ function commentadd(){
 
 			var temple = document.importNode(temp.content, true);
 			var writerId = temple.querySelector(".name");
-			var content = temple.querySelector(".comment-content p");
-			var regDate = temple.querySelector(".comment-content div");
+			var content = temple.querySelector(".cc-box p");
+			var regDate = temple.querySelector(".cc-box div");
 			var profile = temple.querySelector(".comment-photo");
 			writerId.innerText = json.writerId;
 			content.innerText = json.content;
@@ -75,3 +75,22 @@ function commentadd(){
 
 	})
 }
+
+/*$(function(){
+
+$(".delete").click(function(){
+	swal({
+		  title: "정말 삭제하시겠습니까?",
+		  text: "삭제시 복구 불가.",
+		  icon: "warning",
+		  buttons: ["cancel","ok"],
+		  dangerMode: false,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			
+		  }
+		});
+});
+})
+*/

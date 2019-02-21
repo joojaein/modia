@@ -17,5 +17,6 @@ public interface BoardDao {
 	public PostsListView getBoardViewList(Integer crowdId, Integer categoryId);
 	public List<BoardCategory> getBoardCategoryList(Integer crowdId);
 	public List<Board> getBoardList(Integer crowdId);
+	public List<Board> getBoardListType0(Integer crowdId);
 	
 }

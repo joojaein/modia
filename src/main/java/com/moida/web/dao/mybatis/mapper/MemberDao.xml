@@ -78,5 +78,8 @@
       delete from MemberCrowd where memberId=#{param2} and crowdId=#{param1};
    </delete>
     
+     <select id="getMemberRole" resultType="com.moida.web.entity.LeaderMngMemberView">
+     select * from MemberCrowd where crowdId = 5 and memberId = 'tnwl'
+     </select>
 
 </mapper>

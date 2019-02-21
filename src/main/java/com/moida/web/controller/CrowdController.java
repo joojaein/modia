@@ -1,6 +1,7 @@
 package com.moida.web.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List; 
 
@@ -28,6 +29,7 @@ import com.moida.web.entity.CrowdSimpleDataView;
 import com.moida.web.entity.CrowdTag;
 import com.moida.web.entity.CrowdView;
 import com.moida.web.entity.Member;
+import com.moida.web.entity.MemberInfoListView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
 import com.moida.web.service.MoidaCategoryService;
@@ -44,13 +46,13 @@ public class CrowdController {
 	public MoidaCrowdService crowdService;
  
 	@RequestMapping("main")
-	public String index(@RequestParam(name="crowd") Integer crowdId,
+	public String index(@RequestParam(name="crowd") Integer crowdId,Principal principal,
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userCrowdAuthType = -1;
 		List<CrowdMemberRole> memberList = crowdService.getCrowdMemberRole(crowdId);
+		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		
 		SecurityContext context = SecurityContextHolder.getContext(); 
 		Authentication authentication = context.getAuthentication(); 
 		if(!authentication.getPrincipal().equals("anonymousUser")) {
@@ -99,6 +101,7 @@ public class CrowdController {
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("views", views);
 		model.addAttribute("total", totalviews);
+		model.addAttribute("milv", milv);
 		
 		return "crowd.main";
 	}
@@ -283,15 +286,9 @@ public class CrowdController {
 				}
 			} // for문 끝
 
-			if (word.length()< 1) {
-				Gson gson = new Gson();
-				String json = gson.toJson(tempList);
-				return json;
-			} else {
 				Gson gson = new Gson();
 				String json = gson.toJson(simpleNameList);
 				return json;
-			}
 
 		} else {
 			System.out.println("나는 검색결과"+tempList.get(0).getImg());

@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<main> <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<main> 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="/resources/fullcalendar-3.10.0/fullcalendar.min.css" type="text/css" rel="stylesheet" />
 <script src="/resources/fullcalendar-3.10.0/lib/moment.min.js"> </script>
 <script src="/resources/fullcalendar-3.10.0/lib/jquery.min.js"> </script>
@@ -10,6 +11,7 @@
 <script src="/resources/fullcalendar-3.10.0/gcal.js"> </script> 
 <script src="/resources/fullcalendar-3.10.0/locale/ko.js"> </script>
 <link href="/resources/css/groupcalendar.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/rprtmodal.js"> </script> <script src="/resources/js/calendarmodal.js"> </script> 
 <script type="text/javascript">
 var dataset = [
@@ -26,7 +28,7 @@ var dataset = [
     </c:forEach>
 ];
 $(document).ready(function() {
-	
+
 	$('#calendar').fullCalendar({
 		header: {
 			left: '',
@@ -169,9 +171,11 @@ function delbtn(){
     	}
 }
 function deleteBox(){
-	var deletebtn = "<input type='button' class='edit-btn r-35' value='수정' onclick='editbtn();'/>"
+	var deletebtn = "<div class='eh-btn'>" 
+					+"<input type='button' class='edit-btn r-35' value='수정' onclick='editbtn();'/>"
 					+"<input type='button' class='delete-btn r-0' value='삭제' onclick='delbtn();'/>";
-	return deletebtn;
+					+"</div>"
+					return deletebtn;
 }
 window.addEventListener("load", function () {
 	var addevntbtn = document.querySelector(".fc-addEventButton-button");
@@ -184,6 +188,7 @@ window.addEventListener("load", function () {
 </script>
 <div class="wrapper">
 	<section class="main-head">
+		<div>
 		<nav>
 			<div>
 				<a href="main?crowd=${crowd.id}">정보</a>
@@ -201,12 +206,15 @@ window.addEventListener("load", function () {
 				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
+	</div>
 	</section>
 	<article class="content">
+	<div class="calendar-box">
 		<div id="calendar"></div>
+		</div>
 	</article>
 	<section class="days-info">
 		<table class="event-info">
@@ -226,10 +234,7 @@ window.addEventListener("load", function () {
 					</button>
 					<h4 class="modal-title">일정 등록</h4>
 				</div>
-
-
 				<div class="modal-body">
-					<form id="cform" method="post">
 					<input class="crowdId" name="crowdId" type="hidden" value="${crowd.id}" />
 						<div class="form-group form-date">
 							<label class="control-label">기간</label>
@@ -248,7 +253,6 @@ window.addEventListener("load", function () {
 							<label class="control-label">내용</label>
 							<textarea name="content" class="form-control content-text"></textarea>
 						</div>
-					</form>
 				</div>
 				<div class="modal-footer">
 					<!-- <button type="button" class="btn-default btn closebtn">닫기</button> -->

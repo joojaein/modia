@@ -77,4 +77,17 @@ public class MybatisPostsDao implements PostsDao {
 		return postsDao.updatehit(id);
 	}
 
+	@Override
+	public int deletePosts(Integer id) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.deletePosts(id);
+	}
+
+	@Override
+	public Posts getPosts(int postsId) {
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getPosts(postsId);
+	}
+
 }

@@ -29,20 +29,28 @@ function modalopen() {
 function dataadd() {
 	var modal = document.querySelector(".send-modal");
 	var screen = $(".screen");
-	var cform = $('#cform').serializeArray();
-	alert(cform);
+	var cid = $(".crowdId").val();
 	var start = $(".from-date").val();
-	
-			cform = changeSerialize(cform, "endDate", start);
+	var end = $(".to-date").val();
+	var title = $("input[name=title]").val();
+	var content = $("input[name=title]").val();
+	if(end == "")
+		end = start;
 	
 	$.ajax({
 		url: '/crowd/calendar',
 		type: "post",
 		dataType: "json",
-		data: cform,
+		data: {"crowdId":cid ,"startDate": start, "endDate": end, "title":title, "content":content},
 		success : function(json) {
 		console.log("연결");
 		
+		var schedule = JSON.stringify(json);
+		var dataset = JSON.parse(schedule);
+		alert(schedule);
+		alert(dataset);
+		
+
 		modal.classList.remove("show");
 		modal.classList.remove("hide");
 		screen.remove();
@@ -50,22 +58,4 @@ function dataadd() {
 		
 	})
 }
-function changeSerialize(values,k,v) {
-	var found = false;
-	for (i = 0; i < values.length && !found; i++) {
-		if (values[i].name == k) { 
-			values[i].name = v;
-			found = true;
-		}
-	}
-	if(!found) {
-		values.push(
-			{
-				name: k,
-				value: v
-			}	
-		);
-	}
-	return values;
 
-}
