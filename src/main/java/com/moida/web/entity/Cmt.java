@@ -15,6 +15,13 @@ public class Cmt {
 	}
 	
 
+	public Cmt(int id, String content) {
+		super();
+		this.id = id;
+		this.content = content;
+	}
+
+
 	public Cmt(int postsId, String content, String writerId) {
 		super();
 		this.postsId = postsId;

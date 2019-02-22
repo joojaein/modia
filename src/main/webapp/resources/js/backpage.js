@@ -12,4 +12,3 @@ $(function () {
     	window.history.back();
     });
 });
-

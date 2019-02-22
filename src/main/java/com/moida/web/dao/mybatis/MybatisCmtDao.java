@@ -44,6 +44,20 @@ public class MybatisCmtDao implements CmtDao{
 		CmtDao cmtDao = session.getMapper(CmtDao.class);
 		return cmtDao.getCmthit(postsId);
 	}
-	
+
+	@Override
+	public int deleteCmt(Integer id) {
+		// TODO Auto-generated method stub
+		CmtDao cmtDao = session.getMapper(CmtDao.class);
+		return cmtDao.deleteCmt(id);
+	}
+
+	@Override
+	public int updateCmt(Integer id, String content) {
+		// TODO Auto-generated method stub
+		CmtDao cmtDao = session.getMapper(CmtDao.class);
+		return cmtDao.updateCmt(id, content);
+	}
+
 	
 }
