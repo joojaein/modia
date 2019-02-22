@@ -2848,10 +2848,10 @@ function adminMemberChat()
 			abtn.onclick = function(e) {
 				e.preventDefault();
 				var chkRequest = new XMLHttpRequest();
-				chkRequest.open("GET", "/crowd/checkId?url="+document.location.pathname, true);
+				chkRequest.open("POST", "/chk-login", true);
 				chkRequest.onload = function() {
 					var chkturn = chkRequest.responseText;
-					if (chkturn == "no") {
+					if (chkturn == "anonymousUser") {
 						swal({
 							  title: "로그인 하시겠습니까?",
 							  text: "채팅을 사용하기 위해선 로그인이 필요합니다.",
