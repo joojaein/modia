@@ -2528,7 +2528,7 @@ function adminMemberChat()
 				{
 	        		
 	       // 		alert("신고 버튼을 눌렀다 : "+$(".chat-profile-id").text());
-	        		var rprtId = $(".chat-profile-id").text();
+	        		var rprtId = $(".chat-profile-id").text(); 
 	        		var rprtText = $(".chat-rprt-button").text();
 	        		
 	        		if(rprtText=='신고 추가')
