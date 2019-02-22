@@ -182,7 +182,7 @@ public class FriendController
 	@ResponseBody
 	public String chkFriend(String memberId,Principal principal) 
 	{
-		
+//		System.out.println("이게 언디파인???"+memberId);
 		String myId = principal.getName();
 	//	System.out.println(memberId);
 
@@ -251,6 +251,42 @@ public class FriendController
 			return chkFriend;
 		}
 	
+		
+		@PostMapping("search-friend")
+		@ResponseBody
+		public String searchFriend(String searchWord,Principal principal) 
+		{
+			
+	//		System.out.println("들어오나요?? : "+searchWord);
+			String myId = principal.getName();
+			
+
+			List<Friend> getFriendList = friendService.searchFriend(myId, searchWord);
+			
+	//		System.out.println("찾아온 친구 아이디들 : "+getFriendList);
+			
+			List< List<FriendDataView> > getFriendDatas = new ArrayList<List<FriendDataView>>();
+			
+			for (Friend f : getFriendList)
+			{
+				
+				List<FriendDataView> getFriendData=null;
+				getFriendData = friendService.getFriendData(f.getFriendId());
+				
+				
+				getFriendDatas.add(getFriendData);
+			}
+			
+
+			
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(getFriendDatas);
+			
+			return json;
+		}
+		
+		
 	
 	////////////////////////////RE 전용/////////////////////////////////////////
 //	@PostMapping("get-relastTalkData")

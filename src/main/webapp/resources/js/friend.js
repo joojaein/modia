@@ -782,7 +782,7 @@ $(function()
 
 function reboot()
 {
-    $("#open-chat").css({"animation":"1s shiny infinite"});
+    
 
 			if($(".thisMyId").val()=="admin")
 			{
@@ -1335,6 +1335,224 @@ function readminMemberLimit()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////// 검색을 위한 공간 입니다.  ///////////////////////
+
+$(function()
+{
+	
+	
+	
+//	$('#textbox').keyup(function(e){
+//    $('#msg-keyup').html('keyup() is triggered!, keyCode = ' + e.keyCode + ' which = ' + e.which)
+//	});
+	
+	$(".chat-search-input").keyup(function(e)
+	{
+		$.fn.setCursorPosition = function( pos )
+		{
+		    this.each( function( index, elem ) {
+		        if( elem.setSelectionRange ) {
+		            elem.setSelectionRange(pos, pos);
+		        } else if( elem.createTextRange ) {
+		            var range = elem.createTextRange();
+		            range.collapse(true);
+		            range.moveEnd('character', pos);
+		            range.moveStart('character', pos);
+		            range.select();
+		        }
+		    });
+		    
+		    return this;
+		};
+		
+		var textlange = $(".chat-search-input");
+		
+		var searchWord = $(".chat-search-input").val();
+		
+//		textlange.setSelection(wordlength.length);
+
+		$(".chat-search-input").focus().setCursorPosition(searchWord.length);
+	//	alert(wordlength.length);
+		
+		
+	//	alert($(".chat-search-input").val() );
+		
+		
+		
+		$(".friend-list").empty();
+	    var searchFriend = new XMLHttpRequest();
+	    
+	  //  alert("open전");   
+	    
+	    searchFriend.open("POST","/member/search-friend",true);
+	    searchFriend.setRequestHeader("Content-Type",
+	                            "application/x-www-form-urlencoded");
+	          
+	          //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+	    searchFriend.onload = function()
+	       {
+	    //      alert("여기까진 오나??");
+	          
+	        	  var getFriendDataList2 = JSON.parse(searchFriend.responseText); 
+	     	     //     alert("json 파세"+getFriendDataList);
+	     	          var friendCp = document.querySelector("#friend-cp");
+	     	          var friendList2 = document.querySelector(".friend-list");
+	     	    //      alert(friendCp);
+	     	    //      alert(getFriendDataList.length);
+	     	     //     alert("id : "+getFriendDataList[0][0].id);
+	     	          
+	     	          for (var i = 0; i < getFriendDataList2.length; i++) 
+	     	          {
+	     	             var tpl=document.importNode(friendCp.content, true);
+	     	             var tmpLabel=tpl.querySelector("label");
+	     	                tmpLabel.innerText=getFriendDataList2[i][0].id;
+	     	             var tmph6 =tpl.querySelector("h6");
+	     	                tmph6.innerText=getFriendDataList2[i][0].msg;
+	     	             var tmlImg =tpl.querySelector(".friend-img");
+	     	                tmlImg.style.backgroundImage = 
+	     	                   "url(/get-img?folder=member-profile&file="+getFriendDataList2[i][0].img+")";
+	     	                
+	     	                friendList2.append(tpl);
+	     	          }
+    		  
+	          
+	          
+	          
+	       }
+	       
+	    searchFriend.send("searchWord="+$(".chat-search-input").val());
+		
+		
+		
+		
+		
+	})
+	
+
+	
+	
+})
+
+
+////////////////////////////////////////
+
+$(function()
+{
+	$(".friend-L").click(function()
+	{
+		$(".chat-search-input").css({"display":"inline"});
+	})
+	$(".message-L").click(function()
+	{
+		$(".chat-search-input").css({"display":"none"});
+	})
+	$(".muni-L").click(function()
+	{
+		$(".chat-search-input").css({"display":"none"});
+	})
+	
+	
+})
+
+
+
+//$(function()
+//{
+//	$.fn.setCursorPosition = function( pos )
+//	{
+//	    this.each( function( index, elem ) {
+//	        if( elem.setSelectionRange ) {
+//	            elem.setSelectionRange(pos, pos);
+//	        } else if( elem.createTextRange ) {
+//	            var range = elem.createTextRange();
+//	            range.collapse(true);
+//	            range.moveEnd('character', pos);
+//	            range.moveStart('character', pos);
+//	            range.select();
+//	        }
+//	    });
+//	    
+//	    return this;
+//	};
+//	
+//	
+////	$('#textbox').keyup(function(e){
+////    $('#msg-keyup').html('keyup() is triggered!, keyCode = ' + e.keyCode + ' which = ' + e.which)
+////	});
+//	
+//	$(".chat-search-input").keyup(function(e)
+//	{
+//		
+//		var textlange = $(".chat-search-input");
+//		
+//		var searchWord = $(".chat-search-input").val();
+//		
+////		textlange.setSelection(wordlength.length);
+//
+//		$(".chat-search-input").focus().setCursorPosition(searchWord.length);
+//	//	alert(wordlength.length);
+//		
+//		
+//	//	alert($(".chat-search-input").val() );
+//		
+//		
+//		
+//		$(".friend-list").empty();
+//	    var searchFriend = new XMLHttpRequest();
+//	    
+//	  //  alert("open전");   
+//	    
+//	    searchFriend.open("POST","/member/search-friend",true);
+//	    searchFriend.setRequestHeader("Content-Type",
+//	                            "application/x-www-form-urlencoded");
+//	          
+//	          //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+//	    searchFriend.onload = function()
+//	       {
+//	    //      alert("여기까진 오나??");
+//	          
+//	        	  var getFriendDataList2 = JSON.parse(searchFriend.responseText); 
+//	     	     //     alert("json 파세"+getFriendDataList);
+//	     	          var friendCp = document.querySelector("#friend-cp");
+//	     	          var friendList2 = document.querySelector(".friend-list");
+//	     	    //      alert(friendCp);
+//	     	    //      alert(getFriendDataList.length);
+//	     	     //     alert("id : "+getFriendDataList[0][0].id);
+//	     	          
+//	     	          for (var i = 0; i < getFriendDataList2.length; i++) 
+//	     	          {
+//	     	             var tpl=document.importNode(friendCp.content, true);
+//	     	             var tmpLabel=tpl.querySelector("label");
+//	     	                tmpLabel.innerText=getFriendDataList2[i][0].id;
+//	     	             var tmph6 =tpl.querySelector("h6");
+//	     	                tmph6.innerText=getFriendDataList2[i][0].msg;
+//	     	             var tmlImg =tpl.querySelector(".friend-img");
+//	     	                tmlImg.style.backgroundImage = 
+//	     	                   "url(/get-img?folder=member-profile&file="+getFriendDataList2[i][0].img+")";
+//	     	                
+//	     	                friendList2.append(tpl);
+//	     	          }
+//    		  
+//	          
+//	          
+//	          
+//	       }
+//	       
+//	    searchFriend.send("searchWord="+$(".chat-search-input").val());
+//		
+//		
+//		
+//		
+//		
+//	})
+//	
+//
+//	
+//	
+//})
+
 
 
 // 아래는 그 이전 코드

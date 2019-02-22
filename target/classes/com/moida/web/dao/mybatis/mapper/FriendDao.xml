@@ -10,6 +10,15 @@
 	
 	</select>
 	
+	<!-- 친구 검색을 위한 select 문 -->
+	<select id="searchFriend" resultType="com.moida.web.entity.Friend">
+	
+		select * from Friend where memberId=#{myId} and (friendId like CONCAT('%',#{searchText},'%')); 
+	
+	</select>
+	
+	
+	
 	<select id="chkFriend" resultType="com.moida.web.entity.Friend">
 	
 		select * from Friend where (  memberId=#{myId} and friendId=#{memberId} )
