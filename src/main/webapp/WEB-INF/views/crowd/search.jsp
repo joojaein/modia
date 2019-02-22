@@ -5,11 +5,11 @@
 <link rel="stylesheet" type="text/css" media="screen"
    href="/resources/css/search.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 
 
 <script>
    $(function() {
-
       var calist = $(".calist");
       var alllist = $(".alllist");
       var sebu = $(".sebu");
@@ -20,6 +20,7 @@
       var chk = false;
       var tagname = $(".tag-name");
       var contentbox = $(".content-box");
+	    TweenMax.staggerFromTo(contentbox, 1, {scale:0.1, opacity:0},{scale:1, opacity:1}, 0.3);
       var jsContainer = document.querySelector(".category-content-container");
       var temp = document.querySelector(".temp");
       var cUrl = "categoryList";
@@ -83,7 +84,7 @@
                     tempSpan3.innerText = "- 성별 : 여자";
                tempSpan4.innerText = "- 지역 : "+crowdCategoryList[i].areaSido+" "+crowdCategoryList[i].areaSigungu; 
                tempSpan5.innerText = "정원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
-               tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img+")";
+               tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img;
                tempA.href = "main?crowd="+crowdCategoryList[i].id;
                var tempBox = tBox.querySelector(".content-box");
                tempH4.setAttribute("data-crowd",crowdCategoryList[i].id);
@@ -142,7 +143,7 @@
                        tempSpan3.innerText = "- 성별 : 여자";
                   tempSpan4.innerText = "- 지역 : "+crowdCategoryList[i].areaSido+" "+crowdCategoryList[i].areaSigungu; 
                   tempSpan5.innerText = "정원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
-                  tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img+")";
+                  tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img;
                   tempA.href = "main?crowd="+crowdCategoryList[i].id;
                   var tempBox = tBox.querySelector(".content-box");
                   tempH4.setAttribute("data-crowd",crowdCategoryList[i].id);
@@ -219,7 +220,7 @@
                     tempSpan3.innerText = "- 성별 : 여자";
                tempSpan4.innerText = "- 지역 : "+crowdCategoryList[i].areaSido+" "+crowdCategoryList[i].areaSigungu; 
                tempSpan5.innerText = "정원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
-               tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img+")";
+               tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img;
                tempA.href = "main?crowd="+crowdCategoryList[i].id;
                var tempBox = tBox.querySelector(".content-box");
                tempH4.setAttribute("data-crowd",crowdCategoryList[i].id);
@@ -295,7 +296,7 @@
                  tempSpan3.innerText = "- 성별 : 여자";
             tempSpan4.innerText = "- 지역 : "+crowdCategoryList[i].areaSido+" "+crowdCategoryList[i].areaSigungu; 
             tempSpan5.innerText = "정원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
-            tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img+")";
+            tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img;
             tempA.href = "main?crowd="+crowdCategoryList[i].id;
             var tempBox = tBox.querySelector(".content-box");
             tempH4.setAttribute("data-crowd",crowdCategoryList[i].id);
@@ -425,7 +426,7 @@
                        tempSpan3.innerText = "- 성별 : 여자";
                   tempSpan4.innerText = "- 지역 : "+crowdCategoryList[i].areaSido+" "+crowdCategoryList[i].areaSigungu; 
                   tempSpan5.innerText = "정원 "+crowdCategoryList[i].nowPerson+" / "+crowdCategoryList[i].maxPerson;
-                  tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img+")";
+                  tempImg.src = "/get-img?folder=crowd-banner&file="+crowdCategoryList[i].img;
                   tempA.href = "main?crowd="+crowdCategoryList[i].id;
                   var tempBox = tBox.querySelector(".content-box");
                   tempH4.setAttribute("data-crowd",crowdCategoryList[i].id);
@@ -476,7 +477,7 @@
                        tempSpan3.innerText = "- 성별 : 여자";
                   tempSpan4.innerText = "- 지역 : "+crowdTagList[i].areaSido+" "+crowdTagList[i].areaSigungu; 
                   tempSpan5.innerText = "정원 "+crowdTagList[i].nowPerson+" / "+crowdTagList[i].maxPerson;
-                  tempImg.src = "/get-img?folder=crowd-banner&file="+crowdTagList[i].img+")";
+                  tempImg.src = "/get-img?folder=crowd-banner&file="+crowdTagList[i].img;
                   tempA.href = "main?crowd="+crowdTagList[i].id;
                   var tempBox = tBox.querySelector(".content-box");
                   tempH4.setAttribute("data-crowd",crowdTagList[i].id);
@@ -631,11 +632,13 @@
 //----------------------------------------------------
 
       }
+      var tempIN = false;
+      searchText.addEventListener("keyup",function imfuck(e){
+         console.log("keyusdasdasdasfsdp");
 
-
-      searchText.onkeyup = function(e){
-         console.log("keyup");
-
+         
+         
+         
          autoBox.innerHTML="";
          if(searchText.value!=""){
             alllist.off("click");
@@ -708,19 +711,24 @@
 
             for (var i = 0; i < nameList.length; i++) {
                var li = document.createElement("LI");
-               li.setAttribute("data-id",nameList[i].id);
                li.onclick = function(e){
-                  window.location.href="/crowd/main?crowd="+li.getAttribute("data-id");
+                  window.location.href="/crowd/main?crowd="+e.target.getAttribute("data-id");
                }
                li.innerText = "제목 : "+nameList[i].name+" / 내용 : "+nameList[i].content.substring(1,5)+" / 카테고리 : " + nameList[i].categoryId;
+               li.setAttribute("data-id",nameList[i].id);
                autoBox.append(li);               
             }
+
             if(e.keyCode==13)
+
             enter();
          }
          autoRequest.send();
          }else{
             autoBox.innerHTML="";
+            if(chk = true){
+                chk = false;
+             }
             if(e.keyCode==13)
                enter();
          }
@@ -814,7 +822,8 @@
             autoBox.innerHTML = "";
             return;
          }  */
-      }
+
+      })
 
    })
   
