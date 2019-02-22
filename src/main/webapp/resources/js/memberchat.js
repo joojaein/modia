@@ -1868,13 +1868,90 @@ function adminMemberChat()
 										var targetParent = targetting.parentNode;
 								//		alert(targetParent.className);
 										var memberId = targetParent.querySelector(".group-you-id").innerText;
-								//		alert("memberId확인용 알터 : "+memberId);
+							//			alert("memberId확인용 알터 : "+memberId);
 										
 										
 										
 										$(".click-profile-container").css({"display":"block"});
 										$(".click-friend-profile").css({"background":"rgb(231, 205, 211)"});
 							   			
+										
+							///////////////친구 인지 아닌지/////////////////////////////////////////
+							   			var apGroupChkFriend = new XMLHttpRequest();
+							   	        
+							   	        //  alert("open전");   
+							   	          
+							   			var selectMemberId =null;
+							   			
+							   			apGroupChkFriend.open("POST","/member/chk-friend",true);
+							   			apGroupChkFriend.setRequestHeader("Content-Type",
+							   	                                  "application/x-www-form-urlencoded");
+							   	                
+							   	        //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+							   			apGroupChkFriend.onload = function()
+							   	             {
+							   	             
+							   	    //           alert("너의 아이디가 들려");
+							   				//	alert(chkFriendData[0].length)
+							   					var jsontest = apGroupChkFriend.responseText;
+							   				
+							   	                var apGroupChkFriendData = JSON.parse(apGroupChkFriend.responseText); 
+							   					console.log(apGroupChkFriendData);
+							   				//	alert(chkFriendData.isNull("regDate"));
+							   				//	alert("1 : "+ chkFriendData.hasOwnProperty('regDate') );
+							   				//	alert("2 : "+ jsontest.hasOwnProperty('regDate') );
+							   				//	alert( $.inArray("regDate",chkFriendData) );
+							   					
+							   	          
+							   	                // 친구가 아닐 시
+							  	                if( apGroupChkFriendData.hasOwnProperty('regDate') )
+							   	                {
+							//  	                	alert("이프 apGroupChkFriendData.id : "+apGroupChkFriendData.id);
+							  	                	selectMemberId =apGroupChkFriendData.id;
+							  	                	
+							   	                	
+							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
+							   	                	var fImg = document.querySelector(".click-chat-profile-img");
+							   	                	
+							   	                	fImg.style.backgroundImage =
+								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
+							   	                	
+							   	                	$(".click-box-F-noF").text('친구추가');
+							   	                	
+							   	                	
+							   	                	
+							   	                }
+							   	                else
+							   	                {
+							   	 //               	alert("엘즈 apGroupChkFriendData.id : "+apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
+							   	                	var nofImg = document.querySelector(".click-chat-profile-img");
+							   	                	nofImg.style.backgroundImage =
+								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
+							   	                	
+//							   	                	$(".click-chat-profile-img").style.backgroundImage =
+//								                        "url(/get-img?folder=member-profile&file="+chkFriendData.img+")";
+							   	                	
+							   	                	
+							   	                	
+							   	                	$(".click-box-F-noF").text('친구삭제');
+							   	                //	reChattingOn();
+							   	                	
+							   	                }
+							   	               
+							  	                
+							  	                
+							   	                
+							   	                
+							   	             }
+							   	             
+							   			apGroupChkFriend.send("memberId="+memberId);
+										
+										
+										
+										
 							   			//////////////신고 했는지 안했는지//////////////////////////////////////////////
 							   			
 							   			var apGroupChkRprt = new XMLHttpRequest();
@@ -1902,77 +1979,7 @@ function adminMemberChat()
 							   			apGroupChkRprt.send("rprtId="+memberId);
 							   			
 							   			
-							   			///////////////친구 인지 아닌지/////////////////////////////////////////
-							   			var apGroupChkFriend = new XMLHttpRequest();
-							   	        
-							   	        //  alert("open전");   
-							   	          
-							   			var selectMemberId =null;
 							   			
-							   			apGroupChkFriend.open("POST","/member/chk-friend",true);
-							   			apGroupChkFriend.setRequestHeader("Content-Type",
-							   	                                  "application/x-www-form-urlencoded");
-							   	                
-							   	        //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-							   			apGroupChkFriend.onload = function()
-							   	             {
-							   	             
-							   	      //          alert("너의 아이디가 들려");
-							   				//	alert(chkFriendData[0].length)
-							   					var jsontest = apGroupChkFriend.responseText;
-							   				
-							   	                var apGroupChkFriendData = JSON.parse(apGroupChkFriend.responseText); 
-							   					console.log(groupChkFriendData);
-							   				//	alert(chkFriendData.isNull("regDate"));
-							   				//	alert("1 : "+ chkFriendData.hasOwnProperty('regDate') );
-							   				//	alert("2 : "+ jsontest.hasOwnProperty('regDate') );
-							   				//	alert( $.inArray("regDate",chkFriendData) );
-							   					
-							   	          
-							   	                // 친구가 아닐 시
-							  	                if( apGroupChkFriendData.hasOwnProperty('regDate') )
-							   	                {
-							  	                	selectMemberId =apGroupChkFriendData.id;
-							  	                	
-							  	                	selectMemberId =apGroupChkFriendData.id;
-							   	                	
-							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
-							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
-							   	                	var fImg = document.querySelector(".click-chat-profile-img");
-							   	                	
-							   	                	fImg.style.backgroundImage =
-								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
-							   	                	
-							   	                	$(".click-box-F-noF").text('친구추가');
-							   	                	
-							   	                	
-							   	                	
-							   	                }
-							   	                else
-							   	                {
-							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
-							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
-							   	                	var nofImg = document.querySelector(".click-chat-profile-img");
-							   	                	nofImg.style.backgroundImage =
-								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
-							   	                	
-//							   	                	$(".click-chat-profile-img").style.backgroundImage =
-//								                        "url(/get-img?folder=member-profile&file="+chkFriendData.img+")";
-							   	                	
-							   	                	
-							   	                	
-							   	                	$(".click-box-F-noF").text('친구삭제');
-							   	                //	reChattingOn();
-							   	                	
-							   	                }
-							   	               
-							  	                
-							  	                
-							   	                
-							   	                
-							   	             }
-							   	             
-							   			groupChkFriend.send("memberId="+memberId);
 							   			
 							   			
 										
