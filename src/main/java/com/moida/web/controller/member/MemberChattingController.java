@@ -148,7 +148,7 @@ public class MemberChattingController
 	{
 		
 		String myId = principal.getName();
-		
+		System.out.println("들어오는 신고아이디"+rprtId);
 		//String rprtId = "jaein";
 		
 		String chk ="";

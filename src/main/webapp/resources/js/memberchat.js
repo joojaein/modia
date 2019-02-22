@@ -185,11 +185,11 @@
             screenrprt.classList.add("screen");
             $(".rprt-button").click(function () {
                 $("#aside-div").append(screenrprt);
-                $(".rprt").css({ "top": "20%" });
+                $(".rprt").css({ "bottom": "20%" });
 
             });
             $(".rprt-exit").click(function () {
-                $(".chat-rprt").css({ "top": "-120%" });
+                $(".chat-rprt").css({ "bottom": "-120%" });
                 screenrprt.remove();
             });
 
@@ -1850,7 +1850,7 @@ function adminMemberChat()
 					   			if( ( senderId!=$(".thisMyId").val() ) && ( receiverId==groupIdSt ) )
 					   			{
 					   				
-					   				alert("보낸게 내가 아니다");
+					  // 				alert("보낸게 내가 아니다");
 								
 						   			var groupAjxFTpl = document.importNode(groupAjxFrTpl.content,true);
 									var groupAjxFrId = groupAjxFTpl.querySelector(".group-you-id");
@@ -1860,6 +1860,130 @@ function adminMemberChat()
 									
 									
 									groupAjxFrId.innerText = senderId;
+									
+									groupAjxFrImg.onclick=function(e)
+									{
+										var targetting = e.target;
+								//		alert(targetting.className);
+										var targetParent = targetting.parentNode;
+								//		alert(targetParent.className);
+										var memberId = targetParent.querySelector(".group-you-id").innerText;
+								//		alert("memberId확인용 알터 : "+memberId);
+										
+										
+										
+										$(".click-profile-container").css({"display":"block"});
+										$(".click-friend-profile").css({"background":"rgb(231, 205, 211)"});
+							   			
+							   			//////////////신고 했는지 안했는지//////////////////////////////////////////////
+							   			
+							   			var apGroupChkRprt = new XMLHttpRequest();
+								        
+								        //  alert("open전");   
+								          
+							   			apGroupChkRprt.open("POST","/member/chk-rprtId",true);
+							   			apGroupChkRprt.setRequestHeader("Content-Type",
+								                                  "application/x-www-form-urlencoded");
+								                
+								                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+							   			apGroupChkRprt.onload = function()
+							             {
+							             
+							      //          alert("너의 아이디가 들려");
+							                
+							  //              var comeonmyid = JSON.parse(gomyid.responseText); 
+							          
+							  //             $(".thisMyId").val(comeonmyid);
+							               $(".click-chat-rprt-button").text(apGroupChkRprt.responseText);
+							                
+							                
+							             }
+								             
+							   			apGroupChkRprt.send("rprtId="+memberId);
+							   			
+							   			
+							   			///////////////친구 인지 아닌지/////////////////////////////////////////
+							   			var apGroupChkFriend = new XMLHttpRequest();
+							   	        
+							   	        //  alert("open전");   
+							   	          
+							   			var selectMemberId =null;
+							   			
+							   			apGroupChkFriend.open("POST","/member/chk-friend",true);
+							   			apGroupChkFriend.setRequestHeader("Content-Type",
+							   	                                  "application/x-www-form-urlencoded");
+							   	                
+							   	        //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+							   			apGroupChkFriend.onload = function()
+							   	             {
+							   	             
+							   	      //          alert("너의 아이디가 들려");
+							   				//	alert(chkFriendData[0].length)
+							   					var jsontest = apGroupChkFriend.responseText;
+							   				
+							   	                var apGroupChkFriendData = JSON.parse(apGroupChkFriend.responseText); 
+							   					console.log(groupChkFriendData);
+							   				//	alert(chkFriendData.isNull("regDate"));
+							   				//	alert("1 : "+ chkFriendData.hasOwnProperty('regDate') );
+							   				//	alert("2 : "+ jsontest.hasOwnProperty('regDate') );
+							   				//	alert( $.inArray("regDate",chkFriendData) );
+							   					
+							   	          
+							   	                // 친구가 아닐 시
+							  	                if( apGroupChkFriendData.hasOwnProperty('regDate') )
+							   	                {
+							  	                	selectMemberId =apGroupChkFriendData.id;
+							  	                	
+							  	                	selectMemberId =apGroupChkFriendData.id;
+							   	                	
+							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
+							   	                	var fImg = document.querySelector(".click-chat-profile-img");
+							   	                	
+							   	                	fImg.style.backgroundImage =
+								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
+							   	                	
+							   	                	$(".click-box-F-noF").text('친구추가');
+							   	                	
+							   	                	
+							   	                	
+							   	                }
+							   	                else
+							   	                {
+							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
+							   	                	var nofImg = document.querySelector(".click-chat-profile-img");
+							   	                	nofImg.style.backgroundImage =
+								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
+							   	                	
+//							   	                	$(".click-chat-profile-img").style.backgroundImage =
+//								                        "url(/get-img?folder=member-profile&file="+chkFriendData.img+")";
+							   	                	
+							   	                	
+							   	                	
+							   	                	$(".click-box-F-noF").text('친구삭제');
+							   	                //	reChattingOn();
+							   	                	
+							   	                }
+							   	               
+							  	                
+							  	                
+							   	                
+							   	                
+							   	             }
+							   	             
+							   			groupChkFriend.send("memberId="+memberId);
+							   			
+							   			
+										
+										
+										
+										
+										
+										
+									};
+									
+									
 									groupAjxFrImg.style.backgroundImage = 
 										"url(/get-img?folder=member-profile&file="+imgsMap.get(senderId)+")";
 									groupAjxFrTxta.innerText = chatcontent;
@@ -2244,7 +2368,7 @@ function adminMemberChat()
                 
              }
 	             
-   			clickChkRprt.send("rprtId="+"dbfk");
+   			clickChkRprt.send("rprtId="+memberId);
    			
    			
    			///////////////친구 인지 아닌지/////////////////////////////////////////
@@ -2404,7 +2528,7 @@ function adminMemberChat()
 				{
 	        		
 	       // 		alert("신고 버튼을 눌렀다 : "+$(".chat-profile-id").text());
-	        		var rprtId = $(".chat-profile-id").text();
+	        		var rprtId = $(".chat-profile-id").text(); 
 	        		var rprtText = $(".chat-rprt-button").text();
 	        		
 	        		if(rprtText=='신고 추가')
@@ -2435,7 +2559,9 @@ function adminMemberChat()
 							rprtInsert.onload = function()
 					             {
 					             
-								 $(".chat-rprt").css({ "top": "-120%" });
+								 $(".chat-rprt").css({ "bottom": "-120%" });
+								 $(".chat-rprt-detailContent").val('');
+						         $("#chat-rprt-select option:eq(0)").prop("selected",true);
 						         $(".screen").remove();
 						         $(".chat-rprt-button").text('신고 해제')
 						         
@@ -2458,7 +2584,7 @@ function adminMemberChat()
 	        		}
 	        		else if(rprtText=='신고 해제')
 	        		{
-	        			$(".chat-rprt").css({ "top": "-120%" });
+	        			$(".chat-rprt").css({ "bottom": "-120%" });
 				         
 	        			var rprtDelete = new XMLHttpRequest();
 				        
@@ -2474,7 +2600,7 @@ function adminMemberChat()
 				             
 	        				
 					         $(".chat-rprt-button").text('신고 추가')
-					         $(".chat-rprt").css({ "top": "-120%" });
+					         $(".chat-rprt").css({ "bottom": "-120%" });
 					         $(".screen").remove();
 				      //          alert("너의 아이디가 들려");
 				                
@@ -2518,7 +2644,7 @@ function adminMemberChat()
 						
 				//		alert("click 신고");
 						
-					//	var rprtId = $(".click-chat-profile-id").text();
+						var rprtId = $(".click-chat-profile-id").text();
 		        		var chatSelects = document.querySelector("#click-chat-rprt-select");
 		        		
 		        		var rprtTitle = null;
@@ -2547,6 +2673,8 @@ function adminMemberChat()
 					             {
 									$(".click-chat-rprt-button").text('신고 해제');
 							         $(".click-chat-rprt").css({ "bottom": "-120%" });
+							         $(".click-chat-rprt-detailContent").val('');
+							         $("#click-chat-rprt-select option:eq(0)").prop("selected",true);
 							         screenrprt.remove();
 							         
 							         
@@ -2560,7 +2688,7 @@ function adminMemberChat()
 					                
 					             }
 					             
-							clickRprtInsert.send("rprtId="+"dbfk"+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
+							clickRprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
 							
 							
 						

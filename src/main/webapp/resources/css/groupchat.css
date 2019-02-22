@@ -159,7 +159,7 @@ p {
 }
 
 .wrapper {
-    max-width: 1200px;
+    width: 100%;
     display: grid;
     grid-gap: 10px;
     grid-template-areas:
@@ -176,6 +176,7 @@ p {
 	.main-head {
 		height: 40px;
 		line-height: 40px;
+		
 	}
 	.main-head a {
 		font-size: 20px;
@@ -247,7 +248,8 @@ main
     border: 1px solid;
     /* z-index: 1; */
 /*     left: 0%; */
-    width: 100%;
+    width: 1200px;
+    margin:auto;
     height: 744px;
     position: relative;
     top: 0;
