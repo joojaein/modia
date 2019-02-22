@@ -320,7 +320,7 @@ $(function()
 			      //          alert("너의 아이디가 들려");
 			                
 			  //              var comeonmyid = JSON.parse(gomyid.responseText); 
-			          
+			//   				alert("신고 했나? : "+ groupChkRprt.responseText);
 			  //             $(".thisMyId").val(comeonmyid);
 			               $(".click-chat-rprt-button").text(groupChkRprt.responseText);
 			                
@@ -409,6 +409,9 @@ $(function()
 						
 						
 						
+			   			
+			   			
+			   			
 					};
 					
 					// 그룹채팅에서 이미지를 눌렀을때 신고 하려고 만든 onclick   END
