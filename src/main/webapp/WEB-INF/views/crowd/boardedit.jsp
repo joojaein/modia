@@ -11,26 +11,28 @@
 
 	<div class="wrapper">
 		<section class="main-head">
-			<nav>
-				<div>
-					<a href="main?crowd=${crowd.id}">정보</a>
-				</div>
-				<div>
-					<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
-				</div>
-				<div>
-					<a href="calendar?crowd=${crowd.id}">일정</a>
-				</div>
-				<div>
-					<a href="board?t=1&crowd=${crowd.id}">게시판</a>
-				</div>
-				<div>
-					<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
-				</div>
-				<div>
-				<a href="groupchat?crowd=${crowd.id}">단체채팅</a>
-				</div>
-			</nav>
+			<div>
+				<nav>
+					<div>
+						<a href="/crowd/main?crowd=${crowd.id}">정보</a>
+					</div>
+					<div>
+						<a href="/crowd/notice?t=0&crowd=${crowd.id}">공지사항</a>
+					</div>
+					<div>
+						<a href="/crowd/calendar?crowd=${crowd.id}">일정</a>
+					</div>
+					<div>
+						<a href="/crowd/board?t=1&crowd=${crowd.id}">게시판</a>
+					</div>
+					<div>
+						<a href="/crowd/album?t=2&crowd=${crowd.id}">사진첩</a>
+					</div>
+					<div>
+						<a href="/crowd/groupchat?crowd=${crowd.id}">단체채팅</a>
+					</div>
+				</nav>
+			</div>
 		</section>
 		<section class="reg-head">	
 			<section class="select-box">
@@ -43,7 +45,7 @@
 							<option id="basic-option">게시판</option>
 							<option value="${boardType2.id}">사진첩</option>
 						</select>
-						<hr class="hr" style="margin: 0;" />
+						<hr class="d-none" style="margin: 0;" />
 						<select class="d-none" id="select2">
 							<c:forEach var="b" items="${blist}">
 								<option value="${b.id}">${b.name}</option>
@@ -56,7 +58,7 @@
 							<option id="basic-option">게시판</option>
 							<option value="${boardType2.id}">사진첩</option>
 						</select>
-						<hr class="hr" style="margin: 0;" />
+						<hr style="margin: 0;" />
 						<select id="select2">
 							<c:forEach var="b" items="${blist}">
 								<option value="${b.id}">${b.name}</option>
@@ -128,17 +130,17 @@
 				value="등록하기"></input>
 		</div>
 	</div>
-
-	<div class="content-img-alert content-alert d-none">
-		<h1>옵션 선택</h1>
-		<hr />
-		<span class="btn btn-main">대표 이미지로 지정</span>
-		<hr />
-		<span class="btn btn-del">삭제하기</span>
-		<hr />
-		<input class="btn btn-cancel" type="button" value="취소">
+	<div class="alert-hidden-back d-none">
+		<div class="content-img-alert content-alert d-none">
+			<h1>옵션 선택</h1>
+			<hr />
+			<span class="btn btn-main">대표 이미지로 지정</span>
+			<hr />
+			<span class="btn btn-del">삭제하기</span>
+			<hr />
+			<input class="btn btn-cancel" type="button" value="취소">
+		</div>
 	</div>
-
 	<section class="rprt-box">
 		<div class="rprt d-none">
 			<h1>신고하기</h1>
@@ -167,4 +169,3 @@
 	</section>
 
 </main>
-<a id="MOVE_BACK_BTN">목록으로</a>

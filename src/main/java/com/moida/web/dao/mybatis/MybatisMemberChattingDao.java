@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.moida.web.dao.MemberChattingDao;
 import com.moida.web.entity.MemberChat;
+import com.moida.web.entity.RprtMember;
 
 @Repository
 public class MybatisMemberChattingDao implements MemberChattingDao
@@ -57,6 +58,26 @@ public class MybatisMemberChattingDao implements MemberChattingDao
 		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
 		
 		return memberChattingDao.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
+	}
+	
+	@Override
+	public int deleteRprtId(String rprtId, String myId) 
+	{
+		// TODO Auto-generated method stub
+		
+		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
+		
+		return memberChattingDao.deleteRprtId(rprtId, myId);
+	}
+
+	@Override
+	public List<RprtMember> chkRprtId(String rprtId, String myId) 
+	{
+		// TODO Auto-generated method stub
+		
+		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
+		
+		return memberChattingDao.chkRprtId(rprtId, myId);
 	}
 
 	

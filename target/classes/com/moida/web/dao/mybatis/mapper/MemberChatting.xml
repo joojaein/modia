@@ -66,6 +66,19 @@
 		value (#{rprtId},#{myId},#{rprtTitle},#{rprtDetailContent})
 	
 	</insert>
+	
+	<select id="chkRprtId" resultType="com.moida.web.entity.RprtMember">
+	
+		select * from RprtMember
+		where ( rprtId=#{rprtId} and writerId=#{myId})
+	
+	</select>
+
+	<delete id="deleteRprtId" parameterType="com.moida.web.entity.RprtMember">
+	
+		delete from RprtMember where (rprtId=#{rprtId} and writerId=#{myId})
+	
+	</delete>
 
 
 </mapper> 

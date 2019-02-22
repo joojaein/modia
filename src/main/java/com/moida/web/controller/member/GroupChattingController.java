@@ -28,9 +28,9 @@ public class GroupChattingController
 	public int insertGroupChatting(String myId,int groupId,String content ) 
 	{
 		
-		System.out.println("send : "+myId);
-		System.out.println("send : "+groupId);
-		System.out.println("send : "+content);
+	//	System.out.println("send : "+myId);
+//		System.out.println("send : "+groupId);
+//		System.out.println("send : "+content);
 		
 	//	System.out.println("여기는 insert 전");
 		
@@ -62,12 +62,12 @@ public class GroupChattingController
 	@ResponseBody
 	public String getGroupImgs(String groupIdSt) 
 	{
-		System.out.println("그룹채팅에서 쓰일 이미지 : "+groupIdSt);
+//		System.out.println("그룹채팅에서 쓰일 이미지 : "+groupIdSt);
 		int groupId = Integer.parseInt(groupIdSt);
 		
 			List<GroupImgsDataView> groupChattingList = groupChattingService.getGroupImgsData(groupId);
-			System.out.println(groupChattingList.get(0).getMemberId());
-			System.out.println(groupChattingList);
+//			System.out.println(groupChattingList.get(0).getMemberId());
+//			System.out.println(groupChattingList);
 		
 			Gson gson = new Gson();
 			String json = gson.toJson(groupChattingList);

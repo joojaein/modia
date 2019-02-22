@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.moida.web.entity.MemberChat;
+import com.moida.web.entity.RprtMember;
 
 public interface MemberChattingDao 
 {
@@ -18,10 +19,21 @@ public interface MemberChattingDao
 			@Param("friendId") String friendId,
 			@Param("content") String content);
 	
+	
+	List<RprtMember> chkRprtId(@Param("rprtId") String rprtId,@Param("myId") String myId);
+	
+	
+	
+	
 	int insertRprtId(
 					@Param("rprtId") String rprtId,
 					@Param("myId") String myId,
 					@Param("rprtTitle") String rprtTitle,
 					@Param("rprtDetailContent") String rprtDetailContent);
+	
+	int deleteRprtId(
+			@Param("rprtId") String rprtId,
+			@Param("myId") String myId );
+	
 	
 }

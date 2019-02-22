@@ -1,9 +1,8 @@
 window.addEventListener("load", function () {
    var select1 = document.querySelector("#select1");
    var select2 = document.querySelector("#select2");
-   var hr = document.querySelector(".hr");
+   var hr = document.querySelector("hr");
 
-   
    select1.onchange = function () {
 	   
 	   var selectedOpt = select1.options[select1.selectedIndex];
@@ -96,17 +95,19 @@ window.addEventListener("load", function () {
       var contentImg = evt.target;
       var tplDiv = evt.target.parentNode.parentNode;
       var divAlert = document.querySelector(".content-img-alert");
-      
+      var back = document.querySelector(".alert-hidden-back");
+
       var clientWidth = document.body.clientWidth;
       divAlert.style.left = (clientWidth/2 - 160)+"px";
       divAlert.classList.remove("d-none");
+      back.classList.remove("d-none");
       
       var btnMain = divAlert.querySelector(".btn-main");
       var btnDel = divAlert.querySelector(".btn-del");
       var btnCancel = divAlert.querySelector(".btn-cancel");
-      
       btnMain.onclick=function(){
-         divAlert.classList.add("d-none");
+          divAlert.classList.add("d-none");
+          back.classList.add("d-none");
          var imgDivs = secContent.querySelectorAll(".img-div");
          for (var i = 0; i < imgDivs.length; i++) {
             imgDivs[i].classList.remove("main-img");
@@ -116,7 +117,8 @@ window.addEventListener("load", function () {
       
       btnDel.onclick=function(){
          divAlert.classList.add("d-none");
-         
+         back.classList.add("d-none");
+
          fileMap.delete(contentImg.name);
          
          
@@ -134,6 +136,12 @@ window.addEventListener("load", function () {
       
       btnCancel.onclick=function(){
          divAlert.classList.add("d-none");
+         back.classList.add("d-none");
+      };
+      
+      back.onclick=function(){
+         divAlert.classList.add("d-none");
+         back.classList.add("d-none");
       };
    });
 
@@ -314,6 +322,7 @@ window.addEventListener("load", function () {
             var prevText = prevTextarea.value;
             var nowText = nowTextarea.value;
             prevText+="\r"+nowText;
+            prevText = prevText.trim();
             prevTextarea.value =prevText;
             resize(prevTextarea);
             secContent.removeChild(tpls[i]);

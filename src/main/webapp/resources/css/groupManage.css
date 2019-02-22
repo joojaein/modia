@@ -1,5 +1,11 @@
 @import url("/resources/css/component.css");
 
+body {
+	margin: 0;
+	padding: 0;
+	background: #f2f4f7;
+}
+
 main{
     margin: 0px 10px;	
 }
@@ -19,10 +25,6 @@ main{
     
 }
 
-.area-name span{
-    font-size: 14px !important;	
-}
-
 .area-banner{
 	text-align: center;	
 }
@@ -30,42 +32,67 @@ main{
 .area-banner img{
     width: 100%;
     margin-top: 10px;   
-    max-height: 550px;     
+    max-height: 500px;     
 }
 
 .area-name {
 	position: relative;
 	text-align: left;
+	border: 1px solid #dee3eb;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+	max-width: 1200px;
+	margin: auto;
+	background: white;
+	font-size: 15px;
+	
 }
 
 .area-name .group-logo {
+	margin-left: 10px;
 	width: 18px;
 	height: 18px;
 	border-radius: 100%;    
 	vertical-align: sub;
+	line-height: 40px;
 }
 
 .area-name a{
 	position: absolute;
-	right: 0px;
+	right: 10px;
 	top: 0px;
 }
 
 .area-content {
 	text-align: left;
+	font-size: 13px;
+}
+.join-condition{
+    margin-top: 5px;
 }
 
 .area-content textarea{
-    width: 100%;
+    width: calc(100% - 20px);
+   	padding: 10px;
+    
     resize: none;
     border: none;
+    border: 1px solid #dee3eb;	
+	background: white; 
 }
-.area-etc {
+
+.area-etc{
+    border: 1px solid #dee3eb;	
+	background: white; 
+    padding: 15px 0px;
+}
+.div-area-etc {
 	width: 90%;
     margin: auto;	
 }
 
-.area-etc .menu input{
+.div-area-etc .menu input{
 	width: 24%;
 	height: 25px;
 	background: white;
@@ -206,13 +233,6 @@ tbody td select{
     font-weight: bold;
 }
 
-.approval{
-	
-}
-
-.statistic{
-	
-}
 
 .stat-grid {
     width: 100%;
@@ -255,12 +275,10 @@ tbody td select{
 	.grid{
 	    font-size: 14px;
 	}
-	.area-etc .menu input{
+	.div-area-etc .menu input{
 	    font-size: 14px;
 	}
-	.area-name span{
-	    font-size: 17px !important;		
-	}
+	
 	.board .btn img{
 		width: 16px;
 		height: 16px;
