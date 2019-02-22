@@ -131,7 +131,7 @@ function dataedit(){
 	var fdate = $('.from-date').val();
 	var todate = $(".to-date").val();
 	var tt = $(".title-text").val();
-	var ct = $(".content-text").text();
+	var ct = $(".content-text").val();
 	var cListRequest = new XMLHttpRequest();
     cListRequest.open("POST", "/crowd/calendarlist-update", true);
     cListRequest.setRequestHeader("Content-Type",

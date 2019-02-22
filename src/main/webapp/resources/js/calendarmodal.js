@@ -17,6 +17,7 @@ function modalopen() {
 			modal.classList.remove("show");
 			modal.classList.remove("hide");
 			screen.remove();
+			window.location.href="";
 		};
 
 	});
@@ -44,12 +45,7 @@ function dataadd() {
 		data: {"crowdId":cid ,"startDate": start, "endDate": end, "title":title, "content":content},
 		success : function(json) {
 		console.log("연결");
-		
-		var schedule = JSON.stringify(json);
-		var dataset = JSON.parse(schedule);
-		alert(schedule);
-		alert(dataset);
-		
+
 
 		modal.classList.remove("show");
 		modal.classList.remove("hide");

@@ -1,38 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <main>
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/boarddetail.js"></script> 
-<script src="/resources/js/backpage.js"></script> 
+<script src="/resources/js/backpage.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <div class="wrapper">
 	<section class="main-head">
+		<div>
 		<nav>
 			<div>
-				<a href="/crowd/main?crowd=${crowd.id}">정보</a>
+				<a href="main?crowd=${crowd.id}">정보</a>
 			</div>
 			<div>
-				<a href="/crowd/notice?t=0&crowd=${crowd.id}">공지사항</a>
+				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
 			</div>
 			<div>
-				<a href="/crowd/calendar?crowd=${crowd.id}">일정</a>
+				<a href="calendar?crowd=${crowd.id}">일정</a>
 			</div>
 			<div>
-				<a href="/crowd/board?t=1&crowd=${crowd.id}">게시판</a>
+				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
 			</div>
 			<div>
-				<a href="/crowd/album?t=2&crowd=${crowd.id}">사진첩</a>
+				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="/crowd/groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
+	</div>
 	</section>
 	<c:url value="boardedit" var="edit">
 		<c:param name="crowd" value="${crowd.id}" />
@@ -120,11 +122,11 @@
 		<div class="comment-reg">
 			<div class="comment-box">
 				<input class="comment-input" type="text" placeholder="댓글" /> 
-				<input type="button" value="등록" onclick="commentadd();" />
+				<input class="comment-add-btn" type="button" value="등록" onclick="commentadd();" />
 			</div>
 		</div>
 			<template id="tem2">
-			<div>
+			<div class="cmt-box">
 				<div class="comment-content">
 						<div class="profile-photo">
 							<div class="comment-photo"></div>
@@ -147,12 +149,12 @@
 			</template>
 			<div class="temp-cmt">
 			<c:forEach var="cmt" items="${cmt}">
-				<div>
+				<div class="cmt-box">
 					<div class="comment-content">
+						<input class="cmtid" type="hidden" value="${cmt.id}"/>
 							<div class="profile-photo">
 							<div class="writerimg">
-								<div class="comment-photo"
-									style="background: url('/get-img?folder=member-profile&file=${cmt.img}') no-repeat center; background-size: cover;">
+								<div class="comment-photo" style="background: url('/get-img?folder=member-profile&file=${cmt.img}') no-repeat center; background-size: cover;">
 								</div>
 								<div class="profile-info">
 									<span class="name">${cmt.writerId}</span>
@@ -160,7 +162,7 @@
 								</div>
 								<div class="edit-btn">
 									<input class="comment-edit" type="button" value="수정" /> 
-									<input class="comment-del" type="button" value="삭제" />
+									<input class="comment-del" type="button" value="삭제"/>
 								</div>
 							</div>
 							<div class="cc-box">

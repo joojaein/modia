@@ -11,4 +11,6 @@ public interface CmtService {
 	Cmt insertCmt(Cmt cmt);
 	List<CmtListView> getCmtList(Integer postsId);
 	Cmtcnt getCmthit(Integer postsId);
+	int deleteCmt(Integer id);
+	int updateCmt(Integer id, String content);
 }

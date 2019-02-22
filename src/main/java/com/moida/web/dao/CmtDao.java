@@ -16,4 +16,8 @@ public interface CmtDao {
 
 	public Cmtcnt getCmthit(Integer postsId);
 
+	public int deleteCmt(Integer id);
+
+	public int updateCmt(Integer id, String content);
+	
 }

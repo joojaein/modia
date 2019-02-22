@@ -1,32 +1,20 @@
-window.addEventListener("load", function () {
-    var siren = document.querySelector(".siren");
-    var clear = document.querySelector(".clear-btn");
-    siren.onclick = function (e) {
-        e.preventDefault();
-        var rprt = document.querySelector(".rprt");
-        rprt.classList.remove("d-none");
-    }
-
-    clear.onclick = function (e) {
-        e.preventDefault();
-        var rprt = document.querySelector(".rprt");
-        rprt.classList.add("d-none");
-    }
-});
-
 function commentadd(){
-  var content = $(".comment-input").val();
-  var postsid = $(".pi").val();
-  var cid = $("#cid").val();
- 
-  $.ajax({
-		url: '/crowd/board/detail-comment',
+	var content = $(".comment-input").val();
+	var postsid = $(".pi").val();
+	var cid = $("#cid").val();
+	var img = $("#img").val();
+	var role = $("#role").val();
+	var writer = $("#writerid").val();
+	var uid = $("#uid").val();
+	var cmtwriter = $(".name").val();
+	var cmtid =$(".cmtid").val();
+	$.ajax({
+		url: '/crowd/detail-comment',
 		type: "post",
 		dataType: "json",
 		data:{"postsId":postsid, "content":content},
 		success : function(json) {
 			var tcmt = $(".temp-cmt");
-			
 			var temp = document.querySelector("#tem2");
 
 			var temple = document.importNode(temp.content, true);
@@ -34,18 +22,24 @@ function commentadd(){
 			var content = temple.querySelector(".cc-box p");
 			var regDate = temple.querySelector(".cc-box div");
 			var profile = temple.querySelector(".comment-photo");
+			var editbtn = temple.querySelector(".edit-btn");
 			writerId.innerText = json.writerId;
 			content.innerText = json.content;
-			profile.style.backgroundImage = "url('/get-img?folder=crowd-postsImg&file="+json.img+"')";
+			profile.style.backgroundImage = "url('/get-img?folder=member-profile&file="+img+"')";
 			profile.style.backgroundRepeat = "no-repeat center";
 			profile.style.backgroundSize = "cover";
+			if(writer == uid || uid != null){
+				editbtn.innerHTML = "<inputclass='comment-edit' type='button' value='수정' />"
+					+"<input class='comment-del' type='button' value='삭제'  style='margin-left: 5px;' />";
+			}else if(role <= 1){
+				editbtn.innerHTML = "<input class='comment-del' type='button' value='삭제' />";
 
-				
+			}
 
 			var dateTime = new Date(json.regDate);
 			var year = dateTime.getFullYear();
 			var month = dateTime.getMonth()+1;
-			
+
 			var day = dateTime.getDate();
 			if(day<10){
 				day = '0'+day;
@@ -65,32 +59,72 @@ function commentadd(){
 			var result = year+"-"+month+"-"+day+" "+apm+" "+hours+":"+minutes;
 			regDate.innerText = result;
 			tcmt.append(temple);
+			$(".comment-input").val("");
 			console.log("연결");
 		},
 		error : function(request,status,error) {
-			
-			console.log("실패"+xhr+status);
-			 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
 
-
+			console.log("실패"+status);
+		}
 	})
 }
 
-/*$(function(){
-
-$(".delete").click(function(){
-	swal({
-		  title: "정말 삭제하시겠습니까?",
-		  text: "삭제시 복구 불가.",
-		  icon: "warning",
-		  buttons: ["cancel","ok"],
-		  dangerMode: false,
-		})
-		.then((willDelete) => {
-		  if (willDelete) {
-			
-		  }
-		});
-});
+$(document).ready(function(){
+	var commentinput = $(".comment-input");
+	var editbtn = $(".comment-add-btn");
+	$(".comment-edit").click(function(){
+		var edittext =  $(this).parent().parent().parent().find(".cc-box").children("p").text();
+		commentinput.val(edittext);
+		editbtn.replaceWith("<input class='comment-add-btn' type='button' value='수정' onclick='commentedit();'/>");
+		commentinput.focus();
+	
+	})
 })
-*/
+
+function commentedit(){
+	var uid = $(".cmtid").val();
+	var commentinput = $(".comment-input").val();
+	$.ajax({
+		url: '/crowd/editcomment',
+		type: "post",
+		dataType: "json",
+		data:{"id":uid, "content":commentinput},
+		success : function(json) {
+			
+			var box = document.querySelector(".temp-cmt");
+			var boxs = box.querySelectorAll(".cmt-box")
+			for (var i = 0; i < boxs.length; i++) {
+				var conmentBox = boxs[i].querySelector(".comment-content");
+				var uids = conmentBox.querySelector(".cmtid").value;
+				if(uids == uid){
+					var p = conmentBox.querySelector("p");
+					p.innerText = commentinput;
+					$(".comment-input").val("");
+				}
+			}
+			console.log("연결");
+	
+		}
+	});
+}
+
+
+$(document).ready(function(){
+	$(".comment-del").click(function(){
+		var uid = $(".cmtid").val();
+		$(this).parent().parent().parent().remove();
+		if(confirm("정말 삭제하시겠습니까?")){
+			$.ajax({
+				url: '/crowd/delcomment',
+				type: "post",
+				dataType: "json",
+				data:{"id":uid},
+				success : function(json) {
+					console.log("연결");
+					alert(json.content);
+				}
+
+			})
+		}
+	})
+})

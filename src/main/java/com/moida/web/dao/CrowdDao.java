@@ -69,5 +69,6 @@ public interface CrowdDao {
 	
 	public int updateImg(Integer id);
 	public List<MemberInfoListView> getMemberInfoListView(Integer crowdId);
+	public MemberInfoListView getMemberInfoRoleListView(Integer crowdId, String name);
 	
 }

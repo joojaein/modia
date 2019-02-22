@@ -196,10 +196,13 @@
 		#{param},(select img from (select img from Crowd order by regDate desc limit 1)as temp))
 		where id = (select * from (select id from Crowd order by regDate desc limit 1)as temp)
 	</update>
-	
 	 	
 	<select id="getMemberInfoListView" resultType="com.moida.web.entity.MemberInfoListView">
  		select * from MemberInfoListView where crowdId = #{param1} and 2 >= groupRole order by groupRole, joinDate
+ 	</select>
+ 	
+	<select id="getMemberInfoRoleListView" resultType="com.moida.web.entity.MemberInfoListView">
+ 		select * from MemberInfoListView where crowdId = #{param1} and id = #{param2}
  	</select>
  	
 </mapper>
