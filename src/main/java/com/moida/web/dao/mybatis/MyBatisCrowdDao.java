@@ -295,6 +295,13 @@ public class MyBatisCrowdDao implements CrowdDao{
 		return crowdDao.getMemberInfoListView(crowdId);
 	}
 
+	@Override
+	public MemberInfoListView getMemberInfoRoleListView(Integer crowdId, String name) {
+		// TODO Auto-generated method stub
+		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
+		return crowdDao.getMemberInfoRoleListView(crowdId, name);
+	}
+
 }
 
 

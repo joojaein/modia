@@ -97,7 +97,8 @@ public class CrowdController {
 	}
 	
 
-	@GetMapping("notice/ndetail")
+	@GetMapping("ndetail")
+	@PreAuthorize("isAuthenticated()")
 	public String noticedetail(
 			@RequestParam(name="crowd") Integer crowdId,
 			@RequestParam(name="id") Integer postsId,
@@ -111,6 +112,9 @@ public class CrowdController {
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
 		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
 		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		MemberInfoListView memberRole = crowdService.getMemberInfoRoleListView(crowdId, principal.getName());
+		
+		model.addAttribute("mRole", memberRole);
 		model.addAttribute("milv", milv);		
 		model.addAttribute("cmtcnt", cmtcnt);
 		model.addAttribute("crowd", crowd);
@@ -119,7 +123,7 @@ public class CrowdController {
 		model.addAttribute("posts", posts);
 		model.addAttribute("uid",principal.getName());
 		int affected = postsService.updatehit(id);
-		return "crowd.notice.ndetail";
+		return "crowd.ndetail";
 	}
 
 	@GetMapping("board")
@@ -156,7 +160,7 @@ public class CrowdController {
 		return json;
 	}
 	
-	@GetMapping("board/bdetail")
+	@GetMapping("bdetail")
 	@PreAuthorize("isAuthenticated()")
 	public String boarddetail(
 			@RequestParam(name="crowd") Integer crowdId,
@@ -170,9 +174,13 @@ public class CrowdController {
 		PostsInfoView posts = postsService.getPostsinfoView(id);
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
 		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
-		String userId = principal.getName();
+		MemberInfoListView memberRole = crowdService.getMemberInfoRoleListView(crowdId, principal.getName());
+		
+		String userId = principal.getName();	
 		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
 		int affected = postsService.updatehit(id);
+		
+		model.addAttribute("mRole", memberRole);
 		model.addAttribute("milv", milv);		
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("cmt",cmt);
@@ -180,10 +188,10 @@ public class CrowdController {
 		model.addAttribute("posts", posts);
 		model.addAttribute("uid",userId);
 		model.addAttribute("groupRole", groupRole);
-		return "crowd.board.bdetail";
+		return "crowd.bdetail";
 	}
-
-	@PostMapping("board/detail-comment")
+	
+	@PostMapping("detail-comment")
 	@ResponseBody
 	public String boarddetailcomment(
 			Integer postsId,
@@ -191,12 +199,29 @@ public class CrowdController {
 			Principal principal
 			) {	
 			Cmt cmt = new Cmt(postsId, content, principal.getName());
-			Gson gson = new Gson(); 
 			
-			String json = gson.toJson(cmtService.insertCmt(cmt));
-			System.out.println("cmt"+cmt);
-			System.out.println("json"+json);
-		return json;
+			
+		return cmtService.insertCmt(cmt)+"";
+	}
+	
+	
+	@PostMapping("editcomment")
+	@ResponseBody
+	public String boardeditcomment(
+			Integer id,
+			String content,
+			Principal principal
+			) {	
+			
+		return cmtService.updateCmt(id, content)+"";
+	}
+	
+	@PostMapping("delcomment")
+	@PreAuthorize("isAuthenticated()")
+	@ResponseBody
+	public String boarddeletecomment(Integer id) {	
+			 System.out.println(id);
+		return cmtService.deleteCmt(id)+"";
 	}
 	
 	@PostMapping("boarddelete")
@@ -286,19 +311,6 @@ public class CrowdController {
 		model.addAttribute("posts", posts);
 		model.addAttribute("contentList", contentList);
 
-		 /*
-		List<File> testFile = new ArrayList<File>();
-
-		for (int i = 0; i < contentList.size(); i++) {	
-			if(!ObjectUtils.isEmpty(contentList.get(i).getSrc())) {
-				String realPath = req.getServletContext().getRealPath("/crowd-postsImg/"+contentList.get(i).getSrc());
-			     if(!new File(realPath).exists()) {
-			        realPath = "http://localhost/resources/images/img404.png";       
-			     }	     
-			     testFile.add(new File(realPath));
-			}
-		}
-		model.addAttribute("testFileList",testFile);*/
 		return "crowd.boardedit";
 	}
 	
@@ -361,7 +373,6 @@ public class CrowdController {
 	
 
 	@PostMapping("calendar")
-	@ResponseBody
 	public String calendarinsert(
 			Integer crowdId,
 			String startDate,

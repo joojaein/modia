@@ -170,7 +170,7 @@ window.addEventListener("load",function() {
 			else if(contentBox.value==""){
 				swal({
 					  title: "소개란을 입력해주세요",
-					  text: "적어도 100자 이상의 소개가 필요합니다.",
+					  text: "성의껏 입력해주세용.",
 					  icon: "warning",
 					  button : "그랭",
 					  dangerMode: true,

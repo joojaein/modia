@@ -61,4 +61,5 @@ public interface CrowdService {
 	CrowdView getCrowdViews(Integer crowdId);
 	CrowdView getCrowdTotalViews(Integer crowdId);
 	List<MemberInfoListView> getMemberInfoListView(Integer crowdId);
+	MemberInfoListView getMemberInfoRoleListView(Integer crowdId, String name);
 }

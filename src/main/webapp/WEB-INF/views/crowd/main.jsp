@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <main>
 <link href="/resources/css/groupMain.css" type="text/css" rel="stylesheet" />
-<script src="/resources/js/rprtmodal.js"> </script>
 <script src="/resources/js/groupMain.js"> </script>
 <script src="/resources/js/backpage.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <div class="wrapper">
 	<section class="main-head">
@@ -34,14 +35,13 @@
 	</section>
 	<article class="content-img">
 		<div>
-			<img src="/get-img?folder=crowd-postsImg&file=${crowd.img}">
+			<img src="/get-img?folder=crowd-banner&file=${crowd.img}">
 		</div>
 	</article>
-	
 	<section class="group-info">
 		<div class="ginfo">
 		<div class="info-box">
-			<img class="group-logo" src="../../../resources/images/mountains.png" />
+			<img class="group-logo" name="${crowd.categoryId}"/>
 			<span>${crowd.name}</span>
 		</div>
 		<div class="info">
@@ -49,10 +49,9 @@
 		</div>
 		</div>
 	</section>
-	
 	<article class="content">
 		<div>
-			<textarea disabled>
+			<textarea disabled="disabled">
 			${crowd.content}
 			</textarea>
 			<div class="join-condition">
@@ -84,10 +83,13 @@
 		<hr />
 		<c:forEach var="n" items="${milv}">
 		<div class="profile-box">
-			<div class="comment-photo" onclick="imgClick('${n.id}');" 
-			style="background: url('/get-img?folder=crowd-postsImg&file=${n.img}') no-repeat center;
-				background-size: cover;"></div>
-			<div class="profile-info">
+		<sec:authorize access="isAnonymous()">
+			<a href="/login"><div class="comment-photo" style="background: url('/get-img?folder=member-profile&file=${n.img}') no-repeat center; background-size: cover;"></div></a>
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<div class="comment-photo" onclick="imgClick('${n.id}');" style="background: url('/get-img?folder=member-profile&file=${n.img}') no-repeat center; background-size: cover;"></div>
+		</sec:authorize>
+			<div class="name-box">
 				<span class="name">${n.id}</span> <span>${n.msg}</span>
 			</div>
 			<c:choose>
@@ -105,7 +107,7 @@
 	</section>
 	</div>
 	</main>
-	<a id="MOVE_BACK_BTN" href="#">목록으로</a>
+	<a id="MOVE_BACK_BTN">목록으로</a>
 	<section class="rprt-box">
 		<div class="rprt d-none">
 			<h1>신고하기</h1>

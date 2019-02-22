@@ -16,26 +16,30 @@
 		<div>
 		<nav>
 			<div>
-				<a href="/crowd/main?crowd=${crowd.id}">정보</a>
+				<a href="main?crowd=${crowd.id}">정보</a>
 			</div>
 			<div>
-				<a href="/crowd/notice?t=0&crowd=${crowd.id}">공지사항</a>
+				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
 			</div>
 			<div>
-				<a href="/crowd/calendar?crowd=${crowd.id}">일정</a>
+				<a href="calendar?crowd=${crowd.id}">일정</a>
 			</div>
 			<div>
-				<a href="/crowd/board?t=1&crowd=${crowd.id}">게시판</a>
+				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
 			</div>
 			<div>
-				<a href="/crowd/album?t=2&crowd=${crowd.id}">사진첩</a>
+				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="/crowd/groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
 	</div>
 	</section>
+	<c:url value="boardedit" var="edit">
+		<c:param name="crowd" value="${crowd.id}" />
+		<c:param name="posts" value="${posts.id}" />
+	</c:url>
 	<input id="cid" type="hidden" value="${crowd.id}" /> 
 	<input class="pi" type="hidden" value="${posts.id}" />
 	<section class="content-title">
@@ -43,12 +47,12 @@
 				<h3 name="title">${posts.title}</h3>
 				<div class="profile-box">
 					<div onclick="imgClick('${posts.writerId}');" class="photo"
-						style="background: url('/get-img?folder=crowd-postsImg&file=${posts.img}') no-repeat center; background-size: cover;"></div>
+						style="background: url('/get-img?folder=member-profile&file=${posts.img}') no-repeat center; background-size: cover;"></div>
 					<div class="profile-info">
-						<span class="name">${posts.writerId}</span>
-						<span class="reg-write"> 
+						<span class="name">작성자 ${posts.writerId}</span>
+						<span class="reg-write">등록일  
 						<fmt:formatDate value="${posts.regDate}" pattern="yyyy-MM-dd a HH:mm" />
-						</span> <span>조회수<span class="hit" style="color: red;">[${posts.hit}]</span>
+						</span> <span>조회수 <span class="hit" style="color: red;">[${posts.hit}]</span>
 						</span>
 					</div>
 				</div>
@@ -59,7 +63,7 @@
 		<c:forEach var="pc" items="${pc}">
 			<c:choose>
 				<c:when test="${empty pc.text}">
-					<img src="/get-img?folder=crowd-postsImg&file=${pc.src}" />
+					<img src="/get-img?folder=crowd-postsImg&file=${pc.src}" /><br />
 				</c:when>
 				<c:otherwise>
 					<p>${pc.text}</p>
@@ -67,37 +71,39 @@
 			</c:choose>
 		</c:forEach>
 		</div>
+		<div>
+		<sec:authorize access="isAuthenticated()">
+			<c:choose>
+				<c:when test="${uid eq posts.writerId}">
+					<div class="writer-btn">
+						<a href="${edit}"><input class="modifi" type="button" value="수정" /></a>
+						<form method="post" action="/crowd/boarddelete" style="width: 10%; text-align: right;">
+							<input type="hidden" name="id" value="${posts.id}" /> 
+							<input type="hidden" name="board" value="board" /> 
+							<input type="hidden" name="type" value="1" /> 
+							<input type="hidden" name="crowdId" value="${crowd.id}" /> 
+							<input class="delete" type="submit" value="삭제" style="margin-left: 5px" />
+						</form>
+					</div>
+				</c:when>
+				<c:when test="${mRole.groupRole <= 1}">
+					<div class="writer-btn">
+						<form method="post" action="/crowd/boarddelete" style="width: 10%; text-align: right;">
+							<input type="hidden" name="id" value="${posts.id}" /> 
+							<input type="hidden" name="board" value="board" />
+							<input type="hidden" name="type" value="1" /> 
+							<input type="hidden" name="crowdId" value="${crowd.id}" /> 
+							<input class="delete" type="submit" value="삭제" style="margin-left: 5px" />
+						</form>
+					</div>
+				</c:when>
+			</c:choose>
+			</sec:authorize>
+	</div>
 	</article>
 	<section class="content-comment">
 	<div class="comment-body">
 	<sec:authentication property="principal" var="pinfo"/>
-	<sec:authorize access="isAuthenticated()">
-	<c:choose>
-	<c:when test="${pinfo.username eq posts.writerId}">
-	<div class="writer-btn">
-	<input class="modifi" type="button" value="수정" />
-	<form method="post" action="/crowd/boarddelete" style=" width: 10%; text-align: center;">
-		<input type="hidden" name="id" value="${posts.id}" />
-		<input type="hidden" name="board" value="board" /> 
-		<input type="hidden" name="type" value="1" />
-		<input type="hidden" name="crowdId" value="${crowd.id}" />
-		<input class="delete" type="submit" value="삭제" style="margin-left: 5px" />
-	</form>
-	</div>
-	</c:when>
-	<c:when test="${groupRole <= 1}">
-	<div class="writer-btn">
-	<form method="post" action="/crowd/boarddelete" style=" width: 10%; text-align: center;">
-		<input type="hidden" name="id" value="${posts.id}" />
-		<input type="hidden" name="board" value="board" /> 
-		<input type="hidden" name="type" value="1" />
-		<input type="hidden" name="crowdId" value="${crowd.id}" />
-		<input class="delete" type="submit" value="삭제" style="margin-left: 5px" />
-	</form>
-	</div>
-	</c:when>
-	</c:choose>
-	</sec:authorize>
 		<div class="comentlike">
 			<div class="comment-sum">댓글 ${posts.cnt}</div>
 			<c:choose>
@@ -116,44 +122,47 @@
 		<div class="comment-reg">
 			<div class="comment-box">
 				<input class="comment-input" type="text" placeholder="댓글" /> 
-				<input type="button" value="등록" onclick="commentadd();" />
+				<input class="comment-add-btn" type="button" value="등록" onclick="commentadd();" />
 			</div>
 		</div>
 			<template id="tem2">
-			<div>
+			<div class="cmt-box">
 				<div class="comment-content">
-					<div class="profile-photo">
-						<div class="comment-photo"></div>
-						<div class="profile-info">
-							<span class="name"></span>
+						<div class="profile-photo">
+							<div class="comment-photo"></div>
+							<div class="profile-info">
+								<span class="name"></span>
+							</div>
+							<div class="edit-btn">
+								<input class="comment-edit" type="button" value="수정" /> 
+								<input class="comment-del" type="button" value="삭제" />
+							</div>
 						</div>
-						<div class="edit-btn">
-							<input class="comment-edit" type="button" value="수정" />
-							<input class="comment-del" type="button" value="삭제" />
-						</div>
-					</div>
-					<div class="cc-box">
+						<div class="cc-box">
 						<p></p>
-						<div></div>
+						<div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<hr />
+				</div>
+				<hr />
 			</template>
 			<div class="temp-cmt">
 			<c:forEach var="cmt" items="${cmt}">
-				<div>
+				<div class="cmt-box">
 					<div class="comment-content">
+						<input class="cmtid" type="hidden" value="${cmt.id}"/>
 							<div class="profile-photo">
-								<div class="comment-photo"
-									style="background: url('/get-img?folder=crowd-postsImg&file=${cmt.img}') no-repeat center; background-size: cover;">
+							<div class="writerimg">
+								<div class="comment-photo" style="background: url('/get-img?folder=member-profile&file=${cmt.img}') no-repeat center; background-size: cover;">
 								</div>
 								<div class="profile-info">
 									<span class="name">${cmt.writerId}</span>
 								</div>
+								</div>
 								<div class="edit-btn">
 									<input class="comment-edit" type="button" value="수정" /> 
-									<input class="comment-del" type="button" value="삭제" />
+									<input class="comment-del" type="button" value="삭제"/>
 								</div>
 							</div>
 							<div class="cc-box">

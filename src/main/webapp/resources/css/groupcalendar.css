@@ -112,6 +112,14 @@ p {
 	margin: 0;
 }
 
+.main-head nav div:hover {
+	 border-bottom: 4px solid rgb(255, 104, 104);
+	
+}
+
+.main-head nav div:nth-child(3){
+    border-bottom: 4px solid rgb(255, 104, 104);
+}
 .main-head {
 	margin: 0 !important;
 	grid-area: header;
@@ -127,7 +135,9 @@ p {
 .main-head div {
 	max-width: 1200px;
 	margin: auto;
+ 	height: -webkit-fill-available;
 }
+
 
 .main-head nav {
 	display: flex;

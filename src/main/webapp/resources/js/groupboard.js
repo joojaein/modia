@@ -38,10 +38,10 @@ function changepostsList(){
 				lconten.innerText = cbdId[i].content;
 				hit.innerText = "["+cbdId[i].hit+"]";
 				commentcnt.innerText ="["+cbdId[i].cmtCnt+"]";
-				profile.style.backgroundImage = "url('/get-img?folder=member-profile&file="+json.img+"')";
+				profile.style.backgroundImage = "url('/get-img?folder=member-profile&file="+cbdId[i].img+"')";
 				profile.style.backgroundRepeat = "no-repeat center";
 				profile.style.backgroundSize = "cover";
-				postimg.src = "/get-img?folder=crowd-postsImg&file="+json.mainimg;
+				postimg.src = "/get-img?folder=crowd-postsImg&file="+cbdId[i].mainImg;
 				
 				var dateTime = new Date(cbdId[i].regDate);
 				var year = dateTime.getFullYear();

@@ -1,47 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <main>
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
-<script src="/resources/js/boarddetail.js"></script> 
+<script src="/resources/js/boarddetail.js"></script>
 <script src="/resources/js/backpage.js"></script> 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <div class="wrapper">
 	<section class="main-head">
+		<div>
 		<nav>
 			<div>
-				<a href="/crowd/main?crowd=${crowd.id}">정보</a>
+				<a href="main?crowd=${crowd.id}">정보</a>
 			</div>
 			<div>
-				<a href="/crowd/notice?t=0&crowd=${crowd.id}">공지사항</a>
+				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
 			</div>
 			<div>
-				<a href="/crowd/calendar?crowd=${crowd.id}">일정</a>
+				<a href="calendar?crowd=${crowd.id}">일정</a>
 			</div>
 			<div>
-				<a href="/crowd/board?t=1&crowd=${crowd.id}">게시판</a>
+				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
 			</div>
 			<div>
-				<a href="/crowd/album?t=2&crowd=${crowd.id}">사진첩</a>
+				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
 			</div>
 			<div>
-				<a href="/crowd/groupchat?crowd=${crowd.id}">단체채팅</a>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
 			</div>
 		</nav>
+	</div>
 	</section>
 	<c:url value="boardedit" var="edit">
 		<c:param name="crowd" value="${crowd.id}" />
 		<c:param name="posts" value="${posts.id}" />
 	</c:url>
-	<input id="cid" type="hidden" value="${crowd.id}" /> 
+	<input id="img" type="hidden" value="${mRole.img}" />
+	<input id="role" type="hidden" value="${mRole.groupRole}" />
+	<input id="cid" type="hidden" value="${crowd.id}" />
+	<input id="writerid" type="hidden" value="${posts.writerId}" />
+	<input id="uid" type="hidden" value="${uid}" />
 	<input class="pi" type="hidden" value="${posts.id}" />
+	
 	<section class="content-title">
-			<div class="ct-box">
+		<div class="ct-box">
 				<h3 name="title">${posts.title}</h3>
 				<div class="profile-box">
 					<div onclick="imgClick('${posts.writerId}');" class="photo"
@@ -49,8 +55,8 @@
 					<div class="profile-info">
 						<span class="name">작성자 ${posts.writerId}</span>
 						<span class="reg-write">등록일  
-						<fmt:formatDate value="${posts.regDate}" pattern="yyyy-MM-dd a HH:mm" />
-						</span> <span>조회수 <span class="hit" style="color: red;">[${posts.hit}]</span>
+						<fmt:formatDate value="${posts.regDate}" pattern="yyyy-MM-dd a HH:mm" /></span>
+						<span>조회수 <span class="hit" style="color: red;">[${posts.hit}]</span>
 						</span>
 					</div>
 				</div>
@@ -124,24 +130,24 @@
 			</div>
 		</div>
 			<template id="tem2">
-			<div>
-				<div class="comment-content">
-						<div class="profile-photo">
-							<div class="comment-photo"></div>
-							<div class="profile-info">
-								<span class="name"></span>
-							</div>
-							<div class="edit-btn">
-								<input class="comment-edit" type="button" value="수정" /> 
-								<input class="comment-del" type="button" value="삭제" />
-							</div>
-						</div>
+				<div>
+					<div class="comment-content">
+							<div class="profile-photo">
+							<div class="writerimg">
+								<div class="comment-photo">
+								</div>
+								<div class="profile-info">
+									<span class="name"></span>
+								</div>
+								</div>
+						<div class="edit-btn"></div>
+					</div>
 						<div class="cc-box">
 						<p></p>
 						<div>
 						</div>
+						</div>
 					</div>
-				</div>
 				</div>
 				<hr />
 			</template>
@@ -158,10 +164,21 @@
 									<span class="name">${cmt.writerId}</span>
 								</div>
 								</div>
-								<div class="edit-btn">
-									<input class="comment-edit" type="button" value="수정" /> 
-									<input class="comment-del" type="button" value="삭제" />
-								</div>
+								<sec:authorize access="isAuthenticated()">
+									<c:choose>
+										<c:when test="${uid eq cmt.writerId}">
+											<div class="edit-btn">
+												<input class="comment-edit" type="button" value="수정" />
+												<input class="comment-del" type="button" value="삭제" />
+											</div>
+										</c:when>
+										<c:when test="${mRole.groupRole <= 1 or uid eq posts.writerId}">
+											<div class="edit-btn">
+												<input class="comment-del" type="button" value="삭제" />
+											</div>
+										</c:when>
+									</c:choose>
+								</sec:authorize>
 							</div>
 							<div class="cc-box">
 						<p>${cmt.content}</p>

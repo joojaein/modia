@@ -13,6 +13,15 @@ a {
 	color: black;
 }
 
+.main-head nav div:hover {
+	 border-bottom: 4px solid rgb(255, 104, 104);
+	
+}
+
+.main-head nav div:nth-child(4){
+    border-bottom: 4px solid rgb(255, 104, 104);
+}
+
 .main-head {
 	margin: 0 !important;
 	grid-area: header;
@@ -28,6 +37,7 @@ a {
 .main-head div {
 	max-width: 1200px;
 	margin: auto;
+	height: -webkit-fill-available;
 }
 
 .main-head nav {
@@ -153,14 +163,10 @@ a {
 }
 
 .timeview span {
-	margin-right: 10px;
+	margin-right: 8px;
 }
 
 @media ( min-width : 400px) {
-	.wrapper {
-		/* grid-template-columns: 3fr 1fr; */
-		grid-template-areas: "header" "subheader" "content";
-	}
 	nav ul {
 		display: flex;
 		justify-content: space-between;
@@ -180,9 +186,7 @@ a {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-	.wrapper {
-		grid-template-areas: "header" "subheader" "content";
-	}
+
 	.img-box {
 		width: 30%;
 		overflow: hidden;
