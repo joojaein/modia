@@ -117,33 +117,42 @@ public class CrowdController {
 	
 
 	@GetMapping("ndetail")
-	@PreAuthorize("isAuthenticated()")
-	public String noticedetail(
-			@RequestParam(name="crowd") Integer crowdId,
-			@RequestParam(name="id") Integer postsId,
-			Integer id,
-			Principal principal,
-			Model model
-			) {
-		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
-		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
-		PostsListView posts = postsService.getPostsinfoView(id);
-		List<CmtListView> cmt = cmtService.getCmtList(postsId);
-		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
-		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
-		MemberInfoListView memberRole = crowdService.getMemberInfoRoleListView(crowdId, principal.getName());
+	   @PreAuthorize("isAuthenticated()")
+	   public String noticedetail(
+	         @RequestParam(name="crowd") Integer crowdId,
+	         @RequestParam(name="id") Integer postsId,
+	         Integer id,
+	         Principal principal,
+	         Model model
+	         ) {
+	      CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
+	      List<PostsContent> postscontent = postsService.getPostsContent(postsId);
+	      PostsListView posts = postsService.getPostsinfoView(id);
+	      List<CmtListView> cmt = cmtService.getCmtList(postsId);
+	      List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+	      MemberInfoListView memberRole = crowdService.getMemberInfoRoleListView(crowdId, principal.getName());
+	      List<Good> goodList = postsService.getGood(postsId);
+	      int isGood = 0;
+	      for (int i = 0; i < goodList.size(); i++) {
+	         if(goodList.get(i).getMemberId().equals(principal.getName())) {
+	            isGood=1;
+	         }
+	      }
+	      String userId = principal.getName();   
+	      int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
+	      int affected = postsService.updatehit(id);
 
-		model.addAttribute("mRole", memberRole);
-		model.addAttribute("milv", milv);		
-		model.addAttribute("cmtcnt", cmtcnt);
-		model.addAttribute("crowd", crowd);
-		model.addAttribute("cmt",cmt);
-		model.addAttribute("pc", postscontent);
-		model.addAttribute("posts", posts);
-		model.addAttribute("uid",principal.getName());
-		int affected = postsService.updatehit(id);
-		return "crowd.ndetail";
-	}
+	      model.addAttribute("isGood", isGood);
+	      model.addAttribute("mRole", memberRole);
+	      model.addAttribute("milv", milv);      
+	      model.addAttribute("crowd", crowd);
+	      model.addAttribute("cmt",cmt);
+	      model.addAttribute("pc", postscontent);
+	      model.addAttribute("posts", posts);
+	      model.addAttribute("uid",userId);
+	      model.addAttribute("groupRole", groupRole);
+	      return "crowd.ndetail";
+	   }
 
 	@GetMapping("board")
 	public String board(

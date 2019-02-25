@@ -6,7 +6,7 @@
 <main>
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-<link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/groupalbumdetail.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/boarddetail.js"></script> 
 <script src="/resources/js/backpage.js"></script> 

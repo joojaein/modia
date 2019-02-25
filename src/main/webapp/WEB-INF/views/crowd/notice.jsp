@@ -38,7 +38,7 @@
 	<article class="content">
 	<div class="content-width">
 		<c:forEach var="p" items="${plist}">
-			<c:url value="bdetail" var="url">
+			<c:url value="ndetail" var="url">
 				<c:param name="crowd" value="${p.crowdId}" />
 				<c:param name="id" value="${p.id}" />
 			</c:url>
