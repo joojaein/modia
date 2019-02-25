@@ -776,7 +776,7 @@ $(function(e) {
                 }
              }
              resultRequest.send();
-
+  
           });
        var autoRequest = new XMLHttpRequest();
        autoRequest.open("GET","/crowd/searchResultList?word="+e.target.value,true); 
