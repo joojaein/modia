@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+ 
 <section class="click-profile-container">
         <div class="click-friend-profile">
             <div class="click-chat-profile-img">
@@ -53,14 +53,14 @@
 
         <section class="chat-container">
             <div class="chat-header">
-                <div data-id="friend-list" class="chat-list chat-visited">친구 목록</div>
-                <div data-id="message-list" class="chat-list">메시지 목록</div>
-                <div data-id="admin-list" class="chat-list">1:1문의</div>
+                <div data-id="friend-list" class="chat-list chat-visited friend-L">친구 목록</div>
+                <div data-id="message-list" class="chat-list message-L">메시지 목록</div>
+                <div data-id="admin-list" class="chat-list muni-L">1:1문의</div>
             </div>
             <form class="chat-search">
                 <fieldset>
                     <input class="chat-search-icon" type="submit" value="" />
-                    <input type="text" placeholder="Search">
+                    <input class="chat-search-input" type="text" placeholder="Search">
                 </fieldset>
             </form>
             <div class="friend-list-container">

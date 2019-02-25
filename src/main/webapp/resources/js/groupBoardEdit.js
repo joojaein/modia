@@ -59,7 +59,9 @@ window.addEventListener("load", function () {
 	   }
 	   if(!selectChk){
 		   select1.value = "게시판";
-	       select2.classList.remove("d-none");
+		   var hr = document.querySelector(".select-box hr");
+		   hr.classList.remove("d-none");
+		   select2.classList.remove("d-none");
 		   var opts2 = select2.querySelectorAll("option");
 		   for (var i = 0; i < opts2.length; i++) {
 			   if(opts2[i].value == boardId){

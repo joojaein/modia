@@ -137,7 +137,7 @@
 		select csd.* from CrowdSimpleDataView as csd
 		inner Join
 		(select * from CrowdTag where tagId=#{param1}) as cd on csd.id = cd.crowdId
- 		where csd.name like '%${word}%' or csd.content like '%${word}%'
+ 		where csd.name like '%${param2}%' or csd.content like '%${param2}%'
 	</select>
 
 	<select id="getLastCrowd" resultType="com.moida.web.entity.Crowd">

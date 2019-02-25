@@ -17,6 +17,9 @@ public interface FriendDao
 	//List<Friend> getFriendList(String myId);
 	List<Friend> getFriendList(String myId);
 	
+	//친구 검색
+	List<Friend> searchFriend(@Param("myId") String myId,@Param("searchText") String searchText);
+	
 	List<Friend> chkFriend(@Param("myId") String myId, @Param("memberId") String memberId);
 	
 	int insert(@Param("memberId") String myId,@Param("friendId") String friendId);
@@ -25,6 +28,7 @@ public interface FriendDao
 	
 	// friend를 위해
 	List<FriendDataView> getFriendData(@Param("id") String friendId);
+	
 	
 	
 	//친구 임

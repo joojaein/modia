@@ -38,7 +38,7 @@ public class GroupChattingController
 		
 	//	System.out.println("여기는 insert 후");
 		
-		return 1;
+		return affected;
 	}
 	
 	@PostMapping("get-groupChattingList")

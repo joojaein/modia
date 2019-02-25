@@ -50,7 +50,17 @@ function test1111(imgsMap)
 }
 
 
-
+$(function()
+{
+	document.querySelector(".group-chat-textarea").addEventListener('keydown',function(event)
+			{
+					if(event.keyCode==13)
+					{
+						event.preventDefault();
+						document.querySelector(".group-chat-send-button").click();
+					}
+			})
+})
 
 
 //그룹채팅 을 클릭하면 그 그룹에 대한 대화를 받아온다.
@@ -278,6 +288,138 @@ $(function()
 					var groupfrDate = groupftpl.querySelector(".group-chat-you-date");
 
 					groupfrId.innerText = getGroupChatListData[i].senderId;
+					// 그룹채팅에서 이미지를 눌렀을때 신고 하려고 만든 onclick   START
+					groupfrImg.onclick=function(e)
+					{
+						var targetting = e.target;
+				//		alert(targetting.className);
+						var targetParent = targetting.parentNode;
+				//		alert(targetParent.className);
+						var memberId = targetParent.querySelector(".group-you-id").innerText;
+				//		alert("memberId확인용 알터 : "+memberId);
+						
+						
+						
+						$(".click-profile-container").css({"display":"block"});
+						$(".click-friend-profile").css({"background":"rgb(231, 205, 211)"});
+			   			
+			   			//////////////신고 했는지 안했는지//////////////////////////////////////////////
+			   			
+			   			var groupChkRprt = new XMLHttpRequest();
+				        
+			//	          alert("open전");   
+				          
+			   			groupChkRprt.open("POST","/member/chk-rprtId",true);
+			   			groupChkRprt.setRequestHeader("Content-Type",
+				                                  "application/x-www-form-urlencoded");
+				                
+				                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+			   			groupChkRprt.onload = function()
+			             {
+			             
+			      //          alert("너의 아이디가 들려");
+			                
+			  //              var comeonmyid = JSON.parse(gomyid.responseText); 
+			//   				alert("신고 했나? : "+ groupChkRprt.responseText);
+			  //             $(".thisMyId").val(comeonmyid);
+			               $(".click-chat-rprt-button").text(groupChkRprt.responseText);
+			                
+			                
+			             }
+				             
+			   			groupChkRprt.send("rprtId="+memberId);
+			   			
+			   			
+			   			///////////////친구 인지 아닌지/////////////////////////////////////////
+			   			var groupChkFriend = new XMLHttpRequest();
+			   	        
+			   	        //  alert("open전");   
+			   	          
+			   			var selectMemberId =null;
+			   			
+			   			groupChkFriend.open("POST","/member/chk-friend",true);
+			   			groupChkFriend.setRequestHeader("Content-Type",
+			   	                                  "application/x-www-form-urlencoded");
+			   	                
+			   	        //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+			   			groupChkFriend.onload = function()
+			   	             {
+			   	             
+			   	      //          alert("너의 아이디가 들려");
+			   				//	alert(chkFriendData[0].length)
+			   					var jsontest = groupChkFriend.responseText;
+			   				
+			   	                var groupChkFriendData = JSON.parse(groupChkFriend.responseText); 
+			   					console.log(groupChkFriendData);
+			   				//	alert(chkFriendData.isNull("regDate"));
+			   				//	alert("1 : "+ chkFriendData.hasOwnProperty('regDate') );
+			   				//	alert("2 : "+ jsontest.hasOwnProperty('regDate') );
+			   				//	alert( $.inArray("regDate",chkFriendData) );
+			   					
+			   	          
+			   	                // 친구가 아닐 시
+			  	                if( groupChkFriendData.hasOwnProperty('regDate') )
+			   	                {
+			  	                	selectMemberId =groupChkFriendData.id;
+			  	                	
+			  	                	selectMemberId =groupChkFriendData.id;
+			   	                	
+			   	                	$(".click-chat-profile-id").text(groupChkFriendData.id);
+			   	                	$(".click-chat-profile-msg").text(groupChkFriendData.msg);
+			   	                	var fImg = document.querySelector(".click-chat-profile-img");
+			   	                	
+			   	                	fImg.style.backgroundImage =
+				                        "url(/get-img?folder=member-profile&file="+groupChkFriendData.img+")";
+			   	                	
+			   	                	$(".click-box-F-noF").text('친구추가');
+			   	                	
+			   	                	
+			   	                	
+			   	                }
+			   	                else
+			   	                {
+			   	                	$(".click-chat-profile-id").text(groupChkFriendData.id);
+			   	                	$(".click-chat-profile-msg").text(groupChkFriendData.msg);
+			   	                	var nofImg = document.querySelector(".click-chat-profile-img");
+			   	                	nofImg.style.backgroundImage =
+				                        "url(/get-img?folder=member-profile&file="+groupChkFriendData.img+")";
+			   	                	
+//			   	                	$(".click-chat-profile-img").style.backgroundImage =
+//				                        "url(/get-img?folder=member-profile&file="+chkFriendData.img+")";
+			   	                	
+			   	                	
+			   	                	
+			   	                	$(".click-box-F-noF").text('친구삭제');
+			   	                //	reChattingOn();
+			   	                	
+			   	                }
+			   	               
+			  	                
+			  	                
+			   	                
+			   	                
+			   	             }
+			   	             
+			   			groupChkFriend.send("memberId="+memberId);
+			   			
+			   			
+						
+						
+						
+						
+						
+						
+			   			
+			   			
+			   			
+					};
+					
+					// 그룹채팅에서 이미지를 눌렀을때 신고 하려고 만든 onclick   END
+					
+					
+					
+//					groupfrImg.replaceWith("<div class='group-you-img' onclick='groupchatImgClick();'></div>");
+//					editbtn.replaceWith("<input class='comment-add-btn' type='button' value='수정' onclick='commentedit();'/>");
 					groupfrImg.style.backgroundImage =
 						"url(/get-img?folder=member-profile&file="+getGroupChatListData[i].img+")";
 
@@ -304,6 +446,16 @@ $(function()
 
 
 			})
+
+			
+
+
+
+
+
+
+
+
 
 //			var testDiv = document.querySelector(".friend-list-container");
 //			testDiv.addEventListener("click", function(evt)
