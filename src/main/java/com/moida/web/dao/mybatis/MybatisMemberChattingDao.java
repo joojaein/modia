@@ -51,13 +51,13 @@ public class MybatisMemberChattingDao implements MemberChattingDao
 	}
 
 	@Override
-	public int insertRprtId(String rprtId, String myId, String rprtTitle, String rprtDetailContent) 
+	public int insertRprtId(RprtMember rprtMember) 
 	{
 		// TODO Auto-generated method stub
 		
 		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
-		
-		return memberChattingDao.insertRprtId(rprtId, myId, rprtTitle, rprtDetailContent);
+		System.out.println("인서트 ㅇㅇㅇㅇㅇㅇ");
+		return memberChattingDao.insertRprtId(rprtMember);
 	}
 	
 	@Override

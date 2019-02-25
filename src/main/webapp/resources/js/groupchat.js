@@ -307,7 +307,7 @@ $(function()
 			   			
 			   			var groupChkRprt = new XMLHttpRequest();
 				        
-				        //  alert("open전");   
+			//	          alert("open전");   
 				          
 			   			groupChkRprt.open("POST","/member/chk-rprtId",true);
 			   			groupChkRprt.setRequestHeader("Content-Type",

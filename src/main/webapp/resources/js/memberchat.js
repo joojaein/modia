@@ -2535,18 +2535,25 @@ function adminMemberChat()
 		// 친구 채팅 창에서 신고 function
         $(function()
 		{
+        	var rprtDetailContent =null;
+        	var rprtId = null;
+        	var rprtText = null;
+        	var rprtTitle = null;
         	
         	$(".chat-rprt-button").click(function()
 				{
 	        		
 	       // 		alert("신고 버튼을 눌렀다 : "+$(".chat-profile-id").text());
-	        		var rprtId = $(".chat-profile-id").text(); 
-	        		var rprtText = $(".chat-rprt-button").text();
+	        		rprtId = $(".chat-profile-id").text(); 
+	        		rprtText = $(".chat-rprt-button").text();
 	        		
 	        		if(rprtText=='신고 추가')
 	        		{
+	        			//alert("신기하네");
+	        			
+	        			
 		        		var chatSelects = document.querySelector("#chat-rprt-select");
-		        		var rprtTitle = null;
+		        		rprtTitle = null;
 		        		
 		        		$("#chat-rprt-select").on('change',function()
 						{
@@ -2554,44 +2561,7 @@ function adminMemberChat()
 		        			rprtTitle = chatSelects.options[chatSelects.selectedIndex].value;
 						})
 						
-						$(".chat-rprt-input").click(function()
-						{
-				//			alert("상세내용 : "+$(".chat-rprt-detailContent").val());
-							var rprtDetailContent = $(".chat-rprt-detailContent").val();
-							
-							var rprtInsert = new XMLHttpRequest();
-					        
-					        //  alert("open전");   
-					          
-							rprtInsert.open("POST","/member/insert-rprtId",true);
-							rprtInsert.setRequestHeader("Content-Type",
-					                                  "application/x-www-form-urlencoded");
-					                
-					                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-							rprtInsert.onload = function()
-					             {
-					             
-								 $(".chat-rprt").css({ "bottom": "-120%" });
-								 $(".chat-rprt-detailContent").val('');
-						         $("#chat-rprt-select option:eq(0)").prop("selected",true);
-						         $(".screen").remove();
-						         $(".chat-rprt-button").text('신고 해제')
-						         
-					      //          alert("너의 아이디가 들려");
-					                
-					       //         var rprtSuccess = JSON.parse(rprtInsert.responseText); 
-					          
-					          //     $(".thisMyId").val(comeonmyid);
-					               
-					                
-					                
-					             }
-					             
-							rprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
-							
-							
-							
-						})
+						
 	
 	        		}
 	        		else if(rprtText=='신고 해제')
@@ -2600,7 +2570,7 @@ function adminMemberChat()
 				         
 	        			var rprtDelete = new XMLHttpRequest();
 				        
-				        //  alert("open전");   
+				        // alert("open전");   
 				          
 	        			rprtDelete.open("POST","/member/delete-rprtId",true);
 	        			rprtDelete.setRequestHeader("Content-Type",
@@ -2629,13 +2599,51 @@ function adminMemberChat()
 	        			
 	        		}
 	        		
-				})
+				}) ///
         	
 			
+	        		$(".chat-rprt-input").click(function()
+							{
+					//			alert("상세내용 : "+$(".chat-rprt-detailContent").val());
+								rprtDetailContent = $(".chat-rprt-detailContent").val();
+								
+								var rprtInsert = new XMLHttpRequest();
+						        
+						        //  alert("open전");   
+						          
+								rprtInsert.open("POST","/member/insert-rprtId",true);
+								rprtInsert.setRequestHeader("Content-Type",
+						                                  "application/x-www-form-urlencoded");
+						                
+						                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+								rprtInsert.onload = function()
+						             {
+						             
+									 $(".chat-rprt").css({ "bottom": "-120%" });
+									 $(".chat-rprt-detailContent").val('');
+							         $("#chat-rprt-select option:eq(0)").prop("selected",true);
+							         $(".screen").remove();
+							         $(".chat-rprt-button").text('신고 해제')
+							         
+						      //          alert("너의 아이디가 들려");
+						                
+						       //         var rprtSuccess = JSON.parse(rprtInsert.responseText); 
+						          
+						          //     $(".thisMyId").val(comeonmyid);
+						               
+						                
+						                
+						             }
+						             
+								rprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
+								
+								
+								
+							})
 			
 			
 			
-		})
+		}) // @@
 		
 		//그냥 사이트 상에서 이미지를 눌렀을 때 신고
 		$(function()
@@ -2644,22 +2652,24 @@ function adminMemberChat()
 		//	var rprtId = $(".click-chat-profile-id").text();
     		
     		
-    		
-				
+			var rprtId=null;
+			var rprtTitle = null;
+			var rprtDetailContent =null;
 				$(".click-chat-rprt-button").click(function()
 				{
-					
+					rprtId = $(".click-chat-profile-id").text();
 					if($(".click-chat-rprt-button").text()=='신고 추가')
 		    		{
-						
-					//	alert($(".click-chat-rprt-button").text());
+		//				alert("dddddddd");
+		//				$(".click-chat-rprt").css({ "bottom": "150px" });
+		//				alert($(".click-chat-rprt-button").text());
 						
 				//		alert("click 신고");
 						
-						var rprtId = $(".click-chat-profile-id").text();
+						//var rprtId = $(".click-chat-profile-id").text();
 		        		var chatSelects = document.querySelector("#click-chat-rprt-select");
-		        		
-		        		var rprtTitle = null;
+		//        		alert(rprtId);
+		        		 rprtTitle = null;
 		        		
 		        		$("#click-chat-rprt-select").on('change',function()
 						{
@@ -2667,52 +2677,17 @@ function adminMemberChat()
 		        			rprtTitle = chatSelects.options[chatSelects.selectedIndex].value;
 						})
 						
-						$(".click-chat-rprt-input").click(function()
-						{
-				//			alert("상세내용 : "+$(".click-chat-rprt-detailContent").val());
-							var rprtDetailContent = $(".click-chat-rprt-detailContent").val();
-							
-							var clickRprtInsert = new XMLHttpRequest();
-					        
-					        //  alert("open전");   
-					          
-							clickRprtInsert.open("POST","/member/insert-rprtId",true);
-							clickRprtInsert.setRequestHeader("Content-Type",
-					                                  "application/x-www-form-urlencoded");
-					                
-					                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-							clickRprtInsert.onload = function()
-					             {
-									$(".click-chat-rprt-button").text('신고 해제');
-							         $(".click-chat-rprt").css({ "bottom": "-120%" });
-							         $(".click-chat-rprt-detailContent").val('');
-							         $("#click-chat-rprt-select option:eq(0)").prop("selected",true);
-							         screenrprt.remove();
-							         
-							         
-					      //          alert("너의 아이디가 들려");
-					                
-					    //            var rprtSuccess = JSON.parse(clickRprtInsert.responseText); 
-					          
-					          //     $(".thisMyId").val(comeonmyid);
-					               
-					                
-					                
-					             }
-					             
-							clickRprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
-							
-							
+						 rprtDetailContent =null;
 						
-						})
+						
 		    		}
 					else if($(".click-chat-rprt-button").text()=='신고 해제')
 		    		{
-					//	alert($(".click-chat-rprt-button").text());
-		    			
+		//				alert($(".click-chat-rprt-button").text());
+		//				alert(rprtId);
 		    			var clickRprtDelete = new XMLHttpRequest();
 				        
-				        //  alert("open전");   
+		//		          alert("신고 해제 클릭 전");   
 				          
 		    			clickRprtDelete.open("POST","/member/delete-rprtId",true);
 		    			clickRprtDelete.setRequestHeader("Content-Type",
@@ -2733,13 +2708,58 @@ function adminMemberChat()
 					               
 				             }
 				             
-		    			clickRprtDelete.send("rprtId="+"dbfk");
+		    			clickRprtDelete.send("rprtId="+rprtId);
 		    			
 		    		}
+					
+					
+					////////////////////////////////////////////////////////////
+					
+					
+					
+					
+					//////////////////////////////////////////////////////////
 				})
     		
     		
-    		
+    		$(".click-chat-rprt-input").click(function()
+							{
+				//				alert("2만");
+					//			alert("상세내용 : "+$(".click-chat-rprt-detailContent").val());
+								rprtDetailContent = $(".click-chat-rprt-detailContent").val();
+								
+								var clickRprtInsert = new XMLHttpRequest();
+						        
+						        //  alert("open전");   
+						          
+								clickRprtInsert.open("POST","/member/insert-rprtId",true);
+								clickRprtInsert.setRequestHeader("Content-Type",
+						                                  "application/x-www-form-urlencoded");
+						                
+						                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+								clickRprtInsert.onload = function()
+						             {
+										$(".click-chat-rprt-button").text('신고 해제');
+								         $(".click-chat-rprt").css({ "bottom": "-120%" });
+								         $(".click-chat-rprt-detailContent").val('');
+								         $("#click-chat-rprt-select option:eq(0)").prop("selected",true);
+								       //  screenrprt.remove();
+								         
+								         
+						      //          alert("너의 아이디가 들려");
+						                
+						    //            var rprtSuccess = JSON.parse(clickRprtInsert.responseText); 
+						          
+						          //     $(".thisMyId").val(comeonmyid);
+						               
+						                
+						                
+						             }
+						             
+								clickRprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
+								
+								
+							})
     		
     		
 		});

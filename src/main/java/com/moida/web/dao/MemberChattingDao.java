@@ -25,15 +25,13 @@ public interface MemberChattingDao
 	
 	
 	
-	int insertRprtId(
-					@Param("rprtId") String rprtId,
-					@Param("myId") String myId,
-					@Param("rprtTitle") String rprtTitle,
-					@Param("rprtDetailContent") String rprtDetailContent);
+	int insertRprtId(RprtMember rprtMember);
+//					@Param("rprtId") String rprtId,
+//					@Param("myId") String myId,
+//					@Param("rprtTitle") String rprtTitle,
+//					@Param("rprtDetailContent") String rprtDetailContent);
 	
-	int deleteRprtId(
-			@Param("rprtId") String rprtId,
-			@Param("myId") String myId );
+	int deleteRprtId(String rprtId, String myId );
 	
 	
 }
