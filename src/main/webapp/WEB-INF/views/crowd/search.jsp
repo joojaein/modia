@@ -7,6 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <script>
 window.addEventListener("load",function(){
@@ -787,7 +788,7 @@ $(function(e) {
              li.onclick = function(e){
                 window.location.href="/crowd/main?crowd="+e.target.getAttribute("data-id");
              }
-             li.innerText = "제목 : "+nameList[i].name+" / 내용 : "+nameList[i].content.substring(1,5)+" / 카테고리 : " + nameList[i].categoryId;
+             li.innerHTML = "<span><i class='fa fa-hand-o-right'></i></span>"+nameList[i].name + " : "+ nameList[i].content;
              li.setAttribute("data-id",nameList[i].id);
              autoBox.append(li);               
           }

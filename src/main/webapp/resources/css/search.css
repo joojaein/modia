@@ -436,12 +436,12 @@ content: "";
 }
 
 .grid-header div {
-	width: 40%;
+	width: 90%;
 	text-align: center;
 	border: 1px solid;
 	margin: auto;
 	border-radius: 5px;
-	font-size: 16px;
+ 	font-size: 16px;
 	background: #4f4f4f;
 	color : white;
 	filter : drop-shadow(1px 1px black);
@@ -462,7 +462,7 @@ content: "";
     text-align: center;
     border: 1px solid;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     background: #4f4f4f;
     color: white;
     filter: drop-shadow(1px 1px black);
@@ -470,6 +470,7 @@ content: "";
     line-height: 30px;
     letter-spacing: 7px;
     opacity : 1;
+	letter-spacing: 1px;
 }
 .grid-category div:hover, .grid-header div:hover{
 	transition : .2s linear;
@@ -687,5 +688,53 @@ content: "";
 }
 .calist {
 	font-size: 13px;
+	}
+
+.grid-header {
+	grid-area: header;
+	margin: 10px 0px 5px 0px;
+}
+
+.grid-header div {
+	width: 40%;
+	text-align: center;
+	border: 1px solid;
+	margin: auto;
+	border-radius: 5px;
+ 	font-size: 16px;
+	background: #4f4f4f;
+	color : white;
+	filter : drop-shadow(1px 1px black);
+	height: 30px;
+    line-height: 30px;
+    letter-spacing : 10px;
+}
+
+.grid-category {
+	grid-area: content;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	margin: 0px 5px 0px 5px;
+}
+
+.grid-category div{
+    margin: 3px;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #4f4f4f;
+    color: white;
+    filter: drop-shadow(1px 1px black);
+    height: 30px;
+    line-height: 30px;
+    letter-spacing: 7px;
+    opacity : 1;
+}
+.grid-category div:hover, .grid-header div:hover{
+	transition : .2s linear;
+	box-shadow: 3px 2px 20px 0px rgba(0,0,0,0.75);
+	transform : perspective(600px) translate3d(0px,0px,10px);
+    border-bottom: 1px solid;
 }
 }

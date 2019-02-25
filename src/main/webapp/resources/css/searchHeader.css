@@ -37,16 +37,10 @@
 	margin-top : 4px;
 	text-align: center;
 }
-
-::placeholder {
-	text-indent: 5px;
-	font-size: 12px;
-	color: black;
-}
-.autoBox{
-	transform : translateY(-30px);
-	background: white;
-width: 100%;
+	.autoBox{
+	transform : translateY(-10px);
+	background: #d9d9d9;
+	width: 100%;
     margin: auto;
     max-width: 1000px;
     height: auto;
@@ -55,14 +49,18 @@ width: 100%;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     	    box-shadow: 2px 2px 10px;
+    	        font-size: 15px;
 }
 .autoBox li{
 	text-align : left;
 	margin-left : 10px;
 	border : 0 0 0 1px solid;
 	cursor : pointer;
-	height : 50px;
-	line-height : 50px;
+    height: 30px;
+    line-height: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
 }
 .autoBox li::before{
@@ -75,13 +73,29 @@ width: 100%;
 .autoBox li:hover, .autoBox li:hover .autoBox li::before{
 	transition : .2s linear;
 	box-shadow: 3px 2px 20px 0px rgba(0,0,0,0.75);
-	background: white;
+	background: #d9d9d9;
 	transform : perspective(600px) translate3d(-5px,0px,10px);
     border-bottom: 1px solid;
 }
-@media ( min-width : 480px){
-	header{
-		border-bottom : 1px gray solid;
+.autoBox li span{
+	width: 30px;
+    height: 30px;
+    display: block;
+    float: left;
+}
+.autoBox li span i{
+	width: 100%;
+    height: 100%;
+}
+::placeholder {
+	text-indent: 5px;
+	font-size: 12px;
+	color: black;
+}
+
+@media ( min-width : 480px) {
+	header {
+		border-bottom: 1px gray solid;
 	}
 	#headerSearch {
 		width: 350px;
@@ -100,36 +114,128 @@ width: 100%;
 		margin-top: 6px;
 		text-align: center;
 	}
-}
-@media( min-width : 721px){
-	#headerMake{
-    	margin-top: 15px;
-    		    	    box-shadow: 2px 2px 10px;
-    		    	    background : #ffffff;
+	.autoBox {
+		transform: translateY(-5px);
+		background: #d9d9d9;
+		width: 100%;
+		margin: auto;
+		max-width: 1000px;
+		height: auto;
+		z-index: 10000;
+		position: relative;
+		border-bottom-right-radius: 10px;
+		border-bottom-left-radius: 10px;
+		box-shadow: 2px 2px 10px;
+		font-size: 15px;
 	}
-	
+	.autoBox li {
+		text-align: left;
+		margin-left: 10px;
+		border: 0 0 0 1px solid;
+		cursor: pointer;
+		height: 30px;
+		line-height: 30px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.autoBox li::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		border-bottom: 1px solid;
+		width: 100%;
+	}
+	.autoBox li:hover, .autoBox li:hover .autoBox li::before {
+		transition: .2s linear;
+		box-shadow: 3px 2px 20px 0px rgba(0, 0, 0, 0.75);
+		background: #d9d9d9;
+		transform: perspective(600px) translate3d(-5px, 0px, 10px);
+		border-bottom: 1px solid;
+	}
+}
+
+@media ( min-width : 721px) {
+	#headerMake {
+		margin-top: 15px;
+		box-shadow: 2px 2px 10px;
+		background: #ffffff;
+	}
 	#headerSearch {
 		text-align: center;
 		width: 100%;
 		height: 100%;
 	}
-	
-	#headerSearch input {	
-	    vertical-align: super;
-	    width: 100%;
-	    max-width: 1000px;
+	#headerSearch input {
+		vertical-align: super;
+		width: 100%;
+		max-width: 1000px;
 		height: 40px;
-		background: url(/resources/images/searchIcon.png) no-repeat 9px 9px white;
+		background: url(/resources/images/searchIcon.png) no-repeat 9px 9px
+			white;
 		background-size: 25px 25px;
-   		text-indent: 40px;
-	    font-size: 20px;	
-        margin-top: 15px;
-            box-shadow: 2px 2px 10px;
-	    
+		text-indent: 40px;
+		font-size: 20px;
+		margin-top: 15px;
+		box-shadow: 2px 2px 10px;
 	}
-
+	.autoBox {
+		transform: translateY(-30px);
+		background: white;
+		width: 100%;
+		margin: auto;
+		max-width: 1000px;
+		height: auto;
+		z-index: 10000;
+		position: relative;
+		border-bottom-right-radius: 10px;
+		border-bottom-left-radius: 10px;
+		box-shadow: 2px 2px 10px;
+	}
+	.autoBox li {
+		text-align: left;
+		margin-left: 10px;
+		border: 0 0 0 1px solid;
+		cursor: pointer;
+		height: 50px;
+		line-height: 50px;
+	}
+	.autoBox li::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		border-bottom: 1px solid;
+		width: 100%;
+	}
+	.autoBox li:hover, .autoBox li:hover .autoBox li::before {
+		transition: .2s linear;
+		box-shadow: 3px 2px 20px 0px rgba(0, 0, 0, 0.75);
+		background: white;
+		transform: perspective(600px) translate3d(-5px, 0px, 10px);
+		border-bottom: 1px solid;
+	}
 	#headerSearch input::placeholder {
 		text-indent: 40px;
-	    font-size: 20px;	
+		font-size: 20px;
+	}
+}
+@media ( max-width : 1100px) and (min-width : 722px) {
+	#headerSearch {
+		text-align: center;
+		width: 100%;
+		height: 100%;
+	}
+		#headerSearch input {
+		vertical-align: super;
+		width: 100%;
+		max-width: 1000px;
+		height: 40px;
+		background: url(/resources/images/searchIcon.png) no-repeat 9px 9px
+			white;
+		background-size: 25px 25px;
+		text-indent: 40px;
+		font-size: 20px;
+		margin-top: 15px;
+		box-shadow: 2px 2px 10px;
 	}
 }
