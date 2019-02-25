@@ -143,6 +143,14 @@ public class MoidaFriendService implements FriendService
 		// TODO Auto-generated method stub
 		return friendDao.getMyFriendData(friendId);
 	}
+
+
+	@Override
+	public List<Friend> searchFriend(String myId, String searchText) 
+	{
+		// TODO Auto-generated method stub
+		return friendDao.searchFriend(myId, searchText);
+	}
 	
 	
 }

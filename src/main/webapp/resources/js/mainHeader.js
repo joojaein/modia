@@ -39,7 +39,8 @@ window.addEventListener("load",function(){
             	
             }else if(btnName=="qna"){
             	
-            }else{
+            }
+            else{
             	window.location.href = "/"+btnName;
             }
             // /////////////////////////////////////

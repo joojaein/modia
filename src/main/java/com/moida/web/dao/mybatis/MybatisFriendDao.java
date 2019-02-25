@@ -152,6 +152,16 @@ public class MybatisFriendDao implements FriendDao
 		
 		return friendDao.getMyFriendData(friendId);
 	}
+
+	@Override
+	public List<Friend> searchFriend(String myId, String searchText) 
+	{
+		// TODO Auto-generated method stub
+		
+		FriendDao friendDao =session.getMapper(FriendDao.class);
+		
+		return friendDao.searchFriend(myId, searchText);
+	}
 	
 	
 

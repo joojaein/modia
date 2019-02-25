@@ -34,14 +34,14 @@ video{
 }
 
 .overlay p {
-	font-size: 300px;
-	font-weight: 800;
+    font-size: 200px;
+    font-weight: 800;
 }
 
 .screen {
 	color: #323232;
 	position: absolute;
-	top: 12%;
+	top: 30%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -223,7 +223,7 @@ top: 0;
 }
 .category-list ul li a span:nth-child(1)::after {
     content: "";
-/*     position: absolute; */
+    position: absolute;
     border-top: 1px solid;
     border-right: 1px solid;
     width: 10px;
@@ -541,6 +541,7 @@ content: "";
 } */
 	.content-detail{
 	    padding-left: 10px;
+	  	padding-right: 10px;
 	}
 /* 	} */
 .content-detail h4 {

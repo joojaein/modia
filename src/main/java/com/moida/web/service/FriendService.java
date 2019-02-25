@@ -2,6 +2,8 @@ package com.moida.web.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.moida.web.entity.AdminChatMemberView;
 import com.moida.web.entity.Friend;
 import com.moida.web.entity.FriendDataView;
@@ -18,6 +20,8 @@ public interface FriendService
 	
 	List<Friend> chkFriend(String myId,String memberId);
 	
+	List<Friend> searchFriend(String myId,String searchText);
+
 	
 	// ====위에서 구한 친구목록 및 사이즈를 이용해서 
 	// ==== Member테이블에서 각 친구의 msg와 img를 가져오기 위한 메스ㅗ드 .

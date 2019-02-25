@@ -2,19 +2,17 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> -->
 
-<link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/search.css" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-	        <script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
-
+<link rel="stylesheet" type="text/css" media="screen" href="/resources/css/search.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 
 <script>
 window.addEventListener("load",function(){
 	fadeOut();
+	var x = document.querySelector("video");
+	x.playbackRate = 2;
 	$('html, body').animate({scrollTop: 0}, 300);
 /*     TweenMax.staggerFromTo(contentbox, 1, {scale:0.1, opacity:0},{ delay:5, scale:1, opacity:1}, 0.3); */
 })
@@ -531,7 +529,7 @@ $(function(e) {
        
        }
     })
-
+ 
     mainul.find("li").click(function() {
                    if (!chk) {
                       mainul.find("li").find("ul").css({

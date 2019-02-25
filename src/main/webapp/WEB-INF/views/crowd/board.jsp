@@ -58,50 +58,42 @@
 		</div>
 	</section>
 	<template id="tem"> 
-		<div class="content-width">
-		<c:forEach var="p" items="${plist}">
-			<c:url value="board/bdetail" var="url">
-				<c:param name="crowd" value="${p.crowdId}" />
-				<c:param name="id" value="${p.id}" />
-			</c:url>
-			<div class="content-box">
+	<div class="content-width">
+		<div class="content-box">
 				<div class="etc-box">
 					<div class="profile-box">
-						<div onclick="imgClick('${p.writerId}');" class="photo" style="background: url('/get-img?folder=crowd-postsImg&file=${p.img}') no-repeat center; background-size: cover;"></div>
+						<div class="photo"></div>
 						<div class="profile-info">
-							<span class="name">${p.writerId}</span>
+							<span class="name"></span>
 						</div>
 					</div>
 					<div class="content-title">
-						<a href="${url}">${p.title}</a>
+						<a href="${url}"></a>
 					</div>
 					<p class="content-content" style="margin: 0;">
-						<a href="${url}">${p.content}</a>
+						<a href="${url}"></a>
 					</p>
 				</div>
 				<div class="img-box">
 					<div class="pi-box">
-						<a href="${url}"><img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
+						<a href="${url}"><img class="post-img"/></a>
 					</div>
 				</div>
 			</div>
 			<div class="timeview">
-				<span class="reg-write"><a href="${url}"></a></span> 
-				<a href="${url}"><span>조회수 
-				<span class="hit" style="color: red;">
-				</span></span></a> 
-				<a href="${url}"><span>댓글수
-				<span class="comment-cnt" style="color: red;"></span></span></a>
+				<span class="reg-write">
+				<a href="${url}"></a></span> 
+				<a href="${url}"><span>조회수 <span class="hit" style="color: red;"></span></span></a> 
+				<a href="${url}"><span>댓글수<span class="comment-cnt" style="color: red;"></span></span></a>
+			</div>
 			</div>
 			<hr />
 			<input class="pid" type="hidden" value="p.id" />
-		</c:forEach>
-		</div>
 	</template>
 	<article class="content">
 	<div class="content-width">
 		<c:forEach var="p" items="${plist}">
-			<c:url value="board/bdetail" var="url">
+			<c:url value="bdetail" var="url">
 				<c:param name="crowd" value="${p.crowdId}" />
 				<c:param name="id" value="${p.id}" />
 			</c:url>
@@ -122,17 +114,22 @@
 				</div>
 				<div class="img-box">
 					<div class="pi-box">
-						<a href="${url}"><img class="post-img"
-							src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
-					</div>
+							<c:choose>
+								<c:when test="${empty p.mainImg}">
+									<img style="display: none;" class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" />
+								</c:when>
+								<c:otherwise>
+									<a href="${url}"><img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
+								</c:otherwise>
+							</c:choose>
+						</div>
 				</div>
 			</div>
 			<div class="timeview">
-				<span class="reg-write"><a href="${url}"> <fmt:formatDate
-							value="${p.regDate}" pattern="yyyy-MM-dd a HH:mm" /></a></span> <a
-					href="${url}"><span>조회수 <span class="hit"
-						style="color: red;">[${p.hit}]</span></span></a> <a href="${url}"><span>댓글수<span
-						class="comment-cnt" style="color: red;">[${p.cmtCnt}]</span></span></a>
+				<span class="reg-write"><a href="${url}"> 
+				<fmt:formatDate value="${p.regDate}" pattern="yyyy-MM-dd a HH:mm" /></a></span> 
+				<a href="${url}"><span>조회수 <span class="hit" style="color: red;">[${p.hit}]</span></span></a>
+				<a href="${url}"><span>댓글수 <span class="comment-cnt" style="color: red;">[${p.cmtCnt}]</span></span></a>
 			</div>
 			<hr />
 			<input class="pid" type="hidden" value="p.id" />

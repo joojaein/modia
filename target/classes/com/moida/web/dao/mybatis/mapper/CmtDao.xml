@@ -20,4 +20,12 @@
 		insert into Cmt(postsId, content, writerId) values(#{postsId},#{content},#{writerId});
 	</insert>
 	
+	<delete id="deleteCmt" parameterType="com.moida.web.entity.Cmt">
+			delete from Cmt where id = #{id};
+	</delete>
+	
+	<update id="updateCmt" parameterType="com.moida.web.entity.Cmt">
+	update Cmt set content = #{param2} where id = #{param1};
+	</update>
+	
 </mapper>

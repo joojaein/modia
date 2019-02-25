@@ -11,27 +11,29 @@
       
         <div class="wrapper">
             <section class="main-head">
-                <nav>
-                    <div>
-                        <a href="main?crowd=${crowd.id}">정보</a>
-                    </div>
-                    <div>
-                        <a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
-                    </div>
-                    <div>
-                        <a href="calendar?crowd=${crowd.id}">일정</a>
-                    </div>
-                    <div>
-                        <a href="board?t=1&crowd=${crowd.id}">게시판</a>
-                    </div>
-                    <div>
-                        <a href="album?t=2&crowd=${crowd.id}">사진첩</a>
-                    </div>
-                    <div>
-						<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
-                    </div>
-                </nav>
-            </section>
+	<div>
+		<nav>
+			<div>
+				<a href="main?crowd=${crowd.id}">정보</a>
+			</div>
+			<div>
+				<a href="notice?t=0&crowd=${crowd.id}">공지사항</a>
+			</div>
+			<div>
+				<a href="calendar?crowd=${crowd.id}">일정</a>
+			</div>
+			<div>
+				<a href="board?t=1&crowd=${crowd.id}">게시판</a>
+			</div>
+			<div>
+				<a href="album?t=2&crowd=${crowd.id}">사진첩</a>
+			</div>
+			<div>
+				<a class="groupChat" href="groupchat?crowd=${crowd.id}">단체채팅</a>
+			</div>
+		</nav>
+	</div>
+	</section>
             <div class="content-img">
             <input class="group-chat-myId" type="hidden" value="" />
             <input class="group-chat-groupId" type="hidden" value="" />
@@ -50,7 +52,7 @@
             </template>
             <template id="group-chat-you-tpl">
 	            <div class="group-chat-you">
-	                <div class="group-you-img"></div>
+ 	                <div class="group-you-img"></div>
 	                <span class="group-you-id"></span>
 	                <div class="group-you-chatting">
 	                    <div class="group-you-txt" name="" id="aaaa" cols="35" rows="3">

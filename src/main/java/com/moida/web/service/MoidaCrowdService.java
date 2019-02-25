@@ -255,4 +255,9 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getMemberInfoListView(crowdId);
 	}
 
+	public MemberInfoListView getMemberInfoRoleListView(Integer crowdId, String name) {
+		// TODO Auto-generated method stub
+		return crowdDao.getMemberInfoRoleListView(crowdId, name);
+	}
+
 }

@@ -21,11 +21,9 @@
             $(function()
     		{
             	
-            	
-            	
-            	
             	var testDiv = document.querySelector(".friend-list-container");
-            	testDiv.addEventListener("click", function(evt){
+            	testDiv.addEventListener("click", function(evt)
+    			{
             		if(!evt.target.classList.contains("friend-img")) return;
             		
             		
@@ -146,18 +144,18 @@
      screenrprt.classList.add("screen");
      $(".chat-rprt-button").click(function () {
          $("#aside-div").append(screenrprt);
-         $(".chat-rprt").css({ "top": "10%" });
+         $(".chat-rprt").css({ "bottom": "120px" });
 
      });
      $(".chat-rprt-exit").click(function () {
-         $(".chat-rprt").css({ "top": "-120%" });
+         $(".chat-rprt").css({ "bottom": "-120%" });
          screenrprt.remove();
      });
      if( matchMedia("screen and (min-width:361px)").matches )
      {
     	 $(".chat-rprt-button").click(function () {
              $("#aside-div").append(screenrprt);
-             $(".chat-rprt").css({ "top": "40%" });
+             $(".chat-rprt").css({ "bottom": "150px" });
 
          });
      }
@@ -165,17 +163,17 @@
      {
     	 $(".chat-rprt-button").click(function () {
              $("#aside-div").append(screenrprt);
-             $(".chat-rprt").css({ "top": "10%" });
+             $(".chat-rprt").css({ "bottom": "120px" });
 
          });
      }
      $(".click-chat-rprt-button").click(function () {
         // $("#aside-div").append(screenrprt);
-         $(".click-chat-rprt").css({ "top": "10%" });
+         $(".click-chat-rprt").css({ "bottom": "150px" });
 
      });
      $(".click-chat-rprt-exit").click(function () {
-         $(".click-chat-rprt").css({ "top": "-120%" });
+         $(".click-chat-rprt").css({ "bottom": "-120%" });
       //   screenrprt.remove();
      });
 
@@ -187,18 +185,21 @@
             screenrprt.classList.add("screen");
             $(".rprt-button").click(function () {
                 $("#aside-div").append(screenrprt);
-                $(".rprt").css({ "top": "20%" });
+                $(".rprt").css({ "bottom": "20%" });
 
             });
             $(".rprt-exit").click(function () {
-                $(".chat-rprt").css({ "top": "-120%" });
+                $(".chat-rprt").css({ "bottom": "-120%" });
                 screenrprt.remove();
             });
 
         });
 
         $(function () {
-            $(".message-detail").click(function () {
+            $(".member-detail").click(function () {
+            	
+            	$(".chat-window-main").empty();
+            	
                 $(".chat-window").animate({
                     left: "0"
                 })
@@ -213,6 +214,8 @@
 
         $(function () {
             $(".adminmessage-detail").click(function () {
+            	$(".chat-window-main").empty();
+            	
                 $(".admin-chat-window").animate({
                     left: "0"
                 })
@@ -800,7 +803,7 @@
         		if(!evt.target.classList.contains("admin-list-detail")) return;
         		$(".chat-window-main").empty();
         		
-       // 		alert($(".adminImg").val());
+   //     		alert("관리자 사진이나와야함 : "+$(".adminImg").val());
         		
         //		alert("여기는 admin 과의 대화를 하는 곳");
         		
@@ -1036,7 +1039,7 @@
 								
 								frId.innerText = getmemberAdminChattingList[i].id;
 								frImg.style.backgroundImage = 
-									"url(/get-img?folder=member-profile&file="+getmemberAdminChattingList[i].img+")";
+									"url(/get-img?folder=member-profile&file="+friendImg+")";
 								frTxta.innerText = getmemberAdminChattingList[i].content;
 								frDate.innerText=chatDate;
 								
@@ -1090,7 +1093,7 @@ function adminMemberChat()
     		var target = evt.target;
     		
     	//	alert("내가 누른아이의 className :"+target.className);
-    		alert("친구아이디인데 어디민 떠ㅑ함ㅁ"+target.querySelector(".adminfriend-id").innerText);
+    //		alert("친구아이디인데 어디민 떠ㅑ함ㅁ"+target.querySelector(".adminfriend-id").innerText);
  //   		var parent = target.parentNode.parentNode;
     		var friendId = target.querySelector(".adminfriend-id").innerText;
 //    		alert("친구아이디인데 어디민 떠ㅑ함ㅁ"+friendId);
@@ -1099,7 +1102,7 @@ function adminMemberChat()
     	//	alert(friendImg);
     		
     		
-    		$(".chat-fr-img").val(friendImg);
+    		$(".admin-chat-fr-img").val(friendImg);
     //		alert(friendId.innerText);
     		
     		// 내가 선택한 대화상대의 ID 를 보기 위한 alert 이다.
@@ -1497,6 +1500,11 @@ function adminMemberChat()
 //	   					+"받는이 : "+receiverId+" / "
 //	   					+"내용 : "+chatcontent);
 	   			
+	   			if(receiverId == $(".thisMyId").val())
+	   			{
+	   				$("#open-chat").css({"animation":"1s shiny infinite"});
+	   			}
+	   			
 	   			
 	   			if( (chatcontent!=null && chatcontent!="") || chatcontent!=="undefined")
 	   			{
@@ -1570,7 +1578,7 @@ function adminMemberChat()
 						var ajxfrtpl = document.querySelector("#friend-chat-txt");
 						var ajxchatarea = document.querySelector(".chat-window-main");
 				   			
-						alert("여기는 어드민이 아닐때"+$(".thisMyId").val());
+				//		alert("여기는 어드민이 아닐때"+$(".thisMyId").val());
 						
 				 //  			alert("내가 선택한 친구의 이미지 경로 : "+$(".chat-fr-img").val());
 				   		// template 들과 채팅을 append 할 textarea
@@ -1596,13 +1604,20 @@ function adminMemberChat()
 								
 								
 								ajxfrId.innerText = senderId;
-								ajxfrImg.style.backgroundImage = $(".chat-fr-img").val();
+								if(senderId!="admin")
+								{
+									ajxfrImg.style.backgroundImage = $(".chat-fr-img").val();
+								}
+								else
+								{
+									ajxfrImg.style.backgroundImage ="url(/get-img?folder=member-profile&file="+$(".adminImg").val()+")";
+								}
 								ajxfrTxta.innerText = chatcontent;
 								ajxfrDate.innerText= ajxtodayDay;
 								
 								ajxchatarea.append(ajxftpl);
 								
-					   			
+								
 					   		}
 				   			else if( ( senderId==$(".thisMyId").val() ) && ( receiverId== $(".friend-chatting-roomname").text() ) )
 				   			{
@@ -1641,7 +1656,9 @@ function adminMemberChat()
 								var resetTextArea = document.querySelector(".chat-textarea").value;
 								
 							//	alert($(".chat-textarea").val());
-								$(".chat-textarea").val('');
+								
+							//	$(".chat-textarea").val('');
+								
 			//					alert($(".chat-textarea").val());
 			//					resetTextArea="";
 								
@@ -1656,10 +1673,10 @@ function adminMemberChat()
 					}
 					else if($(".thisMyId").val()=='admin')
 					{
-						alert("어드민인 경우 들어옴 : "+$(".thisMyId").val());
+					//	alert("어드민인 경우 들어옴 : "+$(".thisMyId").val());
 						
 			   			
-						 //  			alert("내가 선택한 친구의 이미지 경로 : "+$(".chat-fr-img").val());
+						  // 			alert("내가 선택한 친구의 이미지 경로 : "+$(".admin-chat-fr-img").val());
 						   		// template 들과 채팅을 append 할 textarea
 						   			var adajxmytpl = document.querySelector("#admin-my-chat-txt");
 									var adajxfrtpl = document.querySelector("#admin-friend-chat-txt");
@@ -1676,7 +1693,12 @@ function adminMemberChat()
 						  // 			alert($(".friend-chatting-roomname").text());
 						   			if( ( senderId==$(".admin-chatting-roomname").text() ) && ( receiverId==$(".thisMyId").val() ) )
 						   			{
-							   			var adajxftpl = document.importNode(ajxfrtpl.content,true);
+						   //				alert("회원이 보냄");
+						  // 				alert("회원 아이디가 나와야함 : "+$(".admin-chatting-roomname").text());
+						   	//			alert("소켓에 울린 보낸아이디 : "+senderId)
+						   				
+						   	//			alert("이거 뭐임 ????? : "+$(".admin-chat-fr-img").val())
+							   			var adajxftpl = document.importNode(adajxfrtpl.content,true);
 										var adajxfrId = adajxftpl.querySelector(".admin-friend-chat-id");
 										var adajxfrImg = adajxftpl.querySelector(".admin-friend-chat-img");
 										var adajxfrTxta = adajxftpl.querySelector(".admin-friend-chat-txta");
@@ -1690,11 +1712,13 @@ function adminMemberChat()
 										
 										adajxchatarea.append(adajxftpl);
 										
-							   			
+										
 							   		}
 						   			else if( ( senderId==$(".thisMyId").val() ) && ( receiverId== $(".admin-chatting-roomname").text() ) )
 						   			{
-	//					   				alert("이걸????");
+						  // 				alert("관리자가 보냄");
+						   //				alert("receiverId : "+receiverId);
+						   //				alert(".admin-chatting-roomname :"+$(".admin-chatting-roomname").text() );
 							   			//보낸 사람이 나 인 경우 쓰는 템플릿
 										var adajxmtpl = document.importNode(adajxmytpl.content,true);
 								//		var myId = mtpl.querySelector(".my-chat-id");
@@ -1730,7 +1754,9 @@ function adminMemberChat()
 										var resetTextArea = document.querySelector(".admin-chat-textarea").value;
 										
 									//	alert($(".chat-textarea").val());
-										$(".admin-chat-textarea").val('');
+										
+							//			$(".admin-chat-textarea").val('');
+										
 					//					alert($(".chat-textarea").val());
 					//					resetTextArea="";
 									
@@ -1827,6 +1853,8 @@ function adminMemberChat()
 					   			
 					   			if( ( senderId!=$(".thisMyId").val() ) && ( receiverId==groupIdSt ) )
 					   			{
+					   				
+					  // 				alert("보낸게 내가 아니다");
 								
 						   			var groupAjxFTpl = document.importNode(groupAjxFrTpl.content,true);
 									var groupAjxFrId = groupAjxFTpl.querySelector(".group-you-id");
@@ -1836,6 +1864,137 @@ function adminMemberChat()
 									
 									
 									groupAjxFrId.innerText = senderId;
+									
+									groupAjxFrImg.onclick=function(e)
+									{
+										var targetting = e.target;
+								//		alert(targetting.className);
+										var targetParent = targetting.parentNode;
+								//		alert(targetParent.className);
+										var memberId = targetParent.querySelector(".group-you-id").innerText;
+							//			alert("memberId확인용 알터 : "+memberId);
+										
+										
+										
+										$(".click-profile-container").css({"display":"block"});
+										$(".click-friend-profile").css({"background":"rgb(231, 205, 211)"});
+							   			
+										
+							///////////////친구 인지 아닌지/////////////////////////////////////////
+							   			var apGroupChkFriend = new XMLHttpRequest();
+							   	        
+							   	        //  alert("open전");   
+							   	          
+							   			var selectMemberId =null;
+							   			
+							   			apGroupChkFriend.open("POST","/member/chk-friend",true);
+							   			apGroupChkFriend.setRequestHeader("Content-Type",
+							   	                                  "application/x-www-form-urlencoded");
+							   	                
+							   	        //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+							   			apGroupChkFriend.onload = function()
+							   	             {
+							   	             
+							   	    //           alert("너의 아이디가 들려");
+							   				//	alert(chkFriendData[0].length)
+							   					var jsontest = apGroupChkFriend.responseText;
+							   				
+							   	                var apGroupChkFriendData = JSON.parse(apGroupChkFriend.responseText); 
+							   					console.log(apGroupChkFriendData);
+							   				//	alert(chkFriendData.isNull("regDate"));
+							   				//	alert("1 : "+ chkFriendData.hasOwnProperty('regDate') );
+							   				//	alert("2 : "+ jsontest.hasOwnProperty('regDate') );
+							   				//	alert( $.inArray("regDate",chkFriendData) );
+							   					
+							   	          
+							   	                // 친구가 아닐 시
+							  	                if( apGroupChkFriendData.hasOwnProperty('regDate') )
+							   	                {
+							//  	                	alert("이프 apGroupChkFriendData.id : "+apGroupChkFriendData.id);
+							  	                	selectMemberId =apGroupChkFriendData.id;
+							  	                	
+							   	                	
+							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
+							   	                	var fImg = document.querySelector(".click-chat-profile-img");
+							   	                	
+							   	                	fImg.style.backgroundImage =
+								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
+							   	                	
+							   	                	$(".click-box-F-noF").text('친구추가');
+							   	                	
+							   	                	
+							   	                	
+							   	                }
+							   	                else
+							   	                {
+							   	 //               	alert("엘즈 apGroupChkFriendData.id : "+apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-id").text(apGroupChkFriendData.id);
+							   	                	$(".click-chat-profile-msg").text(apGroupChkFriendData.msg);
+							   	                	var nofImg = document.querySelector(".click-chat-profile-img");
+							   	                	nofImg.style.backgroundImage =
+								                        "url(/get-img?folder=member-profile&file="+apGroupChkFriendData.img+")";
+							   	                	
+//							   	                	$(".click-chat-profile-img").style.backgroundImage =
+//								                        "url(/get-img?folder=member-profile&file="+chkFriendData.img+")";
+							   	                	
+							   	                	
+							   	                	
+							   	                	$(".click-box-F-noF").text('친구삭제');
+							   	                //	reChattingOn();
+							   	                	
+							   	                }
+							   	               
+							  	                
+							  	                
+							   	                
+							   	                
+							   	             }
+							   	             
+							   			apGroupChkFriend.send("memberId="+memberId);
+										
+										
+										
+										
+							   			//////////////신고 했는지 안했는지//////////////////////////////////////////////
+							   			
+							   			var apGroupChkRprt = new XMLHttpRequest();
+								        
+								        //  alert("open전");   
+								          
+							   			apGroupChkRprt.open("POST","/member/chk-rprtId",true);
+							   			apGroupChkRprt.setRequestHeader("Content-Type",
+								                                  "application/x-www-form-urlencoded");
+								                
+								                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+							   			apGroupChkRprt.onload = function()
+							             {
+							             
+							      //          alert("너의 아이디가 들려");
+							                
+							  //              var comeonmyid = JSON.parse(gomyid.responseText); 
+							          
+							  //             $(".thisMyId").val(comeonmyid);
+							               $(".click-chat-rprt-button").text(apGroupChkRprt.responseText);
+							                
+							                
+							             }
+								             
+							   			apGroupChkRprt.send("rprtId="+memberId);
+							   			
+							   			
+							   			
+							   			
+							   			
+										
+										
+										
+										
+										
+										
+									};
+									
+									
 									groupAjxFrImg.style.backgroundImage = 
 										"url(/get-img?folder=member-profile&file="+imgsMap.get(senderId)+")";
 									groupAjxFrTxta.innerText = chatcontent;
@@ -1843,12 +2002,18 @@ function adminMemberChat()
 									
 									groupAjxChatArea.append(groupAjxFTpl);
 									
-						   			
+									$(".group-chat-window-main").scrollTop($(".group-chat-window-main").height()+9999999);
+									var resetTextArea = document.querySelector(".group-chat-textarea").value;
+									
+									
+								//	$(".group-chat-textarea").val('');
+									
+									
 						   		}
 					   			else if( ( senderId==$(".thisMyId").val() ) && ( receiverId==groupIdSt ) )
 					   			{
 					   				
-					   			}
+					   			
 									var groupAjxMTpl = document.importNode(groupAjxMyTpl.content,true);
 									
 									var groupAjxMyTxta = groupAjxMTpl.querySelector(".group-me-txt");
@@ -1860,7 +2025,7 @@ function adminMemberChat()
 									groupAjxChatArea.append(groupAjxMTpl);
 									
 									
-					   			}
+					   			
 					   			
 					   			
 					   			
@@ -1868,15 +2033,15 @@ function adminMemberChat()
 									var resetTextArea = document.querySelector(".group-chat-textarea").value;
 									
 									
-									$(".group-chat-textarea").val('');
+							//		$(".group-chat-textarea").val('');
 									
-
+									
+					   			}
 							   		
-							   		
 	   				
+						}
 	   				
-	   				
-	   			}
+						}
 
 	   		}
 	   		
@@ -1922,8 +2087,22 @@ function adminMemberChat()
 			})
 	   		$(function()
 			{
+	   			
+	   			
+	   			
+	   			
 	   			if($(".thisMyId").val()!="admin")
 	   			{
+	   				document.querySelector(".chat-textarea").addEventListener('keydown',function(event)
+					{
+	   					if(event.keyCode==13)
+	   					{
+	   						event.preventDefault();
+	   						document.querySelector(".chat-send-button").click();
+	   					}
+					})
+	   				
+					
 					
 					$(".chat-send-button").click(function()
 					   		{
@@ -1949,8 +2128,18 @@ function adminMemberChat()
 					   			
 					   			insertChattingList1.send("myId="+myId+"&friendId="+friendId+"&content="+content);
 					   			
-					   			
+					   			$(".chat-textarea").val('');
 					   		})
+					   		
+//			   		document.querySelector(".group-chat-textarea").addEventListener('keydown',function(event)
+//					{
+//	   					if(event.keyCode==13)
+//	   					{
+//	   						event.preventDefault();
+//	   						document.querySelector(".group-chat-send-button").click();
+//	   					}
+//					})
+					   		
 					   		
 					   	$(".group-chat-send-button").click(function()
 			   			{
@@ -1974,43 +2163,54 @@ function adminMemberChat()
 				   			
 				   			insertGroupChattingList.send("myId="+groupmyId+"&groupId="+groupId+"&content="+content);
 				   			
-					   		
+				   			$(".group-chat-textarea").val('');
 			   			})
 					}
-					else if($(".thisMyId").val()=="admin"){
-					$(".admin-chat-send-button").click(function()
-		   			   		{
+					else if($(".thisMyId").val()=="admin")
+					{
+						document.querySelector(".admin-chat-textarea").addEventListener('keydown',function(event)
+								{
+				   					if(event.keyCode==13)
+				   					{
+				   						event.preventDefault();
+				   						document.querySelector(".admin-chat-send-button").click();
+				   					}
+								})
 						
-						alert("여기를 많이 들어오니?");
-		   			   			//var friendId ="nolec";
-		   			   			//alert($(".friend-chatting-roomname").text());
-		//   			   			console.log( $(".admin-chat-textarea").val() );
-		   			   			socket.send($(".thisMyId").val()+"!^@%SPSP%@^!"+$(".admin-chatting-roomname").text()+"!^@%SPSP%@^!"+ $(".admin-chat-textarea").val());
-		   			   			var myId = $(".thisMyId").val();
-		   			   			var friendId =$(".admin-chatting-roomname").text();
-		   			   			var content = $(".admin-chat-textarea").val();
-		   			   			
-		   			   			alert("myId : "+myId);
-		   			   			alert("friendId : "+friendId);
-		   			   			alert("content : "+content);
-		   			   			
-		   			   			var insertChattingList2 = new XMLHttpRequest();
-		   			   			
-		   			   		insertChattingList2.open("POST","/admin/insert-admin-memberChatting",true);
-		   			   	insertChattingList2.setRequestHeader("Content-Type",
-		   			   										"application/x-www-form-urlencoded");
-		   			   				
-		   			   				//JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
-		   			 insertChattingList2.onload = function()
-		   			   				{
-		   			   					
-		   			   				}
-		   			   			
-		   			insertChattingList2.send("myId="+myId+"&friendId="+friendId+"&content="+content);
-		   			   			
-		   			   			
-		   			   			
-		   			   		})
+						$(".admin-chat-send-button").click(function()
+	   			   		{
+							
+							//alert("여기를 많이 들어오니?");
+			   			   			//var friendId ="nolec";
+			   			   			//alert($(".friend-chatting-roomname").text());
+			//   			   			console.log( $(".admin-chat-textarea").val() );
+			   			   			socket.send($(".thisMyId").val()+"!^@%SPSP%@^!"+$(".admin-chatting-roomname").text()+"!^@%SPSP%@^!"+ $(".admin-chat-textarea").val());
+			   			   			var myId = $(".thisMyId").val();
+			   			   			var friendId =$(".admin-chatting-roomname").text();
+			   			   			var content = $(".admin-chat-textarea").val();
+			   			   			
+			   			   	//		alert("myId : "+myId);
+			   			   	//		alert("friendId : "+friendId);
+			   			   	//		alert("content : "+content);
+			   			   			
+			   			   			var insertChattingList2 = new XMLHttpRequest();
+			   			   			
+			   			   		insertChattingList2.open("POST","/admin/insert-admin-memberChatting",true);
+			   			   	insertChattingList2.setRequestHeader("Content-Type",
+			   			   										"application/x-www-form-urlencoded");
+			   			   				
+			   			   				//JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+			   			 insertChattingList2.onload = function()
+			   			   				{
+			   			   					
+			   			   				}
+			   			   			
+			   			insertChattingList2.send("myId="+myId+"&friendId="+friendId+"&content="+content);
+			   			   			
+			   			   			
+			   			
+						$(".admin-chat-textarea").val('');
+	   			   		})
 					}
 	   			
 	   			
@@ -2150,7 +2350,9 @@ function adminMemberChat()
         function imgClick(memberId)
    		{
 
-        	
+        	//alert("dd"+memberId);
+        	if( ($(".thisMyId").val()=='admin') || ($(".thisMyId").val()==memberId)  )
+        		return;
         	
    			$(".click-profile-container").css({"display":"block"});
    			
@@ -2178,7 +2380,7 @@ function adminMemberChat()
                 
              }
 	             
-   			clickChkRprt.send("rprtId="+"dbfk");
+   			clickChkRprt.send("rprtId="+memberId);
    			
    			
    			///////////////친구 인지 아닌지/////////////////////////////////////////
@@ -2338,7 +2540,7 @@ function adminMemberChat()
 				{
 	        		
 	       // 		alert("신고 버튼을 눌렀다 : "+$(".chat-profile-id").text());
-	        		var rprtId = $(".chat-profile-id").text();
+	        		var rprtId = $(".chat-profile-id").text(); 
 	        		var rprtText = $(".chat-rprt-button").text();
 	        		
 	        		if(rprtText=='신고 추가')
@@ -2369,7 +2571,9 @@ function adminMemberChat()
 							rprtInsert.onload = function()
 					             {
 					             
-								 $(".chat-rprt").css({ "top": "-120%" });
+								 $(".chat-rprt").css({ "bottom": "-120%" });
+								 $(".chat-rprt-detailContent").val('');
+						         $("#chat-rprt-select option:eq(0)").prop("selected",true);
 						         $(".screen").remove();
 						         $(".chat-rprt-button").text('신고 해제')
 						         
@@ -2392,7 +2596,7 @@ function adminMemberChat()
 	        		}
 	        		else if(rprtText=='신고 해제')
 	        		{
-	        			$(".chat-rprt").css({ "top": "-120%" });
+	        			$(".chat-rprt").css({ "bottom": "-120%" });
 				         
 	        			var rprtDelete = new XMLHttpRequest();
 				        
@@ -2408,7 +2612,7 @@ function adminMemberChat()
 				             
 	        				
 					         $(".chat-rprt-button").text('신고 추가')
-					         $(".chat-rprt").css({ "top": "-120%" });
+					         $(".chat-rprt").css({ "bottom": "-120%" });
 					         $(".screen").remove();
 				      //          alert("너의 아이디가 들려");
 				                
@@ -2452,7 +2656,7 @@ function adminMemberChat()
 						
 				//		alert("click 신고");
 						
-					//	var rprtId = $(".click-chat-profile-id").text();
+						var rprtId = $(".click-chat-profile-id").text();
 		        		var chatSelects = document.querySelector("#click-chat-rprt-select");
 		        		
 		        		var rprtTitle = null;
@@ -2480,7 +2684,9 @@ function adminMemberChat()
 							clickRprtInsert.onload = function()
 					             {
 									$(".click-chat-rprt-button").text('신고 해제');
-							         $(".click-chat-rprt").css({ "top": "-120%" });
+							         $(".click-chat-rprt").css({ "bottom": "-120%" });
+							         $(".click-chat-rprt-detailContent").val('');
+							         $("#click-chat-rprt-select option:eq(0)").prop("selected",true);
 							         screenrprt.remove();
 							         
 							         
@@ -2494,7 +2700,7 @@ function adminMemberChat()
 					                
 					             }
 					             
-							clickRprtInsert.send("rprtId="+"dbfk"+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
+							clickRprtInsert.send("rprtId="+rprtId+"&rprtTitle="+rprtTitle+"&rprtDetailContent="+rprtDetailContent);
 							
 							
 						
@@ -2517,7 +2723,7 @@ function adminMemberChat()
 				             {
 					             
 						         $(".click-chat-rprt-button").text('신고 추가')
-						         $(".click-chat-rprt").css({ "top": "-120%" });
+						         $(".click-chat-rprt").css({ "bottom": "-120%" });
 						         $(".screen").remove();
 					      //          alert("너의 아이디가 들려");
 					                
@@ -2591,9 +2797,9 @@ function adminMemberChat()
             		
             		var chatimg = evt.target;
             		
-            		alert("눌렀다.")
-            		alert(chatimg.parentNode.className); //friend
-            		alert(chatimg.parentNode.querySelector('.friend-id').innerText);
+    //        		alert("눌렀다.")
+    //        		alert(chatimg.parentNode.className); //friend
+     //       		alert(chatimg.parentNode.querySelector('.friend-id').innerText);
     		    	
             		var rprtId=chatimg.parentNode.querySelector('.friend-id').innerText;
             		
@@ -2647,10 +2853,10 @@ function adminMemberChat()
 			abtn.onclick = function(e) {
 				e.preventDefault();
 				var chkRequest = new XMLHttpRequest();
-				chkRequest.open("GET", "/crowd/checkId?url="+document.location.pathname, true);
+				chkRequest.open("POST", "/chk-login", true);
 				chkRequest.onload = function() {
 					var chkturn = chkRequest.responseText;
-					if (chkturn == "no") {
+					if (chkturn == "anonymousUser") {
 						swal({
 							  title: "로그인 하시겠습니까?",
 							  text: "채팅을 사용하기 위해선 로그인이 필요합니다.",

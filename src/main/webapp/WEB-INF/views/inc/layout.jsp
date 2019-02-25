@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>    
     <script src="/resources/js/friend.js"></script>
     <script src="/resources/js/memberchat.js"></script>
+    
 </head>
 
 <body>
