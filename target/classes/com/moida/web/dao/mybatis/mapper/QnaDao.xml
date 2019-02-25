@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.moida.web.dao.QnaDao">
+
+	
+	<!-- 처음 사이트를 들어왔을 때 모든 List를 뿌려주는 Select -->
+	<select id="getQnaList" resultType="com.moida.web.entity.Qna">
+	
+		select * from Qna
+	
+	</select>
+	
+	<!-- INSERT를 하고 나서 INSERT한 List를 다시 가져가서 그 한줄을 뿌려주는 Selecet -->
+	<select id="getQnaLimit" resultType="com.moida.web.entity.Qna">
+	
+		select * from Qna order by id desc limit 1
+	
+	</select>
+	
+	<!-- 추가버튼을 클릭 시 사용하는 INSERT -->
+	<insert id="insertQnaList">
+		
+		insert into Qna (title,content) 
+		value (#{param1},#{param2})
+	
+	</insert>
+
+	<!-- X 버튼을 클릭 시 사용하는 DELETE -->
+	<delete id="deleteQnaList" parameterType="com.moida.web.entity.Qna">
+	
+		delete from Qna where id=#{id}
+	
+	</delete>
+
+	<!-- SETTING 버튼을 클릭 시 사용하는 DELETE -->
+	<update id="updateQnaList">
+		update Qna set title=#{param2} ,content=#{param3} where id=#{param1}
+	
+	</update>
+
+
+<select id="searchFriend" resultType="com.moida.web.entity.Friend">
+	
+		select * from Friend where memberId=#{myId} and (friendId like CONCAT('%',#{searchText},'%')); 
+	
+	</select>
+	<select id="searchQnaList" resultType="com.moida.web.entity.Qna">
+	
+	select * from Qna where title like CONCAT('%',#{param1},'%');
+	
+	</select>
+
+
+</mapper> 

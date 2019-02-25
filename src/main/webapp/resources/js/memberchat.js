@@ -1656,7 +1656,9 @@ function adminMemberChat()
 								var resetTextArea = document.querySelector(".chat-textarea").value;
 								
 							//	alert($(".chat-textarea").val());
-								$(".chat-textarea").val('');
+								
+							//	$(".chat-textarea").val('');
+								
 			//					alert($(".chat-textarea").val());
 			//					resetTextArea="";
 								
@@ -1752,7 +1754,9 @@ function adminMemberChat()
 										var resetTextArea = document.querySelector(".admin-chat-textarea").value;
 										
 									//	alert($(".chat-textarea").val());
-										$(".admin-chat-textarea").val('');
+										
+							//			$(".admin-chat-textarea").val('');
+										
 					//					alert($(".chat-textarea").val());
 					//					resetTextArea="";
 									
@@ -2002,7 +2006,7 @@ function adminMemberChat()
 									var resetTextArea = document.querySelector(".group-chat-textarea").value;
 									
 									
-									$(".group-chat-textarea").val('');
+								//	$(".group-chat-textarea").val('');
 									
 									
 						   		}
@@ -2029,7 +2033,7 @@ function adminMemberChat()
 									var resetTextArea = document.querySelector(".group-chat-textarea").value;
 									
 									
-									$(".group-chat-textarea").val('');
+							//		$(".group-chat-textarea").val('');
 									
 									
 					   			}
@@ -2124,7 +2128,7 @@ function adminMemberChat()
 					   			
 					   			insertChattingList1.send("myId="+myId+"&friendId="+friendId+"&content="+content);
 					   			
-					   			
+					   			$(".chat-textarea").val('');
 					   		})
 					   		
 //			   		document.querySelector(".group-chat-textarea").addEventListener('keydown',function(event)
@@ -2159,7 +2163,7 @@ function adminMemberChat()
 				   			
 				   			insertGroupChattingList.send("myId="+groupmyId+"&groupId="+groupId+"&content="+content);
 				   			
-					   		
+				   			$(".group-chat-textarea").val('');
 			   			})
 					}
 					else if($(".thisMyId").val()=="admin")
@@ -2204,7 +2208,8 @@ function adminMemberChat()
 			   			insertChattingList2.send("myId="+myId+"&friendId="+friendId+"&content="+content);
 			   			   			
 			   			   			
-			   			   			
+			   			
+						$(".admin-chat-textarea").val('');
 	   			   		})
 					}
 	   			
@@ -2848,10 +2853,10 @@ function adminMemberChat()
 			abtn.onclick = function(e) {
 				e.preventDefault();
 				var chkRequest = new XMLHttpRequest();
-				chkRequest.open("GET", "/crowd/checkId?url="+document.location.pathname, true);
+				chkRequest.open("POST", "/chk-login", true);
 				chkRequest.onload = function() {
 					var chkturn = chkRequest.responseText;
-					if (chkturn == "no") {
+					if (chkturn == "anonymousUser") {
 						swal({
 							  title: "로그인 하시겠습니까?",
 							  text: "채팅을 사용하기 위해선 로그인이 필요합니다.",

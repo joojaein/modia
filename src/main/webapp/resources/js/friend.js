@@ -4,22 +4,24 @@ $(function()
 	// POST 요청으로 anonymousUser = 없는유저 / loggined = 로그인 성공 을
 	// 보내주기 위해 사용하는 Ajax 이다.
 	
-	var idRequest = new XMLHttpRequest(); 
-    idRequest.open("POST", "/chk-login", true); 
-    idRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	var idaRequest = new XMLHttpRequest(); 
+	idaRequest.open("POST", "/chk-login", true); 
+	idaRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
    
-    idRequest.onload = function () 
+    idaRequest.onload = function () 
     {   
     	//alert("변수지정 ㄴㄴ :"+idRequest.responseText);
-    	$(".thisMyId").val(idRequest.responseText);
+    	$(".thisMyId").val(idaRequest.responseText);
+    	
+   // 	alert( "login:"+$(".thisMyId").val() );
     	
     //	alert("변수지정 ㅇㅇ :"+$(".thisMyId").val());
     	
-       if(idRequest.responseText != "anonymousUser")
+       if(idaRequest.responseText != "anonymousUser")
        {
     	   
     	   
-    	   if(idRequest.responseText !="admin")
+    	   if(idaRequest.responseText !="admin")
     	   {
 	          chattingOn();
 	          
@@ -40,8 +42,9 @@ $(function()
  	         var admindiv = document.querySelector("#adminchat");
  	        admindiv.style.zIndex=0;
 	       }
-    	   else if(idRequest.responseText =="admin")
+    	   else if(idaRequest.responseText =="admin")
     	   {
+    		   seesee(); // Qna 리스트 뿌리는 친구 아무나 상관없이 봐도 됨
 //    		  chattingOn();
 // 	          getMyId();
  	          
@@ -61,8 +64,12 @@ $(function()
  	          
     	   }
        }
+       else
+       {
+    	   
+       }
     };
-    idRequest.send();
+    idaRequest.send();
     
     
     $(function()
