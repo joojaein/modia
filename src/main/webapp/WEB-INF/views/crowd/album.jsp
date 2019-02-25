@@ -35,6 +35,7 @@
 		</nav>
 	</div>
 	</section>
+	<input id="cid" type="hidden" value="${crowd.id}" />
 	<section class="sub-head">
 		<div class="sub-head-box">
 			<div class="search">
@@ -42,12 +43,31 @@
 					<img src="../../../resources/images/Magnifying.png" />
 				</div>
 				<div class="field">
-					<input type="search" placeholder="검색" />
+					<input class="keyword" type="search" placeholder="검색" />
 				</div>
 			</div>
 		</div>
 	</section>
 	<div>
+		<template id="tem">
+			<div class="content-box" style="width: 45%;">
+					<div style="width: 100%;">
+						<div class="img-of">
+							<a><img class="upload-img" alt="" /></a>
+						</div>
+						<div class="content-box-div">
+							<div>
+							<span class="album-title"><a></a></span>
+							<span class="goodcnt" style="color: red"><a></a></span>
+							</div>
+							<div class="wr">
+							<p class="writerId" style="margin: 0"><a></a></p>
+							<p class="regDate" style="margin: 0"><a></a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+		</template>
 		<article class="content">
 			<c:forEach var="a" items="${alist}">
 				<c:url value="adetail" var="url">
@@ -57,17 +77,16 @@
 				<div class="content-box" style="width: 45%;">
 					<div style="width: 100%;">
 						<div class="img-of">
-							<a href="${url}"><img class="upload-img"
-								src="/get-img?folder=crowd-postsImg&file=${a.mainImg}" alt="" /></a>
+							<a href="${url}"><img class="upload-img" src="/get-img?folder=crowd-postsImg&file=${a.mainImg}" alt="" /></a>
 						</div>
 						<div class="content-box-div">
 							<div>
 							<span class="album-title"><a href="${url}">${a.title}</a></span>
-							<a href="${url}"><span style="color: red">[${a.cmtCnt}]</span></a>
+							<a href="${url}"><span class="goodcnt" style="color: red">[${a.goodcnt}]</span></a>
 							</div>
 							<div class="wr">
-							<p style="margin: 0"><a href="${url}">${a.writerId}</a></p>
-							<p style="margin: 0"><a href="${url}">
+							<p class="writerId" style="margin: 0"><a href="${url}">${a.writerId}</a></p>
+							<p class="regDate" style="margin: 0"><a href="${url}">
 							 <fmt:formatDate value="${a.regDate}" pattern="yyyy-MM-dd a HH:mm" />
 							</a></p>
 							</div>

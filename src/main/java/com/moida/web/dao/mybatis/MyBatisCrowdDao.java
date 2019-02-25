@@ -182,7 +182,8 @@ public class MyBatisCrowdDao implements CrowdDao{
 		System.out.println("메퍼 템프"+temp);
 		return crowdDao.getSearchResultList(word);
 	}
-
+	
+	@Override
 	public CrowdBoard getBoardList(int id) {
 		// TODO Auto-generated method stub
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
@@ -244,7 +245,8 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getCrowdTotalViews(crowdId);
 	}
-
+	
+	@Override
 	public int getCrowdGroupRole(int crowdId, String memberId) {
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getCrowdGroupRole(crowdId, memberId);
@@ -301,6 +303,8 @@ public class MyBatisCrowdDao implements CrowdDao{
 		CrowdDao crowdDao = session.getMapper(CrowdDao.class);
 		return crowdDao.getMemberInfoRoleListView(crowdId, name);
 	}
+
+	
 
 }
 

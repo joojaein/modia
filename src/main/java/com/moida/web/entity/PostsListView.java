@@ -15,14 +15,16 @@ public class PostsListView {
 	private int crowdId;
 	private int cmtCnt;
 	private String img;
+	private int goodcnt;
 	
 	public PostsListView() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	public PostsListView(int id, int boardId, String title, String content, String mainImg, String writerId,
-			Date regDate, int hit, int type, int crowdId, int cmtCnt, String img) {
+			Date regDate, int hit, int type, int crowdId, int cmtCnt, String img, int goodcnt) {
 		super();
 		this.id = id;
 		this.boardId = boardId;
@@ -36,6 +38,7 @@ public class PostsListView {
 		this.crowdId = crowdId;
 		this.cmtCnt = cmtCnt;
 		this.img = img;
+		this.goodcnt = goodcnt;
 	}
 
 	public int getId() {
@@ -134,11 +137,22 @@ public class PostsListView {
 		this.img = img;
 	}
 
+	public int getGoodcnt() {
+		return goodcnt;
+	}
+
+	public void setGoodcnt(int goodcnt) {
+		this.goodcnt = goodcnt;
+	}
+
 	@Override
 	public String toString() {
 		return "PostsListView [id=" + id + ", boardId=" + boardId + ", title=" + title + ", content=" + content
 				+ ", mainImg=" + mainImg + ", writerId=" + writerId + ", regDate=" + regDate + ", hit=" + hit
-				+ ", type=" + type + ", crowdId=" + crowdId + ", cmtCnt=" + cmtCnt + ", img=" + img + "]";
+				+ ", type=" + type + ", crowdId=" + crowdId + ", cmtCnt=" + cmtCnt + ", img=" + img + ", goodcnt="
+				+ goodcnt + "]";
 	}
+
+	
 	
 }

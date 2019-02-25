@@ -2,15 +2,9 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> -->
 
-<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" media="screen" href="/resources/css/search.css" />
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-=======
-<link rel="stylesheet" type="text/css" media="screen"
-   href="/resources/css/search.css" />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
->>>>>>> refs/remotes/origin/master
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 
 
 <script>
@@ -944,7 +938,6 @@
    
    
 </c:forEach>
-<%-- </c:forEach> --%>
-<%-- </c:forEach> --%>
+
 </section>
 </main>

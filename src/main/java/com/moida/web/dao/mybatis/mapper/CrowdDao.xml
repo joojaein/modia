@@ -60,6 +60,7 @@
 	<delete id="deleteCalendarList" parameterType="java.lang.Integer">
 	delete from Schedule where id = #{id};
 	</delete>
+	
 	<update id="updateCalendarList" parameterType="com.moida.web.entity.Schedule">		
 		update Schedule set crowdId=#{crowdId}, startDate=#{startDate},
 		endDate=#{endDate}, title=#{title}, content=#{content} where id=#{id}

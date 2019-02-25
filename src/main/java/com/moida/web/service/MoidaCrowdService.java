@@ -260,4 +260,5 @@ public class MoidaCrowdService implements CrowdService {
 		return crowdDao.getMemberInfoRoleListView(crowdId, name);
 	}
 
+
 }

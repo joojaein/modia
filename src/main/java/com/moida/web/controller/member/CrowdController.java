@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -42,18 +43,20 @@ import com.moida.web.entity.CmtListView;
 import com.moida.web.entity.Cmtcnt;
 import com.moida.web.entity.Crowd;
 import com.moida.web.entity.CrowdSimpleDataView;
+import com.moida.web.entity.FriendDataView;
+import com.moida.web.entity.Good;
 import com.moida.web.entity.MemberInfoListView;
 import com.moida.web.entity.Schedule;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
-import com.moida.web.entity.PostsInfoView;
+import com.moida.web.entity.PostsListView;
 import com.moida.web.entity.RprtCrowd;
 import com.moida.web.entity.Tag;
-import com.moida.web.entity.PostsListView;
 import com.moida.web.service.MoidaBoardService;
 import com.moida.web.service.MoidaCategoryService;
 import com.moida.web.service.MoidaCmtService;
 import com.moida.web.service.MoidaCrowdService;
+import com.moida.web.service.MoidaFriendService;
 import com.moida.web.service.MoidaMemberService;
 import com.moida.web.service.MoidaPostsService;
 import com.moida.web.service.MoidaTagService;
@@ -61,7 +64,7 @@ import com.moida.web.service.MoidaTagService;
 @Controller("memberCrowd")
 @RequestMapping("/crowd/")
 public class CrowdController {
-	
+
 	@Autowired
 	public MoidaMemberService memberservice;
 	@Autowired
@@ -72,13 +75,29 @@ public class CrowdController {
 
 	@Autowired
 	public MoidaPostsService postsService;
-	
-	
+
 	@Autowired
 	public MoidaCmtService cmtService; 
 
-
+	@Autowired
+	public MoidaFriendService friendService;
 	
+	
+	@PostMapping("memberHead")
+	@ResponseBody
+	public String myinfo(Principal principal) {
+		
+		List<FriendDataView> fdv = friendService.getFriendData(principal.getName());
+		
+		Gson gson = new Gson(); 
+		String json = gson.toJson(fdv);
+		
+		return json;
+		
+	}
+	
+	
+
 	@GetMapping("notice")
 	public String notice(
 			@RequestParam(name="crowd") Integer crowdId,
@@ -108,12 +127,12 @@ public class CrowdController {
 			) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
-		PostsInfoView posts = postsService.getPostsinfoView(id);
+		PostsListView posts = postsService.getPostsinfoView(id);
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
 		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
 		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
 		MemberInfoListView memberRole = crowdService.getMemberInfoRoleListView(crowdId, principal.getName());
-		
+
 		model.addAttribute("mRole", memberRole);
 		model.addAttribute("milv", milv);		
 		model.addAttribute("cmtcnt", cmtcnt);
@@ -160,6 +179,26 @@ public class CrowdController {
 		return json;
 	}
 	
+	@PostMapping("boardsearch")
+	@ResponseBody
+	public String boardSerach(Integer crowdId,Integer boardId ,String keyword ) {
+		System.out.println("crowd"+crowdId+"게시판"+ boardId +"검색어"+ keyword);
+		
+		System.out.println("boardId"+boardId);
+		List<PostsListView> psearch =null;
+		if(boardId == null ) {
+			psearch = postsService.getPostsSearchListView1(crowdId, keyword);
+		}else {
+			psearch = postsService.getPostsSearchListView2(crowdId,boardId, keyword);
+		}
+		
+		System.out.println("리스트"+psearch);
+		Gson gson = new Gson();
+		String json = gson.toJson(psearch);
+		System.out.println("json"+json);
+		return json;
+	}
+
 	@GetMapping("bdetail")
 	@PreAuthorize("isAuthenticated()")
 	public String boarddetail(
@@ -167,19 +206,27 @@ public class CrowdController {
 			@RequestParam(name="id") Integer postsId,
 			Integer id,
 			Principal principal,
-			Model model
+			Model model,
+			String memberId
 			) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
-		PostsInfoView posts = postsService.getPostsinfoView(id);
+		PostsListView posts = postsService.getPostsinfoView(id);
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
 		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
 		MemberInfoListView memberRole = crowdService.getMemberInfoRoleListView(crowdId, principal.getName());
-		
+		List<Good> goodList = postsService.getGood(postsId);
+		int isGood = 0;
+		for (int i = 0; i < goodList.size(); i++) {
+			if(goodList.get(i).getMemberId().equals(principal.getName())) {
+				isGood=1;
+			}
+		}
 		String userId = principal.getName();	
 		int groupRole = crowdService.getCrowdGroupRole(crowdId, userId);
 		int affected = postsService.updatehit(id);
-		
+
+		model.addAttribute("isGood", isGood);
 		model.addAttribute("mRole", memberRole);
 		model.addAttribute("milv", milv);		
 		model.addAttribute("crowd", crowd);
@@ -191,47 +238,88 @@ public class CrowdController {
 		return "crowd.bdetail";
 	}
 	
+	@PostMapping("boardGood")
+	@ResponseBody
+	public String boardGood(Principal principal, String memberId,Integer postsId) {
+		
+		memberId = principal.getName();
+		
+		Good good = new Good(memberId, postsId);
+		 int affecte = postsService.insertGood(good);
+		//deleteGood
+		Gson gson = new Gson();
+		String json = gson.toJson(good);
+		System.out.println("good"+json);
+		return json;
+	}
+	
+	@PostMapping("boarddelGood")
+	@ResponseBody
+	public String boarddelGood(Principal principal, String memberId,Integer postsId) {
+		
+		memberId = principal.getName();
+		
+		Good good = new Good(memberId, postsId);
+		 int affecte = postsService.deleteGood(good);
+		//deleteGood
+		Gson gson = new Gson();
+		String json = gson.toJson(good);
+		System.out.println("delgood"+json);
+		return json;
+	}
+
 	@PostMapping("detail-comment")
 	@ResponseBody
 	public String boarddetailcomment(
-			Integer postsId,
+			String postsId,
 			String content,
 			Principal principal
 			) {	
-			Cmt cmt = new Cmt(postsId, content, principal.getName());
-			
-			
-		return cmtService.insertCmt(cmt)+"";
+		
+		int postsId2 = Integer.parseInt(postsId);
+		String writerId = principal.getName();
+		int affected = cmtService.insertCmt(postsId2, content, writerId);
+		Cmt rc =  cmtService.getresetComment(Integer.parseInt(postsId), writerId);
+
+		Gson gson = new Gson(); 
+		String json = gson.toJson(rc);
+		System.out.println(rc);
+		return json;
 	}
-	
-	
+
+
 	@PostMapping("editcomment")
 	@ResponseBody
 	public String boardeditcomment(
 			Integer id,
+			Integer postsId,
 			String content,
 			Principal principal
 			) {	
-			
-		return cmtService.updateCmt(id, content)+"";
+		
+		int affected = cmtService.updateCmt(id, content);
+		
+		String writerId = principal.getName();
+		Cmt rc =  cmtService.getresetComment(postsId, writerId);
+		Gson gson = new Gson(); 
+		String json = gson.toJson(rc);
+		System.out.println("rc"+rc);
+		return json;
 	}
-	
+
 	@PostMapping("delcomment")
 	@PreAuthorize("isAuthenticated()")
 	@ResponseBody
 	public String boarddeletecomment(Integer id) {	
-			 System.out.println(id);
+	
 		return cmtService.deleteCmt(id)+"";
 	}
-	
+
 	@PostMapping("boarddelete")
 	public String deletePosts( Integer id, Integer crowdId, Integer type, String board) {
-		System.out.println("id"+id+"crowdId"+crowdId+"type"+type+"board"+board);
 		int affected = postsService.deletePosts(id);
-		
-		/*
-		 * if(board == null) { return "redirect:"+board+"?t="+type+"&crowd="+crowdId; }
-		 */
+
+	
 		return "redirect:"+board+"?t="+type+"&crowd="+crowdId;
 	}
 
@@ -283,14 +371,14 @@ public class CrowdController {
 
 		return postsService.regPosts(posts, postsContentList)+"";
 	}
-	
+
 	@GetMapping("boardedit")
 	public String boardEdit(
 			@RequestParam(name="crowd") Integer crowdId,
 			@RequestParam(name="posts") Integer postsId,
 			Model model, Principal principal) {
-		
-		
+
+
 		Posts posts = postsService.getPosts(postsId);
 		List<Board> boardlist = boardService.getBoardListType1(crowdId);
 		List<PostsContent> contentList = postsService.getPostsContent(postsId);
@@ -307,15 +395,15 @@ public class CrowdController {
 		model.addAttribute("boardType0", boardType0);
 		model.addAttribute("boardType2", boardType2);
 		model.addAttribute("groupRole", groupRole);
-		
+
 		model.addAttribute("posts", posts);
 		model.addAttribute("contentList", contentList);
 
 		return "crowd.boardedit";
 	}
-	
-	
-	
+
+
+
 	@PostMapping("boardedit")
 	@ResponseBody
 	public String boardedit (
@@ -328,16 +416,16 @@ public class CrowdController {
 			Model model, Principal principal, HttpServletRequest req) {
 
 		Posts posts = new Posts(postsId, boardId, title, content, mainImg, principal.getName());
-		
+
 		List<PostsContent> contentList = postsService.getPostsContent(postsId);
 
 		for (int i = 0; i < contentList.size(); i++) {
 			if(!ObjectUtils.isEmpty(contentList.get(i).getSrc())) {
 				String path = req.getServletContext().getRealPath("/crowd-postsImg/"+contentList.get(i).getSrc());
-			      File file = new File(path);      
-			      if(file.exists()){ 
-			         file.delete(); 
-			      }
+				File file = new File(path);      
+				if(file.exists()){ 
+					file.delete(); 
+				}
 			}
 		}
 
@@ -346,7 +434,7 @@ public class CrowdController {
 		JsonElement elem = parser.parse(jsonContent);
 		JsonArray elemArr = elem.getAsJsonArray();
 		List<PostsContent> postsContentList = new ArrayList<PostsContent>();     
-		      
+
 		for (int i = 0; i < elemArr.size(); i++) {
 			PostsContent postcontent = gson.fromJson(elemArr.get(i), PostsContent.class);
 			postsContentList.add(postcontent);
@@ -358,11 +446,13 @@ public class CrowdController {
 
 	@GetMapping("calendar")
 	public String calendar(
-			@RequestParam(name="crowd") Integer crowdId,
+			@RequestParam(name="crowd") Integer crowdId,Principal principal,
 			Model model) {
 		List<Schedule> schedule = crowdService.getScheduleList(crowdId);
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		MemberInfoListView memberRole = crowdService.getMemberInfoRoleListView(crowdId, principal.getName());
+		model.addAttribute("mRole", memberRole);
 		model.addAttribute("milv", milv);		
 		model.addAttribute("schedule", schedule);
 		model.addAttribute("crowd", crowd);
@@ -370,9 +460,10 @@ public class CrowdController {
 		String json = gson.toJson(schedule);
 		return "crowd.calendar"; 
 	}
-	
+
 
 	@PostMapping("calendar")
+	@ResponseBody
 	public String calendarinsert(
 			Integer crowdId,
 			String startDate,
@@ -380,7 +471,7 @@ public class CrowdController {
 			String title,
 			String content
 			) throws Exception {
-	
+
 		Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
 		Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 		end.setDate(end.getDate()+1);
@@ -413,19 +504,33 @@ public class CrowdController {
 	}
 
 
-	@RequestMapping("album")
+	@GetMapping("album")
 	public String album(
 			@RequestParam(name="crowd") Integer crowdId,
 			Model model) {		
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsListView> albumlist = postsService.getAlbumPostsView(crowdId);
 		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		
 		model.addAttribute("milv", milv);		
 		model.addAttribute("crowd", crowd);
 		model.addAttribute("alist", albumlist);
 		return "crowd.album";
 	}
-
+	
+	@PostMapping("albumsearch")
+	@ResponseBody
+	public String album(Integer crowdId, String keyword) {
+		List<PostsListView> albumsearchlist = postsService.getalbumSearchListView(crowdId, keyword);
+		System.out.println("keyword"+keyword);
+		System.out.println("crowdId"+crowdId);
+		Gson gson = new Gson();
+		String json = gson.toJson(albumsearchlist);
+		System.out.println("json"+json);
+	return json;
+	}
+	
+	
 	@GetMapping("adetail")
 	public String albumdetail(
 			@RequestParam(name="crowd") Integer crowdId,
@@ -436,10 +541,18 @@ public class CrowdController {
 			) {
 		CrowdSimpleDataView crowd = crowdService.getCrowdSimpleDataView(crowdId);
 		List<PostsContent> postscontent = postsService.getPostsContent(postsId);
-		PostsInfoView posts = postsService.getPostsinfoView(id);
+		PostsListView posts = postsService.getPostsinfoView(id);
 		List<CmtListView> cmt = cmtService.getCmtList(postsId);
 		Cmtcnt cmtcnt = cmtService.getCmthit(postsId);
 		List<MemberInfoListView> milv = crowdService.getMemberInfoListView(crowdId);
+		List<Good> goodList = postsService.getGood(postsId);
+		int isGood = 0;
+		for (int i = 0; i < goodList.size(); i++) {
+			if(goodList.get(i).getMemberId().equals(principal.getName())) {
+				isGood=1;
+			}
+		}
+		model.addAttribute("isGood", isGood);
 		model.addAttribute("milv", milv);		
 		int affected = postsService.updatehit(id);
 		model.addAttribute("cmtcnt", cmtcnt);
@@ -489,7 +602,7 @@ public class CrowdController {
 		Gson gson = new Gson(); 
 		Crowd crowd = gson.fromJson(json, Crowd.class);
 		crowd.setLeaderId(principal.getName());
-		
+
 		return crowdService.createCrowd(crowd, tagId)+"";
 	}
 
@@ -526,7 +639,7 @@ public class CrowdController {
 		return crowdService.requestCrowdJoin(crowdId, userId)+"";
 	}
 
-	
+
 	@GetMapping("groupchat")
 	public String groupChatting(@RequestParam(name="crowd") Integer crowdId, Model model) 
 	{
@@ -534,16 +647,16 @@ public class CrowdController {
 		model.addAttribute("crowd", crowd);
 		return "crowd.groupchat";
 	}
-	
+
 	@PostMapping("get-groupMyId") 
 	@ResponseBody
 	public String getGroupMyId(Principal principal)  
 	{
 		String getGroupMyId = principal.getName();
-		
+
 		Gson gson = new Gson();
 		String json = gson.toJson(getGroupMyId);
-		
+
 		return json;
 	}
 

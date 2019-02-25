@@ -17,8 +17,8 @@
 		SELECT * FROM Posts order by regDate desc limit 1
 	</select>
 
-	<select id="getPostsinfoView" resultType="com.moida.web.entity.PostsInfoView">
-		select * from postsinfoView where id = #{param1};
+	<select id="getPostsinfoView" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where id = #{param1};
 	</select>	
 	
 	<select id="getNoticePostsView" resultType="com.moida.web.entity.PostsListView">
@@ -37,7 +37,18 @@
 		select * from PostsListView where type = 2 and crowdId = #{param1} order by regDate desc
 	</select>
 	
-
+	<select id="getPostsSearchListView1" resultType="com.moida.web.entity.PostsListView"><!--  이렇게 쓰려면 entity 써야지-->
+		select * from PostsListView where type = 1 and crowdId = #{param1} and title like '%${param2}%' order by regDate desc  
+	</select>
+	
+	<select id="getPostsSearchListView2" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 1 and crowdId = #{param1} and boardId = #{param2} and title like '%${param3}%' order by regDate desc  
+	</select>
+	
+	<select id="getalbumSearchListView" resultType="com.moida.web.entity.PostsListView">
+		select * from PostsListView where type = 2 and crowdId = #{param1} and title like '%${param2}%' order by regDate desc  
+	</select>
+	
 	<update id="updatehit" parameterType="com.moida.web.entity.Posts">
 		update Posts set hit= hit+1 where id = #{param1}
 	</update>
@@ -50,4 +61,15 @@
 		SELECT * FROM Posts where id=#{param1}
 	</select>
 	
+	<insert id="insertGood" parameterType="com.moida.web.entity.Good">
+		insert into Good values(#{memberId}, #{postsId});
+	</insert>
+	
+	<select id="getGood" parameterType="com.moida.web.entity.Posts" resultType="com.moida.web.entity.Good">
+		select * from Good where postsId = #{param1}  ;
+	</select>
+	
+	<delete id="deleteGood">
+		delete from Good where memberId = #{memberId} and postsId = #{postsId};
+	</delete>
 </mapper>

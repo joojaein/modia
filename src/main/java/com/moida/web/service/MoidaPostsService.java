@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.moida.web.dao.PostsContentDao;
 import com.moida.web.dao.PostsDao;
+import com.moida.web.entity.Good;
 import com.moida.web.entity.Posts;
 import com.moida.web.entity.PostsContent;
 import com.moida.web.entity.PostsInfoView;
@@ -100,16 +101,16 @@ public class MoidaPostsService implements PostsService {
 	}
 
 	@Override
-	public PostsInfoView getPostsinfoView(Integer id) {
+	public PostsListView getPostsinfoView(Integer id) {
 		// TODO Auto-generated method stub
 		return postsDao.getPostsinfoView(id);
 	}
-
+	@Override
 	public int updatehit(Integer id) {
 		// TODO Auto-generated method stub
 		return postsDao.updatehit(id);
 	}
-
+	@Override
 	public int deletePosts(Integer id) {
 		// TODO Auto-generated method stub
 		return postsDao.deletePosts(id);
@@ -119,5 +120,39 @@ public class MoidaPostsService implements PostsService {
 	public Posts getPosts(int postsId) {
 		return postsDao.getPosts(postsId);
 	}
+	@Override
+	public List<PostsListView> getPostsSearchListView1(Integer crowdId, String keyword) {
+		// TODO Auto-generated method stub
+		return postsDao.getPostsSearchListView1(crowdId,keyword);
+	}
 
+	@Override
+	public List<PostsListView> getPostsSearchListView2(Integer crowdId, Integer boardId, String keyword) {
+		// TODO Auto-generated method stub
+		return postsDao.getPostsSearchListView2(crowdId, boardId, keyword);
+	}
+	
+	@Override
+	public List<PostsListView> getalbumSearchListView(Integer crowdId, String keyword) {
+		// TODO Auto-generated method stub
+		return postsDao.getalbumSearchListView(crowdId, keyword);
+	}
+	
+	@Override
+	public int insertGood(Good good) {
+		// TODO Auto-generated method stub
+		return postsDao.insertGood(good);
+	}
+	
+	@Override
+	public List<Good> getGood(Integer postsId) {
+		// TODO Auto-generated method stub
+		return postsDao.getGood(postsId);
+	}
+
+	public int deleteGood(Good good) {
+		// TODO Auto-generated method stub
+		return postsDao.deleteGood(good);
+	}
+	
 }

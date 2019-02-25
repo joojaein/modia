@@ -26,12 +26,12 @@ public class MoidaCmtService implements CmtService {
 	}
 	
 	@Override
-	@Transactional
-	public Cmt insertCmt(Cmt cmt) {
+	public int insertCmt(Integer postsId, String content, String writerId) {
 		// TODO Auto-generated method stub
-		cmtDao.insertCmt(cmt);
 		
-		return cmtDao.getCmtLastregDate(cmt.getPostsId());
+		System.out.println("서비슨데 들어오나");
+		
+		return cmtDao.insertCmt(postsId, content, writerId);
 	}
 	
 	@Override
@@ -50,6 +50,12 @@ public class MoidaCmtService implements CmtService {
 	public int updateCmt(Integer id, String content) {
 		// TODO Auto-generated method stub
 		return cmtDao.updateCmt(id, content);
+	}
+	
+	@Override
+	public Cmt getresetComment(Integer postsId, String writerId) {
+		// TODO Auto-generated method stub
+		return cmtDao.getresetComment(postsId, writerId);
 	}
 
 
