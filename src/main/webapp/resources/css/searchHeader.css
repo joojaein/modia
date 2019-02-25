@@ -18,14 +18,15 @@
 }
 #headerMake {
 	line-height: 5px;
-	background: none;
-	border: 1px solid grey;
+	background: gainsboro;
+	border: 1px solid gray;
 	border-radius: 5px;
 	padding: 0px 3px;
 	height: 30px;
 	width : 25px;
 	margin-top: 12px;
 	margin-left: 10px;
+
 }
 
 #headerMake a {
@@ -45,20 +46,38 @@
 .autoBox{
 	transform : translateY(-30px);
 	background: white;
-    width: auto;
+width: 100%;
+    margin: auto;
+    max-width: 1000px;
     height: auto;
     z-index: 10000;
     position: relative;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    	    box-shadow: 2px 2px 10px;
 }
-.autoUl{
-	
-}
-.autoUl li{
+.autoBox li{
 	text-align : left;
 	margin-left : 10px;
 	border : 0 0 0 1px solid;
+	cursor : pointer;
+	height : 50px;
+	line-height : 50px;
+
+}
+.autoBox li::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    border-bottom: 1px solid;
+    width: 100%;
+}
+.autoBox li:hover, .autoBox li:hover .autoBox li::before{
+	transition : .2s linear;
+	box-shadow: 3px 2px 20px 0px rgba(0,0,0,0.75);
+	background: white;
+	transform : perspective(600px) translate3d(-5px,0px,10px);
+    border-bottom: 1px solid;
 }
 @media ( min-width : 480px){
 	header{
@@ -85,6 +104,8 @@
 @media( min-width : 721px){
 	#headerMake{
     	margin-top: 15px;
+    		    	    box-shadow: 2px 2px 10px;
+    		    	    background : #ffffff;
 	}
 	
 	#headerSearch {
@@ -98,11 +119,12 @@
 	    width: 100%;
 	    max-width: 1000px;
 		height: 40px;
-		background: url(/resources/images/searchIcon.png) no-repeat 9px 9px gainsboro;
+		background: url(/resources/images/searchIcon.png) no-repeat 9px 9px white;
 		background-size: 25px 25px;
    		text-indent: 40px;
 	    font-size: 20px;	
         margin-top: 15px;
+            box-shadow: 2px 2px 10px;
 	    
 	}
 
