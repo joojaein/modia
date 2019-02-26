@@ -218,7 +218,7 @@ window.addEventListener("load",function(){
         var form = document.createElement('form');
         document.body.appendChild(form);
         form.method = 'post';
-        form.action = "/crowd/search";
+        form.action = "/crowd/search?categoryId="+categoryId;
         var inputCategoryId = document.createElement('input');
         inputCategoryId.type = 'hidden';
         inputCategoryId.name = "categoryId";

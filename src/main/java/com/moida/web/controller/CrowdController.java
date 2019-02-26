@@ -149,6 +149,7 @@ public class CrowdController {
 			word = "";
 		}
 		List<CrowdSimpleDataView> simpleCategoryList = moidaCrowdService.getSimpleCategoryList(categoryId, word);
+		System.out.println(simpleCategoryList+"ㅡmㅡ");
 		List<CrowdSimpleDataView> simpleCategoryTagList = moidaCrowdService.getSimpleCategoryTagList(tagId, word);
 		
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -161,28 +162,44 @@ public class CrowdController {
 
 			Member member = memberService.getMember(userId);
 			List<CrowdSimpleDataView> simpleDataList = new ArrayList<CrowdSimpleDataView>();
-
+			List<CrowdSimpleDataView> indexCategoryList = new ArrayList<CrowdSimpleDataView>();
 			for (int i = 0; i < tempList.size(); i++) {
 
 				if (member.getAreaSido().equals(tempList.get(i).getAreaSido())) {
+					System.out.println(member.getAreaSido()+"ㅅㅂ"+tempList.get(i).getAreaSido());
 					simpleDataList.add(tempList.get(i));
+					
 				}
-			}
-			model.addAttribute("simpleDataList", simpleDataList);
-		} else {
 
+			}
+			for (int j = 0; j < simpleCategoryList.size(); j++) {
+				
+				if(member.getAreaSido().equals(simpleCategoryList.get(j).getAreaSido())) {
+					indexCategoryList.add(simpleCategoryList.get(j));
+				}	
+			}
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(indexCategoryList);
+			model.addAttribute("chkCategory", json);
+			model.addAttribute("simpleDataList", simpleDataList);
+			System.out.println("tnwl"+simpleDataList);
+		} else {
+			Gson gson = new Gson();
+			String json = gson.toJson(simpleCategoryList);
+			model.addAttribute("chkCategory", json);
 			model.addAttribute("simpleDataList", tempList);
+			System.out.println("우짜냐");
 		}
-		List<CrowdSimpleDataView> searchTempList = moidaCrowdService.getSearchResultList(word);
+		List<CrowdSimpleDataView> searchTempList = moidaCrowdService.getSimpleCategoryList(categoryId, word);//moidaCrowdService.getSearchResultList(word);
 		System.out.println(searchTempList);
 
-		Gson gson = new Gson();
-		String json = gson.toJson(simpleCategoryList);
+
 		Gson gson2 = new Gson();
 		String json2 = gson2.toJson(simpleCategoryTagList);
 		Gson gson3 = new Gson();
 		String json3 = gson3.toJson(searchTempList);
-		model.addAttribute("chkCategory", json);
+
 		model.addAttribute("chkCategoryTag", json2);
 		model.addAttribute("searchResult", json3);
 		model.addAttribute("list", list);
@@ -221,10 +238,12 @@ public class CrowdController {
 					simpleCategoryList.add(tempList.get(i));
 				}
 			}
+			System.out.println("내가 한번 더");
 			Gson gson = new Gson();
 			String json = gson.toJson(simpleCategoryList);
 			return json;
 		} else {
+			System.out.println("내가 한번 더222");
 			Gson gson = new Gson();
 			String json = gson.toJson(tempList);
 			return json;
