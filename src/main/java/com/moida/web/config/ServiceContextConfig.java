@@ -40,7 +40,7 @@ public class ServiceContextConfig {
 		
 		//집용
 		//dataSource.setUrl("jdbc:mysql://192.168.0.2:3306/moida?useUnicode=true&characterEncoding=utf8");
-		
+		 
 		dataSource.setUsername("moida");
 		dataSource.setPassword("moida1234");
 

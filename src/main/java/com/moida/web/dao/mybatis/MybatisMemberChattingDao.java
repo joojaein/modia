@@ -56,7 +56,7 @@ public class MybatisMemberChattingDao implements MemberChattingDao
 		// TODO Auto-generated method stub
 		
 		MemberChattingDao memberChattingDao = session.getMapper(MemberChattingDao.class);
-		System.out.println("인서트 ㅇㅇㅇㅇㅇㅇ");
+	//	System.out.println("인서트 ㅇㅇㅇㅇㅇㅇ");
 		return memberChattingDao.insertRprtId(rprtMember);
 	}
 	

@@ -36,12 +36,21 @@
 		</nav>
 	</div>
 	</section>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var areaContent = document.querySelector(".content div");
+		var textareaContent = areaContent.querySelector("textarea");
+		textareaContent.style.height = "1px";
+		textareaContent.style.height = (1+textareaContent.scrollHeight)+"px";
+	});
+	</script>
 	<c:url value="boardedit" var="edit">
 		<c:param name="crowd" value="${crowd.id}" />
 		<c:param name="posts" value="${posts.id}" />
 	</c:url>
 	<input id="cid" type="hidden" value="${crowd.id}" /> 
 	<input class="pi" type="hidden" value="${posts.id}" />
+	<input id="uid" type="hidden" value="${uid}" />
 	<section class="content-title">
 			<div class="ct-box">
 				<h3 name="title">${posts.title}</h3>
@@ -66,7 +75,7 @@
 					<img src="/get-img?folder=crowd-postsImg&file=${pc.src}" /><br />
 				</c:when>
 				<c:otherwise>
-					<p>${pc.text}</p>
+					<textarea wrap="hard">${pc.text}</textarea>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -105,19 +114,17 @@
 	<div class="comment-body">
 	<sec:authentication property="principal" var="pinfo"/>
 		<div class="comentlike">
-			<div class="comment-sum">댓글 ${posts.cnt}</div>
-			<c:choose>
-				<c:when test="${uid}">
-					<div class="comment-sum like">
-						좋아요<span>♡</span> 10
-					</div>
+			<div class="comment-sum"><span>댓글 </span><span class="cmtCnt">${posts.cmtCnt}</span></div>
+				<div class="comment-sum like">
+				<c:choose>
+				<c:when test="${isGood eq 0}">
+					좋아요<span class="likecnt" data-id="${isGood}">♡</span> <span style="color:#494949" class="goodcnt">${posts.goodcnt}</span>
 				</c:when>
-				<c:otherwise>
-					<div class="comment-sum like">
-						좋아요<span>♥</span> 10
-					</div>
-				</c:otherwise>
-			</c:choose>
+				<c:when test="${isGood eq 1}">
+					좋아요<span class="likecnt" data-id="${isGood}">♥</span> <span style="color:#494949" class="goodcnt">${posts.goodcnt}</span>
+				</c:when>
+				</c:choose>
+			</div>
 		</div>
 		<div class="comment-reg">
 			<div class="comment-box">
@@ -128,30 +135,30 @@
 			<template id="tem2">
 			<div class="cmt-box">
 				<div class="comment-content">
-						<div class="profile-photo">
+					<input class="cmtid" type="hidden" /> 
+					<input class="cmtimg" type="hidden" />
+					<div class="profile-photo">
+						<div class="writerimg">
 							<div class="comment-photo"></div>
-							<div class="profile-info">
-								<span class="name"></span>
-							</div>
-							<div class="edit-btn">
-								<input class="comment-edit" type="button" value="수정" /> 
-								<input class="comment-del" type="button" value="삭제" />
-							</div>
+							<div class="profile-info"><span class="name"></span></div>
 						</div>
-						<div class="cc-box">
-						<p></p>
-						<div>
+						<div class="edit-btn">
 						</div>
 					</div>
-				</div>
+					<div class="cc-box">
+						<p></p>
+						<div></div>
+					</div>
 				</div>
 				<hr />
+			</div>
 			</template>
 			<div class="temp-cmt">
 			<c:forEach var="cmt" items="${cmt}">
 				<div class="cmt-box">
 					<div class="comment-content">
 						<input class="cmtid" type="hidden" value="${cmt.id}"/>
+						<input class="cmtimg" type="hidden" value="${cmt.img}"/>
 							<div class="profile-photo">
 							<div class="writerimg">
 								<div class="comment-photo" style="background: url('/get-img?folder=member-profile&file=${cmt.img}') no-repeat center; background-size: cover;">
@@ -161,8 +168,19 @@
 								</div>
 								</div>
 								<div class="edit-btn">
-									<input class="comment-edit" type="button" value="수정" /> 
-									<input class="comment-del" type="button" value="삭제"/>
+									<sec:authorize access="isAuthenticated()">
+										<c:choose>
+											<c:when test="${uid eq cmt.writerId}">
+												<input class="comment-edit" type="button" value="수정" />
+												<input class="comment-del" type="button" value="삭제" />
+											</c:when>
+											<c:when test="${mRole.groupRole <= 1}">
+												<input class="comment-del" type="button" value="삭제" />
+											</c:when>
+											<c:otherwise>
+											</c:otherwise>
+										</c:choose>
+									</sec:authorize>
 								</div>
 							</div>
 							<div class="cc-box">
@@ -172,8 +190,8 @@
 						</div>
 						</div>
 					</div>
-				</div>
 				<hr />
+				</div>
 			</c:forEach>
 		</div>
 		</div>

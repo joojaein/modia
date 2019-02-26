@@ -1458,7 +1458,7 @@ function adminMemberChat()
         	
 	    	// localhost에 접속하고 싶은 ip를 쓰고 사이트는 내 ip로 접속 하면  상대방에게 채팅을 보낼 수 있다.
 
-	   		var socket = new WebSocket("ws://localhost:80/chat-server");
+	   		var socket = new WebSocket("ws://192.168.0.14:80/chat-server");
 	
 	   		// WebsocketEndPonint가 메시지를 보내주면 오는 onmessage
 	   		socket.onmessage = function(e)
@@ -1467,18 +1467,21 @@ function adminMemberChat()
 //	   			alert("이미지chlwl : "+imgsMap.get('chlwl'));
 	   			//alert($(".thisMyId").val());
 	   			
-	   			//reboot();
-//	   			if($(".thisMyId").val()=="admin")
-//	   			{
-//	   				adminMemberLimit();
-//	   				
-//	   			}
-//	   			else if($(".thisMyId").val()!="admin")
-//	   			{
-//	   				messageList();
-//	   				admintalk();
-//	   			}
+	   			reboot();
+	   			/*if($(".thisMyId").val()=="admin")
+	   			{
+	   				adminMemberLimit();
+	   				
+	   			}
+	   			else if($(".thisMyId").val()!="admin")
+	   			{
+	   				messageList();
+	   				admintalk();
+	   			}*/
 //	   			console.log(e.data);
+	   			
+	   			
+	   			
 	   			
 	   			
 	//   			alert("onmessage 출입구:"+$(".thisMyId").val())
@@ -1500,10 +1503,75 @@ function adminMemberChat()
 //	   					+"받는이 : "+receiverId+" / "
 //	   					+"내용 : "+chatcontent);
 	   			
-	   			if(receiverId == $(".thisMyId").val())
+	   			
+	   			// 친구 리스트를 가져와서 친구가 아닌데 보냈으면 안 반짝이게
+	   			if( $(".thisMyId").val()=='admin' )
 	   			{
-	   				$("#open-chat").css({"animation":"1s shiny infinite"});
+	   				if(receiverId == $(".thisMyId").val())
+		   			{
+		   				$("#open-chat").css({"animation":"1s shiny infinite"});
+		   			}
 	   			}
+	   			else
+	   			{
+	   				if(receiverId == $(".thisMyId").val())
+	   				{
+	   					
+	   					
+	   					if(senderId=="admin")
+	   					{
+	   						$("#open-chat").css({"animation":"1s shiny infinite"});
+	   					}
+	   					else
+	   					{
+	   						$(function()
+	   						{
+	   					
+	   			   				var myfriendget = new XMLHttpRequest();
+	   			   		        
+	   			   		        //  alert("open전");   
+	   			   		          
+	   			   				myfriendget.open("POST","/member/shiny-chk-friend",true);
+	   			   				myfriendget.setRequestHeader("Content-Type",
+	   			   		                                  "application/x-www-form-urlencoded");
+	   			   		                
+	   			   		                //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
+	   			   				myfriendget.onload = function()
+	   			   		             {
+	   			   		             
+	   			   		      //          alert("너의 아이디가 들려");
+	   			   		                
+	   			   		                var sfriendListData = JSON.parse(myfriendget.responseText); 
+	   			   		                
+	   			   		    //            alert("아마도 이게 왔을텐데.... : "+sfriendListData);
+	   			   		                
+	   			   		                if(sfriendListData == 'true')
+	   			   		                {
+	   			   		                	
+				   			   	   			$("#open-chat").css({"animation":"1s shiny infinite"});
+				   			   	   			
+	   			   		                }
+	   			   		                
+	   			   		               
+	   			   		             }
+	   			   		             
+	   			   				myfriendget.send("memberId="+senderId);
+	   			   				
+	   						})
+	   					}
+	   					
+	   					
+	   					
+	   				}
+	   				
+	   			}
+	   			
+	   			
+	   			
+	   			///////////////////////////////////////
+	   			
+	   			
+	   			
 	   			
 	   			
 	   			if( (chatcontent!=null && chatcontent!="") || chatcontent!=="undefined")

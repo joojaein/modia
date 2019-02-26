@@ -78,13 +78,13 @@ $(function(e) {
        
        if(!chk||chk){
        var cListRequest = new XMLHttpRequest();
-       jsContainer.innerHTML = "";
        cListRequest.open("POST", "/crowd/"+cUrl, true);
        cListRequest.setRequestHeader("Content-Type",
              "application/x-www-form-urlencoded");
        cListRequest.onload = function() {
           var crowdCategoryList = JSON.parse(cListRequest.responseText);
           //카테고리 아이디만 받았을 경우
+          jsContainer.innerHTML = "";
           for (var i = 0; i < crowdCategoryList.length; i++) {
              var tBox = document.importNode(temp.content, true);
 
@@ -138,7 +138,7 @@ $(function(e) {
              as[i].classList.remove("selectca");
           }
           e.target.classList.add("selectca");
-          jsContainer.innerHTML = "";
+
           var cListRequest = new XMLHttpRequest();
           cListRequest.open("POST", "/crowd/"+cUrl, true);
           cListRequest.setRequestHeader("Content-Type",
@@ -149,6 +149,7 @@ $(function(e) {
              }
              var crowdCategoryList = JSON.parse(cListRequest.responseText);
              //카테고리 아이디만 받았을 경우ㄴㅇㄹㄴㅇㄹ
+                       jsContainer.innerHTML = "";
              for (var i = 0; i < crowdCategoryList.length; i++) {
                 var tBox = document.importNode(temp.content, true);
 
@@ -198,7 +199,7 @@ $(function(e) {
        
     })
      if(${tagId}!=0){
-       jsContainer.innerHTML = "";
+
        var categoryTarget = ${categoryId};
        var tagTarget = ${tagId};
        var tempThis;
@@ -228,6 +229,7 @@ $(function(e) {
        chkRequest.onload = function(){
           //태그아이디를 받았을 경우
           var crowdCategoryTagList = JSON.parse(chkRequest.responseText);
+          jsContainer.innerHTML = "";
            for (var i = 0; i < crowdCategoryTagList.length; i++) {
              var tBox = document.importNode(temp.content, true);
              var tempH4 = tBox.querySelector("h4");
@@ -273,7 +275,7 @@ $(function(e) {
        event(cUrl,tUrl,cQuery,tQuery);
     }
     else if((${categoryId}!=0)){
-    jsContainer.innerHTML = "";
+
 
     var target = ${categoryId};
     var tempThis;
@@ -302,6 +304,7 @@ $(function(e) {
     chkRequest.onload = function(){
        //태그아이디를 받았을 경우
        var crowdCategoryList = ${chkCategory};
+       jsContainer.innerHTML = "";
         for (var i = 0; i < crowdCategoryList.length; i++) {
           var tBox = document.importNode(temp.content, true);
 
@@ -614,6 +617,54 @@ $(function(e) {
     }
     //index에서 입력후 들어올 시
     if(searchText.value!=""){
+        jsContainer.innerHTML = "";
+        
+        var resultRequest = new XMLHttpRequest();
+        resultRequest.open("GET","/crowd/searchResultList?word="+searchText.value,true);
+        resultRequest.onload = function(){
+           var resultList = JSON.parse(resultRequest.responseText);
+           for (var i = 0; i < resultList.length; i++) {
+              var tBox = document.importNode(temp.content, true);
+              
+              var tempH4 = tBox.querySelector("h4");
+              tempH4.innerText = resultList[i].name;
+               var tempSpan1 = tBox.querySelector("span:nth-child(1)");
+              var tempSpan2 = tBox.querySelector("span:nth-child(2)");
+              var tempSpan3 = tBox.querySelector("span:nth-child(3)");
+              var tempSpan4 = tBox.querySelector("span:nth-child(4)");
+              var tempSpan5 = tBox.querySelector(".member-cnt span");
+              var tempImg = tBox.querySelector(".content-image img");
+              var tempA = tBox.querySelector(".content-image a");
+              tempSpan1.innerText = resultList[i].content;
+               tempSpan2.innerHTML = "가입조건"+'<br/>- 나이 : '+resultList[i].ageMin+" ~ "+resultList[i].ageMax;
+               if(resultList[i].gender==0)
+              tempSpan3.innerText = "- 성별 : 무관";
+               if(resultList[i].gender==1)
+               tempSpan3.innerText = "- 성별 : 남자";
+                if(resultList[i].gender==2)    
+               tempSpan3.innerText = "- 성별 : 여자";
+              tempSpan4.innerText = "- 지역 : "+resultList[i].areaSido+" "+resultList[i].areaSigungu; 
+              tempSpan5.innerText = "정원 "+resultList[i].nowPerson+" / "+resultList[i].maxPerson;
+              tempImg.src = "/get-img?folder=crowd-banner&file="+resultList[i].img;
+              tempA.href = "main?crowd="+resultList[i].id;
+              var tempBox = tBox.querySelector(".content-box");
+              tempH4.setAttribute("data-crowd",resultList[i].id);
+              tempSpan1.setAttribute("data-crowd",resultList[i].id);
+              tempSpan2.setAttribute("data-crowd",resultList[i].id);
+              tempSpan3.setAttribute("data-crowd",resultList[i].id);
+              tempSpan4.setAttribute("data-crowd",resultList[i].id);
+              tempSpan5.setAttribute("data-crowd",resultList[i].id);
+              tempImg.setAttribute("data-crowd",resultList[i].id);
+              tempBox.setAttribute("data-crowd",resultList[i].id);
+              
+              tempBox.onclick = function(e){
+           	   location.href = "main?crowd="+e.target.getAttribute("data-crowd");
+              }
+              jsContainer.append(tBox);
+           }
+        }
+        resultRequest.send();
+/*     	alert("들어오니");
         var target = evt.target;
         var tempThis;
         var tempselect;
@@ -626,7 +677,7 @@ $(function(e) {
            if(ulChildren[i].innerText == target.innerText){
               tempThis = ulChildren[i].parentNode;
            }
-        }
+        } 
         
         if (!chk) {
            mainul.find("li").find("ul").css({
@@ -662,13 +713,14 @@ $(function(e) {
            }
 
         }
-       jsContainer.innerHTML = "";
+
        
        var resultRequest = new XMLHttpRequest();
        resultRequest.open("GET","/crowd/searchResultList?word="+searchText.value,true);
        resultRequest.onload = function(){
 
           var resultList = JSON.parse(resultRequest.responseText);
+          
           for (var i = 0; i < resultList.length; i++) {
              var tBox = document.importNode(temp.content, true);
              
@@ -710,9 +762,8 @@ $(function(e) {
              popopo();
           }
        }
-       resultRequest.send();
+       resultRequest.send(); */
 //----------------------------------------------------
-
     }
     var tempIN = false;
     searchText.addEventListener("keyup",function imfuck(e){
@@ -1074,6 +1125,7 @@ function point(){
 	</nav>
 </section>
 <section class="category-content-container">
+
 	<c:forEach var="simple" items="${simpleDataList}">
 		<%-- <c:forEach var="crowdTag" items="${crowdTagList}"> --%>
 		<%-- <c:forEach var="tag" items="${tlist}"> --%>
