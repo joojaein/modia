@@ -35,8 +35,8 @@
 	</div>
 	</section>
 	<input id="cid" type="hidden" value="${crowd.id}" />
-		<article class="content">
-		<div class="content-width">
+	<article class="content">
+	<div class="content-width">
 		<c:forEach var="p" items="${plist}">
 			<c:url value="ndetail" var="url">
 				<c:param name="crowd" value="${p.crowdId}" />
@@ -45,36 +45,32 @@
 			<div class="content-box">
 				<div class="etc-box">
 					<div class="profile-box">
-						<div class="photo" style="background: url('/get-img?folder=member-profile&file=${p.img}') no-repeat center; background-size: cover;"></div>
+						<div onclick="imgClick('${p.writerId}');" class="photo" style="background: url('/get-img?folder=member-profile&file=${p.img}') no-repeat center; background-size: cover;"></div>
 						<div class="profile-info">
 							<span class="name">${p.writerId}</span>
 						</div>
 					</div>
-					<div class="content-title">
-						<a href="${url}">${p.title}</a>
-					</div>
-					<p class="content-content" style="margin: 0;">
-						<a href="${url}">${p.content}</a>
-					</p>
+					<a href="${url}"><div class="content-title">${p.title}</div></a>
+					<a href="${url}"><p class="content-content" style="margin: 0;">${p.content}</p></a>
 				</div>
 				<div class="img-box">
 					<div class="pi-box">
-					<c:choose>
-					<c:when test="${empty p.mainImg}">
-						<img style="display:none;" class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" />
-					</c:when>
-					<c:otherwise>
-					<a href="${url}"><img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
-					</c:otherwise>
-					</c:choose>
-					</div>
+							<c:choose>
+								<c:when test="${empty p.mainImg}">
+									<img style="display: none;" class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" />
+								</c:when>
+								<c:otherwise>
+									<a href="${url}"><img class="post-img" src="/get-img?folder=crowd-postsImg&file=${p.mainImg}" /></a>
+								</c:otherwise>
+							</c:choose>
+						</div>
 				</div>
 			</div>
 			<div class="timeview">
 				<span class="reg-write"><a href="${url}"> 
-				<fmt:formatDate value="${p.regDate}" pattern="yyyy-MM-dd a HH:mm" /></a></span>
-				<a href="${url}"><span>조회수 <span class="hit" style="color: red;">[${p.hit}]</span></span></a> 
-				<a href="${url}"><span>댓글수<span class="comment-cnt" style="color: red;">[${p.cmtCnt}]</span></span></a>
+				<fmt:formatDate value="${p.regDate}" pattern="yyyy-MM-dd a HH:mm" /></a></span> 
+				<a href="${url}"><span>조회수 <span class="hit" style="color: red;">[${p.hit}]</span></span></a>
+				<a href="${url}"><span>댓글수 <span class="comment-cnt" style="color: red;">[${p.cmtCnt}]</span></span></a>
 			</div>
 			<hr />
 			<input class="pid" type="hidden" value="p.id" />

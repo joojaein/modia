@@ -29,78 +29,155 @@ var dataset = [
 ];
 $(document).ready(function() {
 
-	$('#calendar').fullCalendar({
-		header: {
-			left: '',
-			center: 'prev, title, next',
-			right: 'addEventButton'
-		},
-		customButtons: {
-			addEventButton: {
-				text: '일정추가',
-			}
-		},
-		lang: "ko",
-		defaultDate: new Date(),
-		selectable: true,
-		selectHelper: true,
-		googleCalendarApiKey: "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
-		eventSources:[ 
-		{
-			events:dataset
-		},
-			{
-			googleCalendarId: "ko.south_korea#holiday@group.v.calendar.google.com",
-			className: "koHolidays"
-		}
-		],
-		eventClick: function (eventObj) {
-			var eh = $(".eh");
-			var tp = $('.tp');
-			var p = $(".p");
-			var title = $(".fc-title").text();
-			
-			var temp=eventObj.end.format();
-			var tempdate = new Date(temp);
-			tempdate.setDate(tempdate.getDate()-1);
-			
-			 var month = '' + (tempdate.getMonth() + 1);
-	         var day = '' + tempdate.getDate();
-	         var year = tempdate.getFullYear();
-	         if (month.length < 2) month = '0' + month;
-	         if (day.length < 2) day = '0' + day;
-	         var temEnd = year+"-"+month+"-"+day;
+	if($(".addRole").val() <=1){
 
-	         if(eventObj.url && temEnd != eventObj.start.format()){
-				p.empty();
-				eh.text(eventObj.start.format()+" - "+temEnd);
-				tp.text(eventObj.title);
-				//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
-				p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
-				return false;
-			}else if(eventObj.url && eventObj.start.format() == temEnd){
-				p.empty();
-				eh.text(eventObj.start.format());
-				tp.text(eventObj.title);
-				//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
-				p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
-				return false;
+		$('#calendar').fullCalendar({
+			header: {
+				left: '',
+				center: 'prev, title, next',
+				right: 'addEventButton'
+			},
+			customButtons: {
+				addEventButton: {
+					text: '일정추가',
+				}
+			},
+			lang: "ko",
+			defaultDate: new Date(),
+			selectable: true,
+			selectHelper: true,
+			googleCalendarApiKey: "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
+			eventSources:[ 
+			{
+				events:dataset
+			},
+				{
+				googleCalendarId: "ko.south_korea#holiday@group.v.calendar.google.com",
+				className: "koHolidays"
 			}
+			],
+			eventClick: function (eventObj) {
+				var eh = $(".eh");
+				var tp = $('.tp');
+				var p = $(".p");
+				var title = $(".fc-title").text();
+				
+				var temp=eventObj.end.format();
+				var tempdate = new Date(temp);
+				tempdate.setDate(tempdate.getDate()-1);
+				
+				 var month = '' + (tempdate.getMonth() + 1);
+		         var day = '' + tempdate.getDate();
+		         var year = tempdate.getFullYear();
+		         if (month.length < 2) month = '0' + month;
+		         if (day.length < 2) day = '0' + day;
+		         var temEnd = year+"-"+month+"-"+day;
+
+		         if(eventObj.url && temEnd != eventObj.start.format()){
+					p.empty();
+					eh.text(eventObj.start.format()+" - "+temEnd);
+					tp.text(eventObj.title);
+					//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+					p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+					return false;
+				}else if(eventObj.url && eventObj.start.format() == temEnd){
+					p.empty();
+					eh.text(eventObj.start.format());
+					tp.text(eventObj.title);
+					//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+					p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+					return false;
+				}
+			
+				if(temEnd != eventObj.start.format()){
+				p.empty();
+				eh.text(eventObj.start.format()+" - "+ temEnd);
+				tp.text(eventObj.title);
+				p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+				}else if(temEnd == eventObj.start.format()){
+					p.empty();
+					eh.text(eventObj.start.format());
+					tp.text(eventObj.title);
+					p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+				}
+				$(deleteBox()).appendTo(".eh");
+			}
+		});
 		
-			if(temEnd != eventObj.start.format()){
-			p.empty();
-			eh.text(eventObj.start.format()+" - "+ temEnd);
-			tp.text(eventObj.title);
-			p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
-			}else if(temEnd == eventObj.start.format()){
+	}else{
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: '',
+				center: 'prev, title, next',
+				right: ''
+			},
+			lang: "ko",
+			defaultDate: new Date(),
+			selectable: true,
+			selectHelper: true,
+			googleCalendarApiKey: "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
+			eventSources:[ 
+			{
+				events:dataset
+			},
+				{
+				googleCalendarId: "ko.south_korea#holiday@group.v.calendar.google.com",
+				className: "koHolidays"
+			}
+			],
+			eventClick: function (eventObj) {
+				var eh = $(".eh");
+				var tp = $('.tp');
+				var p = $(".p");
+				var title = $(".fc-title").text();
+				
+				var temp=eventObj.end.format();
+				var tempdate = new Date(temp);
+				tempdate.setDate(tempdate.getDate()-1);
+				
+				 var month = '' + (tempdate.getMonth() + 1);
+		         var day = '' + tempdate.getDate();
+		         var year = tempdate.getFullYear();
+		         if (month.length < 2) month = '0' + month;
+		         if (day.length < 2) day = '0' + day;
+		         var temEnd = year+"-"+month+"-"+day;
+
+		         if(eventObj.url && temEnd != eventObj.start.format()){
+					p.empty();
+					eh.text(eventObj.start.format()+" - "+temEnd);
+					tp.text(eventObj.title);
+					//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+					p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+					return false;
+				}else if(eventObj.url && eventObj.start.format() == temEnd){
+					p.empty();
+					eh.text(eventObj.start.format());
+					tp.text(eventObj.title);
+					//p.text(eventObj.data).append("<p class='d-none'>"+eventObj.id+"</p>");
+					p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+					return false;
+				}
+			
+				if(temEnd != eventObj.start.format()){
 				p.empty();
-				eh.text(eventObj.start.format());
+				eh.text(eventObj.start.format()+" - "+ temEnd);
 				tp.text(eventObj.title);
 				p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+				}else if(temEnd == eventObj.start.format()){
+					p.empty();
+					eh.text(eventObj.start.format());
+					tp.text(eventObj.title);
+					p.text(eventObj.data).after("<div><p class='d-none calendar-id'>"+eventObj.id+"</p></div>");
+				}
+				$(deleteBox()).appendTo(".eh");
 			}
-			$(deleteBox()).appendTo(".eh");
-		}
-	});
+		});
+		
+		
+	}
+
+
 });
 function editbtn(){
 	var cid = $(".calendar-id").text();
@@ -171,11 +248,14 @@ function delbtn(){
     	}
 }
 function deleteBox(){
+
+	if($(".addRole").val() <=1){
 	var deletebtn = "<div class='eh-btn'>" 
 					+"<input type='button' class='edit-btn r-35' value='수정' onclick='editbtn();'/>"
 					+"<input type='button' class='delete-btn r-0' value='삭제' onclick='delbtn();'/>";
 					+"</div>"
 					return deletebtn;
+	}
 }
 window.addEventListener("load", function () {
 	var addevntbtn = document.querySelector(".fc-addEventButton-button");
@@ -211,6 +291,7 @@ window.addEventListener("load", function () {
 		</nav>
 	</div>
 	</section>
+	<input class="addRole" type="hidden" value="${mRole.groupRole}" />
 	<article class="content">
 	<div class="calendar-box">
 		<div id="calendar"></div>

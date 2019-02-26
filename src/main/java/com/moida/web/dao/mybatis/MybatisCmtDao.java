@@ -25,10 +25,11 @@ public class MybatisCmtDao implements CmtDao{
 	}
 
 	@Override
-	public int insertCmt(Cmt cmt) {
+	public int insertCmt(Integer postsId, String content, String writerId) {
 		// TODO Auto-generated method stub
 		CmtDao cmtDao = session.getMapper(CmtDao.class);
-		return cmtDao.insertCmt(cmt);
+		System.out.println("다온데 들어오나");
+		return cmtDao.insertCmt(postsId, content, writerId);
 	}
 
 	@Override
@@ -57,6 +58,13 @@ public class MybatisCmtDao implements CmtDao{
 		// TODO Auto-generated method stub
 		CmtDao cmtDao = session.getMapper(CmtDao.class);
 		return cmtDao.updateCmt(id, content);
+	}
+
+	@Override
+	public Cmt getresetComment(Integer postsId, String writerId) {
+		// TODO Auto-generated method stub
+		CmtDao cmtDao = session.getMapper(CmtDao.class);
+		return cmtDao.getresetComment(postsId, writerId);
 	}
 
 	

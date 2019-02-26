@@ -10,7 +10,7 @@ public interface CmtDao {
 
 	public List<CmtListView> getCmtList(Integer postsId);
 
-	public int insertCmt(Cmt cmt);
+	public int insertCmt(Integer postsId, String content, String writerId);
 
 	public Cmt getCmtLastregDate(int id);
 
@@ -19,5 +19,7 @@ public interface CmtDao {
 	public int deleteCmt(Integer id);
 
 	public int updateCmt(Integer id, String content);
+
+	public Cmt getresetComment(Integer postsId, String writerId);
 	
 }

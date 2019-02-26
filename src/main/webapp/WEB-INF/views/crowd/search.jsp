@@ -1070,6 +1070,7 @@ function point(){
 	</nav>
 </section>
 <section class="category-content-container">
+
 	<c:forEach var="simple" items="${simpleDataList}">
 		<%-- <c:forEach var="crowdTag" items="${crowdTagList}"> --%>
 		<%-- <c:forEach var="tag" items="${tlist}"> --%>

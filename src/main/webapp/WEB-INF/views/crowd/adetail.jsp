@@ -6,7 +6,7 @@
 <main>
 <link href="resources/css/basic.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
-<link href="/resources/css/groupboarddetail.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/groupalbumdetail.css" type="text/css" rel="stylesheet" />
 <link href="/resources/css/backpage.css" type="text/css" rel="stylesheet" />
 <script src="/resources/js/boarddetail.js"></script> 
 <script src="/resources/js/backpage.js"></script> 
@@ -101,21 +101,20 @@
 	</article>
 	<section class="content-comment">
 	<div class="comment-body">
-	<sec:authentication property="principal" var="pinfo"/>
 		<div class="comentlike">
-			<div class="comment-sum">댓글 ${posts.cnt}</div>
-			<c:choose>
-				<c:when test="${uid}">
+			<div class="comment-sum">댓글 ${posts.cmtCnt}</div>
 					<div class="comment-sum like">
-						좋아요<span>♡</span> 10
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="comment-sum like">
-						좋아요<span>♥</span> 10
-					</div>
-				</c:otherwise>
-			</c:choose>
+					<c:choose>
+						<c:when test="${isGood eq 0}">
+					좋아요<span class="likecnt" data-id="${isGood}">♡</span>
+							<span style="color: #494949" class="goodcnt">${posts.goodcnt}</span>
+						</c:when>
+						<c:when test="${isGood eq 1}">
+					좋아요<span class="likecnt" data-id="${isGood}">♥</span>
+							<span style="color: #494949" class="goodcnt">${posts.goodcnt}</span>
+						</c:when>
+					</c:choose>
+				</div>
 		</div>
 		<div class="comment-reg">
 			<div class="comment-box">

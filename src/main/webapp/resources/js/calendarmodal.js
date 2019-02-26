@@ -17,7 +17,7 @@ function modalopen() {
 			modal.classList.remove("show");
 			modal.classList.remove("hide");
 			screen.remove();
-			window.location.href="";
+		
 		};
 
 	});
@@ -33,8 +33,8 @@ function dataadd() {
 	var cid = $(".crowdId").val();
 	var start = $(".from-date").val();
 	var end = $(".to-date").val();
-	var title = $("input[name=title]").val();
-	var content = $("input[name=title]").val();
+	var title = encodeURIComponent($(".title-text").val());
+	var content = encodeURIComponent($(".content-text").val());
 	if(end == "")
 		end = start;
 	
@@ -44,14 +44,17 @@ function dataadd() {
 		dataType: "json",
 		data: {"crowdId":cid ,"startDate": start, "endDate": end, "title":title, "content":content},
 		success : function(json) {
-		console.log("연결");
+		console.log("달력연결");
 
-
-		modal.classList.remove("show");
-		modal.classList.remove("hide");
-		screen.remove();
+		location.reload();
+	
 		}
 		
+		
 	})
+	modal.classList.remove("show");
+	modal.classList.remove("hide");
+	screen.remove();
+	
 }
 

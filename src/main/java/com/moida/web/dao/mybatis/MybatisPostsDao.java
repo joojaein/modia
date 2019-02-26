@@ -5,8 +5,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.moida.web.dao.PostsDao;
+import com.moida.web.entity.Good;
 import com.moida.web.entity.Posts;
-import com.moida.web.entity.PostsInfoView;
 import com.moida.web.entity.PostsListView;
 
 @Repository
@@ -64,7 +64,7 @@ public class MybatisPostsDao implements PostsDao {
 	}
 
 	@Override
-	public PostsInfoView getPostsinfoView(Integer id) {
+	public PostsListView getPostsinfoView(Integer id) {
 		// TODO Auto-generated method stub
 		PostsDao postsDao = session.getMapper(PostsDao.class);
 		return postsDao.getPostsinfoView(id);
@@ -88,6 +88,48 @@ public class MybatisPostsDao implements PostsDao {
 	public Posts getPosts(int postsId) {
 		PostsDao postsDao = session.getMapper(PostsDao.class);
 		return postsDao.getPosts(postsId);
+	}
+
+	@Override
+	public List<PostsListView> getPostsSearchListView1(Integer crowdId, String keyword) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getPostsSearchListView1(crowdId, keyword);
+	}
+	
+	@Override
+	public List<PostsListView> getPostsSearchListView2(Integer crowdId, Integer boardId,  String keyword) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getPostsSearchListView2(crowdId, boardId, keyword);
+	}
+
+	@Override
+	public List<PostsListView> getalbumSearchListView(Integer crowdId, String keyword) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getalbumSearchListView(crowdId, keyword);
+	}
+
+	@Override
+	public int insertGood(Good good) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.insertGood(good);
+	}
+
+	@Override
+	public List<Good> getGood(Integer postsId) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.getGood(postsId);
+	}
+
+	@Override
+	public int deleteGood(Good good) {
+		// TODO Auto-generated method stub
+		PostsDao postsDao = session.getMapper(PostsDao.class);
+		return postsDao.deleteGood(good);
 	}
 
 }
