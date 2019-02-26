@@ -199,7 +199,6 @@ $(function(e) {
        
     })
      if(${tagId}!=0){
-
        var categoryTarget = ${categoryId};
        var tagTarget = ${tagId};
        var tempThis;
@@ -223,7 +222,7 @@ $(function(e) {
           cacontainer.addClass("height");
           chk!=chk;
        var chkRequest = new XMLHttpRequest();
-       chkRequest.open("POST","/crowd/search?categoryId="+${categoryId},true);
+       chkRequest.open("POST","/crowd/tagList",true);
        chkRequest.setRequestHeader("Content-Type",
              "application/x-www-form-urlencoded");
        chkRequest.onload = function(){
@@ -233,7 +232,7 @@ $(function(e) {
            for (var i = 0; i < crowdCategoryTagList.length; i++) {
              var tBox = document.importNode(temp.content, true);
              var tempH4 = tBox.querySelector("h4");
-             tempH4.innerText = crowdCategoryList[i].name;
+             tempH4.innerText = crowdCategoryTagList[i].name;
               var tempSpan1 = tBox.querySelector("span:nth-child(1)");
              var tempSpan2 = tBox.querySelector("span:nth-child(2)");
              var tempSpan3 = tBox.querySelector("span:nth-child(3)");

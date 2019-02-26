@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <header>
+	<link href="/resources/css/rprtBox.css" type="text/css" rel="stylesheet" />
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link href="/resources/css/groupHeader.css" type="text/css" rel="stylesheet" />
 	<script src="/resources/js/header.js"></script>
