@@ -624,7 +624,7 @@ $(function()
    					}
    					
    					// 시간 PM , AM 으로 나누기위한 if 문
-   					if(adhour <12 && adhour >=1)
+   					if(adhour <12 || adhour >=1)
    					{
    						
    						if(adhour<10)
@@ -636,7 +636,7 @@ $(function()
    							adhour = "오전 "+adhour;
    						}
    					}
-   					else if(adhour >=12 && adhour <= 24)
+   					else if(adhour >=12 || adhour <= 24)
    					{
    						adhour = (adhour-12);
    						
@@ -771,8 +771,6 @@ $(function()
              }
              
     	gomyid.send();
-    	
-    	
     	
     }
 
@@ -1003,7 +1001,7 @@ function readmintalk()
              //JSP가 실행되자마자 onload가 실행되면서 DB에 있는 대화목록을 가져올 것
 	 getadminTalkData.onload = function()
           {
-       //      alert("여기까진 오나??");
+         //    alert("관리자가 톡을 하면 울린다.");
              
 		 
   	   
@@ -1124,13 +1122,10 @@ function readmintalk()
 					adcontent.innerText = getAdminTalkDataList[0].content;
 					addate.innerText = adchatDate;
 					
-	//				alert(adcontent.innerText);
-	//				alert(addate.innerText);
+		//			alert("관리자가 쓴글:"+adcontent.innerText );
+		//			alert("보낸 날짜"+addate.innerText);
 					
 					
-				
-          	  
-          	  
           	  }
           	   
              }
@@ -1293,7 +1288,7 @@ function readminMemberLimit()
            			  +getAdminLimitDatas[i][0].receiverImg+")";
            		  
    					adLimitTplContent.innerText = getAdminLimitDatas[i][0].content;
-           		adLimitTplDate.innerText=adtodayDay;
+           		adLimitTplDate.innerText=adchatDate;
            		  
            		admessagelist.append(adLimitTplV);
          		  
@@ -1307,7 +1302,7 @@ function readminMemberLimit()
            			  +getAdminLimitDatas[i][0].img+")";
            		  
    					adLimitTplContent.innerText = getAdminLimitDatas[i][0].content;
-           		adLimitTplDate.innerText=adtodayDay;
+           		adLimitTplDate.innerText=adchatDate;
            		  
            		admessagelist.append(adLimitTplV);
          	  }

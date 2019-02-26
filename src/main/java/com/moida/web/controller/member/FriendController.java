@@ -212,6 +212,40 @@ public class FriendController
 		return json;
 	}
 	
+	@PostMapping("shiny-chk-friend")
+	@ResponseBody
+	public String shinyChkFriend(String memberId,Principal principal) 
+	{
+//		System.out.println("이게 언디파인???"+memberId);
+		String myId = principal.getName();
+	//	System.out.println(memberId);
+
+		List<Friend> chkFriend = friendService.chkFriend(myId, memberId);
+		
+	//	System.out.println("친구 데이터 있는지 :"+chkFriend);
+	//	System.out.println("이스엠티 : "+chkFriend.isEmpty() );
+	//	chkFriend.isEmpty() 비어있으면 true // 안비어있으면 false
+		Gson gson = new Gson();
+		String socketChkFriend = "";
+		String json = null;
+		
+		if( chkFriend.isEmpty() ) 
+		{
+			socketChkFriend = "false"; //친구가 아닐때
+			
+		}
+		else 
+		{
+			socketChkFriend ="true"; // 친구 일 때
+		}
+		
+		
+		json = gson.toJson(socketChkFriend);
+		
+		return json;
+	}
+	
+	
 	//친구 추가
 	@PostMapping("add-myFriend")
 	@ResponseBody
