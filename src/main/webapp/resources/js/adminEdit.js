@@ -192,22 +192,7 @@ var main = document.querySelector("main");
 		$(".add-btn").width($(".banner-img").width()-2);
 		$(".add-btn").height($(".banner-img").height());
 	 })
-		 
-	 
-	 
-    
-    ///////////////////////////////////
-	 setInterval(function(){ 
-		 console.log('---------------------------------------------------------------');
-		 var imgList = ulBanner.querySelectorAll(".banner-img");
-			for (var i = 0; i < imgList.length; i++) {
-				var fileName = imgList[i].name;
-				var file = fileMap.get(imgList[i].name);
 
-				console.log(i + " : " +imgList[i].name + "("+ file.size +")");
-				}
-				
-	 }, 800);
 
     function getDataUri(img, callback) {
         var canvas = document.createElement('canvas');
@@ -393,7 +378,6 @@ var main = document.querySelector("main");
 				var fileName = imgList[i].name;
 				var file = fileMap.get(imgList[i].name);
 				var fd = new FormData();
-				console.log(fileName + " / " + i);
 				fd.append("file", file);  
 				fd.append("fileName", fileName);  
 				fd.append("ord",i);  

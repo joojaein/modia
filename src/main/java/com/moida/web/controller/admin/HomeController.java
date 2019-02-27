@@ -160,7 +160,6 @@ public class HomeController {
 	@ResponseBody
 	public String deleteBanner() {
 		moidaBannerService.delete();	
-		System.out.println("delete : "+ moidaBannerService.getBannerList().size());
 		return null;
 	}
 
@@ -169,9 +168,7 @@ public class HomeController {
 	@ResponseBody
 	public String updateBanner(MultipartFile file, String fileName, Integer ord,
 			HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		//		String path = req.getServletContext().getRealPath("/temp");
-
-		String path = req.getServletContext().getRealPath("/main-banner");
+		String path = req.getServletContext().getRealPath("/temp");
 		File serverDir = new File(path);
 		if(!serverDir.exists()) {
 			serverDir.mkdirs(); 		
@@ -183,7 +180,6 @@ public class HomeController {
 		String extName = realFileName.substring(realFileName.lastIndexOf("."), realFileName.length());
 		loadName = ord+extName;
 		
-		System.out.println("fileName : "+ fileName +" / ord : "+ ord + " -> 생성한 파일 : "+ loadName );
 
 		byte[] data = file.getBytes();
 		FileOutputStream serverFos = new FileOutputStream(serverDir + "/"+loadName);
@@ -232,8 +228,7 @@ public class HomeController {
 	@PostMapping("banner-folder-setting")
 	@ResponseBody
 	public String upload(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		System.out.println("banner-folder-setting");
-		/*String tempFolderPath = req.getServletContext().getRealPath("/temp");
+		String tempFolderPath = req.getServletContext().getRealPath("/temp");
 		String realFolderPath = req.getServletContext().getRealPath("/main-banner");
 		File realFolder = new File(realFolderPath);		
 
@@ -249,7 +244,7 @@ public class HomeController {
 		 File t = new File(realFolderPath);
 		 if(f.exists()){ 
 		     f.renameTo(t); 
-		 }*/
+		 }
 		return null;
 	}	
 	
