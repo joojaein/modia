@@ -616,6 +616,7 @@ $(function(e) {
     }
     //index에서 입력후 들어올 시
     if(searchText.value!=""){
+    	
         jsContainer.innerHTML = "";
         
         var resultRequest = new XMLHttpRequest();
@@ -660,6 +661,8 @@ $(function(e) {
            	   location.href = "main?crowd="+e.target.getAttribute("data-crowd");
               }
               jsContainer.append(tBox);
+              popopo();
+
            }
         }
         resultRequest.send();
