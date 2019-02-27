@@ -137,7 +137,7 @@ public class MemberChattingController
 		int affected = memberChattingService.insertMemberChatting(myId,friendId,content);
 		
 	//	System.out.println("여기는 insert 후");
-		
+		  
 		return "채팅 insert 완료";
 	}
 	
@@ -148,7 +148,7 @@ public class MemberChattingController
 	{
 		
 		String myId = principal.getName();
-		System.out.println("들어오는 신고아이디"+rprtId);
+	//	System.out.println("들어오는 신고아이디"+rprtId);
 		//String rprtId = "jaein";
 		
 		String chk ="";
@@ -156,7 +156,7 @@ public class MemberChattingController
 		List<RprtMember>  chkRprt =  memberChattingService.chkRprtId(rprtId, myId);
 		
 		
-		System.out.println("DB에서 나오는 없는 신고 데이터 : "+chkRprt);
+	//	System.out.println("DB에서 나오는 없는 신고 데이터 : "+chkRprt);
 		
 //		chkFriend.isEmpty() 비어있으면 true // 안비어있으면 false
 //			Gson gson = new Gson();
@@ -204,12 +204,12 @@ public class MemberChattingController
 
 		String myId = principal.getName();
 		
-		System.out.println("여기는 delete 전");
-		System.out.println("들어오는 신고아이디"+rprtId);
+//		System.out.println("여기는 delete 전");
+//		System.out.println("들어오는 신고아이디"+rprtId);
 		
 		int affected = memberChattingService.deleteRprtId(rprtId, myId);
 		
-		System.out.println("여기는 신고 후");
+//		System.out.println("여기는 신고 후");
 		
 		return "신고 delete 완료";
 	}

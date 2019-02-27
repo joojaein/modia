@@ -1049,7 +1049,7 @@ function point(){
 <main>
 <div class="overlay">
 	<video src="/resources/images/smoke.mp4" autoplay muted></video>
-	<p class="screen">SEARCH</p>
+	<p class="screen">MOIDA</p>
 	<div class="intro">
 		<button class="myBtn" onclick="">SEARCHPAGE</button>
 	</div>

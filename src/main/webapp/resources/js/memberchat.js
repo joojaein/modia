@@ -1704,7 +1704,7 @@ function adminMemberChat()
 								
 				//				alert(ajxmyTxta);
 								ajxmyTxta.innerText = chatcontent;
-								ajxmyDate.innerText = "오늘 "+ajxtodayDay;
+								ajxmyDate.innerText = ajxtodayDay;
 								
 								ajxchatarea.append(ajxmtpl);
 								
@@ -2560,13 +2560,14 @@ function adminMemberChat()
                //          alert("너의 아이디가 들려");
                          
                      //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
+            			reChattingOn();
             			$(".click-box-F-noF").text('친구삭제');
             			return;
                       }
                       
             		addMyFriend.send("selectMemberId="+selectMemberId);
             		
-            		reChattingOn();
+            		
    				}
    				else if( $(".click-box-F-noF").text() == '친구삭제' )
    				{
@@ -2588,6 +2589,7 @@ function adminMemberChat()
                //          alert("너의 아이디가 들려");
                          
                      //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
+   						reChattingOn();
    						$(".click-box-F-noF").text('친구추가');
    						return;
                         
@@ -2595,7 +2597,7 @@ function adminMemberChat()
                       
    					delMyFriend.send("selectMemberId="+selectMemberId);
    					
-   					reChattingOn();
+   					
    				}
 			})
 		})
