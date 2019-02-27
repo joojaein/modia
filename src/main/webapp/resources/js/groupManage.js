@@ -1018,30 +1018,57 @@ window.addEventListener("load",function() {
     	if(query =="regCnt") tdNum=1;
     	else if(query =="hitCnt") tdNum=2;
     	
+	    var switching = true;
     	while (switching) {
     	    switching = false;
+    	    var shouldSwitch = false;
+
     	    rows = table.rows;
     	    for (i = 1; i < (rows.length - 1); i++) {
-    	      shouldSwitch = false;
     	      x = rows[i].getElementsByTagName("TD")[tdNum];
     	      y = rows[i + 1].getElementsByTagName("TD")[tdNum];
-    	      
-    	      if(updown=="asc"){
-        	      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          	        shouldSwitch = true;
-          	        break;
-          	      }
+    	      if(query=="regCnt" || query=="hitCnt"){
+
+        	      var numX = parseInt(x.innerHTML.toLowerCase());
+        	      var numY = parseInt(y.innerHTML.toLowerCase());
+        	      
+    	    	  if(updown=="asc"){
+            	      if (numX > numY) {
+              	        shouldSwitch = true;
+              	        break;
+              	      }
+        	    	  
+        	      }else if(updown=="desc"){
+            	      if (numX < numY) {
+            	        shouldSwitch = true;
+            	        break;
+            	      }
+        	      }
     	    	  
-    	      }else if(updown=="desc"){
-        	      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-        	        shouldSwitch = true;
-        	        break;
+    	    	  
+    	      }else{
+    	    	  if(updown=="asc"){
+            	      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              	        shouldSwitch = true;
+              	        break;
+              	      }
+        	    	  
+        	      }else if(updown=="desc"){
+            	      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            	        shouldSwitch = true;
+            	        break;
+            	      }
         	      }
     	      }
+    	     
     	    }
+    	    
+  	      console.log("after : "+shouldSwitch);
+
     	    if (shouldSwitch) {
-    	      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-    	      switching = true;
+    	    	console.log("shouldSwitch!");
+    	        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+    	        switching = true;
     	    }
     	  }
     }	

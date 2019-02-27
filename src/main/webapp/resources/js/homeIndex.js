@@ -280,7 +280,7 @@ window.addEventListener("load",function(){
            divFilterLocation.classList.add("left");
            divFilterLocation.innerText="- 지역 : " + crowdList[i].areaSido +" " + crowdList[i].areaSigungu; 
            var divMaxperson = document.createElement('div');
-           divMaxperson.innerText="최원수 "+crowdList[i].nowPerson+" / "+crowdList[i].maxPerson+"명";
+           divMaxperson.innerText="회원수 "+crowdList[i].nowPerson+" / "+crowdList[i].maxPerson+"명";
            var br = document.createElement('br');
 
            divContainer.appendChild(divTitle);

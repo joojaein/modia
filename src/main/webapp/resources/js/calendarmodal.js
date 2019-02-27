@@ -33,8 +33,8 @@ function dataadd() {
 	var cid = $(".crowdId").val();
 	var start = $(".from-date").val();
 	var end = $(".to-date").val();
-	var title = encodeURIComponent($(".title-text").val());
-	var content = encodeURIComponent($(".content-text").val());
+	var title = $(".title-text").val();
+	var content = $(".content-text").val();
 	if(end == "")
 		end = start;
 	
