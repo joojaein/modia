@@ -13,7 +13,7 @@ searchText.addEventListener("keyup",function imfuck(e){
              chk = true;
           }
           jsContainer.innerHTML = "";
-
+ 
           calist.removeClass("selectca");
           alllist.addClass("selectca");
           cacontainer.removeClass("height");

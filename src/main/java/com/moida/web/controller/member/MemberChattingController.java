@@ -137,7 +137,7 @@ public class MemberChattingController
 		int affected = memberChattingService.insertMemberChatting(myId,friendId,content);
 		
 	//	System.out.println("여기는 insert 후");
-		
+		  
 		return "채팅 insert 완료";
 	}
 	
