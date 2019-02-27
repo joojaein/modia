@@ -1458,7 +1458,7 @@ function adminMemberChat()
         	
 	    	// localhost에 접속하고 싶은 ip를 쓰고 사이트는 내 ip로 접속 하면  상대방에게 채팅을 보낼 수 있다.
 
-	   		var socket = new WebSocket("ws://192.168.0.14:80/chat-server");
+	   		var socket = new WebSocket("ws://localhost/chat-server");
 	
 	   		// WebsocketEndPonint가 메시지를 보내주면 오는 onmessage
 	   		socket.onmessage = function(e)
@@ -1704,7 +1704,7 @@ function adminMemberChat()
 								
 				//				alert(ajxmyTxta);
 								ajxmyTxta.innerText = chatcontent;
-								ajxmyDate.innerText = "오늘 "+ajxtodayDay;
+								ajxmyDate.innerText = ajxtodayDay;
 								
 								ajxchatarea.append(ajxmtpl);
 								
@@ -2560,13 +2560,14 @@ function adminMemberChat()
                //          alert("너의 아이디가 들려");
                          
                      //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
+            			reChattingOn();
             			$(".click-box-F-noF").text('친구삭제');
             			return;
                       }
                       
             		addMyFriend.send("selectMemberId="+selectMemberId);
             		
-            		reChattingOn();
+            		
    				}
    				else if( $(".click-box-F-noF").text() == '친구삭제' )
    				{
@@ -2588,6 +2589,7 @@ function adminMemberChat()
                //          alert("너의 아이디가 들려");
                          
                      //    var addMyFriendData = JSON.parse(addMyFriend.responseText); 
+   						reChattingOn();
    						$(".click-box-F-noF").text('친구추가');
    						return;
                         
@@ -2595,7 +2597,7 @@ function adminMemberChat()
                       
    					delMyFriend.send("selectMemberId="+selectMemberId);
    					
-   					reChattingOn();
+   					
    				}
 			})
 		})
