@@ -2,6 +2,7 @@ window.addEventListener("load",function(){
     
 var main = document.querySelector("main");
     
+	
     var divProfile = main.querySelector(".profile");
     var img = divProfile.querySelector("img");
     var btnImg= divProfile.querySelector(".btn");
@@ -186,7 +187,60 @@ var main = document.querySelector("main");
  		mailRequest.send("email="+txtEmail.value);	
     };
     
+	$(window).resize(function (){
+		$(".li-banner").height($(".li-banner").width()*0.4);
+		$(".add-btn").width($(".banner-img").width()-2);
+		$(".add-btn").height($(".banner-img").height());
+	 })
+		 
+	 
+	 
     
+    ///////////////////////////////////
+	 setInterval(function(){ 
+		 console.log('---------------------------------------------------------------');
+		 var imgList = ulBanner.querySelectorAll(".banner-img");
+			for (var i = 0; i < imgList.length; i++) {
+				var fileName = imgList[i].name;
+				var file = fileMap.get(imgList[i].name);
+
+				console.log(i + " : " +imgList[i].name + "("+ file.size +")");
+				}
+				
+	 }, 800);
+
+    function getDataUri(img, callback) {
+        var canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth; // or 'width' if you want a special/scaled size
+        canvas.height = img.naturalHeight; // or 'height' if you want a special/scaled size
+        canvas.getContext('2d').drawImage(img, 0, 0);
+        callback(canvas.toDataURL('image/png'));
+ 	}
+
+   function dataURLtoBlob( dataUrl, callback )
+   {
+       var req = new XMLHttpRequest;
+       req.open( 'GET', dataUrl );
+       req.responseType = 'arraybuffer'; // Can't use blob directly because of https://crbug.com/412752
+       req.onload = function fileLoaded(e)
+       {
+           var mime = this.getResponseHeader('content-type');
+           callback( new Blob([this.response], {type:mime}) );
+       };
+       req.send();
+   }
+   function createImgFile(imgName, img, callback){
+ 	   getDataUri(img, function(dataUri) {
+ 		   dataURLtoBlob(dataUri, function( blob ){
+ 			      var extName = imgName.substring(imgName.lastIndexOf(".")+1, imgName.length);
+ 			      var imgType = "image/"+extName;
+ 			   		var resultFile = new File([blob], imgName, { type: imgType, lastModified: Date.now()});
+ 			       callback(resultFile);
+ 			});
+ 		});
+   }
+   
+   
 
 	var divBanner = main.querySelector(".div-banner");
 	var ulBanner = divBanner.querySelector(".ul-banner");
@@ -198,6 +252,14 @@ var main = document.querySelector("main");
 	var bindBanner = function(tpl, banner){
 		var tempImg = tpl.querySelector("img");
 		tempImg.src= "../get-img?folder=main-banner&file="+banner.src;    
+		tempImg.onload = function(){
+			createImgFile(banner.src, tempImg, function(resultFile){
+				if(fileMap.get(resultFile.name)==undefined){
+			    	fileMap.set(resultFile.name, resultFile); 
+				}
+		    });
+		};
+		tempImg.name = banner.src; 
 	};
 	
 	var appendAddBanner = function(){
@@ -268,13 +330,10 @@ var main = document.querySelector("main");
 		appendAddBanner();
 	};
 	bannerRequest.send();
-
-	$(window).resize(function (){
-		$(".li-banner").height($(".li-banner").width()*0.4);
-		$(".add-btn").width($(".banner-img").width()-2);
-		$(".add-btn").height($(".banner-img").height());
-	 })
-		 
+ 
+	
+	
+	
 	 ulBanner.addEventListener("click", function(evt){
 		 var target = evt.target;
 		 var childrenUp = ulBanner.querySelectorAll(".up");
@@ -304,6 +363,8 @@ var main = document.querySelector("main");
 						var temp = childrenImg[i].name;
 						childrenImg[i].name = childrenImg[i+1].name;
 						childrenImg[i+1].name = temp;
+						
+						
 					}
 			 }
 		 }else if(target.classList.contains("del")){
@@ -320,7 +381,7 @@ var main = document.querySelector("main");
 	 });
 	 
 	btnSubmitBanner.onclick = function(){	
-		/*
+		
 		var bannerDBdelRequest = new XMLHttpRequest(); 
 		bannerDBdelRequest.open("POST", "/admin/delete-banner", true); 
 		bannerDBdelRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
@@ -329,14 +390,10 @@ var main = document.querySelector("main");
 			var imgList = ulBanner.querySelectorAll(".banner-img");
 			var cnt=0;
 			for (var i = 0; i < imgList.length; i++) {
-				var file=null;
-				var fileName = imgList[i].src;
-				if(imgList[i].name!=null && imgList[i].name!=""){
-					fileName = imgList[i].name;
-					file = fileMap.get(fileName);
-				}
-
+				var fileName = imgList[i].name;
+				var file = fileMap.get(imgList[i].name);
 				var fd = new FormData();
+				console.log(fileName + " / " + i);
 				fd.append("file", file);  
 				fd.append("fileName", fileName);  
 				fd.append("ord",i);  
@@ -354,7 +411,7 @@ var main = document.querySelector("main");
 							bannerRequest.open("POST", "/admin/banner-folder-setting", true); 
 							bannerRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 							bannerRequest.onload = function () {
-				  				//window.location.href = "/admin/index";
+				  				window.location.href = "/admin/index";
 							}
 							bannerRequest.send();
 						}
@@ -363,8 +420,8 @@ var main = document.querySelector("main");
 			}
 		}
 		bannerDBdelRequest.send();
-		*/
 		
+		/*
 		var imgList = ulBanner.querySelectorAll(".banner-img");
 		var cnt=0;
 		for (var i = 0; i < imgList.length; i++) {
@@ -400,7 +457,7 @@ var main = document.querySelector("main");
 				}	
 			});
 		}
-		
+		*/
 	};
 	
 	
